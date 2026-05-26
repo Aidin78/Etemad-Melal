@@ -1,0 +1,172 @@
+---
+import { siteConfig, navLinks } from '../config/site';
+const year = new Date().getFullYear();
+
+const trustBadges = [
+  'قرارداد رسمی',
+  'گزارش شفاف',
+  'پنل اختصاصی',
+  'پشتیبانی ۲۴/۷',
+];
+---
+
+<footer class="relative mt-4 overflow-hidden border-t border-accent-gold/10 bg-[#080e14] sm:mt-8">
+  <div class="glow-orb -left-32 bottom-0 h-64 w-64 bg-primary/30"></div>
+  <div class="glow-orb -right-32 top-0 h-48 w-48 bg-accent-gold/10"></div>
+
+  <!-- CTA band -->
+  <div class="relative border-b border-white/5">
+    <div
+      class="mx-auto max-w-6xl bg-gradient-to-l from-primary/40 via-secondary to-accent/10 px-4 py-12 sm:px-6 sm:py-14"
+    >
+      <div class="flex flex-col items-center gap-6 text-center lg:flex-row lg:justify-between lg:text-right">
+        <div>
+          <p class="text-xs font-semibold uppercase tracking-widest text-accent-gold-light/80">
+            آماده سرمایه‌گذاری هستید؟
+          </p>
+          <h2 class="mt-2 text-2xl font-bold text-white sm:text-3xl">
+            همین حالا به <span class="text-accent-gold-light">پنل اعتماد ملل</span> وارد شوید
+          </h2>
+          <p class="mt-2 max-w-xl text-sm text-zinc-400">
+            ثبت‌نام، انتخاب پکیج سرمایه‌گذاری و پیگیری لحظه‌ای سود — همه از طریق پنل
+            کاربری اعتماد ملل.
+          </p>
+        </div>
+        <div class="flex shrink-0 flex-wrap items-center justify-center gap-3">
+          <a href={siteConfig.panelUrl} class="btn-primary">{siteConfig.panelCtaLogin}</a>
+          <a href="/#contact" class="btn-outline">تماس با ما</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="relative mx-auto max-w-6xl px-4 py-14 sm:px-6">
+    <div class="grid gap-12 lg:grid-cols-12">
+      <!-- Brand -->
+      <div class="lg:col-span-4">
+        <a href="/" class="inline-flex items-center gap-3 text-white">
+          <img
+            src="/media/etemadmelal-logo.svg"
+            alt=""
+            class="h-11 w-11 shrink-0 drop-shadow-[0_0_12px_rgba(240,215,140,0.4)]"
+            width="44"
+            height="44"
+          />
+          <div>
+            <span class="block text-lg font-bold">{siteConfig.name}</span>
+            <span class="text-xs text-zinc-500">پلتفرم سرمایه‌گذاری</span>
+          </div>
+        </a>
+        <p class="mt-5 text-sm leading-relaxed text-zinc-400">{siteConfig.tagline}</p>
+        <p class="mt-3 text-xs text-zinc-500">{siteConfig.companyLegal}</p>
+
+        <div class="mt-6 flex flex-wrap gap-2">
+          {
+            trustBadges.map((badge) => (
+              <span class="rounded-lg border border-white/10 bg-white/5 px-3 py-1 text-[11px] font-medium text-zinc-300">
+                {badge}
+              </span>
+            ))
+          }
+        </div>
+      </div>
+
+      <!-- Links -->
+      <div class="grid grid-cols-2 gap-8 sm:grid-cols-3 lg:col-span-5">
+        <div>
+          <h3 class="mb-4 text-sm font-bold text-accent-gold-light">دسترسی سریع</h3>
+          <ul class="space-y-2.5">
+            {
+              navLinks.map((link) => (
+                <li>
+                  <a
+                    href={link.href}
+                    class="text-sm text-zinc-400 transition hover:text-white hover:underline decoration-accent/50 underline-offset-4"
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+        <div>
+          <h3 class="mb-4 text-sm font-bold text-accent-gold-light">سرمایه‌گذاری</h3>
+          <ul class="space-y-2.5 text-sm text-zinc-400">
+            <li>
+              <a href="/#features" class="transition hover:text-white">نحوه کار</a>
+            </li>
+            <li>
+              <a href="/#income-streams" class="transition hover:text-white">مسیرهای درآمد</a>
+            </li>
+            <li>
+              <a href="/#packages-overview" class="transition hover:text-white">پکیج‌ها</a>
+            </li>
+            <li>
+              <a href="/#trust" class="transition hover:text-white">مزایا</a>
+            </li>
+            <li>
+              <a href="/articles" class="transition hover:text-white">مقالات</a>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="mb-4 text-sm font-bold text-accent-gold-light">تماس</h3>
+          <ul class="space-y-3 text-sm text-zinc-400">
+            <li>
+              <span class="block text-[10px] uppercase tracking-wider text-zinc-600">ایمیل</span>
+              <a href={`mailto:${siteConfig.contact.email}`} class="text-zinc-300 hover:text-accent-gold-light">
+                {siteConfig.contact.email}
+              </a>
+            </li>
+            <li>
+              <span class="block text-[10px] uppercase tracking-wider text-zinc-600">آدرس</span>
+              <span class="text-zinc-300">{siteConfig.contact.address}</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Panel card -->
+      <div class="lg:col-span-3">
+        <div class="investment-card rounded-2xl p-6">
+          <div class="flex items-center gap-2 text-accent">
+            <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+            </svg>
+            <span class="text-xs font-bold">پنل کاربری</span>
+          </div>
+          <p class="mt-3 text-sm leading-relaxed text-zinc-400">
+            مدیریت سرمایه، مشاهده سود ماهانه و ثبت درخواست برداشت — همه در یک جا.
+          </p>
+          <a href={siteConfig.panelUrl} class="btn-primary mt-5 w-full justify-center text-center text-sm">
+            {siteConfig.panelCtaLogin}
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-12 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-8 sm:flex-row">
+      <p class="text-xs text-zinc-500">
+        {year} © {siteConfig.companyLegal}. تمامی حقوق محفوظ است.
+      </p>
+      <div class="flex flex-wrap justify-center gap-4 text-xs text-zinc-600">
+        <a href="/#about" class="hover:text-zinc-400">درباره ما</a>
+        <span class="text-zinc-700">|</span>
+        <a href="/#faq" class="hover:text-zinc-400">سوالات متداول</a>
+        <span class="text-zinc-700">|</span>
+        <a href="/#contact" class="hover:text-zinc-400">تماس</a>
+      </div>
+    </div>
+
+    <p class="mx-auto mt-6 max-w-3xl text-center text-[11px] leading-relaxed text-zinc-600">
+      سرمایه‌گذاری در بازارهای مالی همراه با ریسک است. اطلاعات این وب‌سایت صرفاً جنبه
+      معرفی دارد و توصیه سرمایه‌گذاری محسوب نمی‌شود. لطفاً پیش از هر تصمیم، شرایط و
+      قراردادهای رسمی را مطالعه کنید.
+    </p>
+  </div>
+</footer>

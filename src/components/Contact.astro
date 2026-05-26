@@ -1,0 +1,107 @@
+---
+import SectionBadge from './SectionBadge.astro';
+import { siteConfig } from '../config/site';
+
+const formAction = siteConfig.contactFormUrl;
+const thankYouUrl = new URL('/?contact=sent#contact', Astro.url.origin).href;
+const isSent = Astro.url.searchParams.get('contact') === 'sent';
+---
+
+<section id="contact" class="section-spacing">
+  <div class="mx-auto max-w-6xl px-4 sm:px-6">
+    <div class="text-center">
+      <SectionBadge label="ارتباط با ما" />
+      <h2 class="section-title">تماس <span class="section-title-accent">با ما</span></h2>
+      <p class="section-subtitle mx-auto">
+        سوالی دارید؟ فرم زیر را پر کنید تا پیام شما به ایمیل پشتیبانی ارسال شود.
+      </p>
+    </div>
+
+    <div class="section-body-gap grid gap-8 lg:grid-cols-2 lg:gap-10">
+      <div class="investment-card rounded-2xl p-8">
+        <h3 class="text-lg font-bold text-white">اطلاعات تماس</h3>
+        <ul class="mt-6 space-y-5">
+          <li class="flex gap-4">
+            <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-accent-gold/25 to-accent/15 text-accent-gold-light">
+              ✉
+            </span>
+            <div>
+              <p class="text-xs text-zinc-500">ایمیل</p>
+              <a href={`mailto:${siteConfig.contact.email}`} class="text-sm text-white hover:text-accent-gold-light">
+                {siteConfig.contact.email}
+              </a>
+            </div>
+          </li>
+          <li class="flex gap-4">
+            <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-accent-gold/25 to-accent/15 text-accent-gold-light">
+              ⌖
+            </span>
+            <div>
+              <p class="text-xs text-zinc-500">آدرس</p>
+              <p class="text-sm text-white">{siteConfig.contact.address}</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="investment-card rounded-2xl p-8">
+        {
+          isSent ? (
+            <div class="flex flex-col items-center justify-center py-8 text-center">
+              <div class="flex h-14 w-14 items-center justify-center rounded-full bg-accent/20 text-2xl text-accent">
+                ✓
+              </div>
+              <h3 class="mt-4 text-lg font-bold text-white">پیام شما ارسال شد</h3>
+              <p class="mt-2 max-w-sm text-sm text-zinc-400">
+                به‌زودی از طریق ایمیل با شما تماس می‌گیریم. برای پیگیری سریع‌تر می‌توانید از
+                تیکت پنل کاربری نیز استفاده کنید.
+              </p>
+              <a href="/#contact" class="btn-outline mt-6">ارسال پیام جدید</a>
+            </div>
+          ) : (
+            <>
+              <h3 class="text-lg font-bold text-white">ارسال پیام</h3>
+              <p class="mt-2 text-sm text-zinc-400">
+                فیلدهای زیر را پر کنید؛ پیام مستقیماً به {siteConfig.contact.email} ارسال
+                می‌شود.
+              </p>
+              <form class="mt-6 space-y-4" method="POST" action={formAction}>
+                <input type="hidden" name="_subject" value="تماس از وب‌سایت اعتماد ملل" />
+                <input type="hidden" name="_next" value={thankYouUrl} />
+                <input type="hidden" name="_captcha" value="false" />
+                <input type="text" name="_honey" class="hidden" tabindex="-1" autocomplete="off" />
+
+                <div>
+                  <label for="contact-email" class="mb-1 block text-xs text-zinc-400">
+                    ایمیل
+                  </label>
+                  <input
+                    type="email"
+                    id="contact-email"
+                    name="email"
+                    required
+                    autocomplete="email"
+                    class="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-sm text-white outline-none transition focus:border-accent-gold/50 focus:ring-1 focus:ring-accent-gold/30"
+                  />
+                </div>
+                <div>
+                  <label for="contact-message" class="mb-1 block text-xs text-zinc-400">
+                    پیام
+                  </label>
+                  <textarea
+                    id="contact-message"
+                    name="message"
+                    rows="4"
+                    required
+                    class="w-full resize-none rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-sm text-white outline-none transition focus:border-accent-gold/50 focus:ring-1 focus:ring-accent-gold/30"
+                  />
+                </div>
+                <button type="submit" class="btn-primary w-full">ارسال پیام</button>
+              </form>
+            </>
+          )
+        }
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,197 @@
+---
+import { siteConfig, navLinks } from '../config/site';
+
+const sectionId = (href: string) => (href.includes('#') ? href.split('#')[1] : null);
+
+const navDataAttrs = (href: string) => {
+  const id = sectionId(href);
+  if (id) return { 'data-nav-section': id };
+  if (href === '/articles' || href.startsWith('/articles/')) return { 'data-nav-path': '/articles' };
+  return {};
+};
+---
+
+<header
+  class="fixed inset-x-0 top-0 z-50 border-b border-accent-gold/10 bg-[#0b1219]/85 backdrop-blur-xl"
+  id="site-header"
+>
+  <div class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3.5 sm:px-6">
+    <a href="/" class="flex items-center gap-3 text-white">
+      <img
+        src="/media/etemadmelal-logo.svg"
+        alt=""
+        class="h-9 w-9 shrink-0 drop-shadow-[0_0_10px_rgba(240,215,140,0.45)]"
+        width="36"
+        height="36"
+      />
+      <span class="text-lg font-bold">{siteConfig.name}</span>
+    </a>
+
+    <nav class="hidden items-center gap-6 lg:flex" aria-label="منوی اصلی">
+      {
+        navLinks.map((link) => (
+          <a href={link.href} class="nav-link" {...navDataAttrs(link.href)}>
+            {link.label}
+          </a>
+        ))
+      }
+    </nav>
+
+    <div class="hidden items-center gap-3 sm:flex">
+      <a href={siteConfig.panelUrl} class="btn-primary text-sm !py-2.5 !px-5">{siteConfig.panelCtaLogin}</a>
+    </div>
+
+    <button
+      type="button"
+      class="flex h-10 w-10 items-center justify-center rounded-lg border border-accent-gold/20 bg-white/5 text-white lg:hidden"
+      id="menu-toggle"
+      aria-label="باز کردن منو"
+      aria-expanded="false"
+    >
+      <svg class="h-5 w-5" id="icon-open" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+      <svg class="hidden h-5 w-5" id="icon-close" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+  </div>
+
+  <div
+    class="hidden border-t border-accent-gold/10 bg-[#0b1219]/95 px-4 py-4 lg:hidden"
+    id="mobile-menu"
+  >
+    <nav class="flex flex-col gap-3" aria-label="منوی موبایل">
+      {
+        navLinks.map((link) => (
+          <a href={link.href} class="nav-link-mobile" {...navDataAttrs(link.href)}>
+            {link.label}
+          </a>
+        ))
+      }
+      <a href={siteConfig.panelUrl} class="btn-primary mt-2 text-center text-sm">
+        {siteConfig.panelCtaLogin}
+      </a>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const toggle = document.getElementById('menu-toggle');
+  const menu = document.getElementById('mobile-menu');
+  const iconOpen = document.getElementById('icon-open');
+  const iconClose = document.getElementById('icon-close');
+
+  toggle?.addEventListener('click', () => {
+    const open = menu?.classList.toggle('hidden') === false;
+    toggle.setAttribute('aria-expanded', String(open));
+    iconOpen?.classList.toggle('hidden', open);
+    iconClose?.classList.toggle('hidden', !open);
+  });
+
+  menu?.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', () => {
+      menu.classList.add('hidden');
+      toggle?.setAttribute('aria-expanded', 'false');
+      iconOpen?.classList.remove('hidden');
+      iconClose?.classList.add('hidden');
+    });
+  });
+
+  const normalizePath = () => {
+    const path = window.location.pathname.replace(/\/$/, '');
+    return path || '/';
+  };
+
+  const setLinkActive = (link: HTMLAnchorElement, active: boolean) => {
+    link.classList.toggle('nav-link-active', active);
+    if (active) link.setAttribute('aria-current', 'page');
+    else link.removeAttribute('aria-current');
+  };
+
+  const clearNavActive = () => {
+    document
+      .querySelectorAll<HTMLAnchorElement>('[data-nav-section], [data-nav-path]')
+      .forEach((link) => setLinkActive(link, false));
+  };
+
+  function initPageNav() {
+    const path = normalizePath();
+    document.querySelectorAll<HTMLAnchorElement>('[data-nav-path]').forEach((link) => {
+      const prefix = link.dataset.navPath;
+      setLinkActive(link, !!prefix && path.startsWith(prefix));
+    });
+  }
+
+  function initScrollSpy() {
+    const links = document.querySelectorAll<HTMLAnchorElement>('[data-nav-section]');
+    if (!links.length) return;
+
+    const sections = [...links]
+      .map((link) => {
+        const id = link.dataset.navSection;
+        return id ? document.getElementById(id) : null;
+      })
+      .filter((el): el is HTMLElement => !!el);
+
+    if (!sections.length) return;
+
+    const header = document.getElementById('site-header');
+
+    const scrollOffset = () => (header?.offsetHeight ?? 72) + 40;
+
+    const setActive = (id: string) => {
+      clearNavActive();
+      links.forEach((link) => {
+        setLinkActive(link, link.dataset.navSection === id);
+      });
+    };
+
+    const update = () => {
+      const line = scrollOffset();
+      let current = sections[0].id;
+
+      for (const section of sections) {
+        if (section.getBoundingClientRect().top <= line) {
+          current = section.id;
+        }
+      }
+
+      setActive(current);
+    };
+
+    let ticking = false;
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        update();
+        ticking = false;
+      });
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+
+    links.forEach((link) => {
+      link.addEventListener('click', () => {
+        const id = link.dataset.navSection;
+        if (id) setActive(id);
+      });
+    });
+
+    const hash = window.location.hash.slice(1);
+    if (hash && document.getElementById(hash)) {
+      setActive(hash);
+    } else {
+      update();
+    }
+  }
+
+  const path = normalizePath();
+  if (path.startsWith('/articles')) {
+    initPageNav();
+  } else if (path === '/') {
+    initScrollSpy();
+  }
+</script>

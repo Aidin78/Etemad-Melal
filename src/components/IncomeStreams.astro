@@ -1,0 +1,68 @@
+---
+import SectionBadge from './SectionBadge.astro';
+import { incomeStreams } from '../config/income-streams';
+import { siteConfig } from '../config/site';
+---
+
+<section id="income-streams" class="section-spacing relative overflow-hidden">
+  <div class="glow-orb -left-20 top-1/2 h-64 w-64 bg-accent/20"></div>
+  <div class="glow-orb -right-20 top-0 h-48 w-48 bg-accent-gold/15"></div>
+  <div class="chart-pattern absolute inset-0 opacity-40" aria-hidden="true"></div>
+
+  <div class="relative mx-auto max-w-6xl px-4 sm:px-6">
+    <div class="text-center">
+      <SectionBadge label="مسیرهای درآمدی" />
+      <h2 class="section-title">
+        سه راه <span class="section-title-accent">درآمد در اعتماد ملل</span>
+      </h2>
+      <p class="section-subtitle mx-auto">
+        علاوه بر بازده پکیج، سه نوع پاداش — سود مشارکت ماهانه، حق مشارکت مستقیم و
+        توسعه مشارکتی (تعادل) — در پنل به‌صورت شفاف ثبت و گزارش می‌شود.
+      </p>
+    </div>
+
+    <div class="section-body-gap grid gap-5 sm:gap-6 lg:grid-cols-3">
+      {
+        incomeStreams.map((stream) => (
+          <article class="investment-card flex flex-col rounded-2xl p-6 transition hover:-translate-y-1">
+            <div
+              class="h-1.5 w-16 rounded-full"
+              style={`background: linear-gradient(90deg, ${stream.color}, transparent)`}
+            />
+            <div
+              class="mt-5 flex h-12 w-12 items-center justify-center rounded-xl border"
+              style={`background-color: color-mix(in srgb, ${stream.color} 18%, transparent); border-color: color-mix(in srgb, ${stream.color} 35%, transparent); color: ${stream.color}`}
+            >
+              <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d={stream.icon} />
+              </svg>
+            </div>
+            <h3 class="mt-4 text-lg font-bold leading-snug text-white sm:text-xl">{stream.title}</h3>
+            <p class="mt-3 flex-1 text-sm leading-relaxed text-zinc-400">{stream.desc}</p>
+            <ul class="mt-5 space-y-2 border-t border-white/10 pt-5">
+              {stream.highlights.map((h) => (
+                <li class="flex gap-2 text-xs text-zinc-300">
+                  <span class="mt-1 h-1 w-1 shrink-0 rounded-full" style={`background: ${stream.color}`} />
+                  {h}
+                </li>
+              ))}
+            </ul>
+          </article>
+        ))
+      }
+    </div>
+
+    <p class="mt-6 text-center text-xs text-zinc-500 sm:mt-8">
+      جزئیات مبالغ و تاریخ هر پاداش در بخش‌های «کمیسیون‌ها» و «داشبورد مالی»
+      پنل در دسترس است.
+    </p>
+    <div class="mt-6 text-center sm:mt-8">
+      <a href={siteConfig.panelUrl} class="btn-primary">
+        {siteConfig.panelCtaLogin}
+        <svg class="h-4 w-4 rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>

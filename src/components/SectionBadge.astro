@@ -1,0 +1,13 @@
+---
+interface Props {
+  label: string;
+  dot?: boolean;
+}
+
+const { label, dot = true } = Astro.props;
+---
+
+<span class="section-badge">
+  {dot && <span class="h-1.5 w-1.5 animate-pulse rounded-full bg-accent-gold"></span>}
+  {label}
+</span>

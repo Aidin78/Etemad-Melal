@@ -1,0 +1,298 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-primary: #305475;
+  --color-primary-light: #74a0cc;
+  --color-secondary: #1d2a36;
+  --color-accent: #10b981;
+  --color-accent-gold: #d4a853;
+  --color-accent-gold-light: #f0d78c;
+  --font-sans: iransansx, tahoma, ui-sans-serif, system-ui, sans-serif;
+}
+
+@font-face {
+  font-family: iransansx;
+  src: url('/font/IRANSansX-Regular.woff') format('woff');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: iransansx;
+  src: url('/font/IRANSansX-Bold.woff') format('woff');
+  font-weight: 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: iransansxv;
+  src:
+    url('/font/IRANSansXV.woff') format('woff-variations'),
+    url('/font/IRANSansXV.woff') format('woff');
+  font-weight: 100 1000;
+  font-display: swap;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: iransansx, tahoma, sans-serif;
+  background-color: #0b1219;
+  color: #e8edf2;
+  -webkit-font-smoothing: antialiased;
+}
+
+@supports (font-variation-settings: normal) {
+  body {
+    font-family: iransansxv, iransansx, tahoma, sans-serif;
+  }
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-variation-settings: 'DOTS' 4;
+}
+
+.glass-card {
+  background: linear-gradient(
+    145deg,
+    rgba(29, 42, 54, 0.75) 0%,
+    rgba(20, 30, 40, 0.55) 100%
+  );
+  border: 1px solid rgba(212, 168, 83, 0.12);
+  backdrop-filter: blur(16px);
+  box-shadow:
+    0 4px 24px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.glass-card:hover {
+  border-color: rgba(16, 185, 129, 0.25);
+}
+
+.investment-card {
+  background: linear-gradient(
+    160deg,
+    rgba(48, 84, 117, 0.35) 0%,
+    rgba(29, 42, 54, 0.6) 50%,
+    rgba(11, 18, 25, 0.8) 100%
+  );
+  border: 1px solid rgba(116, 160, 204, 0.2);
+  box-shadow:
+    0 0 40px rgba(16, 185, 129, 0.06),
+    inset 0 1px 0 rgba(240, 215, 140, 0.08);
+}
+
+.mesh-gradient {
+  background:
+    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(48, 84, 117, 0.5), transparent),
+    radial-gradient(ellipse 60% 40% at 100% 50%, rgba(16, 185, 129, 0.1), transparent),
+    radial-gradient(ellipse 50% 30% at 0% 80%, rgba(212, 168, 83, 0.08), transparent),
+    #0b1219;
+}
+
+.grid-pattern {
+  background-image:
+    linear-gradient(rgba(116, 160, 204, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(116, 160, 204, 0.04) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+.chart-pattern {
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 45 L15 35 L30 40 L45 20 L60 25' fill='none' stroke='rgba(16,185,129,0.06)' stroke-width='1'/%3E%3C/svg%3E");
+  background-size: 120px 120px;
+}
+
+.reveal {
+  animation: reveal-up 0.7s ease-out both;
+}
+
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% center;
+  }
+  100% {
+    background-position: -200% center;
+  }
+}
+
+@keyframes pulse-glow {
+  0%,
+  100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* Ticker: two identical groups, animate -50% of inner width (pure CSS, no JS) */
+@keyframes ticker-scroll {
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.ticker-viewport-inner {
+  overflow: hidden;
+  width: 100%;
+  direction: ltr;
+}
+
+.ticker-inner {
+  display: flex;
+  width: max-content;
+  flex-wrap: nowrap;
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .ticker-inner {
+    animation: ticker-scroll 50s linear infinite;
+  }
+}
+
+.ticker-group {
+  display: flex;
+  flex: 0 0 auto;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 2.5rem;
+  padding-right: 2.5rem;
+}
+
+.ticker-item {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 0.75rem;
+  white-space: nowrap;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.ticker-sep {
+  flex-shrink: 0;
+  color: rgba(212, 168, 83, 0.4);
+}
+
+.btn-primary {
+  @apply relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-xl px-7 py-3.5 text-sm font-bold text-[#0b1219] transition-all duration-300;
+  background: linear-gradient(135deg, #f0d78c 0%, #d4a853 45%, #10b981 100%);
+  background-size: 200% auto;
+  box-shadow:
+    0 4px 20px rgba(212, 168, 83, 0.35),
+    0 0 0 1px rgba(240, 215, 140, 0.2) inset;
+}
+
+.btn-primary:hover {
+  background-position: right center;
+  transform: translateY(-2px);
+  box-shadow:
+    0 8px 32px rgba(16, 185, 129, 0.35),
+    0 0 0 1px rgba(240, 215, 140, 0.35) inset;
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-outline {
+  @apply inline-flex items-center justify-center gap-2 rounded-xl px-7 py-3.5 text-sm font-bold text-white transition-all duration-300;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(212, 168, 83, 0.35);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 0 24px rgba(212, 168, 83, 0.08);
+}
+
+.btn-outline:hover {
+  background: rgba(212, 168, 83, 0.1);
+  border-color: rgba(240, 215, 140, 0.5);
+  box-shadow: 0 0 32px rgba(212, 168, 83, 0.15);
+}
+
+.btn-ghost {
+  @apply inline-flex items-center justify-center gap-2 rounded-xl border border-white/10 bg-white/5 px-5 py-2.5 text-sm font-medium text-zinc-300 transition hover:border-accent/40 hover:bg-accent/10 hover:text-white;
+}
+
+.section-badge {
+  @apply mb-4 inline-flex items-center gap-2 rounded-full border border-accent-gold/30 bg-accent-gold/10 px-4 py-1.5 text-xs font-semibold text-accent-gold-light;
+}
+
+.section-title {
+  @apply text-3xl font-bold tracking-tight text-white sm:text-4xl;
+}
+
+.section-title-accent {
+  @apply bg-gradient-to-l from-accent-gold-light via-accent to-primary-light bg-clip-text text-transparent;
+}
+
+.section-subtitle {
+  @apply mt-3 max-w-2xl text-base leading-relaxed text-zinc-400 sm:text-lg;
+}
+
+/* Tighter vertical rhythm on small screens */
+.section-spacing {
+  @apply scroll-mt-24 py-12 sm:py-28;
+}
+
+.section-body-gap {
+  @apply mt-8 sm:mt-14;
+}
+
+.article-prose h2 {
+  margin-top: 2rem;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.article-prose p {
+  line-height: 1.8;
+}
+
+.article-prose a {
+  text-decoration: underline;
+}
+
+.nav-link {
+  @apply text-sm text-zinc-300 transition-colors hover:text-accent-gold-light;
+}
+
+.nav-link-active {
+  @apply font-semibold text-accent-gold-light;
+}
+
+.nav-link-mobile {
+  @apply rounded-lg px-3 py-2 text-sm text-zinc-200 transition-colors hover:bg-accent-gold/10 hover:text-accent-gold-light;
+}
+
+.nav-link-mobile.nav-link-active {
+  @apply bg-accent-gold/15 text-accent-gold-light;
+}
+
+.stat-value {
+  @apply bg-gradient-to-b from-white to-accent-gold-light bg-clip-text text-3xl font-bold text-transparent sm:text-4xl;
+}
+
+.glow-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  animation: pulse-glow 4s ease-in-out infinite;
+}
