@@ -77,10 +77,6 @@ public/           Fonts, images, logo
 | `npm run build` | Static export to `dist/` |
 | `npm run preview` | Preview production build locally |
 
-## Screenshots
-
-_Add 2–3 screenshots (hero, packages, news) here before publishing to GitHub._
-
 ## What I focused on
 
 - Static-first architecture for cheap hosting and fast TTFB
