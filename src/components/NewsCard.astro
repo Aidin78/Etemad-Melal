@@ -1,31 +1,33 @@
 ---
 import type { CollectionEntry } from 'astro:content';
+import type { Locale } from '../i18n/types';
+import { getArticleDisplay, getTranslations, localePath } from '../i18n';
 
 interface Props {
+  locale: Locale;
   post: CollectionEntry<'articles'>;
 }
 
-const { post } = Astro.props;
+const { locale, post } = Astro.props;
+const t = getTranslations(locale);
+const display = getArticleDisplay(locale, post.id, {
+  title: post.data.title,
+  excerpt: post.data.excerpt,
+  dateFa: post.data.dateFa,
+});
 ---
 
 <a
-  href={`/articles/${post.id}`}
+  href={localePath(locale, `/articles/${post.id}`)}
   class="investment-card group overflow-hidden rounded-2xl transition hover:-translate-y-1"
 >
-  <img
-    src={post.data.image}
-    alt={post.data.title}
-    class="aspect-video w-full object-cover transition group-hover:scale-[1.02]"
-    loading="lazy"
-  />
+  <img src={post.data.image} alt={display.title} class="aspect-video w-full object-cover transition group-hover:scale-[1.02]" loading="lazy" />
   <div class="p-6">
     <time class="text-xs font-medium text-accent-gold" datetime={post.data.date.toISOString()}>
-      {post.data.dateFa}
+      {display.dateLabel}
     </time>
-    <h2 class="mt-2 text-xl font-bold text-heading group-hover:text-accent-gold-light">
-      {post.data.title}
-    </h2>
-    <p class="mt-2 text-sm leading-relaxed text-muted">{post.data.excerpt}</p>
-    <span class="mt-4 inline-block text-sm font-bold text-accent">ادامه مطلب ←</span>
+    <h2 class="mt-2 text-xl font-bold text-heading group-hover:text-accent-gold-light">{display.title}</h2>
+    <p class="mt-2 text-sm leading-relaxed text-muted">{display.excerpt}</p>
+    <span class="mt-4 inline-block text-sm font-bold text-accent">{t.news.readMore}</span>
   </div>
 </a>

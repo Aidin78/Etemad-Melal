@@ -1,0 +1,40 @@
+---
+import Layout from '../layouts/Layout.astro';
+import NewsCard from '../components/NewsCard.astro';
+import { getCollection } from 'astro:content';
+import type { Locale } from '../i18n/types';
+import { getTranslations } from '../i18n';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = getTranslations(locale);
+
+const posts = (await getCollection('articles')).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+);
+---
+
+<Layout
+  locale={locale}
+  title={t.news.pageTitle}
+  description={t.news.pageSubtitle}
+>
+  <section class="mesh-gradient py-16 sm:py-20">
+    <div class="mx-auto max-w-6xl px-4 text-center sm:px-6">
+      <span class="section-badge">{t.news.badge}</span>
+      <h1 class="mt-4 text-4xl font-bold text-heading sm:text-5xl">
+        <span class="section-title-accent">{t.news.pageTitle}</span> {t.siteName}
+      </h1>
+      <p class="mt-4 text-muted">{t.news.pageSubtitle}</p>
+    </div>
+  </section>
+
+  <section class="pb-20 pt-8">
+    <div class="mx-auto grid max-w-6xl gap-8 px-4 sm:grid-cols-2 sm:px-6 lg:grid-cols-2">
+      {posts.map((post) => <NewsCard locale={locale} post={post} />)}
+    </div>
+  </section>
+</Layout>

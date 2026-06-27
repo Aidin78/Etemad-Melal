@@ -1,37 +1,39 @@
 ---
 import SectionBadge from './SectionBadge.astro';
 import PackageCard from './PackageCard.astro';
-import { investmentPackages } from '../config/packages';
 import { siteConfig } from '../config/site';
+import type { Locale } from '../i18n/types';
+import { getTranslations } from '../i18n';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = getTranslations(locale);
+const arrowClass = locale === 'fa' ? 'rotate-180' : '';
 ---
 
 <section id="packages-overview" class="section-spacing">
   <div class="relative mx-auto max-w-6xl px-4 sm:px-6">
     <div class="chart-pattern absolute inset-0 opacity-20" aria-hidden="true"></div>
-
     <div class="relative text-center">
-      <SectionBadge label="پکیج‌های سرمایه‌گذاری" />
+      <SectionBadge label={t.packages.badge} />
       <h2 class="section-title">
-        انتخاب <span class="section-title-accent">پکیج</span>
+        {t.packages.title} <span class="section-title-accent">{t.packages.titleAccent}</span>
       </h2>
-      <p class="section-subtitle mx-auto">
-        یکی از پکیج‌های زیر را متناسب با سرمایه و اهداف خود انتخاب کنید. ثبت‌نام و
-        فعال‌سازی فقط از طریق پنل کاربری انجام می‌شود.
-      </p>
+      <p class="section-subtitle mx-auto">{t.packages.subtitle}</p>
     </div>
 
     <div class="section-body-gap relative grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-      {investmentPackages.map((pkg) => <PackageCard pkg={pkg} />)}
+      {t.packages.items.map((pkg) => <PackageCard locale={locale} pkg={pkg} />)}
     </div>
 
-    <p class="relative mt-6 text-center text-xs text-subtle">
-      بازده ماهانه تقریبی است. جزئیات قرارداد و شرایط نهایی در پنل نمایش داده می‌شود.
-    </p>
-
+    <p class="relative mt-6 text-center text-xs text-subtle">{t.packages.disclaimer}</p>
     <div class="relative mt-8 flex justify-center">
       <a href={siteConfig.panelUrl} class="btn-primary min-w-[220px] justify-center font-semibold">
-        ادامه و انتخاب در پنل
-        <svg class="h-4 w-4 rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        {t.packages.cta}
+        <svg class:list={['h-4 w-4', arrowClass]} fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
         </svg>
       </a>

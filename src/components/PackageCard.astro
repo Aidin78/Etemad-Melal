@@ -1,61 +1,47 @@
 ---
-import type { PackageItem } from '../config/packages';
-import { packageDetailRows } from '../config/packages';
+import { investmentPackages } from '../config/packages';
 import { siteConfig } from '../config/site';
+import type { Locale, PackageDisplay } from '../i18n/types';
+import { getTranslations } from '../i18n';
 
 interface Props {
-  pkg: PackageItem;
+  locale: Locale;
+  pkg: PackageDisplay;
 }
 
-const { pkg } = Astro.props;
-const colorMix16 = `color-mix(in srgb, ${pkg.color} 16%, transparent)`;
-const colorMix40 = `color-mix(in srgb, ${pkg.color} 40%, transparent)`;
-const colorMix25 = `color-mix(in srgb, ${pkg.color} 25%, transparent)`;
+const { locale, pkg } = Astro.props;
+const t = getTranslations(locale);
+const colors = investmentPackages.find((p) => p.id === pkg.id);
+const color = colors?.color ?? '#2E86AB';
+const colorMix16 = `color-mix(in srgb, ${color} 16%, transparent)`;
+const colorMix40 = `color-mix(in srgb, ${color} 40%, transparent)`;
+const colorMix25 = `color-mix(in srgb, ${color} 25%, transparent)`;
+const arrowClass = locale === 'fa' ? 'rotate-180' : '';
 ---
 
 <a
   href={siteConfig.panelUrl}
   class:list={[
     'package-card group relative block w-full rounded-2xl border-2 p-0 text-start transition-all duration-200 hover:-translate-y-1 hover:shadow-lg',
-    pkg.featured
-      ? 'border-accent-gold/50 shadow-md shadow-accent-gold/10 ring-2 ring-accent-gold/25'
-      : 'package-card-default',
+    pkg.featured ? 'border-accent-gold/50 shadow-md shadow-accent-gold/10 ring-2 ring-accent-gold/25' : 'package-card-default',
   ]}
 >
-  <div
-    class="h-2 w-full rounded-t-2xl"
-    style={`background: linear-gradient(90deg, ${pkg.color}, ${colorMix25})`}
-  >
-  </div>
-
+  <div class="h-2 w-full rounded-t-2xl" style={`background: linear-gradient(90deg, ${color}, ${colorMix25})`}></div>
   {
     pkg.featured && (
       <span class="absolute end-5 top-5 z-10 rounded-md bg-accent-gold/20 px-2 py-0.5 text-[10px] font-bold text-accent-gold-light">
-        پکیج ویژه
+        {t.packages.featured}
       </span>
     )
   }
-
   <div class="relative p-5 sm:p-6">
     <div class="flex items-start gap-4 pe-2">
       <div
         class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border"
         style={`background-color: ${colorMix16}; border-color: ${colorMix40}`}
       >
-        <svg
-          class="h-6 w-6"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-          stroke-width="2"
-          style={`color: ${pkg.color}`}
-          aria-hidden="true"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z"
-          ></path>
+        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" style={`color: ${color}`} aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z"></path>
           <path stroke-linecap="round" stroke-linejoin="round" d="M12 22V12"></path>
           <path stroke-linecap="round" stroke-linejoin="round" d="m3.29 7 9 5 12-5 9 5"></path>
           <path stroke-linecap="round" stroke-linejoin="round" d="m7.5 4.27 9 5.15"></path>
@@ -64,10 +50,7 @@ const colorMix25 = `color-mix(in srgb, ${pkg.color} 25%, transparent)`;
       <div class="min-w-0 flex-1 space-y-2">
         <h3 class="text-lg font-bold tracking-tight text-heading">{pkg.name}</h3>
         <div class="flex flex-wrap gap-2">
-          <span
-            class="rounded-md px-2 py-0.5 text-[11px] font-semibold text-white"
-            style={`background-color: ${pkg.color}`}
-          >
+          <span class="rounded-md px-2 py-0.5 text-[11px] font-semibold text-white" style={`background-color: ${color}`}>
             {pkg.monthlyReturn}
           </span>
           <span class="rounded-md border border-divider bg-[var(--surface-muted)] px-2 py-0.5 text-[11px] font-medium text-body">
@@ -76,28 +59,24 @@ const colorMix25 = `color-mix(in srgb, ${pkg.color} 25%, transparent)`;
         </div>
       </div>
     </div>
-
     <div class="mt-4 border-t border-divider pt-4">
       <dl class="package-details divide-y rounded-xl border text-xs">
         {
-          packageDetailRows.map((row) => (
+          t.packages.detailRows.map((row) => (
             <div class="package-details-row flex gap-3 px-3 py-2.5 sm:grid sm:grid-cols-[1fr_1.1fr] sm:items-center sm:gap-4 sm:px-4">
               <dt class="font-medium text-subtle">{row.label}</dt>
-              <dd class="min-w-0 ps-0 font-semibold tabular-nums text-heading sm:text-end">
-                {pkg[row.key]}
-              </dd>
+              <dd class="min-w-0 ps-0 font-semibold tabular-nums text-heading sm:text-end">{pkg[row.key]}</dd>
             </div>
           ))
         }
       </dl>
     </div>
-
     <p
       class="mt-4 flex items-center justify-center gap-1 text-center text-xs font-semibold opacity-0 transition group-hover:opacity-100"
-      style={`color: ${pkg.color}`}
+      style={`color: ${color}`}
     >
-      انتخاب در پنل
-      <svg class="h-3.5 w-3.5 rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      {t.packages.selectInPanel}
+      <svg class:list={['h-3.5 w-3.5', arrowClass]} fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
       </svg>
     </p>

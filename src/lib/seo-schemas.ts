@@ -1,81 +1,86 @@
 import { siteConfig } from '../config/site';
-import { siteFaqs } from '../config/faqs';
+import type { Locale, Translations } from '../i18n/types';
+import { localePath } from '../i18n/utils';
 
 const base = siteConfig.url;
 
-export const organizationSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'Organization',
-  name: siteConfig.name,
-  alternateName: siteConfig.nameEn,
-  url: base,
-  logo: `${base}/media/etemadmelal-logo.svg`,
-  description: siteConfig.description,
-  email: siteConfig.contact.email,
-  address: {
-    '@type': 'PostalAddress',
-    addressLocality: 'تهران',
-    addressCountry: 'IR',
-  },
-  sameAs: [siteConfig.panelUrl].filter(Boolean),
-};
-
-export const websiteSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'WebSite',
-  name: siteConfig.name,
-  alternateName: siteConfig.nameEn,
-  url: base,
-  description: siteConfig.description,
-  inLanguage: 'fa-IR',
-  publisher: {
+export function organizationSchema(locale: Locale, t: Translations) {
+  return {
+    '@context': 'https://schema.org',
     '@type': 'Organization',
-    name: siteConfig.name,
-    logo: `${base}/media/etemadmelal-logo.svg`,
-  },
-};
-
-export const financialServiceSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'FinancialService',
-  name: siteConfig.name,
-  alternateName: siteConfig.nameEn,
-  url: base,
-  description: siteConfig.longDescription,
-  areaServed: {
-    '@type': 'Country',
-    name: 'Iran',
-  },
-  email: siteConfig.contact.email,
-  provider: {
-    '@type': 'Organization',
-    name: siteConfig.companyLegal,
+    name: t.siteName,
+    alternateName: locale === 'fa' ? 'Etemad Melal' : 'اعتماد ملل',
     url: base,
-  },
-};
+    logo: `${base}/media/etemadmelal-logo.svg`,
+    description: t.description,
+    email: t.contact.email,
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: locale === 'fa' ? 'تهران' : 'Tehran',
+      addressCountry: 'IR',
+    },
+    sameAs: [siteConfig.panelUrl].filter(Boolean),
+  };
+}
 
-export function faqPageSchema() {
+export function websiteSchema(locale: Locale, t: Translations) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: t.siteName,
+    alternateName: locale === 'fa' ? 'Etemad Melal' : 'اعتماد ملل',
+    url: `${base}${localePath(locale, '/')}`,
+    description: t.description,
+    inLanguage: locale === 'fa' ? 'fa-IR' : 'en',
+    publisher: {
+      '@type': 'Organization',
+      name: t.siteName,
+      logo: `${base}/media/etemadmelal-logo.svg`,
+    },
+  };
+}
+
+export function financialServiceSchema(locale: Locale, t: Translations) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'FinancialService',
+    name: t.siteName,
+    alternateName: locale === 'fa' ? 'Etemad Melal' : 'اعتماد ملل',
+    url: `${base}${localePath(locale, '/')}`,
+    description: t.longDescription,
+    areaServed: { '@type': 'Country', name: 'Iran' },
+    email: t.contact.email,
+    provider: {
+      '@type': 'Organization',
+      name: t.companyLegal,
+      url: base,
+    },
+  };
+}
+
+export function faqPageSchema(t: Translations) {
   return {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
-    mainEntity: siteFaqs.map((item) => ({
+    mainEntity: t.faq.items.map((item) => ({
       '@type': 'Question',
       name: item.q,
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: item.a,
-      },
+      acceptedAnswer: { '@type': 'Answer', text: item.a },
     })),
   };
 }
 
-export function articleSchema(input: {
-  title: string;
-  description: string;
-  image: string;
-  datePublished: Date;
-  url: string;
-}) {
+export function articleSchema(
+  locale: Locale,
+  t: Translations,
+  input: {
+    title: string;
+    description: string;
+    image: string;
+    datePublished: Date;
+    url: string;
+  },
+) {
   const imageUrl = new URL(input.image, base).href;
 
   return {
@@ -85,20 +90,13 @@ export function articleSchema(input: {
     description: input.description,
     image: imageUrl,
     datePublished: input.datePublished.toISOString(),
-    inLanguage: 'fa-IR',
+    inLanguage: locale === 'fa' ? 'fa-IR' : 'en',
     mainEntityOfPage: input.url,
-    author: {
-      '@type': 'Organization',
-      name: siteConfig.name,
-      url: base,
-    },
+    author: { '@type': 'Organization', name: t.siteName, url: base },
     publisher: {
       '@type': 'Organization',
-      name: siteConfig.name,
-      logo: {
-        '@type': 'ImageObject',
-        url: `${base}/media/etemadmelal-logo.svg`,
-      },
+      name: t.siteName,
+      logo: { '@type': 'ImageObject', url: `${base}/media/etemadmelal-logo.svg` },
     },
   };
 }

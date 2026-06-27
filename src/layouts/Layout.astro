@@ -4,8 +4,12 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import JsonLd from '../components/JsonLd.astro';
 import { siteConfig } from '../config/site';
+import type { Locale } from '../i18n/types';
+import { getTranslations, alternateLocalePath, localeHreflang, ogLocale } from '../i18n';
+import { defaultLocale } from '../i18n/utils';
 
 interface Props {
+  locale?: Locale;
   title?: string;
   description?: string;
   image?: string;
@@ -16,8 +20,9 @@ interface Props {
 }
 
 const {
-  title = siteConfig.name,
-  description = siteConfig.description,
+  locale = defaultLocale,
+  title,
+  description,
   image = '/images/hero.jpg',
   ogType = 'website',
   publishedTime,
@@ -25,13 +30,19 @@ const {
   noindex = false,
 } = Astro.props;
 
-const pageTitle = title === siteConfig.name ? title : `${title} | ${siteConfig.name}`;
+const t = getTranslations(locale);
+const pageTitle = title ?? t.siteName;
+const fullTitle = pageTitle === t.siteName ? pageTitle : `${pageTitle} | ${t.siteName}`;
+const metaDescription = description ?? t.description;
 const canonical = new URL(Astro.url.pathname, siteConfig.url).href;
 const ogImage = new URL(image, siteConfig.url).href;
+const altLocale = locale === 'fa' ? 'en' : 'fa';
+const altPath = alternateLocalePath(locale, Astro.url.pathname);
+const altUrl = new URL(altPath, siteConfig.url).href;
 ---
 
 <!doctype html>
-<html lang="fa-IR" dir="rtl" data-theme="dark">
+<html lang={t.lang} dir={t.dir} data-theme="dark">
   <head>
     <script is:inline>
       (function () {
@@ -50,32 +61,35 @@ const ogImage = new URL(image, siteConfig.url).href;
     </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content={description} />
-    <meta name="author" content={siteConfig.companyLegal} />
+    <meta name="description" content={metaDescription} />
+    <meta name="author" content={t.companyLegal} />
     <meta name="robots" content={noindex ? 'noindex, nofollow' : 'index, follow, max-image-preview:large'} />
     <meta name="theme-color" content="#0b1219" media="(prefers-color-scheme: dark)" />
     <meta name="theme-color" content="#f4f7fb" media="(prefers-color-scheme: light)" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/favicon.svg" />
     <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang={localeHreflang(locale)} href={canonical} />
+    <link rel="alternate" hreflang={localeHreflang(altLocale)} href={altUrl} />
+    <link rel="alternate" hreflang="x-default" href={new URL('/', siteConfig.url).href} />
     <link rel="alternate" type="text/plain" href="/llms.txt" title="Site summary for AI systems" />
 
     <meta property="og:type" content={ogType} />
-    <meta property="og:locale" content="fa_IR" />
-    <meta property="og:site_name" content={siteConfig.name} />
-    <meta property="og:title" content={pageTitle} />
-    <meta property="og:description" content={description} />
+    <meta property="og:locale" content={ogLocale(locale)} />
+    <meta property="og:site_name" content={t.siteName} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={metaDescription} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogImage} />
-    <meta property="og:image:alt" content={title} />
+    <meta property="og:image:alt" content={pageTitle} />
     {publishedTime && <meta property="article:published_time" content={publishedTime.toISOString()} />}
 
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={pageTitle} />
-    <meta name="twitter:description" content={description} />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={metaDescription} />
     <meta name="twitter:image" content={ogImage} />
 
-    <title>{pageTitle}</title>
+    <title>{fullTitle}</title>
     {jsonLd && <JsonLd data={jsonLd} />}
   </head>
   <body class="min-h-screen">
@@ -83,12 +97,12 @@ const ogImage = new URL(image, siteConfig.url).href;
       href="#main-content"
       class="sr-only focus:not-sr-only focus:absolute focus:start-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-accent-gold focus:px-4 focus:py-2 focus:text-secondary focus:outline-none"
     >
-      پرش به محتوای اصلی
+      {t.a11y.skipToContent}
     </a>
-    <Header />
+    <Header locale={locale} />
     <main id="main-content" class="pt-[72px]">
       <slot />
     </main>
-    <Footer />
+    <Footer locale={locale} />
   </body>
 </html>

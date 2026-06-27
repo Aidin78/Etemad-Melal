@@ -1,0 +1,93 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { render } from 'astro:content';
+import { siteConfig } from '../config/site';
+import type { CollectionEntry } from 'astro:content';
+import type { Locale } from '../i18n/types';
+import { getArticleDisplay, getTranslations, localePath } from '../i18n';
+import { articleSchema, breadcrumbSchema } from '../lib/seo-schemas';
+
+interface Props {
+  locale: Locale;
+  post: CollectionEntry<'articles'>;
+}
+
+const { locale, post } = Astro.props;
+const t = getTranslations(locale);
+const { Content } = await render(post);
+
+const display = getArticleDisplay(locale, post.id, {
+  title: post.data.title,
+  excerpt: post.data.excerpt,
+  dateFa: post.data.dateFa,
+});
+
+const articlePath = localePath(locale, `/articles/${post.id}`);
+const articleUrl = new URL(articlePath, siteConfig.url).href;
+const articlesIndexUrl = new URL(localePath(locale, '/articles'), siteConfig.url).href;
+const homeUrl = new URL(localePath(locale, '/'), siteConfig.url).href;
+const breadcrumbHome = locale === 'fa' ? 'خانه' : 'Home';
+const breadcrumbArticles = t.news.pageTitle;
+---
+
+<Layout
+  locale={locale}
+  title={display.title}
+  description={display.excerpt}
+  image={post.data.image}
+  ogType="article"
+  publishedTime={post.data.date}
+  jsonLd={[
+    articleSchema(locale, t, {
+      title: display.title,
+      description: display.excerpt,
+      image: post.data.image,
+      datePublished: post.data.date,
+      url: articleUrl,
+    }),
+    breadcrumbSchema([
+      { name: breadcrumbHome, url: homeUrl },
+      { name: breadcrumbArticles, url: articlesIndexUrl },
+      { name: display.title, url: articleUrl },
+    ]),
+  ]}
+>
+  <article itemscope itemtype="https://schema.org/Article">
+    <header class="relative overflow-hidden mesh-gradient py-16 sm:py-24">
+      <div class="absolute inset-0" aria-hidden="true">
+        <img src={post.data.image} alt="" class="h-full w-full object-cover opacity-20" />
+        <div class="absolute inset-0 bg-image-overlay-top"></div>
+      </div>
+      <div class="relative mx-auto max-w-3xl px-4 sm:px-6">
+        <nav aria-label={locale === 'fa' ? 'مسیر صفحه' : 'Breadcrumb'}>
+          <a href={localePath(locale, '/articles')} class="text-sm text-primary-light hover:text-accent">
+            {t.news.backToArticles}
+          </a>
+        </nav>
+        <time
+          class="mt-4 block text-sm text-subtle"
+          datetime={post.data.date.toISOString()}
+          itemprop="datePublished"
+        >
+          {display.dateLabel}
+        </time>
+        <h1 class="mt-2 text-3xl font-bold text-heading sm:text-4xl" itemprop="headline">{display.title}</h1>
+        <p class="mt-4 text-lg text-muted" itemprop="description">{display.excerpt}</p>
+        {
+          locale === 'en' && (
+            <p class="mt-6 rounded-xl border border-accent-gold/25 bg-accent-gold/10 px-4 py-3 text-sm text-muted">
+              {t.news.articleLocaleNotice}{' '}
+              <a href={localePath('fa', `/articles/${post.id}`)} class="font-semibold text-accent-gold-light hover:underline">
+                {t.news.viewInPersian}
+              </a>
+            </p>
+          )
+        }
+      </div>
+    </header>
+
+    <div class="article-prose mx-auto max-w-3xl px-4 py-12 sm:px-6" itemprop="articleBody" dir="rtl" lang="fa-IR">
+      <Content />
+    </div>
+  </article>
+</Layout>

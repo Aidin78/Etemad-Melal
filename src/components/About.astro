@@ -1,30 +1,27 @@
 ---
 import SectionBadge from './SectionBadge.astro';
 import { siteConfig } from '../config/site';
+import type { Locale } from '../i18n/types';
+import { getTranslations, localePath } from '../i18n';
 
-const highlights = [
-  { label: 'تخصص مالی', value: 'تیم حرفه‌ای' },
-  { label: 'فناوری', value: 'پنل پیشرفته' },
-  { label: 'شفافیت', value: 'گزارش لحظه‌ای' },
-];
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = getTranslations(locale);
 ---
 
 <section id="about" class="section-spacing relative overflow-hidden">
   <div class="glow-orb right-0 top-1/4 h-56 w-56 bg-primary/25"></div>
-
   <div class="relative mx-auto max-w-6xl px-4 sm:px-6">
     <div class="grid items-center gap-8 lg:grid-cols-2 lg:gap-12">
       <div class="relative order-2 overflow-hidden rounded-2xl ring-1 ring-accent-gold/20 lg:order-1">
-        <img
-          src="/images/about.jpg"
-          alt="دفتر شرکت اعتماد ملل"
-          class="aspect-[4/3] w-full object-cover"
-          loading="lazy"
-        />
+        <img src="/images/about.jpg" alt={t.about.imageAlt} class="aspect-[4/3] w-full object-cover" loading="lazy" />
         <div class="absolute inset-0 bg-image-overlay-top"></div>
         <div class="absolute bottom-4 right-4 left-4 grid grid-cols-3 gap-2">
           {
-            highlights.map((h) => (
+            t.about.highlights.map((h) => (
               <div class="glass-card rounded-lg p-3 text-center">
                 <p class="text-[10px] text-subtle">{h.label}</p>
                 <p class="mt-0.5 text-xs font-bold text-accent-gold-light">{h.value}</p>
@@ -34,22 +31,15 @@ const highlights = [
         </div>
       </div>
       <div class="order-1 lg:order-2">
-        <SectionBadge label="درباره اعتماد ملل" />
+        <SectionBadge label={t.about.badge} />
         <h2 class="section-title">
-          شریک <span class="section-title-accent">قابل اعتماد</span> شما
+          {t.about.title} <span class="section-title-accent">{t.about.titleAccent}</span>
         </h2>
-        <p class="section-subtitle">
-          {siteConfig.companyLegal} با هدف ارائه بستری شفاف و حرفه‌ای برای سرمایه‌گذاری
-          فعالیت می‌کند. ما معتقدیم اعتماد سرمایه‌گذاران، پایه هر همکاری پایدار است.
-        </p>
-        <p class="mt-4 text-sm leading-relaxed text-muted">
-          پلتفرم اعتماد ملل با ترکیب تیم مالی مجرب و زیرساخت فناوری پیشرفته، امکان
-          مدیریت سرمایه، پیگیری سود و ارتباط با پشتیبانی را در یک پنل یکپارچه فراهم
-          می‌کند.
-        </p>
+        <p class="section-subtitle">{t.about.subtitle}</p>
+        <p class="mt-4 text-sm leading-relaxed text-muted">{t.about.body}</p>
         <div class="mt-8 flex flex-wrap gap-3">
-          <a href={siteConfig.panelUrl} class="btn-primary">شروع سرمایه‌گذاری</a>
-          <a href="#contact" class="btn-outline">تماس با ما</a>
+          <a href={siteConfig.panelUrl} class="btn-primary">{t.about.ctaStart}</a>
+          <a href={localePath(locale, '/#contact')} class="btn-outline">{t.about.ctaContact}</a>
         </div>
       </div>
     </div>

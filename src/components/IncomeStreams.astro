@@ -1,7 +1,16 @@
 ---
 import SectionBadge from './SectionBadge.astro';
-import { incomeStreams } from '../config/income-streams';
 import { siteConfig } from '../config/site';
+import type { Locale } from '../i18n/types';
+import { getTranslations } from '../i18n';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = getTranslations(locale);
+const arrowClass = locale === 'fa' ? 'rotate-180' : '';
 ---
 
 <section id="income-streams" class="section-spacing relative overflow-hidden">
@@ -11,24 +20,18 @@ import { siteConfig } from '../config/site';
 
   <div class="relative mx-auto max-w-6xl px-4 sm:px-6">
     <div class="text-center">
-      <SectionBadge label="مسیرهای درآمدی" />
+      <SectionBadge label={t.income.badge} />
       <h2 class="section-title">
-        سه راه <span class="section-title-accent">درآمد در اعتماد ملل</span>
+        {t.income.title} <span class="section-title-accent">{t.income.titleAccent}</span>
       </h2>
-      <p class="section-subtitle mx-auto">
-        علاوه بر بازده پکیج، سه نوع پاداش — سود مشارکت ماهانه، حق مشارکت مستقیم و
-        توسعه مشارکتی (تعادل) — در پنل به‌صورت شفاف ثبت و گزارش می‌شود.
-      </p>
+      <p class="section-subtitle mx-auto">{t.income.subtitle}</p>
     </div>
 
     <div class="section-body-gap grid gap-5 sm:gap-6 lg:grid-cols-3">
       {
-        incomeStreams.map((stream) => (
+        t.income.streams.map((stream) => (
           <article class="investment-card flex flex-col rounded-2xl p-6 transition hover:-translate-y-1">
-            <div
-              class="h-1.5 w-16 rounded-full"
-              style={`background: linear-gradient(90deg, ${stream.color}, transparent)`}
-            />
+            <div class="h-1.5 w-16 rounded-full" style={`background: linear-gradient(90deg, ${stream.color}, transparent)`} />
             <div
               class="mt-5 flex h-12 w-12 items-center justify-center rounded-xl border"
               style={`background-color: color-mix(in srgb, ${stream.color} 18%, transparent); border-color: color-mix(in srgb, ${stream.color} 35%, transparent); color: ${stream.color}`}
@@ -52,14 +55,11 @@ import { siteConfig } from '../config/site';
       }
     </div>
 
-    <p class="mt-6 text-center text-xs text-subtle sm:mt-8">
-      جزئیات مبالغ و تاریخ هر پاداش در بخش‌های «کمیسیون‌ها» و «داشبورد مالی»
-      پنل در دسترس است.
-    </p>
+    <p class="mt-6 text-center text-xs text-subtle sm:mt-8">{t.income.footnote}</p>
     <div class="mt-6 text-center sm:mt-8">
       <a href={siteConfig.panelUrl} class="btn-primary">
-        {siteConfig.panelCtaLogin}
-        <svg class="h-4 w-4 rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        {t.panelCtaLogin}
+        <svg class:list={['h-4 w-4', arrowClass]} fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
         </svg>
       </a>

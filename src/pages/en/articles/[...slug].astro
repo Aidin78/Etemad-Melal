@@ -1,6 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
-import ArticlePage from '../../components/ArticlePage.astro';
+import ArticlePage from '../../../components/ArticlePage.astro';
 
 export async function getStaticPaths() {
   const posts = await getCollection('articles');
@@ -13,4 +13,4 @@ export async function getStaticPaths() {
 const { post } = Astro.props;
 ---
 
-<ArticlePage locale="fa" post={post} />
+<ArticlePage locale="en" post={post} />

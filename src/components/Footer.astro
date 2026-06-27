@@ -1,38 +1,37 @@
 ---
-import { siteConfig, navLinks } from '../config/site';
-const year = new Date().getFullYear();
+import { siteConfig } from '../config/site';
+import type { Locale } from '../i18n/types';
+import { getTranslations, localePath } from '../i18n';
 
-const trustBadges = [
-  'قرارداد رسمی',
-  'گزارش شفاف',
-  'پنل اختصاصی',
-  'پشتیبانی ۲۴/۷',
-];
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = getTranslations(locale);
+const year = new Date().getFullYear();
+const home = localePath(locale, '/');
+const contact = localePath(locale, '/#contact');
 ---
 
 <footer class="relative mt-4 overflow-hidden border-t border-theme bg-footer sm:mt-8">
   <div class="footer-glow glow-orb -left-32 bottom-0 h-64 w-64 bg-primary/30"></div>
   <div class="footer-glow glow-orb -right-32 top-0 h-48 w-48 bg-accent-gold/10"></div>
 
-  <!-- CTA band -->
   <div class="relative border-b border-divider">
     <div class="footer-cta-band mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-14">
-      <div class="flex flex-col items-center gap-6 text-center lg:flex-row lg:justify-between lg:text-right">
+      <div class="flex flex-col items-center gap-6 text-center lg:flex-row lg:justify-between lg:text-start">
         <div>
-          <p class="text-xs font-semibold uppercase tracking-widest text-gold-soft">
-            آماده سرمایه‌گذاری هستید؟
-          </p>
+          <p class="text-xs font-semibold uppercase tracking-widest text-gold-soft">{t.footer.ctaEyebrow}</p>
           <h2 class="mt-2 text-2xl font-bold text-heading sm:text-3xl">
-            همین حالا به <span class="text-gold-emphasis">پنل اعتماد ملل</span> وارد شوید
+            {t.footer.ctaTitle} <span class="text-gold-emphasis">{t.footer.ctaTitleAccent}</span>
+            {t.footer.ctaTitleSuffix}
           </h2>
-          <p class="mt-2 max-w-xl text-sm text-muted">
-            ثبت‌نام، انتخاب پکیج سرمایه‌گذاری و پیگیری لحظه‌ای سود — همه از طریق پنل
-            کاربری اعتماد ملل.
-          </p>
+          <p class="mt-2 max-w-xl text-sm text-muted">{t.footer.ctaSubtitle}</p>
         </div>
         <div class="flex shrink-0 flex-wrap items-center justify-center gap-3">
-          <a href={siteConfig.panelUrl} class="btn-primary">{siteConfig.panelCtaLogin}</a>
-          <a href="/#contact" class="btn-outline">تماس با ما</a>
+          <a href={siteConfig.panelUrl} class="btn-primary">{t.panelCtaLogin}</a>
+          <a href={contact} class="btn-outline">{t.footer.ctaContact}</a>
         </div>
       </div>
     </div>
@@ -40,45 +39,38 @@ const trustBadges = [
 
   <div class="relative mx-auto max-w-6xl px-4 py-14 sm:px-6">
     <div class="grid gap-12 lg:grid-cols-12">
-      <!-- Brand -->
       <div class="lg:col-span-4">
-        <a href="/" class="inline-flex items-center gap-3 text-heading">
+        <a href={home} class="inline-flex items-center gap-3 text-heading">
           <img
             src="/media/etemadmelal-logo.svg"
-            alt={siteConfig.name}
+            alt={t.siteName}
             class="logo-glow h-11 w-11 shrink-0"
             width="44"
             height="44"
           />
           <div>
-            <span class="block text-lg font-bold">{siteConfig.name}</span>
-            <span class="text-xs text-subtle">پلتفرم سرمایه‌گذاری</span>
+            <span class="block text-lg font-bold">{t.siteName}</span>
+            <span class="text-xs text-subtle">{t.footer.taglineSub}</span>
           </div>
         </a>
-        <p class="mt-5 text-sm leading-relaxed text-muted">{siteConfig.tagline}</p>
-        <p class="mt-3 text-xs text-subtle">{siteConfig.companyLegal}</p>
-
+        <p class="mt-5 text-sm leading-relaxed text-muted">{t.tagline}</p>
+        <p class="mt-3 text-xs text-subtle">{t.companyLegal}</p>
         <div class="mt-6 flex flex-wrap gap-2">
-          {
-            trustBadges.map((badge) => (
-              <span class="surface-badge rounded-lg px-3 py-1 text-[11px] font-medium">
-                {badge}
-              </span>
-            ))
-          }
+          {t.footer.trustBadges.map((badge) => (
+            <span class="surface-badge rounded-lg px-3 py-1 text-[11px] font-medium">{badge}</span>
+          ))}
         </div>
       </div>
 
-      <!-- Links -->
       <div class="grid grid-cols-2 gap-8 sm:grid-cols-3 lg:col-span-5">
         <div>
-          <h3 class="mb-4 text-sm font-bold text-gold-emphasis">دسترسی سریع</h3>
+          <h3 class="mb-4 text-sm font-bold text-gold-emphasis">{t.footer.quickLinks}</h3>
           <ul class="space-y-2.5">
             {
-              navLinks.map((link) => (
+              t.nav.map((link) => (
                 <li>
                   <a
-                    href={link.href}
+                    href={localePath(locale, link.href)}
                     class="footer-link text-sm hover:underline decoration-accent/50 underline-offset-4"
                   >
                     {link.label}
@@ -89,82 +81,59 @@ const trustBadges = [
           </ul>
         </div>
         <div>
-          <h3 class="mb-4 text-sm font-bold text-gold-emphasis">سرمایه‌گذاری</h3>
+          <h3 class="mb-4 text-sm font-bold text-gold-emphasis">{t.footer.investLinks}</h3>
           <ul class="space-y-2.5 text-sm">
-            <li>
-              <a href="/#features" class="footer-link">نحوه کار</a>
-            </li>
-            <li>
-              <a href="/#income-streams" class="footer-link">مسیرهای درآمد</a>
-            </li>
-            <li>
-              <a href="/#packages-overview" class="footer-link">پکیج‌ها</a>
-            </li>
-            <li>
-              <a href="/#trust" class="footer-link">مزایا</a>
-            </li>
-            <li>
-              <a href="/articles" class="footer-link">مقالات</a>
-            </li>
+            <li><a href={localePath(locale, '/#features')} class="footer-link">{t.footer.howItWorks}</a></li>
+            <li><a href={localePath(locale, '/#income-streams')} class="footer-link">{t.footer.incomePaths}</a></li>
+            <li><a href={localePath(locale, '/#packages-overview')} class="footer-link">{t.footer.packages}</a></li>
+            <li><a href={localePath(locale, '/#trust')} class="footer-link">{t.footer.benefits}</a></li>
+            <li><a href={localePath(locale, '/articles')} class="footer-link">{t.footer.articles}</a></li>
           </ul>
         </div>
         <div>
-          <h3 class="mb-4 text-sm font-bold text-gold-emphasis">تماس</h3>
+          <h3 class="mb-4 text-sm font-bold text-gold-emphasis">{t.footer.contactTitle}</h3>
           <ul class="space-y-3 text-sm">
             <li>
-              <span class="block text-[10px] uppercase tracking-wider text-faint">ایمیل</span>
-              <a href={`mailto:${siteConfig.contact.email}`} class="text-body hover:text-accent-gold-light">
-                {siteConfig.contact.email}
+              <span class="block text-[10px] uppercase tracking-wider text-faint">{t.contact.emailLabel}</span>
+              <a href={`mailto:${t.contact.email}`} class="text-body hover:text-accent-gold-light">
+                {t.contact.email}
               </a>
             </li>
             <li>
-              <span class="block text-[10px] uppercase tracking-wider text-faint">آدرس</span>
-              <span class="text-body">{siteConfig.contact.address}</span>
+              <span class="block text-[10px] uppercase tracking-wider text-faint">{t.contact.addressLabel}</span>
+              <span class="text-body">{t.contact.address}</span>
             </li>
           </ul>
         </div>
       </div>
 
-      <!-- Panel card -->
       <div class="lg:col-span-3">
         <div class="investment-card rounded-2xl p-6">
           <div class="flex items-center gap-2 text-accent">
             <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
             </svg>
-            <span class="text-xs font-bold">پنل کاربری</span>
+            <span class="text-xs font-bold">{t.footer.panelTitle}</span>
           </div>
-          <p class="mt-3 text-sm leading-relaxed text-muted">
-            مدیریت سرمایه، مشاهده سود ماهانه و ثبت درخواست برداشت — همه در یک جا.
-          </p>
+          <p class="mt-3 text-sm leading-relaxed text-muted">{t.footer.panelDesc}</p>
           <a href={siteConfig.panelUrl} class="btn-primary mt-5 w-full justify-center text-center text-sm">
-            {siteConfig.panelCtaLogin}
+            {t.panelCtaLogin}
           </a>
         </div>
       </div>
     </div>
 
     <div class="mt-12 flex flex-col items-center justify-between gap-4 border-t border-divider pt-8 sm:flex-row">
-      <p class="text-xs text-subtle">
-        {year} © {siteConfig.companyLegal}. تمامی حقوق محفوظ است.
-      </p>
+      <p class="text-xs text-subtle">{year} © {t.companyLegal}. {t.footer.rights}</p>
       <div class="flex flex-wrap justify-center gap-4 text-xs text-faint">
-        <a href="/#about" class="hover:text-muted">درباره ما</a>
+        <a href={localePath(locale, '/#about')} class="hover:text-muted">{t.footer.about}</a>
         <span class="text-subtle">|</span>
-        <a href="/#faq" class="hover:text-muted">سوالات متداول</a>
+        <a href={localePath(locale, '/#faq')} class="hover:text-muted">{t.footer.faq}</a>
         <span class="text-subtle">|</span>
-        <a href="/#contact" class="hover:text-muted">تماس</a>
+        <a href={contact} class="hover:text-muted">{t.footer.contact}</a>
       </div>
     </div>
 
-    <p class="mx-auto mt-6 max-w-3xl text-center text-[11px] leading-relaxed text-faint">
-      سرمایه‌گذاری در بازارهای مالی همراه با ریسک است. اطلاعات این وب‌سایت صرفاً جنبه
-      معرفی دارد و توصیه سرمایه‌گذاری محسوب نمی‌شود. لطفاً پیش از هر تصمیم، شرایط و
-      قراردادهای رسمی را مطالعه کنید.
-    </p>
+    <p class="mx-auto mt-6 max-w-3xl text-center text-[11px] leading-relaxed text-faint">{t.footer.disclaimer}</p>
   </div>
 </footer>

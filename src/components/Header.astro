@@ -1,15 +1,30 @@
 ---
-import { siteConfig, navLinks } from '../config/site';
+import { siteConfig } from '../config/site';
 import ThemeToggle from './ThemeToggle.astro';
+import LanguageSwitcher from './LanguageSwitcher.astro';
+import type { Locale } from '../i18n/types';
+import { getTranslations, localePath } from '../i18n';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = getTranslations(locale);
 
 const sectionId = (href: string) => (href.includes('#') ? href.split('#')[1] : null);
 
 const navDataAttrs = (href: string) => {
   const id = sectionId(href);
   if (id) return { 'data-nav-section': id };
-  if (href === '/articles' || href.startsWith('/articles/')) return { 'data-nav-path': '/articles' };
+  const articlesPath = localePath(locale, '/articles');
+  if (href === '/articles' || href.startsWith('/articles')) {
+    return { 'data-nav-path': articlesPath };
+  }
   return {};
 };
+
+const localizedHref = (href: string) => localePath(locale, href);
 ---
 
 <header
@@ -17,21 +32,21 @@ const navDataAttrs = (href: string) => {
   id="site-header"
 >
   <div class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3.5 sm:px-6">
-    <a href="/" class="flex items-center gap-3 text-heading">
+    <a href={localizedHref('/')} class="flex items-center gap-3 text-heading">
       <img
         src="/media/etemadmelal-logo.svg"
-        alt={siteConfig.name}
+        alt={t.siteName}
         class="logo-glow h-9 w-9 shrink-0"
         width="36"
         height="36"
       />
-      <span class="text-lg font-bold">{siteConfig.name}</span>
+      <span class="text-lg font-bold">{t.siteName}</span>
     </a>
 
-    <nav class="hidden items-center gap-6 lg:flex" aria-label="منوی اصلی">
+    <nav class="hidden items-center gap-6 lg:flex" aria-label={t.a11y.mainNav}>
       {
-        navLinks.map((link) => (
-          <a href={link.href} class="nav-link" {...navDataAttrs(link.href)}>
+        t.nav.map((link) => (
+          <a href={localizedHref(link.href)} class="nav-link" {...navDataAttrs(link.href)}>
             {link.label}
           </a>
         ))
@@ -39,15 +54,16 @@ const navDataAttrs = (href: string) => {
     </nav>
 
     <div class="flex items-center gap-2 sm:gap-3">
+      <LanguageSwitcher locale={locale} />
       <ThemeToggle />
       <a href={siteConfig.panelUrl} class="btn-primary hidden text-sm !py-2.5 !px-5 sm:inline-flex">
-        {siteConfig.panelCtaLogin}
+        {t.panelCtaLogin}
       </a>
       <button
         type="button"
         class="flex h-10 w-10 items-center justify-center rounded-lg border border-theme bg-[var(--toggle-bg)] text-[var(--toggle-text)] lg:hidden"
         id="menu-toggle"
-        aria-label="باز کردن منو"
+        aria-label={t.a11y.openMenu}
         aria-expanded="false"
       >
         <svg class="h-5 w-5" id="icon-open" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -60,20 +76,17 @@ const navDataAttrs = (href: string) => {
     </div>
   </div>
 
-  <div
-    class="hidden border-t border-theme bg-header-mobile px-4 py-4 lg:hidden"
-    id="mobile-menu"
-  >
-    <nav class="flex flex-col gap-3" aria-label="منوی موبایل">
+  <div class="hidden border-t border-theme bg-header-mobile px-4 py-4 lg:hidden" id="mobile-menu">
+    <nav class="flex flex-col gap-3" aria-label={t.a11y.mobileNav}>
       {
-        navLinks.map((link) => (
-          <a href={link.href} class="nav-link-mobile" {...navDataAttrs(link.href)}>
+        t.nav.map((link) => (
+          <a href={localizedHref(link.href)} class="nav-link-mobile" {...navDataAttrs(link.href)}>
             {link.label}
           </a>
         ))
       }
       <a href={siteConfig.panelUrl} class="btn-primary mt-2 text-center text-sm">
-        {siteConfig.panelCtaLogin}
+        {t.panelCtaLogin}
       </a>
     </nav>
   </div>
@@ -140,26 +153,19 @@ const navDataAttrs = (href: string) => {
     if (!sections.length) return;
 
     const header = document.getElementById('site-header');
-
     const scrollOffset = () => (header?.offsetHeight ?? 72) + 40;
 
     const setActive = (id: string) => {
       clearNavActive();
-      links.forEach((link) => {
-        setLinkActive(link, link.dataset.navSection === id);
-      });
+      links.forEach((link) => setLinkActive(link, link.dataset.navSection === id));
     };
 
     const update = () => {
       const line = scrollOffset();
       let current = sections[0].id;
-
       for (const section of sections) {
-        if (section.getBoundingClientRect().top <= line) {
-          current = section.id;
-        }
+        if (section.getBoundingClientRect().top <= line) current = section.id;
       }
-
       setActive(current);
     };
 
@@ -175,7 +181,6 @@ const navDataAttrs = (href: string) => {
 
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', onScroll);
-
     links.forEach((link) => {
       link.addEventListener('click', () => {
         const id = link.dataset.navSection;
@@ -184,17 +189,11 @@ const navDataAttrs = (href: string) => {
     });
 
     const hash = window.location.hash.slice(1);
-    if (hash && document.getElementById(hash)) {
-      setActive(hash);
-    } else {
-      update();
-    }
+    if (hash && document.getElementById(hash)) setActive(hash);
+    else update();
   }
 
   const path = normalizePath();
-  if (path.startsWith('/articles')) {
-    initPageNav();
-  } else if (path === '/') {
-    initScrollSpy();
-  }
+  if (path.includes('/articles')) initPageNav();
+  else if (path === '/' || path === '/en') initScrollSpy();
 </script>

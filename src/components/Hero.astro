@@ -1,5 +1,15 @@
 ---
 import { siteConfig } from '../config/site';
+import type { Locale } from '../i18n/types';
+import { getTranslations } from '../i18n';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = getTranslations(locale);
+const arrowClass = locale === 'fa' ? 'rotate-180' : '';
 ---
 
 <section
@@ -7,74 +17,46 @@ import { siteConfig } from '../config/site';
 >
   <div class="absolute inset-0 grid-pattern opacity-60" aria-hidden="true"></div>
   <div class="absolute inset-0" aria-hidden="true">
-    <img
-      src="/images/hero.jpg"
-      alt=""
-      class="hero-img h-full w-full object-cover"
-      loading="eager"
-      fetchpriority="high"
-    />
+    <img src="/images/hero.jpg" alt="" class="hero-img h-full w-full object-cover" loading="eager" fetchpriority="high" />
     <div class="absolute inset-0 bg-image-overlay-bottom"></div>
   </div>
 
-  <div
-    class="relative mx-auto flex w-full max-w-6xl flex-col items-center justify-center px-4 py-6 text-center sm:px-6 sm:py-0 sm:pb-24 sm:pt-28"
-  >
-    <span
-      class="reveal section-badge mb-4 sm:mb-6"
-      style="animation-delay: 0s"
-    >
+  <div class="relative mx-auto flex w-full max-w-6xl flex-col items-center justify-center px-4 py-6 text-center sm:px-6 sm:py-0 sm:pb-24 sm:pt-28">
+    <span class="reveal section-badge mb-4 sm:mb-6">
       <span class="h-1.5 w-1.5 animate-pulse rounded-full bg-accent"></span>
-      پلتفرم سرمایه‌گذاری اعتماد ملل
+      {t.hero.badge}
     </span>
 
-    <h1
-      class="reveal mx-auto max-w-4xl text-3xl font-bold leading-tight text-heading sm:mb-0 sm:text-5xl lg:text-6xl"
-      style="animation-delay: 0.1s"
-    >
-      سرمایه‌گذاری هوشمند با
+    <h1 class="reveal mx-auto max-w-4xl text-3xl font-bold leading-tight text-heading sm:mb-0 sm:text-5xl lg:text-6xl" style="animation-delay: 0.1s">
+      {t.hero.title}
       <span class="bg-gradient-to-l from-accent-gold-light via-accent to-primary-light bg-clip-text text-transparent">
-        شفافیت و اطمینان
+        {t.hero.titleAccent}
       </span>
     </h1>
 
-    <p
-      class="reveal mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-body sm:mt-6 sm:text-lg"
-      style="animation-delay: 0.2s"
-    >
-      {siteConfig.tagline}. با پنل کاربری پیشرفته، وضعیت سرمایه‌گذاری خود را به‌صورت لحظه‌ای
-      مشاهده و مدیریت کنید.
+    <p class="reveal mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-body sm:mt-6 sm:text-lg" style="animation-delay: 0.2s">
+      {t.hero.subtitle}
     </p>
 
-    <div
-      class="reveal mt-6 flex w-full flex-wrap items-center justify-center gap-3 sm:mt-10 sm:gap-4"
-      style="animation-delay: 0.3s"
-    >
+    <div class="reveal mt-6 flex w-full flex-wrap items-center justify-center gap-3 sm:mt-10 sm:gap-4" style="animation-delay: 0.3s">
       <a href={siteConfig.panelUrl} class="btn-primary">
-        {siteConfig.panelCtaStart}
-        <svg class="h-4 w-4 rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        {t.panelCtaStart}
+        <svg class:list={['h-4 w-4', arrowClass]} fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
         </svg>
       </a>
-      <a href="#features" class="btn-outline">بیشتر بدانید</a>
+      <a href="#features" class="btn-outline">{t.hero.learnMore}</a>
     </div>
 
-    <div
-      class="reveal mt-6 grid w-full max-w-3xl grid-cols-3 gap-2 sm:mt-16 sm:gap-8"
-      style="animation-delay: 0.4s"
-    >
-      <div class="investment-card rounded-xl p-3 text-center sm:rounded-2xl sm:p-6">
-        <p class="stat-value text-xl sm:text-3xl">+۵</p>
-        <p class="mt-0.5 text-[10px] text-muted sm:mt-1 sm:text-sm">سال فعالیت</p>
-      </div>
-      <div class="investment-card rounded-xl p-3 text-center sm:rounded-2xl sm:p-6">
-        <p class="stat-value text-xl sm:text-3xl">۱۰۰٪</p>
-        <p class="mt-0.5 text-[10px] text-muted sm:mt-1 sm:text-sm">شفافیت گزارش</p>
-      </div>
-      <div class="investment-card rounded-xl p-3 text-center sm:rounded-2xl sm:p-6">
-        <p class="stat-value text-xl sm:text-3xl">۲۴/۷</p>
-        <p class="mt-0.5 text-[10px] text-muted sm:mt-1 sm:text-sm">پشتیبانی</p>
-      </div>
+    <div class="reveal mt-6 grid w-full max-w-3xl grid-cols-3 gap-2 sm:mt-16 sm:gap-8" style="animation-delay: 0.4s">
+      {
+        t.hero.stats.map((s) => (
+          <div class="investment-card rounded-xl p-3 text-center sm:rounded-2xl sm:p-6">
+            <p class="stat-value text-xl sm:text-3xl">{s.value}</p>
+            <p class="mt-0.5 text-[10px] text-muted sm:mt-1 sm:text-sm">{s.label}</p>
+          </div>
+        ))
+      }
     </div>
   </div>
 </section>

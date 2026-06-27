@@ -1,57 +1,42 @@
 ---
 import SectionBadge from './SectionBadge.astro';
 import ChartDecoration from './ChartDecoration.astro';
+import type { Locale } from '../i18n/types';
+import { getTranslations } from '../i18n';
 
-const steps = [
-  {
-    num: '۰۱',
-    title: 'ثبت‌نام در پنل',
-    desc: 'حساب کاربری خود را در چند دقیقه ایجاد کنید و احراز هویت را تکمیل نمایید.',
-    icon: 'M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z',
-  },
-  {
-    num: '۰۲',
-    title: 'انتخاب بسته سرمایه‌گذاری',
-    desc: 'از میان بسته‌های متنوع، گزینه‌ای متناسب با اهداف مالی خود انتخاب کنید.',
-    icon: 'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2',
-  },
-  {
-    num: '۰۳',
-    title: 'پیگیری و مدیریت',
-    desc: 'سود، واریز، برداشت و گزارش‌های مالی را در پنل کاربری به‌صورت شفاف دنبال کنید.',
-    icon: 'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z',
-  },
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = getTranslations(locale);
+
+const stepIcons = [
+  'M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z',
+  'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2',
+  'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z',
 ];
 ---
 
 <section id="features" class="section-spacing relative overflow-hidden">
   <div class="chart-pattern absolute inset-0 opacity-30" aria-hidden="true"></div>
-
   <div class="relative mx-auto max-w-6xl px-4 sm:px-6">
     <div class="grid items-center gap-8 lg:grid-cols-2 lg:gap-12">
       <div>
-        <SectionBadge label="مسیر سرمایه‌گذاری" />
+        <SectionBadge label={t.features.badge} />
         <h2 class="section-title">
-          چگونه <span class="section-title-accent">کار می‌کند؟</span>
+          {t.features.title} <span class="section-title-accent">{t.features.titleAccent}</span>
         </h2>
-        <p class="section-subtitle">
-          مسیر سرمایه‌گذاری در اعتماد ملل ساده و شفاف طراحی شده است؛ از ثبت‌نام تا
-          مشاهده گزارش‌های مالی در پنل اختصاصی شما.
-        </p>
+        <p class="section-subtitle">{t.features.subtitle}</p>
         <ChartDecoration class="mt-8 h-16 w-full max-w-xs" />
       </div>
       <div class="relative overflow-hidden rounded-2xl ring-1 ring-accent-gold/20">
-        <img
-          src="/images/features.jpg"
-          alt="تیم در حال بررسی گزارش‌های مالی"
-          class="aspect-[4/3] w-full object-cover"
-          loading="lazy"
-        />
+        <img src="/images/features.jpg" alt={t.features.imageAlt} class="aspect-[4/3] w-full object-cover" loading="lazy" />
         <div class="absolute inset-0 bg-image-overlay-top"></div>
         <div class="absolute bottom-4 right-4 left-4 investment-card rounded-xl p-4">
           <div class="flex items-center justify-between text-sm">
-            <span class="text-muted">رشد سبد سرمایه</span>
-            <span class="font-bold text-accent">+۱۲.۴٪</span>
+            <span class="text-muted">{t.features.chartLabel}</span>
+            <span class="font-bold text-accent">{t.features.chartValue}</span>
           </div>
           <div class="mt-2 h-1.5 overflow-hidden rounded-full bg-[var(--surface-muted)]">
             <div class="h-full w-3/4 rounded-full bg-gradient-to-l from-accent to-accent-gold"></div>
@@ -62,7 +47,7 @@ const steps = [
 
     <div class="mt-10 grid gap-5 sm:mt-16 sm:grid-cols-3 sm:gap-6">
       {
-        steps.map((step, i) => (
+        t.features.steps.map((step, i) => (
           <article
             class="investment-card group relative overflow-hidden rounded-2xl p-6 transition duration-300 hover:-translate-y-1"
             style={`animation-delay: ${i * 0.1}s`}
@@ -72,7 +57,7 @@ const steps = [
               <span class="text-3xl font-bold text-accent-gold/30">{step.num}</span>
               <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-accent-gold/25 to-accent/20 text-accent-gold-light">
                 <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d={step.icon} />
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d={stepIcons[i]} />
                 </svg>
               </div>
             </div>
