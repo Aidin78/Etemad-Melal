@@ -53,6 +53,8 @@
   --trust-gradient-end: #0b1219;
   --ticker-fade: #152028;
   --package-details-bg: rgb(0 0 0 / 0.2);
+  --package-border: rgb(212 168 83 / 0.14);
+  --package-border-inner: rgb(48 84 117 / 0.18);
   --toggle-bg: rgb(255 255 255 / 0.05);
   --toggle-text: #ffffff;
   --gold-emphasis: #f0d78c;
@@ -104,6 +106,8 @@
   --trust-gradient-end: #f4f7fb;
   --ticker-fade: #dfe8f2;
   --package-details-bg: rgb(244 247 251 / 0.8);
+  --package-border: rgb(48 84 117 / 0.14);
+  --package-border-inner: rgb(29 42 54 / 0.08);
   --toggle-bg: rgb(29 42 54 / 0.06);
   --toggle-text: #1d2a36;
   /* Richer gold on light backgrounds */
@@ -248,6 +252,52 @@ h4 {
   filter: drop-shadow(0 0 10px var(--logo-glow));
 }
 
+.logo-mark {
+  position: relative;
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-mark__orbit {
+  display: block;
+  width: 100%;
+  height: 100%;
+  line-height: 0;
+  transform-origin: center center;
+}
+
+.logo-mark__center {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: block;
+  line-height: 0;
+  pointer-events: none;
+}
+
+.logo-mark--animated .logo-mark__orbit {
+  animation: logo-orbit-rotate 14s linear infinite;
+  transform-origin: center center;
+  will-change: transform;
+}
+
+@keyframes logo-orbit-rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .logo-mark--animated .logo-mark__orbit {
+    animation: none;
+  }
+}
+
 .hero-img {
   opacity: var(--hero-img-opacity);
 }
@@ -361,18 +411,20 @@ h4 {
 
 .mesh-gradient {
   background:
-    radial-gradient(ellipse 80% 50% at 50% -20%, rgb(48 84 117 / 0.35), transparent),
-    radial-gradient(ellipse 60% 40% at 100% 50%, rgb(16 185 129 / 0.08), transparent),
-    radial-gradient(ellipse 50% 30% at 0% 80%, rgb(212 168 83 / 0.06), transparent),
+    radial-gradient(ellipse 80% 50% at 50% -20%, rgb(48 84 117 / 0.38), transparent),
+    radial-gradient(ellipse 60% 40% at 100% 50%, rgb(16 185 129 / 0.1), transparent),
+    radial-gradient(ellipse 50% 30% at 0% 80%, rgb(212 168 83 / 0.08), transparent),
+    radial-gradient(ellipse 45% 35% at 75% 85%, rgb(116 160 204 / 0.07), transparent),
     var(--mesh-base);
   transition: background 0.25s ease;
 }
 
 [data-theme='light'] .mesh-gradient {
   background:
-    radial-gradient(ellipse 80% 50% at 50% -20%, rgb(48 84 117 / 0.12), transparent),
-    radial-gradient(ellipse 60% 40% at 100% 50%, rgb(16 185 129 / 0.06), transparent),
-    radial-gradient(ellipse 50% 30% at 0% 80%, rgb(212 168 83 / 0.05), transparent),
+    radial-gradient(ellipse 80% 50% at 50% -20%, rgb(48 84 117 / 0.13), transparent),
+    radial-gradient(ellipse 60% 40% at 100% 50%, rgb(16 185 129 / 0.07), transparent),
+    radial-gradient(ellipse 50% 30% at 0% 80%, rgb(212 168 83 / 0.06), transparent),
+    radial-gradient(ellipse 45% 35% at 75% 85%, rgb(116 160 204 / 0.06), transparent),
     var(--mesh-base);
 }
 
@@ -405,20 +457,41 @@ h4 {
 }
 
 .package-card-default {
-  border-color: var(--border-strong);
+  border-color: var(--package-border);
 }
 
 .package-card-default:hover {
   border-color: rgb(48 84 117 / 0.25);
 }
 
+[data-theme='dark'] .package-card-default:hover {
+  border-color: rgb(212 168 83 / 0.22);
+}
+
 .package-details {
-  border-color: var(--border-strong);
+  border: 1px solid var(--package-border-inner);
   background: var(--package-details-bg);
 }
 
 .package-details > * + * {
-  border-top: 1px solid var(--border-strong);
+  border-top: 1px solid var(--package-border-inner);
+}
+
+[data-theme='dark'] .package-details {
+  border-color: rgb(48 84 117 / 0.12);
+  background: rgb(0 0 0 / 0.15);
+}
+
+[data-theme='dark'] .package-details > * + * {
+  border-top-color: rgb(48 84 117 / 0.1);
+}
+
+.package-card .border-divider {
+  border-color: var(--package-border-inner);
+}
+
+[data-theme='dark'] .package-card .border-divider {
+  border-color: rgb(48 84 117 / 0.1);
 }
 
 .reveal {
@@ -448,10 +521,10 @@ h4 {
 @keyframes pulse-glow {
   0%,
   100% {
-    opacity: 0.5;
+    opacity: 0.35;
   }
   50% {
-    opacity: 1;
+    opacity: 0.65;
   }
 }
 
@@ -659,9 +732,74 @@ h4 {
 .glow-orb {
   position: absolute;
   border-radius: 50%;
-  filter: blur(80px);
+  filter: blur(96px);
   pointer-events: none;
-  animation: pulse-glow 4s ease-in-out infinite;
+  animation: pulse-glow 6s ease-in-out infinite;
+}
+
+.glow-orb--primary {
+  background: rgb(48 84 117 / 0.28);
+}
+
+.glow-orb--accent {
+  background: rgb(16 185 129 / 0.2);
+}
+
+.glow-orb--gold {
+  background: rgb(212 168 83 / 0.18);
+}
+
+.glow-orb--sky {
+  background: rgb(116 160 204 / 0.2);
+}
+
+.glow-orb--emerald {
+  background: rgb(52 211 153 / 0.16);
+}
+
+.page-bg-orbs {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+footer {
+  position: relative;
+  z-index: 1;
+}
+
+.section-bg-orbs {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+[data-theme='light'] .glow-orb--primary {
+  background: rgb(48 84 117 / 0.12);
+}
+
+[data-theme='light'] .glow-orb--accent {
+  background: rgb(16 185 129 / 0.1);
+}
+
+[data-theme='light'] .glow-orb--gold {
+  background: rgb(212 168 83 / 0.1);
+}
+
+[data-theme='light'] .glow-orb--sky {
+  background: rgb(116 160 204 / 0.1);
+}
+
+[data-theme='light'] .glow-orb--emerald {
+  background: rgb(52 211 153 / 0.08);
+}
+
+[data-theme='light'] .page-bg-orbs {
+  opacity: 0.55;
 }
 
 [data-theme='light'] .footer-glow {

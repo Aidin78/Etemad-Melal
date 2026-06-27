@@ -22,7 +22,7 @@ const arrowClass = locale === 'fa' ? 'rotate-180' : '';
 <a
   href={siteConfig.panelUrl}
   class:list={[
-    'package-card group relative block w-full rounded-2xl border-2 p-0 text-start transition-all duration-200 hover:-translate-y-1 hover:shadow-lg',
+    'package-card group relative block w-full rounded-2xl border p-0 text-start transition-all duration-200 hover:-translate-y-1 hover:shadow-lg',
     pkg.featured ? 'border-accent-gold/50 shadow-md shadow-accent-gold/10 ring-2 ring-accent-gold/25' : 'package-card-default',
   ]}
 >
@@ -60,7 +60,7 @@ const arrowClass = locale === 'fa' ? 'rotate-180' : '';
       </div>
     </div>
     <div class="mt-4 border-t border-divider pt-4">
-      <dl class="package-details divide-y rounded-xl border text-xs">
+      <dl class="package-details rounded-xl text-xs">
         {
           t.packages.detailRows.map((row) => (
             <div class="package-details-row flex gap-3 px-3 py-2.5 sm:grid sm:grid-cols-[1fr_1.1fr] sm:items-center sm:gap-4 sm:px-4">

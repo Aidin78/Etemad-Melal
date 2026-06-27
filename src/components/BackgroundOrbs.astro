@@ -1,0 +1,28 @@
+---
+type Variant = 'page' | 'hero';
+
+interface Props {
+  variant?: Variant;
+}
+
+const { variant = 'page' } = Astro.props;
+---
+
+{
+  variant === 'page' && (
+    <div class="page-bg-orbs" aria-hidden="true">
+      <div class="glow-orb glow-orb--primary -start-32 top-[10%] h-80 w-80" />
+      <div class="glow-orb glow-orb--accent end-[-6%] top-[35%] h-72 w-72" style="animation-delay: -2s" />
+      <div class="glow-orb glow-orb--gold start-[15%] bottom-[12%] h-64 w-64" style="animation-delay: -1s" />
+    </div>
+  )
+}
+
+{
+  variant === 'hero' && (
+    <div class="section-bg-orbs" aria-hidden="true">
+      <div class="glow-orb glow-orb--accent start-[10%] top-[15%] h-56 w-56" style="animation-delay: -0.5s" />
+      <div class="glow-orb glow-orb--gold end-[8%] bottom-[12%] h-64 w-64" style="animation-delay: -1.5s" />
+    </div>
+  )
+}

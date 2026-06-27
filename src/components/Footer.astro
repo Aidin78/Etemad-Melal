@@ -1,5 +1,6 @@
 ---
 import { siteConfig } from '../config/site';
+import LogoIcon from './LogoIcon.astro';
 import type { Locale } from '../i18n/types';
 import { getTranslations, localePath } from '../i18n';
 
@@ -40,14 +41,8 @@ const contact = localePath(locale, '/#contact');
   <div class="relative mx-auto max-w-6xl px-4 py-14 sm:px-6">
     <div class="grid gap-12 lg:grid-cols-12">
       <div class="lg:col-span-4">
-        <a href={home} class="inline-flex items-center gap-3 text-heading">
-          <img
-            src="/media/etemadmelal-logo.svg"
-            alt={t.siteName}
-            class="logo-glow h-11 w-11 shrink-0"
-            width="44"
-            height="44"
-          />
+        <a href={home} class="group inline-flex items-center gap-3 text-heading">
+          <LogoIcon alt={t.siteName} size="lg" />
           <div>
             <span class="block text-lg font-bold">{t.siteName}</span>
             <span class="text-xs text-subtle">{t.footer.taglineSub}</span>

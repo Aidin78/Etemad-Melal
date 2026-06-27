@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import BackgroundOrbs from '../components/BackgroundOrbs.astro';
 import JsonLd from '../components/JsonLd.astro';
 import { siteConfig } from '../config/site';
 import type { Locale } from '../i18n/types';
@@ -92,7 +93,8 @@ const altUrl = new URL(altPath, siteConfig.url).href;
     <title>{fullTitle}</title>
     {jsonLd && <JsonLd data={jsonLd} />}
   </head>
-  <body class="min-h-screen">
+  <body class="relative min-h-screen">
+    <BackgroundOrbs variant="page" />
     <a
       href="#main-content"
       class="sr-only focus:not-sr-only focus:absolute focus:start-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-accent-gold focus:px-4 focus:py-2 focus:text-secondary focus:outline-none"
@@ -100,7 +102,7 @@ const altUrl = new URL(altPath, siteConfig.url).href;
       {t.a11y.skipToContent}
     </a>
     <Header locale={locale} />
-    <main id="main-content" class="pt-[72px]">
+    <main id="main-content" class="relative z-[1] pt-[72px]">
       <slot />
     </main>
     <Footer locale={locale} />

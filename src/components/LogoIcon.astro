@@ -1,0 +1,47 @@
+---
+interface Props {
+  alt: string;
+  size?: 'sm' | 'md' | 'lg';
+  animated?: boolean;
+  class?: string;
+}
+
+const { alt, size = 'md', animated = true, class: className = '' } = Astro.props;
+
+const sizes = {
+  sm: { class: 'h-9 w-9', px: 36 },
+  md: { class: 'h-10 w-10', px: 40 },
+  lg: { class: 'h-11 w-11', px: 44 },
+} as const;
+
+const { class: sizeClass, px } = sizes[size];
+---
+
+<span
+  class:list={['logo-mark', sizeClass, animated && 'logo-mark--animated', className]}
+  role="img"
+  aria-label={alt}
+>
+  <span class="logo-mark__orbit">
+    <img
+      src="/media/etemadmelal-logo-orbit.svg"
+      alt=""
+      class="logo-glow h-full w-full"
+      width={px}
+      height={px}
+      decoding="async"
+      aria-hidden="true"
+    />
+  </span>
+  <span class="logo-mark__center">
+    <img
+      src="/media/etemadmelal-logo-center.svg"
+      alt=""
+      class="logo-glow h-full w-full"
+      width={px}
+      height={px}
+      decoding="async"
+      aria-hidden="true"
+    />
+  </span>
+</span>
