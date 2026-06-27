@@ -1,0 +1,54 @@
+---
+import { siteConfig } from '../config/site';
+
+interface Props {
+  showText?: boolean;
+  iconSize?: 'sm' | 'md' | 'lg';
+  class?: string;
+}
+
+const { showText = true, iconSize = 'md', class: className = '' } = Astro.props;
+
+const iconSizes = {
+  sm: 'h-8 w-8',
+  md: 'h-10 w-10',
+  lg: 'h-12 w-12',
+} as const;
+
+const shellSizes = {
+  sm: 'p-1 rounded-lg',
+  md: 'p-1.5 rounded-xl',
+  lg: 'p-2 rounded-xl',
+} as const;
+
+const pxSizes = { sm: 32, md: 40, lg: 48 } as const;
+const size = iconSize;
+---
+
+<a
+  href="/"
+  class:list={['group inline-flex items-center gap-3 text-white transition-opacity hover:opacity-95', className]}
+>
+  <span
+    class:list={[
+      'logo-icon-shell flex shrink-0 items-center justify-center border border-accent-gold/30 bg-gradient-to-br from-white/[0.12] via-accent-gold/10 to-primary/20 shadow-[0_0_24px_rgba(212,168,83,0.25)] transition group-hover:border-accent-gold/50 group-hover:shadow-[0_0_28px_rgba(240,215,140,0.35)]',
+      shellSizes[size],
+    ]}
+  >
+    <img
+      src="/media/etemadmelal-logo.svg"
+      alt={siteConfig.name}
+      class:list={[iconSizes[size], 'drop-shadow-[0_1px_8px_rgba(240,215,140,0.5)]']}
+      width={pxSizes[size]}
+      height={pxSizes[size]}
+    />
+  </span>
+  {
+    showText && (
+      <span class="flex min-w-0 flex-col leading-tight">
+        <span class="text-base font-bold tracking-tight sm:text-lg">{siteConfig.name}</span>
+        <span class="text-[10px] font-medium text-accent-gold-light/80 sm:text-xs">پلتفرم سرمایه‌گذاری</span>
+      </span>
+    )
+  }
+</a>

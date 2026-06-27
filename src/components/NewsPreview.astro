@@ -1,56 +1,56 @@
----
-import { getCollection } from 'astro:content';
-import SectionBadge from './SectionBadge.astro';
-
-const posts = (await getCollection('articles'))
-  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
-  .slice(0, 2);
----
-
-{
-  posts.length > 0 && (
-    <section class="section-spacing relative">
-      <div class="chart-pattern absolute inset-0 opacity-20" aria-hidden="true" />
-      <div class="relative mx-auto max-w-6xl px-4 sm:px-6">
-        <div class="flex flex-wrap items-end justify-between gap-4">
-          <div>
-            <SectionBadge label="مجله سرمایه‌گذاری" />
-            <h2 class="section-title">
-              آخرین <span class="section-title-accent">مقالات</span>
-            </h2>
-            <p class="section-subtitle">راهنماها و مطالب آموزشی اعتماد ملل.</p>
-          </div>
-          <a href="/articles" class="btn-ghost">
-            مشاهده همه ←
-          </a>
-        </div>
-
-        <div class="section-body-gap grid gap-5 sm:grid-cols-2 sm:gap-6">
-          {posts.map((post) => (
-            <a
-              href={`/articles/${post.id}`}
-              class="investment-card group overflow-hidden rounded-2xl transition hover:-translate-y-1"
-            >
-              <img
-                src={post.data.image}
-                alt=""
-                class="aspect-video w-full object-cover transition group-hover:scale-[1.02]"
-                loading="lazy"
-              />
-              <div class="p-6">
-                <time class="text-xs font-medium text-accent-gold" datetime={post.data.date.toISOString()}>
-                  {post.data.dateFa}
-                </time>
-                <h3 class="mt-2 text-lg font-bold text-white group-hover:text-accent-gold-light">
-                  {post.data.title}
-                </h3>
-                <p class="mt-2 line-clamp-2 text-sm text-zinc-400">{post.data.excerpt}</p>
-              </div>
-            </a>
-          ))}
-        </div>
-      </div>
-    </section>
-  )
-}
-
+---
+import { getCollection } from 'astro:content';
+import SectionBadge from './SectionBadge.astro';
+
+const posts = (await getCollection('articles'))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 2);
+---
+
+{
+  posts.length > 0 && (
+    <section class="section-spacing relative">
+      <div class="chart-pattern absolute inset-0 opacity-20" aria-hidden="true" />
+      <div class="relative mx-auto max-w-6xl px-4 sm:px-6">
+        <div class="flex flex-wrap items-end justify-between gap-4">
+          <div>
+            <SectionBadge label="مجله سرمایه‌گذاری" />
+            <h2 class="section-title">
+              آخرین <span class="section-title-accent">مقالات</span>
+            </h2>
+            <p class="section-subtitle">راهنماها و مطالب آموزشی اعتماد ملل.</p>
+          </div>
+          <a href="/articles" class="btn-ghost">
+            مشاهده همه ←
+          </a>
+        </div>
+
+        <div class="section-body-gap grid gap-5 sm:grid-cols-2 sm:gap-6">
+          {posts.map((post) => (
+            <a
+              href={`/articles/${post.id}`}
+              class="investment-card group overflow-hidden rounded-2xl transition hover:-translate-y-1"
+            >
+              <img
+                src={post.data.image}
+                alt={post.data.title}
+                class="aspect-video w-full object-cover transition group-hover:scale-[1.02]"
+                loading="lazy"
+              />
+              <div class="p-6">
+                <time class="text-xs font-medium text-accent-gold" datetime={post.data.date.toISOString()}>
+                  {post.data.dateFa}
+                </time>
+                <h3 class="mt-2 text-lg font-bold text-white group-hover:text-accent-gold-light">
+                  {post.data.title}
+                </h3>
+                <p class="mt-2 line-clamp-2 text-sm text-zinc-400">{post.data.excerpt}</p>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+

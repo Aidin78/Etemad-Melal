@@ -11,9 +11,19 @@ import FAQ from '../components/FAQ.astro';
 import Contact from '../components/Contact.astro';
 import NewsPreview from '../components/NewsPreview.astro';
 import { siteConfig } from '../config/site';
+import {
+  organizationSchema,
+  websiteSchema,
+  financialServiceSchema,
+  faqPageSchema,
+} from '../lib/seo-schemas';
 ---
 
-<Layout title={siteConfig.name} description={siteConfig.description}>
+<Layout
+  title={siteConfig.name}
+  description={siteConfig.longDescription}
+  jsonLd={[organizationSchema, websiteSchema, financialServiceSchema, faqPageSchema()]}
+>
   <Hero />
   <InvestmentTicker />
   <IncomeStreams />

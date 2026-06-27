@@ -15,7 +15,24 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
   },
-  integrations: [sitemap()],
+  integrations: [
+    sitemap({
+      filter: (page) => !page.includes('/news'),
+      serialize(item) {
+        if (item.url === 'https://etemadmelal.com/') {
+          item.priority = 1;
+          item.changefreq = 'weekly';
+        } else if (item.url.includes('/articles/')) {
+          item.priority = 0.7;
+          item.changefreq = 'monthly';
+        } else if (item.url.endsWith('/articles')) {
+          item.priority = 0.8;
+          item.changefreq = 'weekly';
+        }
+        return item;
+      },
+    }),
+  ],
   redirects: {
     '/news': '/articles',
   },

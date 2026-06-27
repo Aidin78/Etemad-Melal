@@ -1,0 +1,79 @@
+# اعتماد ملل | Etemad Melal
+
+> پلتفرم سرمایه‌گذاری فارسی با پنل کاربری اختصاصی — etemadmelal.com
+
+## About (English)
+
+Etemad Melal is a Persian (RTL) investment platform marketing website. User registration, KYC, package purchase, profit tracking, and withdrawals happen in the separate user panel at https://panel.etemadmelal.com — not on this marketing site.
+
+Legal entity: شرکت خلاقان اعتماد ملل دیبا (Tehran, Iran).
+Contact: info@etemadmelal.com
+
+## درباره (فارسی)
+
+اعتماد ملل وب‌سایت معرفی و آموزش پلتفرم سرمایه‌گذاری است. ثبت‌نام، خرید پکیج، مشاهده سود ماهانه، گزارش پاداش‌ها و درخواست برداشت فقط از پنل کاربری انجام می‌شود.
+
+## Investment packages (پکیج‌های سرمایه‌گذاری)
+
+| Package | Monthly return | Contract | Amount range |
+|---------|----------------|----------|--------------|
+| آغازه | 3% | 18 months | 10–100M Toman |
+| پیش‌گام | 4% | 36 months | 100–500M Toman |
+| پایدار | 4.5% | 36 months | 500M–1B Toman |
+| ابر | 5% | 36 months | 1–5B Toman |
+| سرآمد | 6% | 36 months | 5–100B Toman |
+
+Minimum entry: 10 million Toman (آغازه package).
+
+## Income streams (مسیرهای درآمد / پاداش)
+
+1. **سود مشارکت ماهانه** — periodic return based on chosen package; tracked in monthly profit schedule.
+2. **حق مشارکت مستقیم** — reward from direct referral / team activity.
+3. **توسعه مشارکتی (تعادل)** — balance reward from balanced growth in network branches.
+
+Note: marketing copy uses «پاداش» (reward), not «پورسانت» (commission).
+
+## Key pages
+
+- Homepage: https://etemadmelal.com/
+- Articles index: https://etemadmelal.com/articles
+- User panel (login/register): https://panel.etemadmelal.com
+
+### Articles
+
+- https://etemadmelal.com/articles/investment-platform-launch
+- https://etemadmelal.com/articles/investment-transparency
+- https://etemadmelal.com/articles/monthly-profit-guide
+- https://etemadmelal.com/articles/referral-income-guide
+- https://etemadmelal.com/articles/balance-commission-guide
+- https://etemadmelal.com/articles/choose-right-package
+- https://etemadmelal.com/articles/deposit-withdrawal-guide
+- https://etemadmelal.com/articles/responsible-investing
+- https://etemadmelal.com/articles/three-income-streams-overview
+- https://etemadmelal.com/articles/contract-basics
+- https://etemadmelal.com/articles/financial-dashboard-guide
+- https://etemadmelal.com/articles/long-term-investment-planning
+
+## Homepage sections (anchor links)
+
+- /#features — services
+- /#income-streams — income types
+- /#packages-overview — packages
+- /#trust — benefits
+- /#about — about company
+- /#faq — FAQ (6 questions)
+- /#contact — contact form (email + message)
+
+## Risk disclaimer
+
+سرمایه‌گذاری همراه با ریسک است. اطلاعات این سایت جنبه معرفی دارد و توصیه سرمایه‌گذاری نیست. Users should read official contracts before investing.
+
+## Technical
+
+- Static site (Astro), Persian RTL, lang=fa-IR
+- Sitemap: https://etemadmelal.com/sitemap-index.xml
+- Old /news URLs redirect to /articles
+
+## Optional
+
+Full structured data (JSON-LD) is embedded on each page: Organization, WebSite, FinancialService, FAQPage (home), Article + BreadcrumbList (articles).

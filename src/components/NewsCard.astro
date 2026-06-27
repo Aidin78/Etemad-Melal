@@ -14,7 +14,7 @@ const { post } = Astro.props;
 >
   <img
     src={post.data.image}
-    alt=""
+    alt={post.data.title}
     class="aspect-video w-full object-cover transition group-hover:scale-[1.02]"
     loading="lazy"
   />

@@ -2,18 +2,27 @@
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import JsonLd from '../components/JsonLd.astro';
 import { siteConfig } from '../config/site';
 
 interface Props {
   title?: string;
   description?: string;
   image?: string;
+  ogType?: 'website' | 'article';
+  publishedTime?: Date;
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[];
+  noindex?: boolean;
 }
 
 const {
   title = siteConfig.name,
   description = siteConfig.description,
   image = '/images/hero.jpg',
+  ogType = 'website',
+  publishedTime,
+  jsonLd,
+  noindex = false,
 } = Astro.props;
 
 const pageTitle = title === siteConfig.name ? title : `${title} | ${siteConfig.name}`;
@@ -22,22 +31,28 @@ const ogImage = new URL(image, siteConfig.url).href;
 ---
 
 <!doctype html>
-<html lang="fa" dir="rtl">
+<html lang="fa-IR" dir="rtl">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
-    <meta name="generator" content={Astro.generator} />
+    <meta name="author" content={siteConfig.companyLegal} />
+    <meta name="robots" content={noindex ? 'noindex, nofollow' : 'index, follow, max-image-preview:large'} />
+    <meta name="theme-color" content="#0b1219" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/favicon.svg" />
     <link rel="canonical" href={canonical} />
+    <link rel="alternate" type="text/plain" href="/llms.txt" title="Site summary for AI systems" />
 
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={ogType} />
     <meta property="og:locale" content="fa_IR" />
     <meta property="og:site_name" content={siteConfig.name} />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogImage} />
+    <meta property="og:image:alt" content={title} />
+    {publishedTime && <meta property="article:published_time" content={publishedTime.toISOString()} />}
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={pageTitle} />
@@ -45,10 +60,17 @@ const ogImage = new URL(image, siteConfig.url).href;
     <meta name="twitter:image" content={ogImage} />
 
     <title>{pageTitle}</title>
+    {jsonLd && <JsonLd data={jsonLd} />}
   </head>
   <body class="min-h-screen">
+    <a
+      href="#main-content"
+      class="sr-only focus:not-sr-only focus:absolute focus:start-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-accent-gold focus:px-4 focus:py-2 focus:text-secondary focus:outline-none"
+    >
+      پرش به محتوای اصلی
+    </a>
     <Header />
-    <main class="pt-[72px]">
+    <main id="main-content" class="pt-[72px]">
       <slot />
     </main>
     <Footer />
