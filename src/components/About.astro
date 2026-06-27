@@ -21,12 +21,12 @@ const highlights = [
           class="aspect-[4/3] w-full object-cover"
           loading="lazy"
         />
-        <div class="absolute inset-0 bg-gradient-to-t from-[#0b1219] to-transparent"></div>
+        <div class="absolute inset-0 bg-image-overlay-top"></div>
         <div class="absolute bottom-4 right-4 left-4 grid grid-cols-3 gap-2">
           {
             highlights.map((h) => (
               <div class="glass-card rounded-lg p-3 text-center">
-                <p class="text-[10px] text-zinc-500">{h.label}</p>
+                <p class="text-[10px] text-subtle">{h.label}</p>
                 <p class="mt-0.5 text-xs font-bold text-accent-gold-light">{h.value}</p>
               </div>
             ))
@@ -42,7 +42,7 @@ const highlights = [
           {siteConfig.companyLegal} با هدف ارائه بستری شفاف و حرفه‌ای برای سرمایه‌گذاری
           فعالیت می‌کند. ما معتقدیم اعتماد سرمایه‌گذاران، پایه هر همکاری پایدار است.
         </p>
-        <p class="mt-4 text-sm leading-relaxed text-zinc-400">
+        <p class="mt-4 text-sm leading-relaxed text-muted">
           پلتفرم اعتماد ملل با ترکیب تیم مالی مجرب و زیرساخت فناوری پیشرفته، امکان
           مدیریت سرمایه، پیگیری سود و ارتباط با پشتیبانی را در یک پنل یکپارچه فراهم
           می‌کند.

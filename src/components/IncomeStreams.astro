@@ -37,11 +37,11 @@ import { siteConfig } from '../config/site';
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d={stream.icon} />
               </svg>
             </div>
-            <h3 class="mt-4 text-lg font-bold leading-snug text-white sm:text-xl">{stream.title}</h3>
-            <p class="mt-3 flex-1 text-sm leading-relaxed text-zinc-400">{stream.desc}</p>
-            <ul class="mt-5 space-y-2 border-t border-white/10 pt-5">
+            <h3 class="mt-4 text-lg font-bold leading-snug text-heading sm:text-xl">{stream.title}</h3>
+            <p class="mt-3 flex-1 text-sm leading-relaxed text-muted">{stream.desc}</p>
+            <ul class="mt-5 space-y-2 border-t border-divider pt-5">
               {stream.highlights.map((h) => (
-                <li class="flex gap-2 text-xs text-zinc-300">
+                <li class="flex gap-2 text-xs text-body">
                   <span class="mt-1 h-1 w-1 shrink-0 rounded-full" style={`background: ${stream.color}`} />
                   {h}
                 </li>
@@ -52,7 +52,7 @@ import { siteConfig } from '../config/site';
       }
     </div>
 
-    <p class="mt-6 text-center text-xs text-zinc-500 sm:mt-8">
+    <p class="mt-6 text-center text-xs text-subtle sm:mt-8">
       جزئیات مبالغ و تاریخ هر پاداش در بخش‌های «کمیسیون‌ها» و «داشبورد مالی»
       پنل در دسترس است.
     </p>

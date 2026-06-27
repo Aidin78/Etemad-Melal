@@ -47,13 +47,13 @@ const steps = [
           class="aspect-[4/3] w-full object-cover"
           loading="lazy"
         />
-        <div class="absolute inset-0 bg-gradient-to-t from-[#0b1219] via-secondary/50 to-transparent"></div>
+        <div class="absolute inset-0 bg-image-overlay-top"></div>
         <div class="absolute bottom-4 right-4 left-4 investment-card rounded-xl p-4">
           <div class="flex items-center justify-between text-sm">
-            <span class="text-zinc-400">رشد سبد سرمایه</span>
+            <span class="text-muted">رشد سبد سرمایه</span>
             <span class="font-bold text-accent">+۱۲.۴٪</span>
           </div>
-          <div class="mt-2 h-1.5 overflow-hidden rounded-full bg-white/10">
+          <div class="mt-2 h-1.5 overflow-hidden rounded-full bg-[var(--surface-muted)]">
             <div class="h-full w-3/4 rounded-full bg-gradient-to-l from-accent to-accent-gold"></div>
           </div>
         </div>
@@ -76,8 +76,8 @@ const steps = [
                 </svg>
               </div>
             </div>
-            <h3 class="text-lg font-bold text-white">{step.title}</h3>
-            <p class="mt-2 text-sm leading-relaxed text-zinc-400">{step.desc}</p>
+            <h3 class="text-lg font-bold text-heading">{step.title}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-muted">{step.desc}</p>
           </article>
         ))
       }

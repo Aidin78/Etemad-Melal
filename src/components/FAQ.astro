@@ -3,7 +3,7 @@ import SectionBadge from './SectionBadge.astro';
 import { siteFaqs } from '../config/faqs';
 ---
 
-<section id="faq" class="section-spacing bg-secondary/30">
+<section id="faq" class="section-spacing bg-section-alt">
   <div class="mx-auto max-w-3xl px-4 sm:px-6">
     <div class="text-center">
       <SectionBadge label="پرسش‌های متداول" />
@@ -15,14 +15,14 @@ import { siteFaqs } from '../config/faqs';
       {
         siteFaqs.map((item) => (
           <details class="investment-card group rounded-xl transition">
-            <summary class="flex cursor-pointer list-none items-center justify-between gap-4 p-5 text-sm font-bold text-white [&::-webkit-details-marker]:hidden">
+            <summary class="flex cursor-pointer list-none items-center justify-between gap-4 p-5 text-sm font-bold text-heading [&::-webkit-details-marker]:hidden">
               <span class="flex items-center gap-3">
                 <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-accent-gold/15 text-xs text-accent-gold">؟</span>
                 {item.q}
               </span>
               <span class="shrink-0 text-accent-gold transition group-open:rotate-180">▼</span>
             </summary>
-            <p class="border-t border-white/5 px-5 py-5 text-sm leading-relaxed text-zinc-400">
+            <p class="border-t border-divider px-5 py-5 text-sm leading-relaxed text-muted">
               {item.a}
             </p>
           </details>

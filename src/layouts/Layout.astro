@@ -31,14 +31,30 @@ const ogImage = new URL(image, siteConfig.url).href;
 ---
 
 <!doctype html>
-<html lang="fa-IR" dir="rtl">
+<html lang="fa-IR" dir="rtl" data-theme="dark">
   <head>
+    <script is:inline>
+      (function () {
+        var k = 'etemadmelal-theme';
+        var s = localStorage.getItem(k);
+        var t =
+          s === 'light' || s === 'dark'
+            ? s
+            : window.matchMedia('(prefers-color-scheme: light)').matches
+              ? 'light'
+              : 'dark';
+        document.documentElement.setAttribute('data-theme', t);
+        var m = document.querySelector('meta[name="theme-color"]');
+        if (m) m.setAttribute('content', t === 'light' ? '#f4f7fb' : '#0b1219');
+      })();
+    </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
     <meta name="author" content={siteConfig.companyLegal} />
     <meta name="robots" content={noindex ? 'noindex, nofollow' : 'index, follow, max-image-preview:large'} />
-    <meta name="theme-color" content="#0b1219" />
+    <meta name="theme-color" content="#0b1219" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#f4f7fb" media="(prefers-color-scheme: light)" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/favicon.svg" />
     <link rel="canonical" href={canonical} />

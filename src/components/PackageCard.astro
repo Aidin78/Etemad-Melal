@@ -16,10 +16,10 @@ const colorMix25 = `color-mix(in srgb, ${pkg.color} 25%, transparent)`;
 <a
   href={siteConfig.panelUrl}
   class:list={[
-    'package-card group relative block w-full rounded-2xl border-2 bg-[#121a22]/95 p-0 text-start backdrop-blur-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-lg',
+    'package-card group relative block w-full rounded-2xl border-2 p-0 text-start transition-all duration-200 hover:-translate-y-1 hover:shadow-lg',
     pkg.featured
       ? 'border-accent-gold/50 shadow-md shadow-accent-gold/10 ring-2 ring-accent-gold/25'
-      : 'border-white/10 hover:border-white/25',
+      : 'package-card-default',
   ]}
 >
   <div
@@ -62,7 +62,7 @@ const colorMix25 = `color-mix(in srgb, ${pkg.color} 25%, transparent)`;
         </svg>
       </div>
       <div class="min-w-0 flex-1 space-y-2">
-        <h3 class="text-lg font-bold tracking-tight text-white">{pkg.name}</h3>
+        <h3 class="text-lg font-bold tracking-tight text-heading">{pkg.name}</h3>
         <div class="flex flex-wrap gap-2">
           <span
             class="rounded-md px-2 py-0.5 text-[11px] font-semibold text-white"
@@ -70,20 +70,20 @@ const colorMix25 = `color-mix(in srgb, ${pkg.color} 25%, transparent)`;
           >
             {pkg.monthlyReturn}
           </span>
-          <span class="rounded-md border border-white/15 bg-white/5 px-2 py-0.5 text-[11px] font-medium text-zinc-300">
+          <span class="rounded-md border border-divider bg-[var(--surface-muted)] px-2 py-0.5 text-[11px] font-medium text-body">
             {pkg.contractMonths}
           </span>
         </div>
       </div>
     </div>
 
-    <div class="mt-4 border-t border-white/10 pt-4">
-      <dl class="package-details divide-y divide-white/10 rounded-xl border border-white/10 bg-black/20 text-xs">
+    <div class="mt-4 border-t border-divider pt-4">
+      <dl class="package-details divide-y rounded-xl border text-xs">
         {
           packageDetailRows.map((row) => (
             <div class="package-details-row flex gap-3 px-3 py-2.5 sm:grid sm:grid-cols-[1fr_1.1fr] sm:items-center sm:gap-4 sm:px-4">
-              <dt class="font-medium text-zinc-500">{row.label}</dt>
-              <dd class="min-w-0 ps-0 font-semibold tabular-nums text-zinc-100 sm:text-end">
+              <dt class="font-medium text-subtle">{row.label}</dt>
+              <dd class="min-w-0 ps-0 font-semibold tabular-nums text-heading sm:text-end">
                 {pkg[row.key]}
               </dd>
             </div>

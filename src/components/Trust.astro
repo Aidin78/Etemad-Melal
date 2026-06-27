@@ -27,7 +27,7 @@ const stats = [
 ];
 ---
 
-<section id="trust" class="section-spacing bg-gradient-to-b from-secondary/80 to-[#0b1219]">
+<section id="trust" class="section-spacing bg-trust-section">
   <div class="mx-auto max-w-6xl px-4 sm:px-6">
     <div class="text-center">
       <SectionBadge label="مزایای رقابتی" />
@@ -48,8 +48,8 @@ const stats = [
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d={b.icon} />
               </svg>
             </div>
-            <h3 class="text-lg font-bold text-white">{b.title}</h3>
-            <p class="mt-2 text-sm leading-relaxed text-zinc-400">{b.desc}</p>
+            <h3 class="text-lg font-bold text-heading">{b.title}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-muted">{b.desc}</p>
           </article>
         ))
       }
@@ -62,14 +62,14 @@ const stats = [
         class="absolute inset-0 h-full w-full object-cover opacity-25"
         loading="lazy"
       />
-      <div class="absolute inset-0 bg-gradient-to-r from-[#0b1219] via-secondary/90 to-[#0b1219]"></div>
+      <div class="absolute inset-0 bg-image-overlay-horizontal"></div>
       <div class="relative grid grid-cols-2 gap-6 p-8 sm:grid-cols-4 sm:p-12">
         {
           stats.map((s) => (
             <div class="text-center">
               <span class="text-xs text-accent-gold">{s.trend}</span>
               <p class="stat-value mt-1">{s.value}</p>
-              <p class="mt-2 text-sm text-zinc-400">{s.label}</p>
+              <p class="mt-2 text-sm text-muted">{s.label}</p>
             </div>
           ))
         }

@@ -10,25 +10,26 @@ import { siteConfig } from '../config/site';
     <img
       src="/images/hero.jpg"
       alt=""
-      class="h-full w-full object-cover opacity-25"
+      class="hero-img h-full w-full object-cover"
       loading="eager"
       fetchpriority="high"
     />
-    <div class="absolute inset-0 bg-gradient-to-b from-secondary/40 via-secondary/80 to-[#0b1219]"></div>
+    <div class="absolute inset-0 bg-image-overlay-bottom"></div>
   </div>
 
   <div
     class="relative mx-auto flex w-full max-w-6xl flex-col items-center justify-center px-4 py-6 text-center sm:px-6 sm:py-0 sm:pb-24 sm:pt-28"
   >
     <span
-      class="reveal mb-4 inline-flex items-center justify-center gap-2 rounded-full border border-accent-gold/40 bg-accent-gold/10 px-4 py-1.5 text-xs font-semibold text-accent-gold-light sm:mb-6"
+      class="reveal section-badge mb-4 sm:mb-6"
+      style="animation-delay: 0s"
     >
       <span class="h-1.5 w-1.5 animate-pulse rounded-full bg-accent"></span>
       پلتفرم سرمایه‌گذاری اعتماد ملل
     </span>
 
     <h1
-      class="reveal mx-auto max-w-4xl text-3xl font-bold leading-tight text-white sm:mb-0 sm:text-5xl lg:text-6xl"
+      class="reveal mx-auto max-w-4xl text-3xl font-bold leading-tight text-heading sm:mb-0 sm:text-5xl lg:text-6xl"
       style="animation-delay: 0.1s"
     >
       سرمایه‌گذاری هوشمند با
@@ -38,7 +39,7 @@ import { siteConfig } from '../config/site';
     </h1>
 
     <p
-      class="reveal mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-zinc-300 sm:mt-6 sm:text-lg"
+      class="reveal mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-body sm:mt-6 sm:text-lg"
       style="animation-delay: 0.2s"
     >
       {siteConfig.tagline}. با پنل کاربری پیشرفته، وضعیت سرمایه‌گذاری خود را به‌صورت لحظه‌ای
@@ -64,15 +65,15 @@ import { siteConfig } from '../config/site';
     >
       <div class="investment-card rounded-xl p-3 text-center sm:rounded-2xl sm:p-6">
         <p class="stat-value text-xl sm:text-3xl">+۵</p>
-        <p class="mt-0.5 text-[10px] text-zinc-400 sm:mt-1 sm:text-sm">سال فعالیت</p>
+        <p class="mt-0.5 text-[10px] text-muted sm:mt-1 sm:text-sm">سال فعالیت</p>
       </div>
       <div class="investment-card rounded-xl p-3 text-center sm:rounded-2xl sm:p-6">
         <p class="stat-value text-xl sm:text-3xl">۱۰۰٪</p>
-        <p class="mt-0.5 text-[10px] text-zinc-400 sm:mt-1 sm:text-sm">شفافیت گزارش</p>
+        <p class="mt-0.5 text-[10px] text-muted sm:mt-1 sm:text-sm">شفافیت گزارش</p>
       </div>
       <div class="investment-card rounded-xl p-3 text-center sm:rounded-2xl sm:p-6">
         <p class="stat-value text-xl sm:text-3xl">۲۴/۷</p>
-        <p class="mt-0.5 text-[10px] text-zinc-400 sm:mt-1 sm:text-sm">پشتیبانی</p>
+        <p class="mt-0.5 text-[10px] text-muted sm:mt-1 sm:text-sm">پشتیبانی</p>
       </div>
     </div>
   </div>

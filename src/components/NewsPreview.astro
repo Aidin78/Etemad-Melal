@@ -41,10 +41,10 @@ const posts = (await getCollection('articles'))
                 <time class="text-xs font-medium text-accent-gold" datetime={post.data.date.toISOString()}>
                   {post.data.dateFa}
                 </time>
-                <h3 class="mt-2 text-lg font-bold text-white group-hover:text-accent-gold-light">
+                <h3 class="mt-2 text-lg font-bold text-heading group-hover:text-accent-gold-light">
                   {post.data.title}
                 </h3>
-                <p class="mt-2 line-clamp-2 text-sm text-zinc-400">{post.data.excerpt}</p>
+                <p class="mt-2 line-clamp-2 text-sm text-muted">{post.data.excerpt}</p>
               </div>
             </a>
           ))}

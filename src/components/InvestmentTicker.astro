@@ -10,11 +10,11 @@ const items = [
 ---
 
 <div
-  class="ticker-viewport relative overflow-hidden border-y border-accent-gold/15 bg-gradient-to-r from-secondary via-[#152028] to-secondary py-3"
+  class="ticker-viewport relative overflow-hidden border-y border-accent-gold/15 bg-ticker py-3"
   aria-hidden="true"
 >
-  <div class="pointer-events-none absolute inset-y-0 right-0 z-10 w-20 bg-gradient-to-l from-[#152028] to-transparent"></div>
-  <div class="pointer-events-none absolute inset-y-0 left-0 z-10 w-20 bg-gradient-to-r from-[#152028] to-transparent"></div>
+  <div class="pointer-events-none absolute inset-y-0 right-0 z-10 w-20 ticker-fade-start"></div>
+  <div class="pointer-events-none absolute inset-y-0 left-0 z-10 w-20 ticker-fade-end"></div>
 
   <div class="ticker-viewport-inner">
     <div class="ticker-inner">
@@ -22,7 +22,7 @@ const items = [
         {
           items.map((item) => (
             <span class="ticker-item">
-              <span class="font-medium text-zinc-300">{item.label}</span>
+              <span class="font-medium text-body">{item.label}</span>
               <span class="rounded-md bg-accent/15 px-2 py-0.5 text-xs font-bold text-accent">
                 {item.trend}
               </span>
@@ -35,7 +35,7 @@ const items = [
         {
           items.map((item) => (
             <span class="ticker-item">
-              <span class="font-medium text-zinc-300">{item.label}</span>
+              <span class="font-medium text-body">{item.label}</span>
               <span class="rounded-md bg-accent/15 px-2 py-0.5 text-xs font-bold text-accent">
                 {item.trend}
               </span>
