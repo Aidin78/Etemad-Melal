@@ -18,7 +18,7 @@ export const en: Translations = {
     { href: '/#income-streams', label: 'Income' },
     { href: '/#packages-overview', label: 'Packages' },
     { href: '/#trust', label: 'Benefits' },
-    { href: '/#about', label: 'About' },
+    { href: '/about', label: 'About' },
     { href: '/#faq', label: 'FAQ' },
     { href: '/#contact', label: 'Contact' },
     { href: '/articles', label: 'Articles' },
@@ -224,6 +224,7 @@ export const en: Translations = {
     ],
     ctaStart: 'Start investing',
     ctaContact: 'Contact us',
+    ctaLearnMore: 'Learn more about us',
   },
   news: {
     badge: 'Investment magazine',

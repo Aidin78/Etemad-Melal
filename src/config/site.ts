@@ -29,7 +29,7 @@ export const navLinks = [
   { href: '/#income-streams', label: 'درآمد' },
   { href: '/#packages-overview', label: 'پکیج‌ها' },
   { href: '/#trust', label: 'مزایا' },
-  { href: '/#about', label: 'درباره ما' },
+  { href: '/about', label: 'درباره ما' },
   { href: '/#faq', label: 'سوالات' },
   { href: '/#contact', label: 'تماس' },
   { href: '/articles', label: 'مقالات' },

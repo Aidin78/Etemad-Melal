@@ -104,6 +104,7 @@ export type Translations = {
     highlights: { label: string; value: string }[];
     ctaStart: string;
     ctaContact: string;
+    ctaLearnMore: string;
   };
   news: {
     badge: string;

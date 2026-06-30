@@ -12,7 +12,7 @@ const { locale } = Astro.props;
 const t = getTranslations(locale);
 ---
 
-<section id="about" class="section-spacing relative overflow-hidden">
+<section id="about-preview" class="section-spacing relative overflow-hidden">
   <div class="glow-orb right-0 top-1/4 h-56 w-56 bg-primary/25"></div>
   <div class="relative mx-auto max-w-6xl px-4 sm:px-6">
     <div class="grid items-center gap-8 lg:grid-cols-2 lg:gap-12">
@@ -38,8 +38,8 @@ const t = getTranslations(locale);
         <p class="section-subtitle">{t.about.subtitle}</p>
         <p class="mt-4 text-sm leading-relaxed text-muted">{t.about.body}</p>
         <div class="mt-8 flex flex-wrap gap-3">
-          <a href={siteConfig.panelUrl} class="btn-primary">{t.about.ctaStart}</a>
-          <a href={localePath(locale, '/#contact')} class="btn-outline">{t.about.ctaContact}</a>
+          <a href={localePath(locale, '/about')} class="btn-primary">{t.about.ctaLearnMore}</a>
+          <a href={siteConfig.panelUrl} class="btn-outline">{t.about.ctaStart}</a>
         </div>
       </div>
     </div>

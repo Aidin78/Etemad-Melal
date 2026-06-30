@@ -638,6 +638,7 @@ h4 {
 
 .section-title-accent {
   @apply bg-gradient-to-l from-accent-gold-light via-accent to-primary-light bg-clip-text text-transparent;
+  margin-inline-start: 0.35em;
 }
 
 .section-subtitle {
@@ -651,6 +652,77 @@ h4 {
 
 .section-body-gap {
   @apply mt-8 sm:mt-14;
+}
+
+.about-stat-pill {
+  border: 1px solid var(--border);
+  background: var(--surface-muted);
+}
+
+.about-timeline-item:not(:last-child)::before {
+  content: '';
+  position: absolute;
+  top: 3.25rem;
+  bottom: 0;
+  inset-inline-start: 1.75rem;
+  width: 2px;
+  background: linear-gradient(to bottom, rgb(212 168 83 / 0.45), rgb(16 185 129 / 0.15));
+}
+
+.about-timeline-index {
+  display: flex;
+  height: 3rem;
+  width: 3rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 1rem;
+  border: 1px solid rgb(212 168 83 / 0.35);
+  background: linear-gradient(145deg, rgb(212 168 83 / 0.18), rgb(16 185 129 / 0.08));
+  font-size: 0.875rem;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  color: var(--gold-emphasis);
+}
+
+.about-timeline-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.about-timeline-card:hover {
+  transform: translateY(-2px);
+}
+
+.about-value-icon {
+  border: 1px solid rgb(212 168 83 / 0.25);
+  background: linear-gradient(145deg, rgb(212 168 83 / 0.15), rgb(48 84 117 / 0.12));
+}
+
+.about-value-card:hover .about-value-icon {
+  border-color: rgb(212 168 83 / 0.45);
+}
+
+.about-cta-band {
+  border: 1px solid var(--border);
+  background: linear-gradient(
+    135deg,
+    rgb(48 84 117 / 0.2) 0%,
+    var(--surface) 45%,
+    rgb(16 185 129 / 0.08) 100%
+  );
+  box-shadow: inset 0 1px 0 rgb(240 215 140 / 0.08);
+}
+
+[data-theme='light'] .about-stat-pill {
+  background: rgb(255 255 255 / 0.85);
+}
+
+[data-theme='light'] .about-cta-band {
+  background: linear-gradient(135deg, #ffffff 0%, #f3f7fb 50%, #faf0dc 100%);
+  border-color: rgb(154 115 9 / 0.12);
+}
+
+[data-theme='light'] .about-timeline-item:not(:last-child)::before {
+  background: linear-gradient(to bottom, rgb(154 115 9 / 0.25), rgb(48 84 117 / 0.08));
 }
 
 .article-prose {

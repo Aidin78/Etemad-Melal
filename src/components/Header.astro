@@ -22,6 +22,10 @@ const navDataAttrs = (href: string) => {
   if (href === '/articles' || href.startsWith('/articles')) {
     return { 'data-nav-path': articlesPath };
   }
+  const aboutPath = localePath(locale, '/about');
+  if (href === '/about' || href.startsWith('/about')) {
+    return { 'data-nav-path': aboutPath };
+  }
   return {};
 };
 
@@ -189,6 +193,6 @@ const localizedHref = (href: string) => localePath(locale, href);
   }
 
   const path = normalizePath();
-  if (path.includes('/articles')) initPageNav();
+  if (path.includes('/articles') || path.includes('/about')) initPageNav();
   else if (path === '/' || path === '/en') initScrollSpy();
 </script>

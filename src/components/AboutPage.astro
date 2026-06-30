@@ -1,0 +1,134 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SectionBadge from './SectionBadge.astro';
+import AboutSectionContent from './AboutSectionContent.astro';
+import { siteConfig } from '../config/site';
+import { getEntry } from 'astro:content';
+import type { Locale } from '../i18n/types';
+import { getTranslations, localePath } from '../i18n';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = getTranslations(locale);
+const entry = await getEntry('about', locale);
+
+if (!entry) {
+  throw new Error(`About page content not found for locale: ${locale}`);
+}
+
+const { data } = entry;
+---
+
+<Layout locale={locale} title={data.metaTitle} description={data.metaDescription}>
+  <section class="relative overflow-hidden mesh-gradient pb-14 pt-10 sm:pb-20 sm:pt-16">
+    <div class="grid-pattern absolute inset-0 opacity-35" aria-hidden="true"></div>
+    <div class="relative mx-auto max-w-6xl px-4 sm:px-6">
+      <div class="grid items-center gap-10 lg:grid-cols-2 lg:gap-14">
+        <div>
+          <SectionBadge label={t.about.badge} />
+          <h1 class="mt-4 text-4xl font-bold leading-tight text-heading sm:text-5xl lg:text-6xl">
+            {data.heroTitle}<span class="section-title-accent">{data.heroTitleAccent}</span>
+          </h1>
+          <p class="mt-5 max-w-xl text-base leading-relaxed text-muted sm:text-lg">{data.heroSubtitle}</p>
+
+          <dl class="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-3">
+            {
+              data.highlights.map((item) => (
+                <div class="about-stat-pill rounded-xl px-4 py-3">
+                  <dt class="text-[11px] text-subtle">{item.label}</dt>
+                  <dd class="mt-1 text-sm font-bold text-accent-gold-light">{item.value}</dd>
+                </div>
+              ))
+            }
+          </dl>
+        </div>
+
+        <div class="relative overflow-hidden rounded-2xl ring-1 ring-accent-gold/25 shadow-[0_24px_60px_rgb(0_0_0/0.35)]">
+          <img src={data.image} alt={data.imageAlt} class="aspect-[4/3] w-full object-cover" loading="eager" />
+          <div class="absolute inset-0 bg-image-overlay-top"></div>
+          <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[var(--page)] via-[var(--page)]/80 to-transparent p-5 pt-16">
+            <p class="text-sm font-medium text-heading">{t.companyLegal}</p>
+            <p class="mt-1 text-xs text-subtle">{t.tagline}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="relative py-12 sm:py-20">
+    <div class="mx-auto max-w-3xl px-4 sm:px-6">
+      <div class="mb-10 text-center">
+        <h2 class="text-2xl font-bold text-heading sm:text-3xl">{locale === 'fa' ? 'توضیحات' : 'Details'}</h2>
+        <p class="mt-2 text-sm text-muted">
+          {locale === 'fa' ? 'مرور کامل فعالیت، خدمات و تعهدات اعتماد ملل' : 'A full overview of Etemad Melal’s work, services, and commitments'}
+        </p>
+      </div>
+
+      <ol class="about-timeline space-y-0">
+        {
+          data.sections.map((section, index) => (
+            <li class="about-timeline-item relative pb-10 last:pb-0">
+              <div class="about-timeline-card investment-card rounded-2xl p-6 sm:p-8">
+                <div class="flex items-start gap-4 sm:gap-5">
+                  <span class="about-timeline-index shrink-0" aria-hidden="true">
+                    {String(index + 1).padStart(2, '0')}
+                  </span>
+                  <div class="min-w-0 flex-1">
+                    <h3 class="text-xl font-bold text-heading sm:text-2xl">{section.title}</h3>
+                    <div class="mt-4 border-t border-divider pt-4">
+                      <AboutSectionContent content={section.content} />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <section class="section-spacing bg-section-alt">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6">
+      <div class="text-center">
+        <SectionBadge label={data.valuesTitle} dot={false} />
+        <h2 class="section-title mt-4">{data.valuesTitle}</h2>
+      </div>
+      <div class="section-body-gap grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        {
+          data.values.map((value) => (
+            <article class="about-value-card investment-card rounded-2xl p-6 text-center transition hover:-translate-y-0.5">
+              <div class="about-value-icon mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl text-xl text-accent-gold-light">
+                {value.icon}
+              </div>
+              <h3 class="text-lg font-bold text-heading">{value.title}</h3>
+              <p class="mt-2 text-sm leading-relaxed text-muted">{value.desc}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="pb-20 pt-4">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6">
+      <div class="about-cta-band rounded-2xl px-6 py-10 text-center sm:px-10 sm:py-12">
+        <h2 class="text-2xl font-bold text-heading sm:text-3xl">
+          {locale === 'fa' ? 'آماده شروع سرمایه‌گذاری هستید؟' : 'Ready to start investing?'}
+        </h2>
+        <p class="mx-auto mt-3 max-w-xl text-sm text-muted sm:text-base">
+          {locale === 'fa'
+            ? 'ثبت‌نام در پنل، انتخاب پکیج و پیگیری سود — همه در یک محیط یکپارچه.'
+            : 'Sign up in the panel, choose a package, and track profit — all in one place.'}
+        </p>
+        <div class="mt-8 flex flex-wrap justify-center gap-3">
+          <a href={siteConfig.panelUrl} class="btn-primary">{t.about.ctaStart}</a>
+          <a href={localePath(locale, '/#contact')} class="btn-outline">{t.about.ctaContact}</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>

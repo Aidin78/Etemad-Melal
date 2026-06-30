@@ -30,7 +30,7 @@ export const fa: Translations = {
     { href: '/#income-streams', label: 'درآمد' },
     { href: '/#packages-overview', label: 'پکیج‌ها' },
     { href: '/#trust', label: 'مزایا' },
-    { href: '/#about', label: 'درباره ما' },
+    { href: '/about', label: 'درباره ما' },
     { href: '/#faq', label: 'سوالات' },
     { href: '/#contact', label: 'تماس' },
     { href: '/articles', label: 'مقالات' },
@@ -188,6 +188,7 @@ export const fa: Translations = {
     ],
     ctaStart: 'شروع سرمایه‌گذاری',
     ctaContact: 'تماس با ما',
+    ctaLearnMore: 'درباره ما بیشتر بدانید',
   },
   news: {
     badge: 'مجله سرمایه‌گذاری',

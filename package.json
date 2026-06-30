@@ -9,6 +9,7 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
+    "export:logo": "node scripts/export-logo-full.mjs",
     "astro": "astro"
   },
   "dependencies": {
@@ -16,5 +17,8 @@
     "@tailwindcss/vite": "^4.3.0",
     "astro": "^6.3.7",
     "tailwindcss": "^4.3.0"
+  },
+  "devDependencies": {
+    "@resvg/resvg-js": "^2.6.2"
   }
 }
