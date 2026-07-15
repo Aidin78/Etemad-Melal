@@ -1,6 +1,6 @@
 ---
-import { getCollection } from 'astro:content';
-import SectionBadge from './SectionBadge.astro';
+import { getSortedArticles } from '../lib/articles';
+import SectionHeader from './SectionHeader.astro';
 import NewsCard from './NewsCard.astro';
 import type { Locale } from '../i18n/types';
 import { getTranslations, localePath } from '../i18n';
@@ -11,10 +11,7 @@ interface Props {
 
 const { locale } = Astro.props;
 const t = getTranslations(locale);
-
-const posts = (await getCollection('articles'))
-  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
-  .slice(0, 2);
+const posts = (await getSortedArticles(locale)).slice(0, 2);
 ---
 
 {
@@ -24,11 +21,12 @@ const posts = (await getCollection('articles'))
       <div class="relative mx-auto max-w-6xl px-4 sm:px-6">
         <div class="flex flex-wrap items-end justify-between gap-4">
           <div>
-            <SectionBadge label={t.news.badge} />
-            <h2 class="section-title">
-              {t.news.title} <span class="section-title-accent">{t.news.titleAccent}</span>
-            </h2>
-            <p class="section-subtitle">{t.news.subtitle}</p>
+            <SectionHeader
+              badge={t.news.badge}
+              title={t.news.title}
+              titleAccent={t.news.titleAccent}
+              subtitle={t.news.subtitle}
+            />
           </div>
           <a href={localePath(locale, '/articles')} class="btn-ghost">{t.news.viewAll}</a>
         </div>

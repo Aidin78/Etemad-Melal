@@ -1,5 +1,6 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
+import { EnumChangefreq } from 'sitemap';
 
 import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
@@ -20,14 +21,13 @@ export default defineConfig({
       filter: (page) => !page.includes('/news'),
       serialize(item) {
         if (item.url === 'https://etemadmelal.com/') {
-          item.priority = 1;
-          item.changefreq = 'weekly';
-        } else if (item.url.includes('/articles/')) {
-          item.priority = 0.7;
-          item.changefreq = 'monthly';
-        } else if (item.url.endsWith('/articles')) {
-          item.priority = 0.8;
-          item.changefreq = 'weekly';
+          return { ...item, priority: 1, changefreq: EnumChangefreq.WEEKLY };
+        }
+        if (item.url.includes('/articles/')) {
+          return { ...item, priority: 0.7, changefreq: EnumChangefreq.MONTHLY };
+        }
+        if (item.url.endsWith('/articles')) {
+          return { ...item, priority: 0.8, changefreq: EnumChangefreq.WEEKLY };
         }
         return item;
       },

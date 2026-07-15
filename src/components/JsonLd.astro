@@ -9,6 +9,6 @@ const graphs = Array.isArray(data) ? data : [data];
 
 {
   graphs.map((graph) => (
-    <script type="application/ld+json" set:html={JSON.stringify(graph)} />
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(graph)} />
   ))
 }

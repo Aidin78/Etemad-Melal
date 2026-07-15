@@ -32,8 +32,6 @@ export type PackageDisplay = {
   featured?: boolean;
 };
 
-export type ArticleMeta = { title: string; excerpt: string; dateLabel?: string };
-
 export type Translations = {
   locale: Locale;
   lang: string;
@@ -131,8 +129,6 @@ export type Translations = {
     pageTitle: string;
     pageSubtitle: string;
     backToArticles: string;
-    articleLocaleNotice: string;
-    viewInPersian: string;
   };
   faq: { badge: string; title: string; titleAccent: string; subtitle: string; items: FaqItem[] };
   contact: {
@@ -179,5 +175,4 @@ export type Translations = {
     rights: string;
     disclaimer: string;
   };
-  articlesMeta: Record<string, ArticleMeta>;
 };

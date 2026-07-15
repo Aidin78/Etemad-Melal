@@ -5,6 +5,7 @@ import Footer from '../components/Footer.astro';
 import BackgroundOrbs from '../components/BackgroundOrbs.astro';
 import JsonLd from '../components/JsonLd.astro';
 import { siteConfig } from '../config/site';
+import { siteImages } from '../config/images';
 import type { Locale } from '../i18n/types';
 import { getTranslations, alternateLocalePath, localeHreflang, ogLocale } from '../i18n';
 import { defaultLocale } from '../i18n/utils';
@@ -24,7 +25,7 @@ const {
   locale = defaultLocale,
   title,
   description,
-  image = '/images/hero.jpg',
+  image = siteImages.hero,
   ogType = 'website',
   publishedTime,
   jsonLd,

@@ -1,0 +1,25 @@
+---
+import SectionBadge from './SectionBadge.astro';
+
+interface Props {
+  badge: string;
+  title: string;
+  titleAccent: string;
+  subtitle?: string;
+  align?: 'center' | 'start';
+  dot?: boolean;
+  class?: string;
+}
+
+const { badge, title, titleAccent, subtitle, align = 'start', dot = true, class: className } = Astro.props;
+const alignClass = align === 'center' ? 'text-center' : '';
+const subtitleClass = align === 'center' ? 'section-subtitle mx-auto' : 'section-subtitle';
+---
+
+<div class:list={[alignClass, className]}>
+  <SectionBadge label={badge} dot={dot} />
+  <h2 class="section-title">
+    {title} <span class="section-title-accent">{titleAccent}</span>
+  </h2>
+  {subtitle && <p class={subtitleClass}>{subtitle}</p>}
+</div>

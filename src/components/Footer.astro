@@ -1,6 +1,6 @@
 ---
-import { siteConfig } from '../config/site';
-import LogoIcon from './LogoIcon.astro';
+import Logo from './Logo.astro';
+import PanelLink from './PanelLink.astro';
 import type { Locale } from '../i18n/types';
 import { getTranslations, localePath } from '../i18n';
 
@@ -11,7 +11,6 @@ interface Props {
 const { locale } = Astro.props;
 const t = getTranslations(locale);
 const year = new Date().getFullYear();
-const home = localePath(locale, '/');
 const contact = localePath(locale, '/#contact');
 ---
 
@@ -31,7 +30,7 @@ const contact = localePath(locale, '/#contact');
           <p class="mt-2 max-w-xl text-sm text-muted">{t.footer.ctaSubtitle}</p>
         </div>
         <div class="flex shrink-0 flex-wrap items-center justify-center gap-3">
-          <a href={siteConfig.panelUrl} class="btn-primary">{t.panelCtaLogin}</a>
+          <PanelLink locale={locale}>{t.panelCtaLogin}</PanelLink>
           <a href={contact} class="btn-outline">{t.footer.ctaContact}</a>
         </div>
       </div>
@@ -41,13 +40,7 @@ const contact = localePath(locale, '/#contact');
   <div class="relative mx-auto max-w-6xl px-4 py-14 sm:px-6">
     <div class="grid gap-12 lg:grid-cols-12">
       <div class="lg:col-span-4">
-        <a href={home} class="group inline-flex items-center gap-3 text-heading">
-          <LogoIcon alt={t.siteName} size="lg" />
-          <div>
-            <span class="block text-lg font-bold">{t.siteName}</span>
-            <span class="text-xs text-subtle">{t.footer.taglineSub}</span>
-          </div>
-        </a>
+        <Logo locale={locale} size="lg" animated={false} class="mb-0" />
         <p class="mt-5 text-sm leading-relaxed text-muted">{t.tagline}</p>
         <p class="mt-3 text-xs text-subtle">{t.companyLegal}</p>
         <div class="mt-6 flex flex-wrap gap-2">
@@ -111,9 +104,7 @@ const contact = localePath(locale, '/#contact');
             <span class="text-xs font-bold">{t.footer.panelTitle}</span>
           </div>
           <p class="mt-3 text-sm leading-relaxed text-muted">{t.footer.panelDesc}</p>
-          <a href={siteConfig.panelUrl} class="btn-primary mt-5 w-full justify-center text-center text-sm">
-            {t.panelCtaLogin}
-          </a>
+          <PanelLink locale={locale} class="mt-5 w-full justify-center text-center text-sm">{t.panelCtaLogin}</PanelLink>
         </div>
       </div>
     </div>

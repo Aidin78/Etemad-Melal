@@ -1,0 +1,20 @@
+---
+import CtaArrow from './CtaArrow.astro';
+import { panelLinkAttrs } from '../lib/panel';
+import type { Locale } from '../i18n/types';
+
+interface Props {
+  locale: Locale;
+  class?: string;
+  variant?: 'primary' | 'outline';
+  showArrow?: boolean;
+}
+
+const { locale, class: className, variant = 'primary', showArrow = false } = Astro.props;
+const variantClass = variant === 'outline' ? 'btn-outline' : 'btn-primary';
+---
+
+<a class:list={[variantClass, className]} {...panelLinkAttrs}>
+  <slot />
+  {showArrow && <CtaArrow locale={locale} />}
+</a>

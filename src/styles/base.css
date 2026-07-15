@@ -1,0 +1,26 @@
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: iransansx, tahoma, sans-serif;
+  background-color: var(--page);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease;
+}
+
+@supports (font-variation-settings: normal) {
+  body {
+    font-family: iransansxv, iransansx, tahoma, sans-serif;
+  }
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-variation-settings: 'DOTS' 4;
+}

@@ -244,8 +244,6 @@ export const en: Translations = {
     pageTitle: 'Articles',
     pageSubtitle: 'Guides and educational content for smart investing',
     backToArticles: '← Back to articles',
-    articleLocaleNotice: 'This article is available in Persian. English summary is shown above; full content follows in Persian.',
-    viewInPersian: 'View in Persian',
   },
   faq: {
     badge: 'FAQ',
@@ -323,55 +321,5 @@ export const en: Translations = {
     rights: 'All rights reserved.',
     disclaimer:
       'Investing involves risk. Information on this website is for introduction only and is not investment advice. Please read official contracts before making any decision.',
-  },
-  articlesMeta: {
-    'investment-platform-launch': {
-      title: 'Getting started with the Etemad Melal panel',
-      excerpt: 'From signup to package selection and financial reports — your path into the platform.',
-    },
-    'financial-dashboard-guide': {
-      title: 'Financial dashboard: everything at a glance',
-      excerpt: 'Balance, paid profit, monthly commitment, and network volume — what each section means.',
-    },
-    'investment-transparency': {
-      title: 'How financial transparency works at Etemad Melal',
-      excerpt: 'Deposits, withdrawals, monthly profit, and rewards — all visible in real-time panel reports.',
-    },
-    'contract-basics': {
-      title: 'Package contract: what to read before signing',
-      excerpt: 'Term, amount, return rate, and withdrawal rules — a guide to the digital contract in the panel.',
-    },
-    'monthly-profit-guide': {
-      title: 'Monthly package profit: from commitment to payout',
-      excerpt: 'What monthly profit is, how to track it in the panel, and how it relates to your package.',
-    },
-    'three-income-streams-overview': {
-      title: 'Three income streams at Etemad Melal — overview',
-      excerpt: 'Monthly profit, direct participation, and collaborative growth — who each stream suits.',
-    },
-    'referral-income-guide': {
-      title: 'Referral income: direct participation rewards',
-      excerpt: 'Referral codes and direct reward reports — a guide to earning from introductions.',
-    },
-    'balance-commission-guide': {
-      title: 'Balance reward & collaborative growth',
-      excerpt: 'How balance rewards are calculated from balanced network participation volume.',
-    },
-    'choose-right-package': {
-      title: 'How to choose the right package',
-      excerpt: 'Compare Aghaze through Saramad by amount, monthly return, and contract term.',
-    },
-    'deposit-withdrawal-guide': {
-      title: 'Deposit & withdrawal guide in the Etemad Melal panel',
-      excerpt: 'Fund your wallet, request withdrawals, and track transaction status.',
-    },
-    'responsible-investing': {
-      title: 'Responsible investing: first principles before choosing a package',
-      excerpt: 'Why invest only spare capital and how to set realistic monthly return expectations.',
-    },
-    'long-term-investment-planning': {
-      title: '18- and 36-month planning with Etemad Melal packages',
-      excerpt: 'Aligning contract horizons with your personal financial goals.',
-    },
   },
 };

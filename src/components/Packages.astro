@@ -1,8 +1,7 @@
 ---
-import SectionBadge from './SectionBadge.astro';
+import SectionHeader from './SectionHeader.astro';
 import PackageCard from './PackageCard.astro';
-import CtaArrow from './CtaArrow.astro';
-import { siteConfig } from '../config/site';
+import PanelLink from './PanelLink.astro';
 import type { Locale } from '../i18n/types';
 import { getTranslations } from '../i18n';
 
@@ -18,11 +17,13 @@ const t = getTranslations(locale);
   <div class="relative mx-auto max-w-6xl px-4 sm:px-6">
     <div class="chart-pattern absolute inset-0 opacity-20" aria-hidden="true"></div>
     <div class="relative text-center">
-      <SectionBadge label={t.packages.badge} />
-      <h2 class="section-title">
-        {t.packages.title} <span class="section-title-accent">{t.packages.titleAccent}</span>
-      </h2>
-      <p class="section-subtitle mx-auto">{t.packages.subtitle}</p>
+      <SectionHeader
+        badge={t.packages.badge}
+        title={t.packages.title}
+        titleAccent={t.packages.titleAccent}
+        subtitle={t.packages.subtitle}
+        align="center"
+      />
     </div>
 
     <div class="section-body-gap relative grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -31,10 +32,9 @@ const t = getTranslations(locale);
 
     <p class="relative mt-6 text-center text-xs text-subtle">{t.packages.disclaimer}</p>
     <div class="relative mt-8 flex justify-center">
-      <a href={siteConfig.panelUrl} class="btn-primary min-w-[220px] justify-center font-semibold">
+      <PanelLink locale={locale} showArrow class="min-w-[220px] justify-center font-semibold">
         {t.packages.cta}
-        <CtaArrow locale={locale} />
-      </a>
+      </PanelLink>
     </div>
   </div>
 </section>

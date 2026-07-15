@@ -1,0 +1,140 @@
+@theme {
+  --color-primary: #305475;
+  --color-primary-light: #74a0cc;
+  --color-secondary: #1d2a36;
+  --color-accent: #4a9ec4;
+  --color-accent-gold: #d4a853;
+  --color-accent-gold-light: #f0d78c;
+  --font-sans: iransansx, tahoma, ui-sans-serif, system-ui, sans-serif;
+}
+
+/* ── Theme tokens ── */
+:root,
+[data-theme='dark'] {
+  color-scheme: dark;
+  --accent-rgb: 74 158 196;
+  --page: #0b1219;
+  --page-secondary: #080e14;
+  --page-alt: #152028;
+  --text: #e8edf2;
+  --heading: #ffffff;
+  --muted: #a1a1aa;
+  --subtle: #71717a;
+  --faint: #52525b;
+  --nav: #d4d4d8;
+  --nav-hover: #f0d78c;
+  --header-bg: rgb(11 18 25 / 0.88);
+  --header-bg-mobile: rgb(11 18 25 / 0.96);
+  --footer-bg: #080e14;
+  --border: rgb(212 168 83 / 0.12);
+  --border-strong: rgb(255 255 255 / 0.1);
+  --surface: rgb(18 26 34 / 0.95);
+  --surface-muted: rgb(255 255 255 / 0.05);
+  --input-bg: rgb(255 255 255 / 0.05);
+  --input-text: #ffffff;
+  --mesh-base: #0b1219;
+  --theme-color: #0b1219;
+  --hero-img-opacity: 0.25;
+  --logo-glow: rgb(240 215 140 / 0.45);
+  --glass-from: rgb(29 42 54 / 0.75);
+  --glass-to: rgb(20 30 40 / 0.55);
+  --card-from: rgb(48 84 117 / 0.35);
+  --card-mid: rgb(29 42 54 / 0.6);
+  --card-to: rgb(11 18 25 / 0.8);
+  --outline-text: #ffffff;
+  --outline-bg: rgb(255 255 255 / 0.04);
+  --prose-heading: #ffffff;
+  --prose-body: #d4d4d8;
+  --prose-link: #74a0cc;
+  --section-alt: rgb(29 42 54 / 0.3);
+  --trust-gradient-end: #0b1219;
+  --ticker-fade: #152028;
+  --package-details-bg: rgb(0 0 0 / 0.2);
+  --package-border: rgb(212 168 83 / 0.14);
+  --package-border-inner: rgb(48 84 117 / 0.18);
+  --toggle-bg: rgb(255 255 255 / 0.05);
+  --toggle-text: #ffffff;
+  --gold-emphasis: #f0d78c;
+  --gold-soft: #d4a853;
+  --footer-cta-from: rgb(48 84 117 / 0.45);
+  --footer-cta-mid: #1d2a36;
+  --footer-cta-to: rgb(var(--accent-rgb) / 0.1);
+  --footer-cta-ring: rgb(212 168 83 / 0.1);
+}
+
+[data-theme='light'] {
+  color-scheme: light;
+  --accent-rgb: 61 142 184;
+  --page: #f4f7fb;
+  --page-secondary: #e8eef5;
+  --page-alt: #dfe8f2;
+  --text: #1d2a36;
+  --heading: #0f1820;
+  --muted: #5a6b7d;
+  --subtle: #7a8a9a;
+  --faint: #94a3b8;
+  --nav: #3d4f5f;
+  --nav-hover: #9a7309;
+  --header-bg: rgb(244 247 251 / 0.92);
+  --header-bg-mobile: rgb(244 247 251 / 0.98);
+  --footer-bg: #e8eef5;
+  --border: rgb(48 84 117 / 0.18);
+  --border-strong: rgb(29 42 54 / 0.1);
+  --surface: rgb(255 255 255 / 0.95);
+  --surface-muted: rgb(29 42 54 / 0.04);
+  --input-bg: rgb(255 255 255 / 0.9);
+  --input-text: #1d2a36;
+  --mesh-base: #f4f7fb;
+  --theme-color: #f4f7fb;
+  --hero-img-opacity: 0.12;
+  --logo-glow: rgb(154 115 9 / 0.4);
+  --glass-from: rgb(255 255 255 / 0.85);
+  --glass-to: rgb(244 247 251 / 0.75);
+  --card-from: rgb(255 255 255 / 0.95);
+  --card-mid: rgb(248 250 252 / 0.9);
+  --card-to: rgb(232 238 245 / 0.85);
+  --outline-text: #1d2a36;
+  --outline-bg: rgb(255 255 255 / 0.6);
+  --prose-heading: #0f1820;
+  --prose-body: #3d4f5f;
+  --prose-link: #305475;
+  --section-alt: rgb(48 84 117 / 0.06);
+  --trust-gradient-end: #f4f7fb;
+  --ticker-fade: #dfe8f2;
+  --package-details-bg: rgb(244 247 251 / 0.8);
+  --package-border: rgb(48 84 117 / 0.14);
+  --package-border-inner: rgb(29 42 54 / 0.08);
+  --toggle-bg: rgb(29 42 54 / 0.06);
+  --toggle-text: #1d2a36;
+  /* Richer gold on light backgrounds */
+  --color-accent-gold: #9a7309;
+  --color-accent-gold-light: #8b6914;
+  --gold-emphasis: #9a7309;
+  --gold-soft: #7a5c08;
+  --footer-cta-from: #ffffff;
+  --footer-cta-mid: #f3f7fb;
+  --footer-cta-to: #faf0dc;
+  --footer-cta-ring: rgb(154 115 9 / 0.12);
+}
+
+@font-face {
+  font-family: iransansx;
+  src: url('/font/IRANSansX-Regular.woff') format('woff');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: iransansx;
+  src: url('/font/IRANSansX-Bold.woff') format('woff');
+  font-weight: 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: iransansxv;
+  src:
+    url('/font/IRANSansXV.woff') format('woff-variations'),
+    url('/font/IRANSansXV.woff') format('woff');
+  font-weight: 100 1000;
+  font-display: swap;
+}

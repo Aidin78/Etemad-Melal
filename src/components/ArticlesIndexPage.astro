@@ -1,7 +1,8 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import NewsCard from '../components/NewsCard.astro';
-import { getCollection } from 'astro:content';
+import SectionBadge from '../components/SectionBadge.astro';
+import { getSortedArticles } from '../lib/articles';
 import type { Locale } from '../i18n/types';
 import { getTranslations } from '../i18n';
 
@@ -11,10 +12,7 @@ interface Props {
 
 const { locale } = Astro.props;
 const t = getTranslations(locale);
-
-const posts = (await getCollection('articles')).sort(
-  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
-);
+const posts = await getSortedArticles(locale);
 ---
 
 <Layout
@@ -24,7 +22,7 @@ const posts = (await getCollection('articles')).sort(
 >
   <section class="mesh-gradient py-16 sm:py-20">
     <div class="mx-auto max-w-6xl px-4 text-center sm:px-6">
-      <span class="section-badge">{t.news.badge}</span>
+      <SectionBadge label={t.news.badge} />
       <h1 class="mt-4 text-4xl font-bold text-heading sm:text-5xl">
         <span class="section-title-accent">{t.news.pageTitle}</span> {t.siteName}
       </h1>

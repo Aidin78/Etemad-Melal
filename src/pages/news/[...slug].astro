@@ -1,13 +1,15 @@
 ---
 import { getCollection } from 'astro:content';
+import { parseArticleId } from '../../lib/article-utils';
 
 export async function getStaticPaths() {
   const posts = await getCollection('articles');
-  return posts.map((post) => ({
-    params: { slug: post.id },
-  }));
+  return posts
+    .filter((post) => parseArticleId(post.id).locale === 'fa')
+    .map((post) => ({
+      params: { slug: parseArticleId(post.id).slug },
+    }));
 }
 
-const { slug } = Astro.params;
-return Astro.redirect(`/articles/${slug}`);
+return Astro.redirect(`/articles/${Astro.params.slug}`);
 ---

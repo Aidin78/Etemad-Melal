@@ -245,8 +245,6 @@ export const fa: Translations = {
     pageTitle: 'مقالات',
     pageSubtitle: 'راهنماها و مطالب آموزشی برای سرمایه‌گذاری هوشمند',
     backToArticles: '← بازگشت به مقالات',
-    articleLocaleNotice: '',
-    viewInPersian: '',
   },
   faq: {
     badge: 'پرسش‌های متداول',
@@ -327,5 +325,4 @@ export const fa: Translations = {
     disclaimer:
       'سرمایه‌گذاری در بازارهای مالی همراه با ریسک است. اطلاعات این وب‌سایت صرفاً جنبه معرفی دارد و توصیه سرمایه‌گذاری محسوب نمی‌شود. لطفاً پیش از هر تصمیم، شرایط و قراردادهای رسمی را مطالعه کنید.',
   },
-  articlesMeta: {},
 };

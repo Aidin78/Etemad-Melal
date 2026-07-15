@@ -1,7 +1,6 @@
 ---
-import SectionBadge from './SectionBadge.astro';
-import CtaArrow from './CtaArrow.astro';
-import { siteConfig } from '../config/site';
+import SectionHeader from './SectionHeader.astro';
+import PanelLink from './PanelLink.astro';
 import type { Locale } from '../i18n/types';
 import { getTranslations } from '../i18n';
 
@@ -20,11 +19,13 @@ const t = getTranslations(locale);
 
   <div class="relative mx-auto max-w-6xl px-4 sm:px-6">
     <div class="text-center">
-      <SectionBadge label={t.income.badge} />
-      <h2 class="section-title">
-        {t.income.title} <span class="section-title-accent">{t.income.titleAccent}</span>
-      </h2>
-      <p class="section-subtitle mx-auto">{t.income.subtitle}</p>
+      <SectionHeader
+        badge={t.income.badge}
+        title={t.income.title}
+        titleAccent={t.income.titleAccent}
+        subtitle={t.income.subtitle}
+        align="center"
+      />
     </div>
 
     <div class="section-body-gap grid gap-5 sm:gap-6 lg:grid-cols-3">
@@ -57,10 +58,9 @@ const t = getTranslations(locale);
 
     <p class="mt-6 text-center text-xs text-subtle sm:mt-8">{t.income.footnote}</p>
     <div class="mt-6 text-center sm:mt-8">
-      <a href={siteConfig.panelUrl} class="btn-primary">
+      <PanelLink locale={locale} showArrow>
         {t.panelCtaLogin}
-        <CtaArrow locale={locale} />
-      </a>
+      </PanelLink>
     </div>
   </div>
 </section>

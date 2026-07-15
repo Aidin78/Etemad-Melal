@@ -1,14 +1,15 @@
-import { defineCollection, z } from 'astro:content';
-import { glob } from 'astro/loaders';
+import { defineCollection } from 'astro:content';
+import { z } from 'astro/zod';
+import { glob } from 'astro/loaders';import { siteImages } from './config/images';
 
 const articles = defineCollection({
-  loader: glob({ pattern: '**/*.md', base: './src/content/articles' }),
+  loader: glob({ pattern: '{fa,en}/**/*.md', base: './src/content/articles' }),
   schema: z.object({
     title: z.string(),
     date: z.coerce.date(),
-    dateFa: z.string(),
+    dateFa: z.string().optional(),
     excerpt: z.string(),
-    image: z.string().default('/images/articles/article-01.jpg'),
+    image: z.string().default(siteImages.articleDefault),
   }),
 });
 
@@ -27,7 +28,7 @@ const about = defineCollection({
     heroTitleAccent: z.string(),
     heroSubtitle: z.string(),
     imageAlt: z.string(),
-    image: z.string().default('/images/about.jpg'),
+    image: z.string().default(siteImages.about),
     valuesTitle: z.string(),
     values: z.array(
       z.object({

@@ -1,0 +1,167 @@
+/* ── Semantic theme utilities ── */
+.text-heading {
+  color: var(--heading);
+}
+
+.text-muted {
+  color: var(--muted);
+}
+
+.text-subtle {
+  color: var(--subtle);
+}
+
+.text-faint {
+  color: var(--faint);
+}
+
+.text-body {
+  color: var(--text);
+}
+
+.bg-page {
+  background-color: var(--page);
+}
+
+.bg-page-secondary {
+  background-color: var(--page-secondary);
+}
+
+.bg-header {
+  background-color: var(--header-bg);
+}
+
+.bg-header-mobile {
+  background-color: var(--header-bg-mobile);
+}
+
+.bg-footer {
+  background-color: var(--footer-bg);
+}
+
+.bg-section-alt {
+  background-color: var(--section-alt);
+}
+
+.bg-ticker {
+  background: linear-gradient(
+    to right,
+    var(--page-alt),
+    color-mix(in srgb, var(--page-alt) 80%, var(--page)),
+    var(--page-alt)
+  );
+}
+
+.bg-trust-section {
+  background: linear-gradient(to bottom, color-mix(in srgb, var(--secondary) 80%, transparent), var(--trust-gradient-end));
+}
+
+.bg-image-overlay-bottom {
+  background: linear-gradient(to bottom, color-mix(in srgb, var(--secondary) 40%, transparent), color-mix(in srgb, var(--secondary) 80%, transparent), var(--page));
+}
+
+.bg-image-overlay-top {
+  background: linear-gradient(to top, var(--page), transparent);
+}
+
+.bg-image-overlay-horizontal {
+  background: linear-gradient(to right, var(--page), color-mix(in srgb, var(--secondary) 90%, transparent), var(--page));
+}
+
+.border-theme {
+  border-color: var(--border);
+}
+
+.border-divider {
+  border-color: var(--border-strong);
+}
+
+.logo-glow {
+  filter: drop-shadow(0 0 10px var(--logo-glow));
+}
+
+.logo-mark {
+  position: relative;
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-mark__orbit {
+  display: block;
+  width: 100%;
+  height: 100%;
+  line-height: 0;
+  transform-origin: center center;
+}
+
+.logo-mark__center {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: block;
+  line-height: 0;
+  pointer-events: none;
+}
+
+.logo-mark--animated .logo-mark__orbit {
+  animation: logo-orbit-rotate 14s linear infinite;
+  transform-origin: center center;
+  will-change: transform;
+}
+
+@keyframes logo-orbit-rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .logo-mark--animated .logo-mark__orbit {
+    animation: none;
+  }
+}
+
+.hero-img {
+  opacity: var(--hero-img-opacity);
+}
+
+.ticker-fade-start {
+  background: linear-gradient(to left, var(--ticker-fade), transparent);
+}
+
+.ticker-fade-end {
+  background: linear-gradient(to right, var(--ticker-fade), transparent);
+}
+
+.surface-badge {
+  border: 1px solid var(--border-strong);
+  background: var(--surface-muted);
+  color: var(--nav);
+}
+
+.input-field {
+  border: 1px solid var(--border-strong);
+  background: var(--input-bg);
+  color: var(--input-text);
+}
+
+.input-field:focus {
+  border-color: rgb(212 168 83 / 0.5);
+  outline: none;
+  box-shadow: 0 0 0 1px rgb(212 168 83 / 0.3);
+}
+
+.footer-link {
+  color: var(--muted);
+  transition: color 0.2s;
+}
+
+.footer-link:hover {
+  color: var(--heading);
+}
+

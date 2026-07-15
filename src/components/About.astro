@@ -1,6 +1,7 @@
 ---
-import SectionBadge from './SectionBadge.astro';
-import { siteConfig } from '../config/site';
+import SectionHeader from './SectionHeader.astro';
+import PanelLink from './PanelLink.astro';
+import { siteImages } from '../config/images';
 import type { Locale } from '../i18n/types';
 import { getTranslations, localePath } from '../i18n';
 
@@ -17,7 +18,7 @@ const t = getTranslations(locale);
   <div class="relative mx-auto max-w-6xl px-4 sm:px-6">
     <div class="grid items-center gap-8 lg:grid-cols-2 lg:gap-12">
       <div class="relative order-2 overflow-hidden rounded-2xl ring-1 ring-accent-gold/20 lg:order-1">
-        <img src="/images/about.jpg" alt={t.about.imageAlt} class="aspect-[4/3] w-full object-cover" loading="lazy" />
+        <img src={siteImages.about} alt={t.about.imageAlt} class="aspect-[4/3] w-full object-cover" loading="lazy" />
         <div class="absolute inset-0 bg-image-overlay-top"></div>
         <div class="absolute bottom-4 right-4 left-4 grid grid-cols-3 gap-2">
           {
@@ -31,15 +32,16 @@ const t = getTranslations(locale);
         </div>
       </div>
       <div class="order-1 lg:order-2">
-        <SectionBadge label={t.about.badge} />
-        <h2 class="section-title">
-          {t.about.title} <span class="section-title-accent">{t.about.titleAccent}</span>
-        </h2>
-        <p class="section-subtitle">{t.about.subtitle}</p>
+        <SectionHeader
+          badge={t.about.badge}
+          title={t.about.title}
+          titleAccent={t.about.titleAccent}
+          subtitle={t.about.subtitle}
+        />
         <p class="mt-4 text-sm leading-relaxed text-muted">{t.about.body}</p>
         <div class="mt-8 flex flex-wrap gap-3">
           <a href={localePath(locale, '/about')} class="btn-primary">{t.about.ctaLearnMore}</a>
-          <a href={siteConfig.panelUrl} class="btn-outline">{t.about.ctaStart}</a>
+          <PanelLink locale={locale} variant="outline">{t.about.ctaStart}</PanelLink>
         </div>
       </div>
     </div>

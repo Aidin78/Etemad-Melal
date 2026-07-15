@@ -2,12 +2,13 @@
 interface Props {
   label: string;
   dot?: boolean;
+  class?: string;
 }
 
-const { label, dot = true } = Astro.props;
+const { label, dot = true, class: className } = Astro.props;
 ---
 
-<span class="section-badge">
+<span class:list={['section-badge', className]}>
   {dot && <span class="h-1.5 w-1.5 animate-pulse rounded-full bg-accent-gold"></span>}
   {label}
 </span>

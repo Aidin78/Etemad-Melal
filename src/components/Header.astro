@@ -1,8 +1,8 @@
 ---
-import { siteConfig } from '../config/site';
 import ThemeToggle from './ThemeToggle.astro';
 import LanguageSwitcher from './LanguageSwitcher.astro';
-import LogoIcon from './LogoIcon.astro';
+import Logo from './Logo.astro';
+import PanelLink from './PanelLink.astro';
 import type { Locale } from '../i18n/types';
 import { getTranslations, localePath } from '../i18n';
 
@@ -37,10 +37,7 @@ const localizedHref = (href: string) => localePath(locale, href);
   id="site-header"
 >
   <div class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3.5 sm:px-6">
-    <a href={localizedHref('/')} class="group flex items-center gap-3 text-heading">
-      <LogoIcon alt={t.siteName} size="sm" />
-      <span class="text-lg font-bold">{t.siteName}</span>
-    </a>
+    <Logo locale={locale} size="sm" animated={false} />
 
     <nav class="hidden items-center gap-6 lg:flex" aria-label={t.a11y.mainNav}>
       {
@@ -55,9 +52,7 @@ const localizedHref = (href: string) => localePath(locale, href);
     <div class="flex items-center gap-2 sm:gap-3">
       <LanguageSwitcher locale={locale} />
       <ThemeToggle ariaLabel={t.a11y.themeToggle} />
-      <a href={siteConfig.panelUrl} class="btn-primary hidden text-sm !py-2.5 !px-5 sm:inline-flex">
-        {t.panelCtaLogin}
-      </a>
+      <PanelLink locale={locale} class="hidden text-sm !py-2.5 !px-5 sm:inline-flex">{t.panelCtaLogin}</PanelLink>
       <button
         type="button"
         class="flex h-10 w-10 items-center justify-center rounded-lg border border-theme bg-[var(--toggle-bg)] text-[var(--toggle-text)] lg:hidden"
@@ -84,9 +79,7 @@ const localizedHref = (href: string) => localePath(locale, href);
           </a>
         ))
       }
-      <a href={siteConfig.panelUrl} class="btn-primary mt-2 text-center text-sm">
-        {t.panelCtaLogin}
-      </a>
+      <PanelLink locale={locale} class="mt-2 text-center text-sm">{t.panelCtaLogin}</PanelLink>
     </nav>
   </div>
 </header>

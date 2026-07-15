@@ -1,6 +1,7 @@
 ---
-import SectionBadge from './SectionBadge.astro';
+import SectionHeader from './SectionHeader.astro';
 import ChartDecoration from './ChartDecoration.astro';
+import { siteImages } from '../config/images';
 import type { Locale } from '../i18n/types';
 import { getTranslations } from '../i18n';
 
@@ -23,15 +24,16 @@ const stepIcons = [
   <div class="relative mx-auto max-w-6xl px-4 sm:px-6">
     <div class="grid items-center gap-8 lg:grid-cols-2 lg:gap-12">
       <div>
-        <SectionBadge label={t.features.badge} />
-        <h2 class="section-title">
-          {t.features.title} <span class="section-title-accent">{t.features.titleAccent}</span>
-        </h2>
-        <p class="section-subtitle">{t.features.subtitle}</p>
+        <SectionHeader
+          badge={t.features.badge}
+          title={t.features.title}
+          titleAccent={t.features.titleAccent}
+          subtitle={t.features.subtitle}
+        />
         <ChartDecoration class="mt-8 h-16 w-full max-w-xs" />
       </div>
       <div class="relative overflow-hidden rounded-2xl ring-1 ring-accent-gold/20">
-        <img src="/images/features.jpg" alt={t.features.imageAlt} class="aspect-[4/3] w-full object-cover" loading="lazy" />
+        <img src={siteImages.features} alt={t.features.imageAlt} class="aspect-[4/3] w-full object-cover" loading="lazy" />
         <div class="absolute inset-0 bg-image-overlay-top"></div>
         <div class="absolute bottom-4 right-4 left-4 investment-card rounded-xl p-4">
           <div class="flex items-center justify-between text-sm">
@@ -57,7 +59,7 @@ const stepIcons = [
               <span class="text-3xl font-bold text-accent-gold/30">{step.num}</span>
               <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-accent-gold/25 to-accent/20 text-accent-gold-light">
                 <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d={stepIcons[i]} />
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d={stepIcons[i] ?? stepIcons[0]} />
                 </svg>
               </div>
             </div>

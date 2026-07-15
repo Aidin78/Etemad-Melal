@@ -1,5 +1,5 @@
 ---
-import SectionBadge from './SectionBadge.astro';
+import SectionHeader from './SectionHeader.astro';
 import { siteConfig } from '../config/site';
 import type { Locale } from '../i18n/types';
 import { getTranslations, localePath } from '../i18n';
@@ -17,13 +17,13 @@ const isSent = Astro.url.searchParams.get('contact') === 'sent';
 
 <section id="contact" class="section-spacing">
   <div class="mx-auto max-w-6xl px-4 sm:px-6">
-    <div class="text-center">
-      <SectionBadge label={t.contact.badge} />
-      <h2 class="section-title">
-        {t.contact.title} <span class="section-title-accent">{t.contact.titleAccent}</span>
-      </h2>
-      <p class="section-subtitle mx-auto">{t.contact.subtitle}</p>
-    </div>
+    <SectionHeader
+      badge={t.contact.badge}
+      title={t.contact.title}
+      titleAccent={t.contact.titleAccent}
+      subtitle={t.contact.subtitle}
+      align="center"
+    />
 
     <div class="section-body-gap grid gap-8 lg:grid-cols-2 lg:gap-10">
       <div class="investment-card rounded-2xl p-8">

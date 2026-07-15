@@ -1,5 +1,6 @@
 ---
-import SectionBadge from './SectionBadge.astro';
+import SectionHeader from './SectionHeader.astro';
+import { siteImages } from '../config/images';
 import type { Locale } from '../i18n/types';
 import { getTranslations } from '../i18n';
 
@@ -20,11 +21,13 @@ const benefitIcons = [
 <section id="trust" class="section-spacing relative overflow-hidden bg-trust-section">
   <div class="mx-auto max-w-6xl px-4 sm:px-6">
     <div class="text-center">
-      <SectionBadge label={t.trust.badge} />
-      <h2 class="section-title">
-        {t.trust.title} <span class="section-title-accent">{t.trust.titleAccent}</span>
-      </h2>
-      <p class="section-subtitle mx-auto">{t.trust.subtitle}</p>
+      <SectionHeader
+        badge={t.trust.badge}
+        title={t.trust.title}
+        titleAccent={t.trust.titleAccent}
+        subtitle={t.trust.subtitle}
+        align="center"
+      />
     </div>
 
     <div class="section-body-gap grid gap-5 sm:grid-cols-3 sm:gap-6">
@@ -44,7 +47,7 @@ const benefitIcons = [
     </div>
 
     <div class="relative mt-10 overflow-hidden rounded-2xl ring-1 ring-accent-gold/20 sm:mt-16" aria-hidden="true">
-      <img src="/images/trust.jpg" alt="" class="absolute inset-0 h-full w-full object-cover opacity-25" loading="lazy" />
+      <img src={siteImages.trust} alt="" class="absolute inset-0 h-full w-full object-cover opacity-25" loading="lazy" />
       <div class="absolute inset-0 bg-image-overlay-horizontal"></div>
       <div class="relative grid grid-cols-2 gap-6 p-8 sm:grid-cols-4 sm:p-12">
         {

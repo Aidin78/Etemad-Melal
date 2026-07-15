@@ -9,26 +9,25 @@ export function getTranslations(locale: Locale): Translations {
 }
 
 function formatArticleDate(locale: Locale, date: Date, dateFa?: string): string {
-  if (locale === 'fa') return dateFa ?? '';
+  if (locale === 'fa') {
+    if (dateFa) return dateFa;
+    return new Intl.DateTimeFormat('fa-IR', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    }).format(date);
+  }
   return new Intl.DateTimeFormat('en', { year: 'numeric', month: 'long', day: 'numeric' }).format(date);
 }
 
 export function getArticleDisplay(
   locale: Locale,
-  slug: string,
-  fallback: { title: string; excerpt: string; date: Date; dateFa?: string },
+  data: { title: string; excerpt: string; date: Date; dateFa?: string },
 ) {
-  const dateLabel = formatArticleDate(locale, fallback.date, fallback.dateFa);
-
-  if (locale === 'fa') {
-    return { title: fallback.title, excerpt: fallback.excerpt, dateLabel };
-  }
-
-  const meta = en.articlesMeta[slug];
   return {
-    title: meta?.title ?? fallback.title,
-    excerpt: meta?.excerpt ?? fallback.excerpt,
-    dateLabel: meta?.dateLabel ?? dateLabel,
+    title: data.title,
+    excerpt: data.excerpt,
+    dateLabel: formatArticleDate(locale, data.date, data.dateFa),
   };
 }
 

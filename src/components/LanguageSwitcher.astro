@@ -13,7 +13,11 @@ const alternateLocale: Locale = locale === 'fa' ? 'en' : 'fa';
 const label = alternateLocale === 'en' ? t.langSwitch.toEn : t.langSwitch.toFa;
 ---
 
-<div class="flex items-center rounded-lg border border-theme bg-[var(--toggle-bg)] p-0.5 text-xs font-semibold">
+<div
+  class="flex items-center rounded-lg border border-theme bg-[var(--toggle-bg)] p-0.5 text-xs font-semibold"
+  role="group"
+  aria-label={label}
+>
   <a
     href={locale === 'fa' ? Astro.url.pathname : alternate}
     class:list={[

@@ -1,6 +1,6 @@
 ---
 import CtaArrow from './CtaArrow.astro';
-import { siteConfig } from '../config/site';
+import { panelLinkAttrs } from '../lib/panel';
 import type { Locale, PackageDisplay } from '../i18n/types';
 import { getTranslations } from '../i18n';
 
@@ -18,7 +18,7 @@ const colorMix25 = `color-mix(in srgb, ${color} 25%, transparent)`;
 ---
 
 <a
-  href={siteConfig.panelUrl}
+  {...panelLinkAttrs}
   class:list={[
     'package-card group relative block w-full rounded-2xl border p-0 text-start transition-all duration-200 hover:-translate-y-1 hover:shadow-lg',
     pkg.featured ? 'border-accent-gold/50 shadow-md shadow-accent-gold/10 ring-2 ring-accent-gold/25' : 'package-card-default',

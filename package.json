@@ -7,11 +7,17 @@
   },
   "scripts": {
     "dev": "astro dev",
+    "prebuild": "node scripts/ensure-assets.mjs && node scripts/check-articles.mjs",
     "build": "astro build",
     "postbuild": "node scripts/postbuild-hint.mjs",
     "preview": "astro preview",
     "build:preview": "npm run build && npm run preview",
     "export:logo": "node scripts/export-logo-full.mjs",
+    "download:images": "node scripts/download-images.mjs",
+    "check:assets": "node scripts/check-assets.mjs",
+    "check:articles": "node scripts/check-articles.mjs",
+    "check": "astro check",
+    "lint": "astro check",
     "astro": "astro"
   },
   "dependencies": {
@@ -21,6 +27,8 @@
     "tailwindcss": "^4.3.0"
   },
   "devDependencies": {
-    "@resvg/resvg-js": "^2.6.2"
+    "@astrojs/check": "^0.9.9",
+    "@resvg/resvg-js": "^2.6.2",
+    "typescript": "^6.0.3"
   }
 }

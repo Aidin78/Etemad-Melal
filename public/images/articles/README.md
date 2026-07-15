@@ -1,7 +1,7 @@
 # Article cover images
 
-Each article uses a unique image in this folder (`article-01.jpg` … `article-12.jpg`).
+Each article references a unique cover in this folder (`article-01.jpg` … `article-12.jpg`).
 
-Homepage section images (`hero.jpg`, `features.jpg`, etc.) are separate and not reused for articles.
+Paths are set in each article's frontmatter `image` field. Defaults are in `src/config/images.ts`.
 
-Some covers are from [Unsplash](https://unsplash.com/license); others from [Picsum Photos](https://picsum.photos) (placeholder seeds).
+Replace files here with your own covers — keep the same filenames or update frontmatter accordingly.

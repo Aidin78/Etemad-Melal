@@ -2,6 +2,7 @@
 import type { CollectionEntry } from 'astro:content';
 import type { Locale } from '../i18n/types';
 import { getArticleDisplay, getTranslations, localePath } from '../i18n';
+import { parseArticleId } from '../lib/article-utils';
 
 interface Props {
   locale: Locale;
@@ -11,7 +12,8 @@ interface Props {
 
 const { locale, post, compact = false } = Astro.props;
 const t = getTranslations(locale);
-const display = getArticleDisplay(locale, post.id, {
+const { slug } = parseArticleId(post.id);
+const display = getArticleDisplay(locale, {
   title: post.data.title,
   excerpt: post.data.excerpt,
   date: post.data.date,
@@ -24,7 +26,7 @@ const titleClass = compact
 ---
 
 <a
-  href={localePath(locale, `/articles/${post.id}`)}
+  href={localePath(locale, `/articles/${slug}`)}
   class="investment-card group overflow-hidden rounded-2xl transition hover:-translate-y-1"
 >
   <img src={post.data.image} alt={display.title} class="aspect-video w-full object-cover transition group-hover:scale-[1.02]" loading="lazy" />
