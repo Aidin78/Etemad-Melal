@@ -25,7 +25,7 @@ export const investmentPackages: PackageItem[] = [
   {
     id: 'pishgam',
     name: 'پیش‌گام',
-    color: '#1F8A70',
+    color: '#3579a8',
     monthlyReturn: '۴٪',
     contractMonths: '۳۶ ماه',
     amountRange: '۱۰۰ – ۵۰۰ میلیون تومان',

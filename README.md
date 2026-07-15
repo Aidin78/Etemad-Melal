@@ -54,9 +54,21 @@ PUBLIC_PANEL_URL=https://panel.example.com
 
 ```bash
 npm run build
+npm run preview   # open http://localhost:4321 — do not open dist/index.html directly
 ```
 
 Upload the contents of **`dist/`** to your static host. No Node.js runtime required on the server.
+
+### Troubleshooting: styles or images not loading
+
+**Locally:** Do **not** double-click `dist/index.html` in Explorer. The site uses root paths (`/_astro/…`, `/images/…`) that only work over HTTP. Use:
+
+```bash
+npm run dev          # development
+npm run build:preview # build + preview at http://localhost:4321
+```
+
+**On cPanel:** Upload the **contents** of `dist/` into `public_html` (so `index.html` and `_astro/` sit directly in `public_html`, not inside a `dist/` subfolder).
 
 ## Project structure
 
