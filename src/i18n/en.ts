@@ -1,4 +1,5 @@
 import type { Translations } from './types';
+import { enrichPackages } from '../lib/packages';
 
 export const en: Translations = {
   locale: 'en',
@@ -29,6 +30,8 @@ export const en: Translations = {
     mainNav: 'Main navigation',
     mobileNav: 'Mobile navigation',
     themeToggle: 'Toggle light / dark theme',
+    breadcrumb: 'Breadcrumb',
+    home: 'Home',
   },
   langSwitch: { label: 'Language', toEn: 'English', toFa: 'فارسی' },
   hero: {
@@ -143,7 +146,7 @@ export const en: Translations = {
       { key: 'capMultiplier', label: 'Cap multiplier' },
       { key: 'contractMonths', label: 'Contract term' },
     ],
-    items: [
+    items: enrichPackages([
       {
         id: 'aghaze',
         name: 'Aghaze',
@@ -188,9 +191,8 @@ export const en: Translations = {
         amountRange: '5 – 100B Toman',
         dailyCap: '500M Toman',
         capMultiplier: '5×',
-        featured: true,
       },
-    ],
+    ]),
   },
   trust: {
     badge: 'Competitive advantages',
@@ -225,6 +227,12 @@ export const en: Translations = {
     ctaStart: 'Start investing',
     ctaContact: 'Contact us',
     ctaLearnMore: 'Learn more about us',
+  },
+  aboutPage: {
+    detailsTitle: 'Details',
+    detailsSubtitle: 'A full overview of Etemad Melal’s work, services, and commitments',
+    ctaTitle: 'Ready to start investing?',
+    ctaSubtitle: 'Sign up in the panel, choose a package, and track profit — all in one place.',
   },
   news: {
     badge: 'Investment magazine',

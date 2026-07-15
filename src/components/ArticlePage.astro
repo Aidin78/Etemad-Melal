@@ -19,6 +19,7 @@ const { Content } = await render(post);
 const display = getArticleDisplay(locale, post.id, {
   title: post.data.title,
   excerpt: post.data.excerpt,
+  date: post.data.date,
   dateFa: post.data.dateFa,
 });
 
@@ -26,8 +27,6 @@ const articlePath = localePath(locale, `/articles/${post.id}`);
 const articleUrl = new URL(articlePath, siteConfig.url).href;
 const articlesIndexUrl = new URL(localePath(locale, '/articles'), siteConfig.url).href;
 const homeUrl = new URL(localePath(locale, '/'), siteConfig.url).href;
-const breadcrumbHome = locale === 'fa' ? 'خانه' : 'Home';
-const breadcrumbArticles = t.news.pageTitle;
 ---
 
 <Layout
@@ -46,8 +45,8 @@ const breadcrumbArticles = t.news.pageTitle;
       url: articleUrl,
     }),
     breadcrumbSchema([
-      { name: breadcrumbHome, url: homeUrl },
-      { name: breadcrumbArticles, url: articlesIndexUrl },
+      { name: t.a11y.home, url: homeUrl },
+      { name: t.news.pageTitle, url: articlesIndexUrl },
       { name: display.title, url: articleUrl },
     ]),
   ]}
@@ -59,7 +58,7 @@ const breadcrumbArticles = t.news.pageTitle;
         <div class="absolute inset-0 bg-image-overlay-top"></div>
       </div>
       <div class="relative mx-auto max-w-3xl px-4 sm:px-6">
-        <nav aria-label={locale === 'fa' ? 'مسیر صفحه' : 'Breadcrumb'}>
+        <nav aria-label={t.a11y.breadcrumb}>
           <a href={localePath(locale, '/articles')} class="text-sm text-primary-light hover:text-accent">
             {t.news.backToArticles}
           </a>

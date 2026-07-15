@@ -1,5 +1,6 @@
 ---
 import { siteConfig } from '../config/site';
+import CtaArrow from './CtaArrow.astro';
 import BackgroundOrbs from './BackgroundOrbs.astro';
 import type { Locale } from '../i18n/types';
 import { getTranslations } from '../i18n';
@@ -10,7 +11,6 @@ interface Props {
 
 const { locale } = Astro.props;
 const t = getTranslations(locale);
-const arrowClass = locale === 'fa' ? 'rotate-180' : '';
 ---
 
 <section
@@ -43,9 +43,7 @@ const arrowClass = locale === 'fa' ? 'rotate-180' : '';
     <div class="reveal mt-6 flex w-full flex-wrap items-center justify-center gap-3 sm:mt-10 sm:gap-4" style="animation-delay: 0.3s">
       <a href={siteConfig.panelUrl} class="btn-primary">
         {t.panelCtaStart}
-        <svg class:list={['h-4 w-4', arrowClass]} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-        </svg>
+        <CtaArrow locale={locale} />
       </a>
       <a href="#features" class="btn-outline">{t.hero.learnMore}</a>
     </div>

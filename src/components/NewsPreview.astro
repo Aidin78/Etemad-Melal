@@ -1,8 +1,9 @@
 ---
 import { getCollection } from 'astro:content';
 import SectionBadge from './SectionBadge.astro';
+import NewsCard from './NewsCard.astro';
 import type { Locale } from '../i18n/types';
-import { getTranslations, localePath, getArticleDisplay } from '../i18n';
+import { getTranslations, localePath } from '../i18n';
 
 interface Props {
   locale: Locale;
@@ -33,28 +34,9 @@ const posts = (await getCollection('articles'))
         </div>
 
         <div class="section-body-gap grid gap-5 sm:grid-cols-2 sm:gap-6">
-          {posts.map((post) => {
-            const display = getArticleDisplay(locale, post.id, {
-              title: post.data.title,
-              excerpt: post.data.excerpt,
-              dateFa: post.data.dateFa,
-            });
-            return (
-              <a
-                href={localePath(locale, `/articles/${post.id}`)}
-                class="investment-card group overflow-hidden rounded-2xl transition hover:-translate-y-1"
-              >
-                <img src={post.data.image} alt={display.title} class="aspect-video w-full object-cover transition group-hover:scale-[1.02]" loading="lazy" />
-                <div class="p-6">
-                  <time class="text-xs font-medium text-accent-gold" datetime={post.data.date.toISOString()}>
-                    {display.dateLabel}
-                  </time>
-                  <h3 class="mt-2 text-lg font-bold text-heading group-hover:text-accent-gold-light">{display.title}</h3>
-                  <p class="mt-2 line-clamp-2 text-sm text-muted">{display.excerpt}</p>
-                </div>
-              </a>
-            );
-          })}
+          {posts.map((post) => (
+            <NewsCard locale={locale} post={post} compact />
+          ))}
         </div>
       </div>
     </section>

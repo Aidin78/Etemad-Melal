@@ -1,16 +1,53 @@
 import type { Translations } from './types';
-import { investmentPackages } from '../config/packages';
+import { enrichPackages } from '../lib/packages';
 
-const packageItems = investmentPackages.map((p) => ({
-  id: p.id,
-  name: p.name,
-  monthlyReturn: p.monthlyReturn,
-  contractMonths: p.contractMonths,
-  amountRange: p.amountRange,
-  dailyCap: p.dailyCap,
-  capMultiplier: p.capMultiplier,
-  featured: p.featured,
-}));
+const packageItems = enrichPackages([
+  {
+    id: 'aghaze',
+    name: 'آغازه',
+    monthlyReturn: '۳٪',
+    contractMonths: '۱۸ ماه',
+    amountRange: '۱۰ – ۱۰۰ میلیون تومان',
+    dailyCap: '۳۰ میلیون تومان',
+    capMultiplier: '۳.۵×',
+  },
+  {
+    id: 'pishgam',
+    name: 'پیش‌گام',
+    monthlyReturn: '۴٪',
+    contractMonths: '۳۶ ماه',
+    amountRange: '۱۰۰ – ۵۰۰ میلیون تومان',
+    dailyCap: '۶۰ میلیون تومان',
+    capMultiplier: '۴×',
+  },
+  {
+    id: 'paydar',
+    name: 'پایدار',
+    monthlyReturn: '۴.۵٪',
+    contractMonths: '۳۶ ماه',
+    amountRange: '۵۰۰ میلیون – ۱ میلیارد تومان',
+    dailyCap: '۱۲۰ میلیون تومان',
+    capMultiplier: '۴×',
+  },
+  {
+    id: 'abr',
+    name: 'ابر',
+    monthlyReturn: '۵٪',
+    contractMonths: '۳۶ ماه',
+    amountRange: '۱ – ۵ میلیارد تومان',
+    dailyCap: '۲۴۰ میلیون تومان',
+    capMultiplier: '۵×',
+  },
+  {
+    id: 'saramad',
+    name: 'سرآمد',
+    monthlyReturn: '۶٪',
+    contractMonths: '۳۶ ماه',
+    amountRange: '۵ – ۱۰۰ میلیارد تومان',
+    dailyCap: '۵۰۰ میلیون تومان',
+    capMultiplier: '۵×',
+  },
+]);
 
 export const fa: Translations = {
   locale: 'fa',
@@ -41,6 +78,8 @@ export const fa: Translations = {
     mainNav: 'منوی اصلی',
     mobileNav: 'منوی موبایل',
     themeToggle: 'تغییر تم روشن / تاریک',
+    breadcrumb: 'مسیر صفحه',
+    home: 'خانه',
   },
   langSwitch: { label: 'Language', toEn: 'English', toFa: 'فارسی' },
   hero: {
@@ -189,6 +228,12 @@ export const fa: Translations = {
     ctaStart: 'شروع سرمایه‌گذاری',
     ctaContact: 'تماس با ما',
     ctaLearnMore: 'درباره ما بیشتر بدانید',
+  },
+  aboutPage: {
+    detailsTitle: 'توضیحات',
+    detailsSubtitle: 'مرور کامل فعالیت، خدمات و تعهدات اعتماد ملل',
+    ctaTitle: 'آماده شروع سرمایه‌گذاری هستید؟',
+    ctaSubtitle: 'ثبت‌نام در پنل، انتخاب پکیج و پیگیری سود — همه در یک محیط یکپارچه.',
   },
   news: {
     badge: 'مجله سرمایه‌گذاری',

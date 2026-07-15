@@ -1,6 +1,7 @@
 ---
 import SectionBadge from './SectionBadge.astro';
 import PackageCard from './PackageCard.astro';
+import CtaArrow from './CtaArrow.astro';
 import { siteConfig } from '../config/site';
 import type { Locale } from '../i18n/types';
 import { getTranslations } from '../i18n';
@@ -11,7 +12,6 @@ interface Props {
 
 const { locale } = Astro.props;
 const t = getTranslations(locale);
-const arrowClass = locale === 'fa' ? 'rotate-180' : '';
 ---
 
 <section id="packages-overview" class="section-spacing relative overflow-hidden">
@@ -33,9 +33,7 @@ const arrowClass = locale === 'fa' ? 'rotate-180' : '';
     <div class="relative mt-8 flex justify-center">
       <a href={siteConfig.panelUrl} class="btn-primary min-w-[220px] justify-center font-semibold">
         {t.packages.cta}
-        <svg class:list={['h-4 w-4', arrowClass]} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-        </svg>
+        <CtaArrow locale={locale} />
       </a>
     </div>
   </div>

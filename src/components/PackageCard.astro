@@ -1,5 +1,5 @@
 ---
-import { investmentPackages } from '../config/packages';
+import CtaArrow from './CtaArrow.astro';
 import { siteConfig } from '../config/site';
 import type { Locale, PackageDisplay } from '../i18n/types';
 import { getTranslations } from '../i18n';
@@ -11,12 +11,10 @@ interface Props {
 
 const { locale, pkg } = Astro.props;
 const t = getTranslations(locale);
-const colors = investmentPackages.find((p) => p.id === pkg.id);
-const color = colors?.color ?? '#2E86AB';
+const color = pkg.color;
 const colorMix16 = `color-mix(in srgb, ${color} 16%, transparent)`;
 const colorMix40 = `color-mix(in srgb, ${color} 40%, transparent)`;
 const colorMix25 = `color-mix(in srgb, ${color} 25%, transparent)`;
-const arrowClass = locale === 'fa' ? 'rotate-180' : '';
 ---
 
 <a
@@ -76,9 +74,7 @@ const arrowClass = locale === 'fa' ? 'rotate-180' : '';
       style={`color: ${color}`}
     >
       {t.packages.selectInPanel}
-      <svg class:list={['h-3.5 w-3.5', arrowClass]} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-      </svg>
+      <CtaArrow locale={locale} class="h-3.5 w-3.5" />
     </p>
   </div>
 </a>

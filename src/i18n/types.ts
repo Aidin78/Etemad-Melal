@@ -23,6 +23,7 @@ export type PackageRowKey =
 export type PackageDisplay = {
   id: string;
   name: string;
+  color: string;
   monthlyReturn: string;
   contractMonths: string;
   amountRange: string;
@@ -45,7 +46,15 @@ export type Translations = {
   panelCtaLogin: string;
   panelCtaStart: string;
   nav: NavLink[];
-  a11y: { skipToContent: string; openMenu: string; mainNav: string; mobileNav: string; themeToggle: string };
+  a11y: {
+    skipToContent: string;
+    openMenu: string;
+    mainNav: string;
+    mobileNav: string;
+    themeToggle: string;
+    breadcrumb: string;
+    home: string;
+  };
   langSwitch: { label: string; toEn: string; toFa: string };
   hero: {
     badge: string;
@@ -105,6 +114,12 @@ export type Translations = {
     ctaStart: string;
     ctaContact: string;
     ctaLearnMore: string;
+  };
+  aboutPage: {
+    detailsTitle: string;
+    detailsSubtitle: string;
+    ctaTitle: string;
+    ctaSubtitle: string;
   };
   news: {
     badge: string;

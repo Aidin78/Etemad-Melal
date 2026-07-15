@@ -1,5 +1,6 @@
 ---
 import SectionBadge from './SectionBadge.astro';
+import CtaArrow from './CtaArrow.astro';
 import { siteConfig } from '../config/site';
 import type { Locale } from '../i18n/types';
 import { getTranslations } from '../i18n';
@@ -10,7 +11,6 @@ interface Props {
 
 const { locale } = Astro.props;
 const t = getTranslations(locale);
-const arrowClass = locale === 'fa' ? 'rotate-180' : '';
 ---
 
 <section id="income-streams" class="section-spacing relative overflow-hidden">
@@ -59,9 +59,7 @@ const arrowClass = locale === 'fa' ? 'rotate-180' : '';
     <div class="mt-6 text-center sm:mt-8">
       <a href={siteConfig.panelUrl} class="btn-primary">
         {t.panelCtaLogin}
-        <svg class:list={['h-4 w-4', arrowClass]} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-        </svg>
+        <CtaArrow locale={locale} />
       </a>
     </div>
   </div>

@@ -1,9 +1,17 @@
+---
+interface Props {
+  ariaLabel: string;
+}
+
+const { ariaLabel } = Astro.props;
+---
+
 <button
   type="button"
   class="theme-toggle"
   id="theme-toggle"
-  aria-label="تغییر تم روشن / تاریک"
-  title="تغییر تم"
+  aria-label={ariaLabel}
+  title={ariaLabel}
 >
   <svg class="icon-sun" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
     <path

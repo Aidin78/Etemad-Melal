@@ -61,10 +61,8 @@ const { data } = entry;
   <section class="relative py-12 sm:py-20">
     <div class="mx-auto max-w-3xl px-4 sm:px-6">
       <div class="mb-10 text-center">
-        <h2 class="text-2xl font-bold text-heading sm:text-3xl">{locale === 'fa' ? 'توضیحات' : 'Details'}</h2>
-        <p class="mt-2 text-sm text-muted">
-          {locale === 'fa' ? 'مرور کامل فعالیت، خدمات و تعهدات اعتماد ملل' : 'A full overview of Etemad Melal’s work, services, and commitments'}
-        </p>
+        <h2 class="text-2xl font-bold text-heading sm:text-3xl">{t.aboutPage.detailsTitle}</h2>
+        <p class="mt-2 text-sm text-muted">{t.aboutPage.detailsSubtitle}</p>
       </div>
 
       <ol class="about-timeline space-y-0">
@@ -116,14 +114,8 @@ const { data } = entry;
   <section class="pb-20 pt-4">
     <div class="mx-auto max-w-6xl px-4 sm:px-6">
       <div class="about-cta-band rounded-2xl px-6 py-10 text-center sm:px-10 sm:py-12">
-        <h2 class="text-2xl font-bold text-heading sm:text-3xl">
-          {locale === 'fa' ? 'آماده شروع سرمایه‌گذاری هستید؟' : 'Ready to start investing?'}
-        </h2>
-        <p class="mx-auto mt-3 max-w-xl text-sm text-muted sm:text-base">
-          {locale === 'fa'
-            ? 'ثبت‌نام در پنل، انتخاب پکیج و پیگیری سود — همه در یک محیط یکپارچه.'
-            : 'Sign up in the panel, choose a package, and track profit — all in one place.'}
-        </p>
+        <h2 class="text-2xl font-bold text-heading sm:text-3xl">{t.aboutPage.ctaTitle}</h2>
+        <p class="mx-auto mt-3 max-w-xl text-sm text-muted sm:text-base">{t.aboutPage.ctaSubtitle}</p>
         <div class="mt-8 flex flex-wrap justify-center gap-3">
           <a href={siteConfig.panelUrl} class="btn-primary">{t.about.ctaStart}</a>
           <a href={localePath(locale, '/#contact')} class="btn-outline">{t.about.ctaContact}</a>

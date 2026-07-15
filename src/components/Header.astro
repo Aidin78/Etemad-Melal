@@ -54,7 +54,7 @@ const localizedHref = (href: string) => localePath(locale, href);
 
     <div class="flex items-center gap-2 sm:gap-3">
       <LanguageSwitcher locale={locale} />
-      <ThemeToggle />
+      <ThemeToggle ariaLabel={t.a11y.themeToggle} />
       <a href={siteConfig.panelUrl} class="btn-primary hidden text-sm !py-2.5 !px-5 sm:inline-flex">
         {t.panelCtaLogin}
       </a>
