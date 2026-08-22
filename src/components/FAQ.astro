@@ -26,7 +26,7 @@ const faqIcon = locale === 'fa' ? '؟' : '?';
       {
         t.faq.items.map((item) => (
           <details class="investment-card group rounded-xl transition">
-            <summary class="flex cursor-pointer list-none items-center justify-between gap-4 p-5 text-sm font-bold text-heading [&::-webkit-details-marker]:hidden">
+            <summary class="flex min-h-[3.25rem] cursor-pointer list-none items-center justify-between gap-4 p-5 text-sm font-bold text-heading [&::-webkit-details-marker]:hidden">
               <span class="flex items-center gap-3">
                 <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-accent-gold/15 text-xs text-accent-gold">{faqIcon}</span>
                 {item.q}

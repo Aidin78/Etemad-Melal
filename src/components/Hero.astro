@@ -38,19 +38,19 @@ const t = getTranslations(locale);
       {t.hero.subtitle}
     </p>
 
-    <div class="reveal mt-6 flex w-full flex-wrap items-center justify-center gap-3 sm:mt-10 sm:gap-4" style="animation-delay: 0.3s">
-      <PanelLink locale={locale} showArrow>
+    <div class="reveal mt-6 flex w-full max-w-sm flex-col items-stretch gap-3 sm:mt-10 sm:max-w-none sm:flex-row sm:flex-wrap sm:items-center sm:justify-center sm:gap-4" style="animation-delay: 0.3s">
+      <PanelLink locale={locale} showArrow class="justify-center">
         {t.panelCtaStart}
       </PanelLink>
-      <a href="#features" class="btn-outline">{t.hero.learnMore}</a>
+      <a href="#features" class="btn-outline justify-center">{t.hero.learnMore}</a>
     </div>
 
     <div class="reveal mt-6 grid w-full max-w-3xl grid-cols-3 gap-2 sm:mt-16 sm:gap-8" style="animation-delay: 0.4s">
       {
         t.hero.stats.map((s) => (
-          <div class="investment-card rounded-xl p-3 text-center sm:rounded-2xl sm:p-6">
+          <div class="hero-stat-card investment-card rounded-xl text-center sm:rounded-2xl sm:p-6">
             <p class="stat-value text-xl sm:text-3xl">{s.value}</p>
-            <p class="mt-0.5 text-[10px] text-muted sm:mt-1 sm:text-sm">{s.label}</p>
+            <p class="hero-stat-label mt-0.5 text-muted sm:mt-1 sm:text-sm">{s.label}</p>
           </div>
         ))
       }

@@ -26,7 +26,7 @@ const isSent = Astro.url.searchParams.get('contact') === 'sent';
     />
 
     <div class="section-body-gap grid gap-8 lg:grid-cols-2 lg:gap-10">
-      <div class="investment-card rounded-2xl p-8">
+      <div class="contact-card investment-card rounded-2xl p-5 sm:p-8">
         <h3 class="text-lg font-bold text-heading">{t.contact.infoTitle}</h3>
         <ul class="mt-6 space-y-5">
           <li class="flex gap-4">
@@ -46,7 +46,7 @@ const isSent = Astro.url.searchParams.get('contact') === 'sent';
         </ul>
       </div>
 
-      <div class="investment-card rounded-2xl p-8">
+      <div class="contact-card investment-card rounded-2xl p-5 sm:p-8">
         {
           isSent ? (
             <div class="flex flex-col items-center justify-center py-8 text-center">
@@ -66,11 +66,11 @@ const isSent = Astro.url.searchParams.get('contact') === 'sent';
                 <input type="text" name="_honey" class="hidden" tabindex="-1" autocomplete="off" />
                 <div>
                   <label for="contact-email" class="mb-1 block text-xs text-muted">{t.contact.emailField}</label>
-                  <input type="email" id="contact-email" name="email" required autocomplete="email" class="input-field w-full rounded-xl px-4 py-2.5 text-sm outline-none transition" />
+                  <input type="email" id="contact-email" name="email" required autocomplete="email" class="input-field w-full rounded-xl px-4 py-3 text-base outline-none transition sm:py-2.5 sm:text-sm" />
                 </div>
                 <div>
                   <label for="contact-message" class="mb-1 block text-xs text-muted">{t.contact.messageField}</label>
-                  <textarea id="contact-message" name="message" rows="4" required class="input-field w-full resize-none rounded-xl px-4 py-2.5 text-sm outline-none transition"></textarea>
+                  <textarea id="contact-message" name="message" rows="4" required class="input-field w-full resize-none rounded-xl px-4 py-3 text-base outline-none transition sm:py-2.5 sm:text-sm"></textarea>
                 </div>
                 <button type="submit" class="btn-primary w-full">{t.contact.submit}</button>
               </form>

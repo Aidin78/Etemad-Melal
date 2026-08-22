@@ -19,7 +19,7 @@ const posts = (await getSortedArticles(locale)).slice(0, 2);
     <section class="section-spacing relative">
       <div class="chart-pattern absolute inset-0 opacity-20" aria-hidden="true" />
       <div class="relative mx-auto max-w-6xl px-4 sm:px-6">
-        <div class="flex flex-wrap items-end justify-between gap-4">
+        <div class="flex flex-col gap-4 sm:flex-row sm:flex-wrap sm:items-end sm:justify-between">
           <div>
             <SectionHeader
               badge={t.news.badge}
@@ -28,7 +28,7 @@ const posts = (await getSortedArticles(locale)).slice(0, 2);
               subtitle={t.news.subtitle}
             />
           </div>
-          <a href={localePath(locale, '/articles')} class="btn-ghost">{t.news.viewAll}</a>
+          <a href={localePath(locale, '/articles')} class="btn-ghost shrink-0 justify-center max-sm:w-full">{t.news.viewAll}</a>
         </div>
 
         <div class="section-body-gap grid gap-5 sm:grid-cols-2 sm:gap-6">

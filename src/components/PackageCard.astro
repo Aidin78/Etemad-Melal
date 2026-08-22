@@ -61,7 +61,7 @@ const colorMix25 = `color-mix(in srgb, ${color} 25%, transparent)`;
       <dl class="package-details rounded-xl text-xs">
         {
           t.packages.detailRows.map((row) => (
-            <div class="package-details-row flex gap-3 px-3 py-2.5 sm:grid sm:grid-cols-[1fr_1.1fr] sm:items-center sm:gap-4 sm:px-4">
+            <div class="package-details-row flex gap-3 px-3 py-3 sm:grid sm:grid-cols-[1fr_1.1fr] sm:items-center sm:gap-4 sm:px-4 sm:py-2.5">
               <dt class="font-medium text-subtle">{row.label}</dt>
               <dd class="min-w-0 ps-0 font-semibold tabular-nums text-heading sm:text-end">{pkg[row.key]}</dd>
             </div>
@@ -70,7 +70,7 @@ const colorMix25 = `color-mix(in srgb, ${color} 25%, transparent)`;
       </dl>
     </div>
     <p
-      class="mt-4 flex items-center justify-center gap-1 text-center text-xs font-semibold opacity-0 transition group-hover:opacity-100"
+      class="package-select-hint mt-4 flex min-h-[2.75rem] items-center justify-center gap-1 text-center text-xs font-semibold opacity-0 transition group-hover:opacity-100"
       style={`color: ${color}`}
     >
       {t.packages.selectInPanel}
