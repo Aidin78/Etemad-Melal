@@ -9,6 +9,8 @@ Etemad Melal is a Persian (RTL) investment platform marketing website. User regi
 Legal entity: شرکت خلاقان اعتماد ملل دیبا (Tehran, Iran).
 Contact: info@etemadmelal.com
 
+Positioning: architect of the link between capital and industry — aggregating micro-capital into productive industrial projects.
+
 ## درباره (فارسی)
 
 اعتماد ملل وب‌سایت معرفی و آموزش پلتفرم سرمایه‌گذاری است. ثبت‌نام، خرید پکیج، مشاهده سود ماهانه، گزارش پاداش‌ها و درخواست برداشت فقط از پنل کاربری انجام می‌شود.
@@ -25,17 +27,19 @@ Contact: info@etemadmelal.com
 
 Minimum entry: 10 million Toman (آغازه package).
 
-## Income streams (مسیرهای درآمد / پاداش)
+## Collaboration model (مدل همکاری / دو رکن)
 
-1. **سود مشارکت ماهانه** — periodic return based on chosen package; tracked in monthly profit schedule.
-2. **حق مشارکت مستقیم** — reward from direct referral / team activity.
-3. **توسعه مشارکتی (تعادل)** — balance reward from balanced growth in network branches.
+1. **مشارکت در بازدهی صنعتی** — allocation to productive projects with scheduled operational returns from production value.
+2. **پاداش توسعه بازار** — rewards based on real performance in network development and introducing opportunities.
+
+Panel detail: three reward paths (monthly partnership profit, direct participation, collaborative growth) are tracked separately in the panel Commissions and Financial Dashboard sections.
 
 Note: marketing copy uses «پاداش» (reward), not «پورسانت» (commission).
 
 ## Key pages
 
 - Homepage: https://etemadmelal.com/
+- About: https://etemadmelal.com/about
 - Articles index: https://etemadmelal.com/articles
 - User panel (login/register): https://panel.etemadmelal.com
 
@@ -56,11 +60,11 @@ Note: marketing copy uses «پاداش» (reward), not «پورسانت» (commi
 
 ## Homepage sections (anchor links)
 
-- /#features — services
-- /#income-streams — income types
+- /#features — services (4 items)
+- /#income-streams — collaboration model (2 pillars)
 - /#packages-overview — packages
-- /#trust — benefits
-- /#about — about company
+- /#trust — benefits (7 items)
+- /#about-preview — about preview
 - /#faq — FAQ (6 questions)
 - /#contact — contact form (email + message)
 

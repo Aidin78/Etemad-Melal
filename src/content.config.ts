@@ -15,6 +15,7 @@ const articles = defineCollection({
 
 const aboutSection = z.object({
   title: z.string(),
+  headline: z.string().optional(),
   /** Paragraphs separated by a blank line in YAML (| block) */
   content: z.string(),
 });

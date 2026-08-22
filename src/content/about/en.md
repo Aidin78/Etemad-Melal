@@ -1,17 +1,17 @@
 ---
 metaTitle: 'About us'
-metaDescription: 'Learn about Etemad Melal Creative Trust Diba Co., our mission, values, and the Etemad Melal investment platform.'
+metaDescription: 'Etemad Melal — architect of the link between capital and industry. Revitalizing production, national mission and investment strategy.'
 heroTitle: 'About'
 heroTitleAccent: 'Etemad Melal'
-heroSubtitle: 'Etemad Melal Creative Trust Diba Co. — a transparent, professional platform for smart investing with a dedicated user panel.'
+heroSubtitle: 'Etemad Melal — architect of the link between capital and industry.'
 imageAlt: 'Etemad Melal office'
 image: '/images/about.jpg'
 valuesTitle: 'Our values'
 highlights:
   - label: 'Finance'
-    value: 'Expert team'
+    value: 'Capital engineering'
   - label: 'Technology'
-    value: 'Advanced panel'
+    value: 'Dedicated panel'
   - label: 'Transparency'
     value: 'Live reports'
 values:
@@ -29,25 +29,29 @@ values:
     icon: '◆'
 sections:
   - title: 'Company overview'
+    headline: 'Etemad Melal — architect of the link between capital and industry'
     content: |
-      Etemad Melal Creative Trust Diba Co. builds a secure, transparent, and professional environment for investors. Etemad Melal is our flagship product — a platform that simplifies investing from signup through profit tracking and withdrawals in one integrated experience.
+      Etemad Melal Creative Trust Diba Co. is more than a financial institution — a forward-looking economic strategy. Through specialized knowledge in financial engineering and precise analysis of production markets, we have provided a secure platform for aggregating micro-capital and intelligently guiding it toward the country's real economic cycle.
 
-      We believe investor trust is the foundation of every lasting partnership. Transparent reporting, formal contracts, and ongoing support are at the heart of what we do.
+      At Etemad Melal, we believe that by removing inefficient intermediaries, we can create a direct bridge without intermediaries between investors and leading industries so that asset security and sustainable profitability are intertwined.
   - title: 'Our mission'
+    headline: 'Revitalizing production — national mission and investment strategy'
     content: |
-      Our mission is to provide professional, transparent access to investing for Iranian investors — with tools that were once only available through complex, opaque structures.
+      Our fundamental mission is to revive the pulse of production in capable industrial units. By accurately identifying golden opportunities and targeted liquidity provision to industries, we return semi-active units to the productivity cycle.
 
-      We want every investor — beginner or experienced — to choose the right package with full clarity, monitor finances in real time, and decide with confidence.
+      Your capital at Etemad Melal is spent creating tangible values in industry. This modern economic model not only brings maximum returns for investors but is also considered the driving engine of industrial development and job creation in the country.
   - title: 'Platform & services'
+    headline: 'Engineered transparency in the dedicated panel'
     content: |
-      The Etemad Melal platform includes a dedicated user panel (panel.etemadmelal.com) where you can register, select an investment package, track monthly partnership profit and other rewards, and submit withdrawal requests.
+      Our dedicated platform (Panel.etemadmelad.com) is a symbol of financial discipline and smart transparency. We have turned the complexities of capital management, using modern technology infrastructure, into a simple, precise, and monitorable process.
 
-      Three main income paths — monthly partnership profit, direct participation, and collaborative growth — each appear separately in the financial dashboard and commission reports. Multiple packages from 10M Toman allow different starting amounts.
-  - title: 'Commitment to transparency'
+      Every user in their panel has direct access to production project performance dashboards, detailed financial transactions, and periodic reports. At Etemad Melal, transparency is an inherent right for investors and a non-negotiable principle for us.
+  - title: 'Commitment to investors'
+    headline: 'Our commitment: asset security, capital, and transparency'
     content: |
-      All package details — return rates, contract terms, and investment limits — are published clearly on this website and in the user panel. Investors can review transaction history, monthly profit schedules, and account status at any time.
+      The security of your assets is the main pillar of our activities. At Etemad Melal, by adhering to strict financial oversight principles and using transparent and codified contracts, we safeguard your capital.
 
-      Our support team is available via email and panel tickets. We strive to answer technical, financial, and contractual questions promptly.
+      Our support team is with you from the first stage through full realization of results and return of capital, to create a distinct experience of safe and smart investment with worthy and transparent responsiveness. Our goal is to build a future where your economic growth aligns with the country's industrial growth.
 ---
 
-<!-- Edit content: update the sections array in frontmatter — each section has title and content (paragraphs separated by blank lines) -->
+<!-- Edit content: sections mirror the handwritten Persian source text -->

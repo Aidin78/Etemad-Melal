@@ -1,4 +1,7 @@
 ---
+import { siteConfig } from '../config/site';
+import { parsePanelLinks } from '../lib/rich-text';
+
 interface Props {
   content: string;
 }
@@ -12,7 +15,26 @@ const paragraphs = content
 ---
 
 <div class="about-section-body space-y-4">
-  {paragraphs.map((paragraph) => (
-    <p class="text-sm leading-[1.85] text-muted sm:text-base">{paragraph}</p>
-  ))}
+  {
+    paragraphs.map((paragraph) => (
+      <p class="text-sm leading-[1.85] text-muted sm:text-base">
+        {
+          parsePanelLinks(paragraph, siteConfig.panelUrl).map((part) =>
+            part.type === 'link' ? (
+              <a
+                href={part.href}
+                class="font-medium text-accent-gold-light underline decoration-accent-gold/40 underline-offset-2 transition hover:text-accent"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {part.label}
+              </a>
+            ) : (
+              part.value
+            ),
+          )
+        }
+      </p>
+    ))
+  }
 </div>

@@ -1,6 +1,7 @@
 ---
 import SectionHeader from './SectionHeader.astro';
 import { siteImages } from '../config/images';
+import { trustBenefitIcons } from '../lib/section-icons';
 import type { Locale } from '../i18n/types';
 import { getTranslations } from '../i18n';
 
@@ -10,12 +11,6 @@ interface Props {
 
 const { locale } = Astro.props;
 const t = getTranslations(locale);
-
-const benefitIcons = [
-  'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z',
-  'M15 12a3 3 0 11-6 0 3 3 0 016 0z M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z',
-  'M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z',
-];
 ---
 
 <section id="trust" class="section-spacing relative overflow-hidden bg-trust-section">
@@ -30,13 +25,13 @@ const benefitIcons = [
       />
     </div>
 
-    <div class="section-body-gap grid gap-5 sm:grid-cols-3 sm:gap-6">
+    <div class="section-body-gap grid gap-5 sm:grid-cols-2 lg:grid-cols-3 sm:gap-6">
       {
         t.trust.benefits.map((b, i) => (
-          <article class="investment-card rounded-2xl p-6 text-center transition hover:-translate-y-1">
-            <div class="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-accent/20 to-accent-gold/20 text-accent ring-1 ring-accent/30">
+          <article class="investment-card group rounded-2xl p-6 text-center">
+            <div class="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-accent/20 to-accent-gold/20 text-accent ring-1 ring-accent/30 transition-all duration-500 ease-out group-hover:ring-accent/45 group-hover:from-accent/28 group-hover:to-accent-gold/28">
               <svg class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d={benefitIcons[i]} />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d={trustBenefitIcons[i] ?? trustBenefitIcons[0]} />
               </svg>
             </div>
             <h3 class="text-lg font-bold text-heading">{b.title}</h3>

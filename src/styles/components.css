@@ -58,9 +58,25 @@
     0 0 40px rgb(var(--accent-rgb) / 0.06),
     inset 0 1px 0 rgb(240 215 140 / 0.08);
   transition:
-    background 0.25s ease,
-    border-color 0.25s ease,
-    box-shadow 0.25s ease;
+    transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    background 0.45s ease,
+    border-color 0.45s ease,
+    box-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.investment-card:hover {
+  transform: translateY(-3px);
+  border-color: rgb(116 160 204 / 0.32);
+  box-shadow:
+    0 12px 40px rgb(var(--accent-rgb) / 0.1),
+    inset 0 1px 0 rgb(240 215 140 / 0.1);
+}
+
+[data-theme='light'] .investment-card:hover {
+  border-color: rgb(48 84 117 / 0.22);
+  box-shadow:
+    0 10px 32px rgb(48 84 117 / 0.1),
+    inset 0 1px 0 rgb(255 255 255 / 0.85);
 }
 
 [data-theme='light'] .investment-card {

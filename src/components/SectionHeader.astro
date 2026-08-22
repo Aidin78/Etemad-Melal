@@ -17,9 +17,13 @@ const subtitleClass = align === 'center' ? 'section-subtitle mx-auto' : 'section
 ---
 
 <div class:list={[alignClass, className]}>
-  <SectionBadge label={badge} dot={dot} />
-  <h2 class="section-title">
-    {title} <span class="section-title-accent">{titleAccent}</span>
-  </h2>
+  {badge.trim() && <SectionBadge label={badge} dot={dot} />}
+  {
+    (title || titleAccent) && (
+      <h2 class="section-title">
+        {title} <span class="section-title-accent">{titleAccent}</span>
+      </h2>
+    )
+  }
   {subtitle && <p class={subtitleClass}>{subtitle}</p>}
 </div>
