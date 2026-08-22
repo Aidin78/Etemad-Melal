@@ -32,12 +32,9 @@ const navDataAttrs = (href: string) => {
 const localizedHref = (href: string) => localePath(locale, href);
 ---
 
-<header
-  class="fixed inset-x-0 top-0 z-50 border-b border-theme bg-header backdrop-blur-xl"
-  id="site-header"
->
-  <div class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3.5 sm:px-6">
-    <Logo locale={locale} size="sm" animated={false} />
+<header class="site-header fixed inset-x-0 top-0 z-50 border-b border-theme bg-header backdrop-blur-xl" id="site-header">
+  <div class="site-header-bar mx-auto flex max-w-6xl items-center justify-between gap-2 px-3 sm:gap-4 sm:px-6">
+    <Logo locale={locale} size="sm" animated={false} class="min-w-0 shrink" />
 
     <nav class="hidden items-center gap-6 lg:flex" aria-label={t.a11y.mainNav}>
       {
@@ -49,61 +46,90 @@ const localizedHref = (href: string) => localePath(locale, href);
       }
     </nav>
 
-    <div class="flex items-center gap-2 sm:gap-3">
-      <LanguageSwitcher locale={locale} />
-      <ThemeToggle ariaLabel={t.a11y.themeToggle} />
-      <PanelLink locale={locale} class="hidden text-sm !py-2.5 !px-5 sm:inline-flex">{t.panelCtaLogin}</PanelLink>
+    <div class="flex shrink-0 items-center gap-1.5 sm:gap-2 lg:gap-3">
+      <div class="hidden items-center gap-1.5 sm:flex sm:gap-2">
+        <LanguageSwitcher locale={locale} />
+        <ThemeToggle ariaLabel={t.a11y.themeToggle} />
+      </div>
+      <PanelLink locale={locale} class="max-lg:!hidden text-sm !px-5 !py-2.5">{t.panelCtaLogin}</PanelLink>
       <button
         type="button"
-        class="flex h-10 w-10 items-center justify-center rounded-lg border border-theme bg-[var(--toggle-bg)] text-[var(--toggle-text)] lg:hidden"
+        class="mobile-menu-toggle flex h-9 w-9 items-center justify-center rounded-lg border border-theme bg-[var(--toggle-bg)] text-[var(--toggle-text)] transition-colors duration-300 lg:hidden sm:h-10 sm:w-10"
         id="menu-toggle"
         aria-label={t.a11y.openMenu}
         aria-expanded="false"
+        aria-controls="mobile-menu"
       >
-        <svg class="h-5 w-5" id="icon-open" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <svg class="h-5 w-5" id="icon-open" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
         </svg>
-        <svg class="hidden h-5 w-5" id="icon-close" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <svg class="hidden h-5 w-5" id="icon-close" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
         </svg>
       </button>
     </div>
   </div>
 
-  <div class="hidden border-t border-theme bg-header-mobile px-4 py-4 lg:hidden" id="mobile-menu">
-    <nav class="flex flex-col gap-3" aria-label={t.a11y.mobileNav}>
-      {
-        t.nav.map((link) => (
-          <a href={localizedHref(link.href)} class="nav-link-mobile" {...navDataAttrs(link.href)}>
-            {link.label}
-          </a>
-        ))
-      }
-      <PanelLink locale={locale} class="mt-2 text-center text-sm">{t.panelCtaLogin}</PanelLink>
-    </nav>
+  <div class="mobile-menu lg:hidden" id="mobile-menu" hidden>
+    <button type="button" class="mobile-menu-backdrop" id="mobile-menu-backdrop" aria-label={t.a11y.closeMenu} tabindex="-1"></button>
+    <div class="mobile-menu-panel border-t border-theme bg-header-mobile shadow-[0_24px_48px_rgb(0_0_0/0.18)]">
+      <nav class="mobile-menu-nav" aria-label={t.a11y.mobileNav}>
+        {
+          t.nav.map((link) => (
+            <a href={localizedHref(link.href)} class="nav-link-mobile" {...navDataAttrs(link.href)}>
+              {link.label}
+            </a>
+          ))
+        }
+      </nav>
+      <div class="mobile-menu-footer border-t border-theme px-4 py-4">
+        <div class="flex items-center justify-between gap-3 sm:hidden">
+          <LanguageSwitcher locale={locale} />
+          <ThemeToggle ariaLabel={t.a11y.themeToggle} />
+        </div>
+        <PanelLink locale={locale} class="mobile-menu-cta mt-3 w-full justify-center text-sm sm:mt-0">{t.panelCtaLogin}</PanelLink>
+      </div>
+    </div>
   </div>
 </header>
 
-<script>
+<script define:vars={{ openLabel: t.a11y.openMenu, closeLabel: t.a11y.closeMenu }}>
   const toggle = document.getElementById('menu-toggle');
   const menu = document.getElementById('mobile-menu');
+  const backdrop = document.getElementById('mobile-menu-backdrop');
   const iconOpen = document.getElementById('icon-open');
   const iconClose = document.getElementById('icon-close');
+  const header = document.getElementById('site-header');
 
-  toggle?.addEventListener('click', () => {
-    const open = menu?.classList.toggle('hidden') === false;
-    toggle.setAttribute('aria-expanded', String(open));
+  const setMenuOpen = (open) => {
+    menu?.classList.toggle('mobile-menu--open', open);
+    menu?.toggleAttribute('hidden', !open);
+    toggle?.setAttribute('aria-expanded', String(open));
+    toggle?.setAttribute('aria-label', open ? closeLabel : openLabel);
+    toggle?.classList.toggle('mobile-menu-toggle--open', open);
     iconOpen?.classList.toggle('hidden', open);
     iconClose?.classList.toggle('hidden', !open);
+    document.body.classList.toggle('mobile-menu-open', open);
+  };
+
+  toggle?.addEventListener('click', () => {
+    setMenuOpen(!menu?.classList.contains('mobile-menu--open'));
+  });
+
+  backdrop?.addEventListener('click', () => setMenuOpen(false));
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && menu?.classList.contains('mobile-menu--open')) {
+      setMenuOpen(false);
+    }
   });
 
   menu?.querySelectorAll('a').forEach((link) => {
-    link.addEventListener('click', () => {
-      menu.classList.add('hidden');
-      toggle?.setAttribute('aria-expanded', 'false');
-      iconOpen?.classList.remove('hidden');
-      iconClose?.classList.add('hidden');
-    });
+    link.addEventListener('click', () => setMenuOpen(false));
+  });
+
+  window.matchMedia('(min-width: 1024px)').addEventListener('change', (event) => {
+    if (event.matches) setMenuOpen(false);
   });
 
   const normalizePath = () => {
@@ -111,28 +137,26 @@ const localizedHref = (href: string) => localePath(locale, href);
     return path || '/';
   };
 
-  const setLinkActive = (link: HTMLAnchorElement, active: boolean) => {
+  const setLinkActive = (link, active) => {
     link.classList.toggle('nav-link-active', active);
     if (active) link.setAttribute('aria-current', 'page');
     else link.removeAttribute('aria-current');
   };
 
   const clearNavActive = () => {
-    document
-      .querySelectorAll<HTMLAnchorElement>('[data-nav-section], [data-nav-path]')
-      .forEach((link) => setLinkActive(link, false));
+    document.querySelectorAll('[data-nav-section], [data-nav-path]').forEach((link) => setLinkActive(link, false));
   };
 
   function initPageNav() {
     const path = normalizePath();
-    document.querySelectorAll<HTMLAnchorElement>('[data-nav-path]').forEach((link) => {
+    document.querySelectorAll('[data-nav-path]').forEach((link) => {
       const prefix = link.dataset.navPath;
       setLinkActive(link, !!prefix && path.startsWith(prefix));
     });
   }
 
   function initScrollSpy() {
-    const links = document.querySelectorAll<HTMLAnchorElement>('[data-nav-section]');
+    const links = document.querySelectorAll('[data-nav-section]');
     if (!links.length) return;
 
     const sections = [...links]
@@ -140,14 +164,13 @@ const localizedHref = (href: string) => localePath(locale, href);
         const id = link.dataset.navSection;
         return id ? document.getElementById(id) : null;
       })
-      .filter((el): el is HTMLElement => !!el);
+      .filter((el) => !!el);
 
     if (!sections.length) return;
 
-    const header = document.getElementById('site-header');
-    const scrollOffset = () => (header?.offsetHeight ?? 72) + 40;
+    const scrollOffset = () => (header?.offsetHeight ?? 56) + 40;
 
-    const setActive = (id: string) => {
+    const setActive = (id) => {
       clearNavActive();
       links.forEach((link) => setLinkActive(link, link.dataset.navSection === id));
     };

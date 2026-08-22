@@ -27,6 +27,7 @@ export const en: Translations = {
   a11y: {
     skipToContent: 'Skip to main content',
     openMenu: 'Open menu',
+    closeMenu: 'Close menu',
     mainNav: 'Main navigation',
     mobileNav: 'Mobile navigation',
     themeToggle: 'Toggle light / dark theme',
@@ -328,7 +329,5 @@ export const en: Translations = {
     faq: 'FAQ',
     contact: 'Contact',
     rights: 'All rights reserved.',
-    disclaimer:
-      'Investing involves risk. Information on this website is for introduction only and is not investment advice. Please read official contracts before making any decision.',
   },
 };

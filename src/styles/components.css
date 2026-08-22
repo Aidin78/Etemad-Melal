@@ -206,28 +206,30 @@
 }
 
 @keyframes ticker-scroll {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
   to {
-    transform: translate3d(-50%, 0, 0);
+    transform: translate3d(var(--ticker-shift, -50%), 0, 0);
   }
 }
 
-.ticker-viewport-inner {
-  overflow: hidden;
-  width: 100%;
+.ticker-viewport {
   direction: ltr;
 }
 
-.ticker-inner {
+.ticker-track {
   display: flex;
   width: max-content;
   flex-wrap: nowrap;
   will-change: transform;
   backface-visibility: hidden;
+  animation: ticker-scroll var(--ticker-duration, 40s) linear infinite;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .ticker-inner {
-    animation: ticker-scroll 50s linear infinite;
+@media (prefers-reduced-motion: reduce) {
+  .ticker-track {
+    animation-duration: calc(var(--ticker-duration, 40s) * 2);
   }
 }
 

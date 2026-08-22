@@ -140,6 +140,126 @@
   @apply bg-accent-gold/15 text-accent-gold-light;
 }
 
+.site-header {
+  padding-top: env(safe-area-inset-top, 0px);
+  --site-header-height: calc(3.25rem + env(safe-area-inset-top, 0px));
+}
+
+.site-header-bar {
+  min-height: 3.25rem;
+  padding-block: 0.625rem;
+}
+
+@media (min-width: 640px) {
+  .site-header {
+    --site-header-height: calc(3.75rem + env(safe-area-inset-top, 0px));
+  }
+
+  .site-header-bar {
+    min-height: 3.75rem;
+    padding-block: 0.875rem;
+  }
+}
+
+.site-main {
+  padding-top: var(--site-header-height, 3.25rem);
+}
+
+body.mobile-menu-open {
+  overflow: hidden;
+}
+
+.mobile-menu {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  pointer-events: none;
+}
+
+.mobile-menu--open {
+  pointer-events: auto;
+}
+
+.mobile-menu-backdrop {
+  position: absolute;
+  inset: 0;
+  top: var(--site-header-height, 3.25rem);
+  border: 0;
+  background: rgb(0 0 0 / 0.45);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.mobile-menu--open .mobile-menu-backdrop {
+  opacity: 1;
+}
+
+.mobile-menu-panel {
+  position: absolute;
+  inset-inline: 0;
+  top: var(--site-header-height, 3.25rem);
+  max-height: calc(100dvh - var(--site-header-height, 3.25rem));
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  transform: translateY(-0.75rem);
+  opacity: 0;
+  transition:
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.3s ease;
+}
+
+.mobile-menu--open .mobile-menu-panel {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.mobile-menu-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.75rem;
+}
+
+.mobile-menu-nav .nav-link-mobile {
+  border: 1px solid transparent;
+  border-radius: 0.875rem;
+  padding: 0.875rem 1rem;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.mobile-menu-nav .nav-link-mobile.nav-link-active {
+  border-color: rgb(212 168 83 / 0.22);
+}
+
+.mobile-menu-footer {
+  position: sticky;
+  bottom: 0;
+  background: var(--header-bg-mobile);
+  padding-bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
+}
+
+.mobile-menu-cta {
+  min-height: 2.75rem;
+}
+
+.mobile-menu-toggle--open {
+  border-color: rgb(212 168 83 / 0.45);
+  background: rgb(212 168 83 / 0.12);
+  color: var(--accent-gold-light, #f0d78c);
+}
+
+[data-theme='light'] .mobile-menu-backdrop {
+  background: rgb(15 23 42 / 0.28);
+}
+
+[data-theme='light'] .mobile-menu-toggle--open {
+  background: rgb(154 115 9 / 0.1);
+  border-color: rgb(154 115 9 / 0.35);
+  color: #9a7309;
+}
+
 .stat-value {
   color: var(--gold-emphasis);
   @apply text-3xl font-bold sm:text-4xl;

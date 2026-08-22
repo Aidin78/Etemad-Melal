@@ -47,6 +47,7 @@ export type Translations = {
   a11y: {
     skipToContent: string;
     openMenu: string;
+    closeMenu: string;
     mainNav: string;
     mobileNav: string;
     themeToggle: string;
@@ -173,6 +174,5 @@ export type Translations = {
     faq: string;
     contact: string;
     rights: string;
-    disclaimer: string;
   };
 };

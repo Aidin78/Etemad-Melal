@@ -8,35 +8,61 @@ interface Props {
 
 const { locale } = Astro.props;
 const t = getTranslations(locale);
+const tickerGroups = 4;
 ---
 
 <div class="ticker-viewport relative overflow-hidden border-y border-accent-gold/15 bg-ticker py-3" aria-hidden="true">
   <div class="pointer-events-none absolute inset-y-0 right-0 z-10 w-20 ticker-fade-start"></div>
   <div class="pointer-events-none absolute inset-y-0 left-0 z-10 w-20 ticker-fade-end"></div>
-  <div class="ticker-viewport-inner">
-    <div class="ticker-inner">
-      <div class="ticker-group">
-        {
-          t.ticker.map((item) => (
-            <span class="ticker-item">
-              <span class="font-medium text-body">{item.label}</span>
-              <span class="rounded-md bg-accent/15 px-2 py-0.5 text-xs font-bold text-accent">{item.trend}</span>
-              <span class="ticker-sep">◆</span>
-            </span>
-          ))
-        }
-      </div>
-      <div class="ticker-group" aria-hidden="true">
-        {
-          t.ticker.map((item) => (
-            <span class="ticker-item">
-              <span class="font-medium text-body">{item.label}</span>
-              <span class="rounded-md bg-accent/15 px-2 py-0.5 text-xs font-bold text-accent">{item.trend}</span>
-              <span class="ticker-sep">◆</span>
-            </span>
-          ))
-        }
-      </div>
-    </div>
+  <div class="ticker-track">
+    {
+      Array.from({ length: tickerGroups }, (_, index) => (
+        <div class="ticker-group" aria-hidden={index > 0 ? 'true' : undefined}>
+          {
+            t.ticker.map((item) => (
+              <span class="ticker-item">
+                <span class="font-medium text-body">{item.label}</span>
+                <span class="rounded-md bg-accent/15 px-2 py-0.5 text-xs font-bold text-accent">{item.trend}</span>
+                <span class="ticker-sep">◆</span>
+              </span>
+            ))
+          }
+        </div>
+      ))
+    }
   </div>
 </div>
+
+<script>
+  const MIN_GROUPS = 4;
+
+  const initTickerLoops = () => {
+    document.querySelectorAll('.ticker-viewport').forEach((viewport) => {
+      const track = viewport.querySelector('.ticker-track');
+      const group = track?.querySelector('.ticker-group');
+      if (!(track instanceof HTMLElement) || !(group instanceof HTMLElement)) return;
+
+      if (track.dataset.loopReady === 'true') return;
+
+      const groupWidth = group.getBoundingClientRect().width;
+      if (!groupWidth) return;
+
+      const minTrackWidth = viewport.clientWidth * 2.5;
+      let groupCount = track.querySelectorAll('.ticker-group').length;
+
+      while (track.scrollWidth < minTrackWidth || groupCount < MIN_GROUPS) {
+        const clone = group.cloneNode(true);
+        if (clone instanceof HTMLElement) clone.setAttribute('aria-hidden', 'true');
+        track.appendChild(clone);
+        groupCount += 1;
+      }
+
+      track.style.setProperty('--ticker-shift', `${-groupWidth}px`);
+      track.style.setProperty('--ticker-duration', `${Math.max(24, groupWidth / 28)}s`);
+      track.dataset.loopReady = 'true';
+    });
+  };
+
+  initTickerLoops();
+  document.addEventListener('astro:page-load', initTickerLoops);
+</script>
