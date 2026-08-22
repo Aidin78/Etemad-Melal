@@ -69,7 +69,7 @@ export const en: Translations = {
         desc: 'Allocation of resources to productive projects, by receiving scheduled operational returns that are directly obtained from the production value of projects. This path is for individuals seeking stability and continuity in economic productivity.',
         highlights: [],
         color: '#4a9ec4',
-        icon: 'M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4',
+        icon: 'M11.42 15.17L17.25 21A2.652 2.652 0 0021 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 11-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 004.486-6.336l-3.276 3.277a3.004 3.004 0 01-2.25-2.25l3.276-3.276a4.5 4.5 0 00-6.336 4.486c.091 1.076-.071 2.264-.904 2.95l-.102.085',
       },
       {
         id: 'market_development',
@@ -77,7 +77,7 @@ export const en: Translations = {
         desc: 'Active participation in introducing platform capacities and expanding business communications; in this section, based on your actual performance in network development and introducing opportunities, a cooperation reward has been considered.',
         highlights: [],
         color: '#2E86AB',
-        icon: 'M13 7h8m0 0v8m0-8l-8 8-4-4-6 6',
+        icon: 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z',
       },
     ],
   },

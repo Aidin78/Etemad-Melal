@@ -6,6 +6,7 @@ import PanelLink from './PanelLink.astro';
 import { getEntry } from 'astro:content';
 import type { Locale } from '../i18n/types';
 import { formatBoxIndex, getTranslations, localePath } from '../i18n';
+import { aboutValueIcons } from '../lib/section-icons';
 
 interface Props {
   locale: Locale;
@@ -100,10 +101,12 @@ const { data } = entry;
       </div>
       <div class="section-body-gap grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
         {
-          data.values.map((value) => (
-            <article class="about-value-card investment-card rounded-2xl p-6 text-center transition hover:-translate-y-0.5">
-              <div class="about-value-icon mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl text-xl text-accent-gold-light">
-                {value.icon}
+          data.values.map((value, i) => (
+            <article class="about-value-card investment-card rounded-2xl p-6 text-center">
+              <div class="about-value-icon mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl text-accent-gold-light transition-colors duration-500 ease-out">
+                <svg class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d={aboutValueIcons[i] ?? aboutValueIcons[0]} />
+                </svg>
               </div>
               <h3 class="text-lg font-bold text-heading">{value.title}</h3>
               <p class="mt-2 text-sm leading-relaxed text-muted">{value.desc}</p>

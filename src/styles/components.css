@@ -65,7 +65,7 @@
 }
 
 .investment-card:hover {
-  transform: translateY(-3px);
+  transform: translateY(-2px);
   border-color: rgb(116 160 204 / 0.32);
   box-shadow:
     0 12px 40px rgb(var(--accent-rgb) / 0.1),
@@ -127,10 +127,10 @@
   background: var(--surface);
   backdrop-filter: blur(8px);
   transition:
-    background 0.25s ease,
-    border-color 0.25s ease,
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
+    background 0.45s ease,
+    border-color 0.45s ease,
+    transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .package-card-default {

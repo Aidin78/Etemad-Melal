@@ -27,9 +27,9 @@ const titleClass = compact
 
 <a
   href={localePath(locale, `/articles/${slug}`)}
-  class="investment-card group overflow-hidden rounded-2xl transition hover:-translate-y-1"
+  class="investment-card group overflow-hidden rounded-2xl"
 >
-  <img src={post.data.image} alt={display.title} class="aspect-video w-full object-cover transition group-hover:scale-[1.02]" loading="lazy" />
+  <img src={post.data.image} alt={display.title} class="aspect-video w-full object-cover transition duration-700 ease-out group-hover:scale-[1.015]" loading="lazy" />
   <div class="p-6">
     <time class="text-xs font-medium text-accent-gold" datetime={post.data.date.toISOString()}>
       {display.dateLabel}
