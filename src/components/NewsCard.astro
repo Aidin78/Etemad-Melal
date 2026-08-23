@@ -25,17 +25,16 @@ const titleClass = compact
   : 'mt-2 text-xl font-bold text-heading group-hover:text-accent-gold-light';
 ---
 
-<a
-  href={localePath(locale, `/articles/${slug}`)}
-  class="investment-card group overflow-hidden rounded-2xl"
->
-  <img src={post.data.image} alt={display.title} class="aspect-video w-full object-cover transition duration-700 ease-out group-hover:scale-[1.015]" loading="lazy" />
-  <div class="p-6">
-    <time class="text-xs font-medium text-accent-gold" datetime={post.data.date.toISOString()}>
-      {display.dateLabel}
-    </time>
-    <TitleTag class={titleClass}>{display.title}</TitleTag>
-    <p class:list={['mt-2 text-sm text-muted', compact && 'line-clamp-2']}>{display.excerpt}</p>
-    {!compact && <span class="mt-4 inline-block text-sm font-bold text-accent">{t.news.readMore}</span>}
-  </div>
-</a>
+<article class="investment-card group overflow-hidden rounded-2xl">
+  <a href={localePath(locale, `/articles/${slug}`)} class="block">
+    <img src={post.data.image} alt={display.title} class="aspect-video w-full object-cover transition duration-700 ease-out group-hover:scale-[1.015]" loading="lazy" />
+    <div class="p-6">
+      <time class="text-xs font-medium text-accent-gold" datetime={post.data.date.toISOString()}>
+        {display.dateLabel}
+      </time>
+      <TitleTag class={titleClass}>{display.title}</TitleTag>
+      <p class:list={['mt-2 text-sm text-muted', compact && 'line-clamp-2']}>{display.excerpt}</p>
+      {!compact && <span class="mt-4 inline-block text-sm font-bold text-accent">{t.news.readMore}</span>}
+    </div>
+  </a>
+</article>

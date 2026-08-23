@@ -31,11 +31,11 @@ const posts = (await getSortedArticles(locale)).slice(0, 2);
           <a href={localePath(locale, '/articles')} class="btn-ghost shrink-0 justify-center max-sm:w-full">{t.news.viewAll}</a>
         </div>
 
-        <div class="section-body-gap grid gap-5 sm:grid-cols-2 sm:gap-6">
+        <ul class="section-body-gap grid gap-5 sm:grid-cols-2 sm:gap-6">
           {posts.map((post) => (
-            <NewsCard locale={locale} post={post} compact />
+            <li><NewsCard locale={locale} post={post} compact /></li>
           ))}
-        </div>
+        </ul>
       </div>
     </section>
   )

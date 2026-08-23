@@ -79,8 +79,11 @@ export const fa: Translations = {
     mainNav: 'منوی اصلی',
     mobileNav: 'منوی موبایل',
     themeToggle: 'تغییر تم روشن / تاریک',
+    switchToLight: 'تغییر به تم روشن',
+    switchToDark: 'تغییر به تم تاریک',
     breadcrumb: 'مسیر صفحه',
     home: 'خانه',
+    opensInNewTab: '(در برگه جدید باز می‌شود)',
   },
   langSwitch: { label: 'Language', toEn: 'English', toFa: 'فارسی' },
   hero: {
@@ -310,6 +313,7 @@ export const fa: Translations = {
     sentNew: 'ارسال پیام جدید',
   },
   footer: {
+    landmarkLabel: 'پانویس سایت',
     ctaEyebrow: 'آماده سرمایه‌گذاری هستید؟',
     ctaTitle: 'همین حالا به',
     ctaTitleAccent: 'پنل اعتماد ملل',

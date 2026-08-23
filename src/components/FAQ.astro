@@ -28,10 +28,10 @@ const faqIcon = locale === 'fa' ? '؟' : '?';
           <details class="investment-card group rounded-xl transition">
             <summary class="flex min-h-[3.25rem] cursor-pointer list-none items-center justify-between gap-4 p-5 text-sm font-bold text-heading [&::-webkit-details-marker]:hidden">
               <span class="flex items-center gap-3">
-                <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-accent-gold/15 text-xs text-accent-gold">{faqIcon}</span>
-                {item.q}
+                <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-accent-gold/15 text-xs text-accent-gold" aria-hidden="true">{faqIcon}</span>
+                <h3 class="text-sm font-bold text-heading">{item.q}</h3>
               </span>
-              <span class="shrink-0 text-accent-gold transition group-open:rotate-180">▼</span>
+              <span class="shrink-0 text-accent-gold transition group-open:rotate-180" aria-hidden="true">▼</span>
             </summary>
             <p class="border-t border-divider px-5 py-5 text-sm leading-relaxed text-muted">{item.a}</p>
           </details>

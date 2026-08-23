@@ -31,8 +31,11 @@ export const en: Translations = {
     mainNav: 'Main navigation',
     mobileNav: 'Mobile navigation',
     themeToggle: 'Toggle light / dark theme',
+    switchToLight: 'Switch to light theme',
+    switchToDark: 'Switch to dark theme',
     breadcrumb: 'Breadcrumb',
     home: 'Home',
+    opensInNewTab: '(opens in a new tab)',
   },
   langSwitch: { label: 'Language', toEn: 'English', toFa: 'فارسی' },
   hero: {
@@ -307,6 +310,7 @@ export const en: Translations = {
     sentNew: 'Send another message',
   },
   footer: {
+    landmarkLabel: 'Site footer',
     ctaEyebrow: 'Ready to invest?',
     ctaTitle: 'Enter the',
     ctaTitleAccent: 'Etemad Melal panel',

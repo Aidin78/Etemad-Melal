@@ -113,6 +113,22 @@
   color: var(--prose-heading);
 }
 
+.article-prose table {
+  border-collapse: collapse;
+}
+
+.article-prose th,
+.article-prose td {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--border-strong);
+  text-align: start;
+}
+
+.article-prose th {
+  color: var(--prose-heading);
+  font-weight: 700;
+}
+
 .nav-link {
   @apply text-sm transition-colors;
   color: var(--nav);
@@ -146,6 +162,8 @@
 }
 
 .site-header-bar {
+  position: relative;
+  z-index: 2;
   min-height: 3.25rem;
   padding-block: 0.625rem;
 }
@@ -171,19 +189,21 @@ body.mobile-menu-open {
 
 .mobile-menu {
   position: fixed;
-  inset: 0;
-  z-index: 40;
+  inset-inline: 0;
+  top: var(--site-header-height, 3.25rem);
+  bottom: 0;
+  z-index: 49;
   pointer-events: none;
 }
 
-.mobile-menu--open {
+.mobile-menu--open .mobile-menu-backdrop,
+.mobile-menu--open .mobile-menu-panel {
   pointer-events: auto;
 }
 
 .mobile-menu-backdrop {
   position: absolute;
   inset: 0;
-  top: var(--site-header-height, 3.25rem);
   border: 0;
   background: rgb(0 0 0 / 0.45);
   opacity: 0;
@@ -197,8 +217,8 @@ body.mobile-menu-open {
 .mobile-menu-panel {
   position: absolute;
   inset-inline: 0;
-  top: var(--site-header-height, 3.25rem);
-  max-height: calc(100dvh - var(--site-header-height, 3.25rem));
+  top: 0;
+  max-height: 100%;
   overflow-y: auto;
   overscroll-behavior: contain;
   transform: translateY(-0.75rem);
@@ -429,7 +449,7 @@ footer {
     padding-inline: 0.125rem;
   }
 
-  footer .flex.flex-wrap.justify-center.gap-4 a {
+  .footer-legal-list a {
     display: inline-flex;
     align-items: center;
     min-height: 2.75rem;
@@ -476,6 +496,19 @@ footer {
 
   .package-details-row dd {
     padding-inline-start: 0;
+  }
+
+  .article-prose table {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    white-space: nowrap;
+  }
+
+  .article-prose th,
+  .article-prose td {
+    padding: 0.5rem 0.625rem;
+    font-size: 0.8125rem;
   }
 }
 

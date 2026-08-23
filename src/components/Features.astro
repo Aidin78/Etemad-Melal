@@ -46,27 +46,29 @@ const t = getTranslations(locale);
       </div>
     </div>
 
-    <div class="mt-10 grid gap-5 sm:mt-16 sm:grid-cols-2 lg:grid-cols-4 sm:gap-6">
+    <ul class="mt-10 grid gap-5 sm:mt-16 sm:grid-cols-2 lg:grid-cols-4 sm:gap-6">
       {
         t.features.steps.map((step, i) => (
-          <article
-            class="investment-card group relative overflow-hidden rounded-2xl p-6"
-            style={`animation-delay: ${i * 0.1}s`}
-          >
-            <div class="absolute top-0 left-0 h-1 w-full bg-gradient-to-l from-transparent via-accent-gold to-transparent opacity-0 transition-opacity duration-500 ease-out group-hover:opacity-100" />
-            <div class="mb-4 flex items-center justify-between">
-              <span class="text-3xl font-bold text-accent-gold/30">{step.num}</span>
-              <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-accent-gold/25 to-accent/20 text-accent-gold-light transition-colors duration-500 ease-out group-hover:from-accent-gold/35 group-hover:to-accent/30">
-                <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d={featureStepIcons[i] ?? featureStepIcons[0]} />
-                </svg>
+          <li>
+            <article
+              class="investment-card group relative overflow-hidden rounded-2xl p-6"
+              style={`animation-delay: ${i * 0.1}s`}
+            >
+              <div class="absolute top-0 left-0 h-1 w-full bg-gradient-to-l from-transparent via-accent-gold to-transparent opacity-0 transition-opacity duration-500 ease-out group-hover:opacity-100" />
+              <div class="mb-4 flex items-center justify-between">
+                <span class="text-3xl font-bold text-accent-gold/30">{step.num}</span>
+                <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-accent-gold/25 to-accent/20 text-accent-gold-light transition-colors duration-500 ease-out group-hover:from-accent-gold/35 group-hover:to-accent/30">
+                  <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d={featureStepIcons[i] ?? featureStepIcons[0]} />
+                  </svg>
+                </div>
               </div>
-            </div>
-            <h3 class="text-lg font-bold text-heading">{step.title}</h3>
-            <p class="mt-2 text-sm leading-relaxed text-muted">{step.desc}</p>
-          </article>
+              <h3 class="text-lg font-bold text-heading">{step.title}</h3>
+              <p class="mt-2 text-sm leading-relaxed text-muted">{step.desc}</p>
+            </article>
+          </li>
         ))
       }
-    </div>
+    </ul>
   </div>
 </section>

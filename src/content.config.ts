@@ -10,6 +10,8 @@ const articles = defineCollection({
     dateFa: z.string().optional(),
     excerpt: z.string(),
     image: z.string().default(siteImages.articleDefault),
+    metaTitle: z.string().optional(),
+    metaDescription: z.string().optional(),
   }),
 });
 

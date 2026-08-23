@@ -150,10 +150,10 @@
   color: var(--input-text);
 }
 
-.input-field:focus {
-  border-color: rgb(212 168 83 / 0.5);
-  outline: none;
-  box-shadow: 0 0 0 1px rgb(212 168 83 / 0.3);
+.input-field:focus-visible {
+  border-color: var(--color-accent-gold, #d4a853);
+  outline: 2px solid var(--color-accent-gold, #d4a853);
+  outline-offset: 1px;
 }
 
 .footer-link {
@@ -163,5 +163,21 @@
 
 .footer-link:hover {
   color: var(--heading);
+}
+
+.footer-legal-list li:not(:first-child) {
+  position: relative;
+  padding-inline-start: 1rem;
+}
+
+.footer-legal-list li:not(:first-child)::before {
+  content: '';
+  position: absolute;
+  inset-inline-start: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1px;
+  height: 0.75rem;
+  background: var(--border-strong);
 }
 

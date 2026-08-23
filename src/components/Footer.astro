@@ -14,7 +14,7 @@ const year = new Date().getFullYear();
 const contact = localePath(locale, '/#contact');
 ---
 
-<footer class="relative mt-4 overflow-hidden border-t border-theme bg-footer sm:mt-8">
+<footer class="relative mt-4 overflow-hidden border-t border-theme bg-footer sm:mt-8" aria-label={t.footer.landmarkLabel}>
   <div class="footer-glow glow-orb -left-32 bottom-0 h-64 w-64 bg-primary/30"></div>
   <div class="footer-glow glow-orb -right-32 top-0 h-48 w-48 bg-accent-gold/10"></div>
 
@@ -51,7 +51,7 @@ const contact = localePath(locale, '/#contact');
       </div>
 
       <div class="grid grid-cols-1 gap-8 max-sm:gap-10 sm:grid-cols-3 lg:col-span-5">
-        <div>
+        <nav aria-label={t.footer.quickLinks}>
           <h3 class="mb-4 text-sm font-bold text-gold-emphasis">{t.footer.quickLinks}</h3>
           <ul class="space-y-2.5">
             {
@@ -67,8 +67,8 @@ const contact = localePath(locale, '/#contact');
               ))
             }
           </ul>
-        </div>
-        <div>
+        </nav>
+        <nav aria-label={t.footer.investLinks}>
           <h3 class="mb-4 text-sm font-bold text-gold-emphasis">{t.footer.investLinks}</h3>
           <ul class="space-y-2.5 text-sm">
             <li><a href={localePath(locale, '/#features')} class="footer-link">{t.footer.howItWorks}</a></li>
@@ -77,7 +77,7 @@ const contact = localePath(locale, '/#contact');
             <li><a href={localePath(locale, '/#trust')} class="footer-link">{t.footer.benefits}</a></li>
             <li><a href={localePath(locale, '/articles')} class="footer-link">{t.footer.articles}</a></li>
           </ul>
-        </div>
+        </nav>
         <div>
           <h3 class="mb-4 text-sm font-bold text-gold-emphasis">{t.footer.contactTitle}</h3>
           <ul class="space-y-3 text-sm">
@@ -98,7 +98,7 @@ const contact = localePath(locale, '/#contact');
       <div class="lg:col-span-3">
         <div class="investment-card rounded-2xl p-6">
           <div class="flex items-center gap-2 text-accent">
-            <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
             </svg>
             <span class="text-xs font-bold">{t.footer.panelTitle}</span>
@@ -111,13 +111,11 @@ const contact = localePath(locale, '/#contact');
 
     <div class="mt-12 flex flex-col items-center justify-between gap-4 border-t border-divider pt-8 sm:flex-row">
       <p class="text-xs text-subtle">{year} © {t.companyLegal}. {t.footer.rights}</p>
-      <div class="flex flex-wrap justify-center gap-4 text-xs text-faint">
-        <a href={localePath(locale, '/about')} class="hover:text-muted">{t.footer.about}</a>
-        <span class="text-subtle">|</span>
-        <a href={localePath(locale, '/#faq')} class="hover:text-muted">{t.footer.faq}</a>
-        <span class="text-subtle">|</span>
-        <a href={contact} class="hover:text-muted">{t.footer.contact}</a>
-      </div>
+      <ul class="footer-legal-list flex flex-wrap justify-center gap-4 text-xs text-faint">
+        <li><a href={localePath(locale, '/about')} class="hover:text-muted">{t.footer.about}</a></li>
+        <li><a href={localePath(locale, '/#faq')} class="hover:text-muted">{t.footer.faq}</a></li>
+        <li><a href={contact} class="hover:text-muted">{t.footer.contact}</a></li>
+      </ul>
     </div>
   </div>
 </footer>

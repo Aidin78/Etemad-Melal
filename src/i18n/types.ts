@@ -51,8 +51,11 @@ export type Translations = {
     mainNav: string;
     mobileNav: string;
     themeToggle: string;
+    switchToLight: string;
+    switchToDark: string;
     breadcrumb: string;
     home: string;
+    opensInNewTab: string;
   };
   langSwitch: { label: string; toEn: string; toFa: string };
   hero: {
@@ -152,6 +155,7 @@ export type Translations = {
     sentNew: string;
   };
   footer: {
+    landmarkLabel: string;
     ctaEyebrow: string;
     ctaTitle: string;
     ctaTitleAccent: string;

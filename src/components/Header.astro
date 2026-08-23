@@ -49,7 +49,7 @@ const localizedHref = (href: string) => localePath(locale, href);
     <div class="flex shrink-0 items-center gap-1.5 sm:gap-2 lg:gap-3">
       <div class="hidden items-center gap-1.5 sm:flex sm:gap-2">
         <LanguageSwitcher locale={locale} />
-        <ThemeToggle ariaLabel={t.a11y.themeToggle} />
+        <ThemeToggle ariaLabel={t.a11y.themeToggle} labelLight={t.a11y.switchToLight} labelDark={t.a11y.switchToDark} />
       </div>
       <PanelLink locale={locale} class="max-lg:!hidden text-sm !px-5 !py-2.5">{t.panelCtaLogin}</PanelLink>
       <button
@@ -69,29 +69,29 @@ const localizedHref = (href: string) => localePath(locale, href);
       </button>
     </div>
   </div>
+</header>
 
-  <div class="mobile-menu lg:hidden" id="mobile-menu" hidden>
-    <button type="button" class="mobile-menu-backdrop" id="mobile-menu-backdrop" aria-label={t.a11y.closeMenu} tabindex="-1"></button>
-    <div class="mobile-menu-panel border-t border-theme bg-header-mobile shadow-[0_24px_48px_rgb(0_0_0/0.18)]">
-      <nav class="mobile-menu-nav" aria-label={t.a11y.mobileNav}>
-        {
-          t.nav.map((link) => (
-            <a href={localizedHref(link.href)} class="nav-link-mobile" {...navDataAttrs(link.href)}>
-              {link.label}
-            </a>
-          ))
-        }
-      </nav>
-      <div class="mobile-menu-footer border-t border-theme px-4 py-4">
-        <div class="flex items-center justify-between gap-3 sm:hidden">
-          <LanguageSwitcher locale={locale} />
-          <ThemeToggle ariaLabel={t.a11y.themeToggle} />
-        </div>
-        <PanelLink locale={locale} class="mobile-menu-cta mt-3 w-full justify-center text-sm sm:mt-0">{t.panelCtaLogin}</PanelLink>
+<div class="mobile-menu lg:hidden" id="mobile-menu" hidden>
+  <button type="button" class="mobile-menu-backdrop" id="mobile-menu-backdrop" aria-label={t.a11y.closeMenu} tabindex="-1"></button>
+  <div class="mobile-menu-panel border-t border-theme bg-header-mobile shadow-[0_24px_48px_rgb(0_0_0/0.18)]">
+    <nav class="mobile-menu-nav" aria-label={t.a11y.mobileNav}>
+      {
+        t.nav.map((link) => (
+          <a href={localizedHref(link.href)} class="nav-link-mobile" {...navDataAttrs(link.href)}>
+            {link.label}
+          </a>
+        ))
+      }
+    </nav>
+    <div class="mobile-menu-footer border-t border-theme px-4 py-4">
+      <div class="flex items-center justify-between gap-3 sm:hidden">
+        <LanguageSwitcher locale={locale} />
+        <ThemeToggle ariaLabel={t.a11y.themeToggle} labelLight={t.a11y.switchToLight} labelDark={t.a11y.switchToDark} />
       </div>
+      <PanelLink locale={locale} class="mobile-menu-cta mt-3 w-full justify-center text-sm sm:mt-0">{t.panelCtaLogin}</PanelLink>
     </div>
   </div>
-</header>
+</div>
 
 <script define:vars={{ openLabel: t.a11y.openMenu, closeLabel: t.a11y.closeMenu }}>
   const toggle = document.getElementById('menu-toggle');
@@ -100,6 +100,11 @@ const localizedHref = (href: string) => localePath(locale, href);
   const iconOpen = document.getElementById('icon-open');
   const iconClose = document.getElementById('icon-close');
   const header = document.getElementById('site-header');
+
+  const main = document.getElementById('main-content');
+  const footer = document.querySelector('footer');
+  const focusableSelector =
+    'a[href], button:not([disabled]), input:not([disabled]), textarea:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
   const setMenuOpen = (open) => {
     menu?.classList.toggle('mobile-menu--open', open);
@@ -110,17 +115,53 @@ const localizedHref = (href: string) => localePath(locale, href);
     iconOpen?.classList.toggle('hidden', open);
     iconClose?.classList.toggle('hidden', !open);
     document.body.classList.toggle('mobile-menu-open', open);
+
+    if (open) {
+      main?.setAttribute('inert', '');
+      footer?.setAttribute('inert', '');
+      const firstLink = menu?.querySelector('a');
+      firstLink?.focus();
+    } else {
+      main?.removeAttribute('inert');
+      footer?.removeAttribute('inert');
+    }
   };
 
   toggle?.addEventListener('click', () => {
-    setMenuOpen(!menu?.classList.contains('mobile-menu--open'));
+    const opening = !menu?.classList.contains('mobile-menu--open');
+    setMenuOpen(opening);
+    if (!opening) toggle.focus();
   });
 
-  backdrop?.addEventListener('click', () => setMenuOpen(false));
+  backdrop?.addEventListener('click', () => {
+    setMenuOpen(false);
+    toggle?.focus();
+  });
 
   document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape' && menu?.classList.contains('mobile-menu--open')) {
+    if (!menu?.classList.contains('mobile-menu--open')) return;
+
+    if (event.key === 'Escape') {
       setMenuOpen(false);
+      toggle?.focus();
+      return;
+    }
+
+    if (event.key === 'Tab') {
+      const focusable = [...menu.querySelectorAll(focusableSelector)].filter(
+        (el) => el.offsetParent !== null,
+      );
+      if (!focusable.length) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
     }
   });
 
@@ -137,21 +178,23 @@ const localizedHref = (href: string) => localePath(locale, href);
     return path || '/';
   };
 
-  const setLinkActive = (link, active) => {
+  const setLinkActive = (link, active, currentValue = 'page') => {
     link.classList.toggle('nav-link-active', active);
-    if (active) link.setAttribute('aria-current', 'page');
+    if (active) link.setAttribute('aria-current', currentValue);
     else link.removeAttribute('aria-current');
   };
 
   const clearNavActive = () => {
-    document.querySelectorAll('[data-nav-section], [data-nav-path]').forEach((link) => setLinkActive(link, false));
+    document
+      .querySelectorAll('[data-nav-section]')
+      .forEach((link) => setLinkActive(link, false, 'location'));
   };
 
   function initPageNav() {
     const path = normalizePath();
     document.querySelectorAll('[data-nav-path]').forEach((link) => {
       const prefix = link.dataset.navPath;
-      setLinkActive(link, !!prefix && path.startsWith(prefix));
+      setLinkActive(link, !!prefix && path.startsWith(prefix), 'page');
     });
   }
 
@@ -172,7 +215,7 @@ const localizedHref = (href: string) => localePath(locale, href);
 
     const setActive = (id) => {
       clearNavActive();
-      links.forEach((link) => setLinkActive(link, link.dataset.navSection === id));
+      links.forEach((link) => setLinkActive(link, link.dataset.navSection === id, 'location'));
     };
 
     const update = () => {

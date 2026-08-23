@@ -19,6 +19,13 @@ export default defineConfig({
   integrations: [
     sitemap({
       filter: (page) => !page.includes('/news'),
+      i18n: {
+        defaultLocale: 'fa',
+        locales: {
+          fa: 'fa-IR',
+          en: 'en',
+        },
+      },
       serialize(item) {
         if (item.url === 'https://etemadmelal.com/') {
           return { ...item, priority: 1, changefreq: EnumChangefreq.WEEKLY };

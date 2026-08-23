@@ -35,8 +35,8 @@ const proseLang = locale === 'fa' ? 'fa-IR' : 'en';
 
 <Layout
   locale={locale}
-  title={display.title}
-  description={display.excerpt}
+  title={post.data.metaTitle ?? display.title}
+  description={post.data.metaDescription ?? display.excerpt}
   image={post.data.image}
   ogType="article"
   publishedTime={post.data.date}

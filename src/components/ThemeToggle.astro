@@ -1,15 +1,19 @@
 ---
 interface Props {
   ariaLabel: string;
+  labelLight: string;
+  labelDark: string;
 }
 
-const { ariaLabel } = Astro.props;
+const { ariaLabel, labelLight, labelDark } = Astro.props;
 ---
 
 <button
   type="button"
   class="theme-toggle"
-  id="theme-toggle"
+  data-theme-toggle
+  data-label-light={labelLight}
+  data-label-dark={labelDark}
   aria-label={ariaLabel}
   title={ariaLabel}
 >
@@ -34,6 +38,17 @@ const { ariaLabel } = Astro.props;
 <script>
   const STORAGE_KEY = 'etemadmelal-theme';
 
+  function syncToggleState(theme: 'light' | 'dark') {
+    document.querySelectorAll<HTMLButtonElement>('[data-theme-toggle]').forEach((toggle) => {
+      toggle.setAttribute('aria-pressed', String(theme === 'dark'));
+      const label = theme === 'dark' ? toggle.dataset.labelLight : toggle.dataset.labelDark;
+      if (label) {
+        toggle.setAttribute('aria-label', label);
+        toggle.setAttribute('title', label);
+      }
+    });
+  }
+
   function applyTheme(theme: 'light' | 'dark') {
     document.documentElement.setAttribute('data-theme', theme);
     localStorage.setItem(STORAGE_KEY, theme);
@@ -41,12 +56,17 @@ const { ariaLabel } = Astro.props;
     if (meta) {
       meta.content = theme === 'light' ? '#f4f7fb' : '#0b1219';
     }
+    syncToggleState(theme);
   }
 
-  document.getElementById('theme-toggle')?.addEventListener('click', () => {
-    const current = document.documentElement.getAttribute('data-theme');
-    applyTheme(current === 'light' ? 'dark' : 'light');
+  document.querySelectorAll<HTMLButtonElement>('[data-theme-toggle]').forEach((toggle) => {
+    toggle.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme');
+      applyTheme(current === 'light' ? 'dark' : 'light');
+    });
   });
+
+  syncToggleState(document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark');
 
   window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', (e) => {
     if (!localStorage.getItem(STORAGE_KEY)) {
