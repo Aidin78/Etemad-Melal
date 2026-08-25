@@ -30,14 +30,14 @@ const isSent = Astro.url.searchParams.get('contact') === 'sent';
         <h3 class="text-lg font-bold text-heading">{t.contact.infoTitle}</h3>
         <ul class="mt-6 space-y-5">
           <li class="flex gap-4">
-            <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-accent-gold/25 to-accent/15 text-accent-gold-light" aria-hidden="true">✉</span>
+            <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-accent-gold/25 text-accent-gold-light" aria-hidden="true">✉</span>
             <div>
               <p class="text-xs text-subtle">{t.contact.emailLabel}</p>
               <a href={`mailto:${t.contact.email}`} class="text-sm text-heading hover:text-accent-gold-light">{t.contact.email}</a>
             </div>
           </li>
           <li class="flex gap-4">
-            <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-accent-gold/25 to-accent/15 text-accent-gold-light" aria-hidden="true">⌖</span>
+            <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-accent-gold/25 text-accent-gold-light" aria-hidden="true">⌖</span>
             <div>
               <p class="text-xs text-subtle">{t.contact.addressLabel}</p>
               <p class="text-sm text-heading">{t.contact.address}</p>

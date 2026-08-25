@@ -13,8 +13,6 @@ const t = getTranslations(locale);
 ---
 
 <section id="income-streams" class="section-spacing relative overflow-hidden">
-  <div class="glow-orb -left-20 top-1/2 h-64 w-64 bg-accent/20"></div>
-  <div class="glow-orb -right-20 top-0 h-48 w-48 bg-accent-gold/15"></div>
   <div class="chart-pattern absolute inset-0 opacity-40" aria-hidden="true"></div>
 
   <div class="relative mx-auto max-w-6xl px-4 sm:px-6">
@@ -62,7 +60,9 @@ const t = getTranslations(locale);
       }
     </ul>
 
-    <p class="mt-6 text-center text-xs text-subtle sm:mt-8">{t.income.footnote}</p>
+    {t.income.footnote && (
+      <p class="mt-6 text-center text-xs text-subtle sm:mt-8">{t.income.footnote}</p>
+    )}
     <div class="mt-6 text-center sm:mt-8">
       <PanelLink locale={locale} showArrow>
         {t.panelCtaLogin}

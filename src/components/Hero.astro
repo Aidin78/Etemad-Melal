@@ -2,7 +2,6 @@
 import { siteImages } from '../config/images';
 import PanelLink from './PanelLink.astro';
 import SectionBadge from './SectionBadge.astro';
-import BackgroundOrbs from './BackgroundOrbs.astro';
 import type { Locale } from '../i18n/types';
 import { getTranslations } from '../i18n';
 
@@ -17,7 +16,6 @@ const t = getTranslations(locale);
 <section
   class="hero-intro relative overflow-hidden mesh-gradient max-sm:flex max-sm:min-h-[calc(100dvh-4.5rem)] max-sm:flex-col max-sm:justify-center sm:min-h-[92vh]"
 >
-  <BackgroundOrbs variant="hero" />
   <div class="absolute inset-0 grid-pattern opacity-60" aria-hidden="true"></div>
   <div class="absolute inset-0" aria-hidden="true">
     <img src={siteImages.hero} alt="" class="hero-img h-full w-full object-cover" loading="eager" fetchpriority="high" />

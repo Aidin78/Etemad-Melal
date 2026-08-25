@@ -64,8 +64,7 @@ export const en: Translations = {
     titleAccent: 'value creation streams',
     subtitle:
       'The «Etemad-Saz» financial structure rests on two main pillars; both are founded on contractual participation and operational structure.',
-    footnote:
-      'Details of three reward paths (monthly partnership profit, direct participation, collaborative growth) are available in the panel and Commissions section.',
+    footnote: '',
     streams: [
       {
         id: 'industrial_returns',
@@ -270,7 +269,7 @@ export const en: Translations = {
       },
       {
         q: 'What income streams does Etemad Melal offer?',
-        a: 'The «Etemad-Saz» financial structure has two pillars: participation in industrial returns and market development rewards. Details of three reward paths (monthly partnership profit, direct participation, collaborative growth) are available in the panel and Commissions section.',
+        a: 'The «Etemad-Saz» financial structure has two pillars: participation in industrial returns and market development rewards.',
       },
       {
         q: 'What is the minimum investment?',

@@ -195,16 +195,6 @@
   }
 }
 
-@keyframes pulse-glow {
-  0%,
-  100% {
-    opacity: 0.35;
-  }
-  50% {
-    opacity: 0.65;
-  }
-}
-
 @keyframes ticker-scroll {
   from {
     transform: translate3d(0, 0, 0);

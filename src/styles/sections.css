@@ -11,7 +11,7 @@
   bottom: 0;
   inset-inline-start: 1.75rem;
   width: 2px;
-  background: linear-gradient(to bottom, rgb(212 168 83 / 0.45), rgb(var(--accent-rgb) / 0.15));
+  background: rgb(212 168 83 / 0.45);
 }
 
 .about-timeline-index {
@@ -22,7 +22,7 @@
   justify-content: center;
   border-radius: 1rem;
   border: 1px solid rgb(212 168 83 / 0.35);
-  background: linear-gradient(145deg, rgb(212 168 83 / 0.18), rgb(var(--accent-rgb) / 0.08));
+  background: rgb(212 168 83 / 0.18);
   font-size: 0.875rem;
   font-weight: 800;
   font-variant-numeric: tabular-nums;
@@ -41,7 +41,7 @@
 
 .about-value-icon {
   border: 1px solid rgb(212 168 83 / 0.25);
-  background: linear-gradient(145deg, rgb(212 168 83 / 0.15), rgb(48 84 117 / 0.12));
+  background: rgb(212 168 83 / 0.15);
 }
 
 .about-value-card:hover .about-value-icon {
@@ -69,7 +69,7 @@
 }
 
 [data-theme='light'] .about-timeline-item:not(:last-child)::before {
-  background: linear-gradient(to bottom, rgb(154 115 9 / 0.25), rgb(48 84 117 / 0.08));
+  background: rgb(154 115 9 / 0.25);
 }
 
 .article-prose {
@@ -285,81 +285,9 @@ body.mobile-menu-open {
   @apply text-3xl font-bold sm:text-4xl;
 }
 
-.glow-orb {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(96px);
-  pointer-events: none;
-  animation: pulse-glow 6s ease-in-out infinite;
-}
-
-.glow-orb--primary {
-  background: rgb(48 84 117 / 0.28);
-}
-
-.glow-orb--accent {
-  background: rgb(var(--accent-rgb) / 0.2);
-}
-
-.glow-orb--gold {
-  background: rgb(212 168 83 / 0.18);
-}
-
-.glow-orb--sky {
-  background: rgb(116 160 204 / 0.2);
-}
-
-.glow-orb--emerald {
-  background: rgb(var(--accent-rgb) / 0.14);
-}
-
-.page-bg-orbs {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  overflow: hidden;
-  pointer-events: none;
-  opacity: 0.7;
-}
-
 footer {
   position: relative;
   z-index: 1;
-}
-
-.section-bg-orbs {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-  pointer-events: none;
-}
-
-[data-theme='light'] .glow-orb--primary {
-  background: rgb(48 84 117 / 0.12);
-}
-
-[data-theme='light'] .glow-orb--accent {
-  background: rgb(var(--accent-rgb) / 0.1);
-}
-
-[data-theme='light'] .glow-orb--gold {
-  background: rgb(212 168 83 / 0.1);
-}
-
-[data-theme='light'] .glow-orb--sky {
-  background: rgb(116 160 204 / 0.1);
-}
-
-[data-theme='light'] .glow-orb--emerald {
-  background: rgb(var(--accent-rgb) / 0.08);
-}
-
-[data-theme='light'] .page-bg-orbs {
-  opacity: 0.55;
-}
-
-[data-theme='light'] .footer-glow {
-  opacity: 0.35;
 }
 
 .footer-cta-band {
