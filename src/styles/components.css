@@ -268,9 +268,9 @@
 }
 
 .section-spacing {
-  @apply scroll-mt-24 py-12 sm:py-28;
+  @apply scroll-mt-24 py-12 sm:py-20;
 }
 
 .section-body-gap {
-  @apply mt-8 sm:mt-14;
+  @apply mt-8 sm:mt-12;
 }
