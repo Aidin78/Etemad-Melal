@@ -16,7 +16,7 @@ export const en: Translations = {
   panelCtaStart: 'Get started',
   nav: [
     { href: '/#features', label: 'Services' },
-    { href: '/#income-streams', label: 'Collaboration model' },
+    { href: '/#income-streams', label: 'Benefits' },
     { href: '/#packages-overview', label: 'Packages' },
     { href: '/#trust', label: 'Benefits' },
     { href: '/about', label: 'About' },
@@ -60,7 +60,7 @@ export const en: Translations = {
   ],
   income: {
     badge: '',
-    title: 'Collaboration model &',
+    title: 'Benefits &',
     titleAccent: 'value creation streams',
     subtitle:
       'The «Etemad-Saz» financial structure rests on two main pillars; both are founded on contractual participation and operational structure.',
@@ -324,7 +324,7 @@ export const en: Translations = {
     panelTitle: 'User panel',
     panelDesc: 'Manage capital, view monthly profit, and request withdrawals — all in one place.',
     howItWorks: 'How it works',
-    incomePaths: 'Collaboration model',
+    incomePaths: 'Benefits',
     packages: 'Packages',
     benefits: 'Benefits',
     articles: 'Articles',

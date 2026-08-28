@@ -64,7 +64,7 @@ export const fa: Translations = {
   panelCtaStart: 'شروع',
   nav: [
     { href: '/#features', label: 'خدمات' },
-    { href: '/#income-streams', label: 'مدل همکاری' },
+    { href: '/#income-streams', label: 'منافع' },
     { href: '/#packages-overview', label: 'پکیج‌ها' },
     { href: '/#trust', label: 'مزایا' },
     { href: '/about', label: 'درباره ما' },
@@ -108,7 +108,7 @@ export const fa: Translations = {
   ],
   income: {
     badge: '',
-    title: 'مدل همکاری و جریان‌های',
+    title: 'منافع و جریان‌های',
     titleAccent: 'ارزش‌آفرینی',
     subtitle:
       'ساختار مالی «اعتماد‌ ملل» بر دو رکن اصلی استوار است که هر دو رکن آن بر پایه ی مشارکت قراردادی و شفافیت عملیاتی بنا شده اند.',
@@ -328,7 +328,7 @@ export const fa: Translations = {
     panelTitle: 'پنل کاربری',
     panelDesc: 'مدیریت سرمایه، مشاهده سود ماهانه و ثبت درخواست برداشت — همه در یک جا.',
     howItWorks: 'نحوه کار',
-    incomePaths: 'مدل همکاری',
+    incomePaths: 'منافع',
     packages: 'پکیج‌ها',
     benefits: 'مزایا',
     articles: 'مقالات',
