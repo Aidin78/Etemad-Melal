@@ -115,9 +115,10 @@ export const fa: Translations = {
   },
   trust: {
     badge: 'مزایا',
-    title: '',
-    titleAccent: '',
-    subtitle: '',
+    title: 'چرا',
+    titleAccent: 'اعتماد ملل؟',
+    subtitle:
+      'مجموعه‌ای از مزیت‌های ساختاری که سرمایه‌گذاری در اعتماد ملل را از یک انتخاب مطمئن به یک تصمیم هوشمندانه تبدیل می‌کند.',
     benefits: [
       {
         title: 'امنیت و حفاظت',

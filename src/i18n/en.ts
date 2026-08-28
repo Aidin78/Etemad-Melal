@@ -115,9 +115,10 @@ export const en: Translations = {
   },
   trust: {
     badge: 'Benefits',
-    title: '',
-    titleAccent: '',
-    subtitle: '',
+    title: 'Why',
+    titleAccent: 'Etemad Melal?',
+    subtitle:
+      'A set of structural advantages that turn investing with Etemad Melal from a safe choice into a smart decision.',
     benefits: [
       {
         title: 'Security & protection',
