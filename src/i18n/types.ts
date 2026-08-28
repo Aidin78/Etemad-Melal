@@ -13,25 +13,6 @@ export type IncomeStream = {
   icon: string;
 };
 
-export type PackageRowKey =
-  | 'amountRange'
-  | 'monthlyReturn'
-  | 'dailyCap'
-  | 'capMultiplier'
-  | 'contractMonths';
-
-export type PackageDisplay = {
-  id: string;
-  name: string;
-  color: string;
-  monthlyReturn: string;
-  contractMonths: string;
-  amountRange: string;
-  dailyCap: string;
-  capMultiplier: string;
-  featured?: boolean;
-};
-
 export type Translations = {
   locale: Locale;
   lang: string;
@@ -84,18 +65,6 @@ export type Translations = {
     chartLabel: string;
     chartValue: string;
     steps: { num: string; title: string; desc: string }[];
-  };
-  packages: {
-    badge: string;
-    title: string;
-    titleAccent: string;
-    subtitle: string;
-    disclaimer: string;
-    cta: string;
-    featured: string;
-    selectInPanel: string;
-    detailRows: { key: PackageRowKey; label: string }[];
-    items: PackageDisplay[];
   };
   trust: {
     badge: string;
@@ -171,7 +140,6 @@ export type Translations = {
     panelDesc: string;
     howItWorks: string;
     incomePaths: string;
-    packages: string;
     benefits: string;
     articles: string;
     about: string;

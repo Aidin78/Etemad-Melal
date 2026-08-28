@@ -1,5 +1,4 @@
 import type { Translations } from './types';
-import { enrichPackages } from '../lib/packages';
 
 export const en: Translations = {
   locale: 'en',
@@ -17,7 +16,6 @@ export const en: Translations = {
   nav: [
     { href: '/#features', label: 'Services' },
     { href: '/#income-streams', label: 'Benefits' },
-    { href: '/#packages-overview', label: 'Packages' },
     { href: '/#trust', label: 'Benefits' },
     { href: '/about', label: 'About' },
     { href: '/#faq', label: 'FAQ' },
@@ -55,7 +53,6 @@ export const en: Translations = {
     { label: 'Industrial return participation', trend: 'Productive projects' },
     { label: 'Market development reward', trend: 'Real performance' },
     { label: 'Financial report transparency', trend: 'Real-time' },
-    { label: 'Investment packages', trend: '5 tiers' },
     { label: 'Support', trend: 'Panel tickets' },
   ],
   income: {
@@ -115,71 +112,6 @@ export const en: Translations = {
         desc: 'Holding specialized courses in the economic field based on negotiation and network management skills to raise knowledge and professional activity levels.',
       },
     ],
-  },
-  packages: {
-    badge: 'Investment packages',
-    title: 'Choose your',
-    titleAccent: 'package',
-    subtitle:
-      'Select a package that fits your capital and goals. Registration and activation are done only through the user panel.',
-    disclaimer: 'Monthly return is approximate. Final contract terms are shown in the panel.',
-    cta: 'Continue in panel',
-    featured: 'Featured',
-    selectInPanel: 'Select in panel',
-    detailRows: [
-      { key: 'amountRange', label: 'Allowed amount range' },
-      { key: 'monthlyReturn', label: 'Monthly return (approx.)' },
-      { key: 'dailyCap', label: 'Daily cap' },
-      { key: 'capMultiplier', label: 'Cap multiplier' },
-      { key: 'contractMonths', label: 'Contract term' },
-    ],
-    items: enrichPackages([
-      {
-        id: 'aghaze',
-        name: 'Aghaze',
-        monthlyReturn: '3%',
-        contractMonths: '18 months',
-        amountRange: '10 – 100M Toman',
-        dailyCap: '30M Toman',
-        capMultiplier: '3.5×',
-      },
-      {
-        id: 'pishgam',
-        name: 'Pishgam',
-        monthlyReturn: '4%',
-        contractMonths: '36 months',
-        amountRange: '100 – 500M Toman',
-        dailyCap: '60M Toman',
-        capMultiplier: '4×',
-      },
-      {
-        id: 'paydar',
-        name: 'Paydar',
-        monthlyReturn: '4.5%',
-        contractMonths: '36 months',
-        amountRange: '500M – 1B Toman',
-        dailyCap: '120M Toman',
-        capMultiplier: '4×',
-      },
-      {
-        id: 'abr',
-        name: 'Abr',
-        monthlyReturn: '5%',
-        contractMonths: '36 months',
-        amountRange: '1 – 5B Toman',
-        dailyCap: '240M Toman',
-        capMultiplier: '5×',
-      },
-      {
-        id: 'saramad',
-        name: 'Saramad',
-        monthlyReturn: '6%',
-        contractMonths: '36 months',
-        amountRange: '5 – 100B Toman',
-        dailyCap: '500M Toman',
-        capMultiplier: '5×',
-      },
-    ]),
   },
   trust: {
     badge: 'Benefits',
@@ -273,7 +205,7 @@ export const en: Translations = {
       },
       {
         q: 'What is the minimum investment?',
-        a: 'You can start with the Aghaze package from 10 million Toman. Limits and return rates for each package are listed on the Packages section.',
+        a: 'You can start from 10 million Toman. Limits and return rates for each investment tier are shown in the user panel after you sign in.',
       },
       {
         q: 'How do I track profit and account status?',
@@ -325,7 +257,6 @@ export const en: Translations = {
     panelDesc: 'Manage capital, view monthly profit, and request withdrawals — all in one place.',
     howItWorks: 'How it works',
     incomePaths: 'Benefits',
-    packages: 'Packages',
     benefits: 'Benefits',
     articles: 'Articles',
     about: 'About',

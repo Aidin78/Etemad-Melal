@@ -1,53 +1,4 @@
 import type { Translations } from './types';
-import { enrichPackages } from '../lib/packages';
-
-const packageItems = enrichPackages([
-  {
-    id: 'aghaze',
-    name: 'آغازه',
-    monthlyReturn: '۳٪',
-    contractMonths: '۱۸ ماه',
-    amountRange: '۱۰ – ۱۰۰ میلیون تومان',
-    dailyCap: '۳۰ میلیون تومان',
-    capMultiplier: '۳.۵×',
-  },
-  {
-    id: 'pishgam',
-    name: 'پیش‌گام',
-    monthlyReturn: '۴٪',
-    contractMonths: '۳۶ ماه',
-    amountRange: '۱۰۰ – ۵۰۰ میلیون تومان',
-    dailyCap: '۶۰ میلیون تومان',
-    capMultiplier: '۴×',
-  },
-  {
-    id: 'paydar',
-    name: 'پایدار',
-    monthlyReturn: '۴.۵٪',
-    contractMonths: '۳۶ ماه',
-    amountRange: '۵۰۰ میلیون – ۱ میلیارد تومان',
-    dailyCap: '۱۲۰ میلیون تومان',
-    capMultiplier: '۴×',
-  },
-  {
-    id: 'abr',
-    name: 'ابر',
-    monthlyReturn: '۵٪',
-    contractMonths: '۳۶ ماه',
-    amountRange: '۱ – ۵ میلیارد تومان',
-    dailyCap: '۲۴۰ میلیون تومان',
-    capMultiplier: '۵×',
-  },
-  {
-    id: 'saramad',
-    name: 'سرآمد',
-    monthlyReturn: '۶٪',
-    contractMonths: '۳۶ ماه',
-    amountRange: '۵ – ۱۰۰ میلیارد تومان',
-    dailyCap: '۵۰۰ میلیون تومان',
-    capMultiplier: '۵×',
-  },
-]);
 
 export const fa: Translations = {
   locale: 'fa',
@@ -65,7 +16,6 @@ export const fa: Translations = {
   nav: [
     { href: '/#features', label: 'خدمات' },
     { href: '/#income-streams', label: 'منافع' },
-    { href: '/#packages-overview', label: 'پکیج‌ها' },
     { href: '/#trust', label: 'مزایا' },
     { href: '/about', label: 'درباره ما' },
     { href: '/#faq', label: 'سوالات' },
@@ -103,7 +53,6 @@ export const fa: Translations = {
     { label: 'مشارکت در بازدهی صنعتی', trend: 'پروژه‌های مولد' },
     { label: 'پاداش توسعه بازار', trend: 'عملکرد واقعی' },
     { label: 'شفافیت گزارش مالی', trend: 'لحظه‌ای' },
-    { label: 'پکیج‌های سرمایه‌گذاری', trend: '۵ سطح' },
     { label: 'پشتیبانی', trend: 'تیکت پنل' },
   ],
   income: {
@@ -163,25 +112,6 @@ export const fa: Translations = {
         desc: 'برگزاری دوره‌های تخصصی در حوزهٔ اقتصادی مبتنی بر مهارت‌های مذاکره و مدیریت شبکه در جهت ارتقای سطح دانش و فعالیت حرفه‌ای.',
       },
     ],
-  },
-  packages: {
-    badge: 'پکیج‌های سرمایه‌گذاری',
-    title: 'انتخاب',
-    titleAccent: 'پکیج',
-    subtitle:
-      'یکی از پکیج‌های زیر را متناسب با سرمایه و اهداف خود انتخاب کنید. ثبت‌نام و فعال‌سازی فقط از طریق پنل کاربری انجام می‌شود.',
-    disclaimer: 'بازده ماهانه تقریبی است. جزئیات قرارداد و شرایط نهایی در پنل نمایش داده می‌شود.',
-    cta: 'ادامه و انتخاب در پنل',
-    featured: 'پکیج ویژه',
-    selectInPanel: 'انتخاب در پنل',
-    detailRows: [
-      { key: 'amountRange', label: 'بازهٔ مبلغ مجاز' },
-      { key: 'monthlyReturn', label: 'بازده ماهانه (تقریبی)' },
-      { key: 'dailyCap', label: 'سقف روزانه' },
-      { key: 'capMultiplier', label: 'ضریب سقف' },
-      { key: 'contractMonths', label: 'مدت قرارداد' },
-    ],
-    items: packageItems,
   },
   trust: {
     badge: 'مزایا',
@@ -275,7 +205,7 @@ export const fa: Translations = {
       },
       {
         q: 'حداقل مبلغ سرمایه‌گذاری چقدر است؟',
-        a: 'با پکیج آغازه از ۱۰ میلیون تومان می‌توانید شروع کنید. سقف و درصد سود هر پکیج در صفحه «پکیج‌ها» مشخص است.',
+        a: 'از ۱۰ میلیون تومان می‌توانید شروع کنید. سقف و درصد سود هر سطح سرمایه‌گذاری پس از ورود، در پنل کاربری نمایش داده می‌شود.',
       },
       {
         q: 'چگونه سود و وضعیت حساب را پیگیری کنم؟',
@@ -329,7 +259,6 @@ export const fa: Translations = {
     panelDesc: 'مدیریت سرمایه، مشاهده سود ماهانه و ثبت درخواست برداشت — همه در یک جا.',
     howItWorks: 'نحوه کار',
     incomePaths: 'منافع',
-    packages: 'پکیج‌ها',
     benefits: 'مزایا',
     articles: 'مقالات',
     about: 'درباره ما',

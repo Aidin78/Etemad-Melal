@@ -123,54 +123,6 @@
   background-size: 120px 120px;
 }
 
-.package-card {
-  background: var(--surface);
-  backdrop-filter: blur(8px);
-  transition:
-    background 0.45s ease,
-    border-color 0.45s ease,
-    transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
-    box-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.package-card-default {
-  border-color: var(--package-border);
-}
-
-.package-card-default:hover {
-  border-color: rgb(48 84 117 / 0.25);
-}
-
-[data-theme='dark'] .package-card-default:hover {
-  border-color: rgb(212 168 83 / 0.22);
-}
-
-.package-details {
-  border: 1px solid var(--package-border-inner);
-  background: var(--package-details-bg);
-}
-
-.package-details > * + * {
-  border-top: 1px solid var(--package-border-inner);
-}
-
-[data-theme='dark'] .package-details {
-  border-color: rgb(48 84 117 / 0.12);
-  background: rgb(0 0 0 / 0.15);
-}
-
-[data-theme='dark'] .package-details > * + * {
-  border-top-color: rgb(48 84 117 / 0.1);
-}
-
-.package-card .border-divider {
-  border-color: var(--package-border-inner);
-}
-
-[data-theme='dark'] .package-card .border-divider {
-  border-color: rgb(48 84 117 / 0.1);
-}
-
 .reveal {
   animation: reveal-up 0.7s ease-out both;
 }

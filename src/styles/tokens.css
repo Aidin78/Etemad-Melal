@@ -49,9 +49,6 @@
   --section-alt: rgb(29 42 54 / 0.3);
   --trust-gradient-end: #0b1219;
   --ticker-fade: #152028;
-  --package-details-bg: rgb(0 0 0 / 0.2);
-  --package-border: rgb(212 168 83 / 0.14);
-  --package-border-inner: rgb(48 84 117 / 0.18);
   --toggle-bg: rgb(255 255 255 / 0.05);
   --toggle-text: #ffffff;
   --gold-emphasis: #f0d78c;
@@ -101,9 +98,6 @@
   --section-alt: rgb(48 84 117 / 0.06);
   --trust-gradient-end: #f4f7fb;
   --ticker-fade: #dfe8f2;
-  --package-details-bg: rgb(244 247 251 / 0.8);
-  --package-border: rgb(48 84 117 / 0.14);
-  --package-border-inner: rgb(29 42 54 / 0.08);
   --toggle-bg: rgb(29 42 54 / 0.06);
   --toggle-text: #1d2a36;
   /* Richer gold on light backgrounds */

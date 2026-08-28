@@ -15,19 +15,9 @@ Positioning: architect of the link between capital and industry — aggregating 
 
 اعتماد ملل وب‌سایت معرفی و آموزش پلتفرم سرمایه‌گذاری است. ثبت‌نام، خرید پکیج، مشاهده سود ماهانه، گزارش پاداش‌ها و درخواست برداشت فقط از پنل کاربری انجام می‌شود.
 
-## Investment packages (پکیج‌های سرمایه‌گذاری)
+Minimum entry: 10 million Toman. Investment tiers, returns, and contract terms are shown in the user panel after sign-in — the marketing site does not list them.
 
-| Package | Monthly return | Contract | Amount range |
-|---------|----------------|----------|--------------|
-| آغازه | 3% | 18 months | 10–100M Toman |
-| پیش‌گام | 4% | 36 months | 100–500M Toman |
-| پایدار | 4.5% | 36 months | 500M–1B Toman |
-| ابر | 5% | 36 months | 1–5B Toman |
-| سرآمد | 6% | 36 months | 5–100B Toman |
-
-Minimum entry: 10 million Toman (آغازه package).
-
-## Collaboration model (مدل همکاری / دو رکن)
+## Benefits (منافع / دو رکن)
 
 1. **مشارکت در بازدهی صنعتی** — allocation to productive projects with scheduled operational returns from production value.
 2. **پاداش توسعه بازار** — rewards based on real performance in network development and introducing opportunities.
@@ -61,8 +51,7 @@ Note: marketing copy uses «پاداش» (reward), not «پورسانت» (commi
 ## Homepage sections (anchor links)
 
 - /#features — services (4 items)
-- /#income-streams — collaboration model (2 pillars)
-- /#packages-overview — packages
+- /#income-streams — benefits / value-creation streams (2 pillars)
 - /#trust — benefits (7 items)
 - /#about-preview — about preview
 - /#faq — FAQ (6 questions)

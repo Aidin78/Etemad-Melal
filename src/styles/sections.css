@@ -384,12 +384,7 @@ footer {
     padding-inline: 0.375rem;
   }
 
-  .package-card .package-select-hint {
-    opacity: 1;
-  }
-
   .investment-card:hover,
-  .package-card:hover,
   .about-timeline-card:hover {
     transform: none;
   }
@@ -415,15 +410,6 @@ footer {
 
   .contact-card {
     padding: 1.25rem;
-  }
-
-  .package-details-row {
-    flex-direction: column;
-    gap: 0.25rem;
-  }
-
-  .package-details-row dd {
-    padding-inline-start: 0;
   }
 
   .article-prose table {
