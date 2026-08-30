@@ -50,13 +50,8 @@
 
 .about-cta-band {
   border: 1px solid var(--border);
-  background: linear-gradient(
-    135deg,
-    rgb(48 84 117 / 0.2) 0%,
-    var(--surface) 45%,
-    rgb(var(--accent-rgb) / 0.08) 100%
-  );
-  box-shadow: inset 0 1px 0 rgb(240 215 140 / 0.08);
+  background: var(--surface);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.04);
 }
 
 [data-theme='light'] .about-stat-pill {
@@ -66,6 +61,7 @@
 [data-theme='light'] .about-cta-band {
   background: linear-gradient(135deg, #ffffff 0%, #f3f7fb 50%, #faf0dc 100%);
   border-color: rgb(154 115 9 / 0.12);
+  box-shadow: inset 0 1px 0 rgb(240 215 140 / 0.08);
 }
 
 [data-theme='light'] .about-timeline-item:not(:last-child)::before {

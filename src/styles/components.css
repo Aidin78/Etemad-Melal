@@ -53,7 +53,7 @@
 
 .investment-card {
   background: linear-gradient(160deg, var(--card-from) 0%, var(--card-mid) 50%, var(--card-to) 100%);
-  border: 1px solid rgb(116 160 204 / 0.2);
+  border: 1px solid rgb(212 168 83 / 0.16);
   box-shadow:
     0 0 40px rgb(var(--accent-rgb) / 0.06),
     inset 0 1px 0 rgb(240 215 140 / 0.08);
@@ -66,7 +66,7 @@
 
 .investment-card:hover {
   transform: translateY(-2px);
-  border-color: rgb(116 160 204 / 0.32);
+  border-color: rgb(212 168 83 / 0.3);
   box-shadow:
     0 12px 40px rgb(var(--accent-rgb) / 0.1),
     inset 0 1px 0 rgb(240 215 140 / 0.1);
@@ -88,10 +88,8 @@
 
 .mesh-gradient {
   background:
-    radial-gradient(ellipse 80% 50% at 50% -20%, rgb(48 84 117 / 0.38), transparent),
-    radial-gradient(ellipse 60% 40% at 100% 50%, rgb(var(--accent-rgb) / 0.1), transparent),
-    radial-gradient(ellipse 50% 30% at 0% 80%, rgb(212 168 83 / 0.08), transparent),
-    radial-gradient(ellipse 45% 35% at 75% 85%, rgb(116 160 204 / 0.07), transparent),
+    radial-gradient(ellipse 90% 55% at 50% -25%, rgb(212 168 83 / 0.07), transparent),
+    radial-gradient(ellipse 60% 45% at 0% 95%, rgb(212 168 83 / 0.035), transparent),
     var(--mesh-base);
   transition: background 0.25s ease;
 }
@@ -107,8 +105,8 @@
 
 .grid-pattern {
   background-image:
-    linear-gradient(rgb(116 160 204 / 0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgb(116 160 204 / 0.04) 1px, transparent 1px);
+    linear-gradient(rgb(212 168 83 / 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(212 168 83 / 0.035) 1px, transparent 1px);
   background-size: 48px 48px;
 }
 
@@ -119,7 +117,7 @@
 }
 
 .chart-pattern {
-  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 45 L15 35 L30 40 L45 20 L60 25' fill='none' stroke='rgba(74,158,196,0.06)' stroke-width='1'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 45 L15 35 L30 40 L45 20 L60 25' fill='none' stroke='rgba(212,168,83,0.055)' stroke-width='1'/%3E%3C/svg%3E");
   background-size: 120px 120px;
 }
 
@@ -200,7 +198,7 @@
 }
 
 .btn-primary {
-  @apply relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-xl px-7 py-3.5 text-sm font-bold text-[#0b1219] transition-all duration-300;
+  @apply relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-xl px-7 py-3.5 text-sm font-bold text-[#12110f] transition-all duration-300;
   background: linear-gradient(135deg, #f0d78c 0%, #d4a853 55%, #c9983f 100%);
   background-size: 200% auto;
   box-shadow:

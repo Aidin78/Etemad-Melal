@@ -7,7 +7,7 @@ const { class: className = '' } = Astro.props;
 ---
 
 <svg
-  class:list={['pointer-events-none opacity-40', className]}
+  class:list={['pointer-events-none text-accent opacity-40', className]}
   viewBox="0 0 200 80"
   fill="none"
   xmlns="http://www.w3.org/2000/svg"
@@ -15,13 +15,13 @@ const { class: className = '' } = Astro.props;
 >
   <defs>
     <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#4a9ec4" stop-opacity="0.4" />
-      <stop offset="100%" stop-color="#4a9ec4" stop-opacity="0" />
+      <stop offset="0%" stop-color="currentColor" stop-opacity="0.4" />
+      <stop offset="100%" stop-color="currentColor" stop-opacity="0" />
     </linearGradient>
   </defs>
   <path
     d="M0 60 L25 50 L50 55 L75 35 L100 40 L125 25 L150 30 L175 15 L200 20"
-    stroke="#4a9ec4"
+    stroke="currentColor"
     stroke-width="2"
     stroke-linecap="round"
     stroke-linejoin="round"

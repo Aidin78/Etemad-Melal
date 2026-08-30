@@ -54,7 +54,7 @@ const { ariaLabel, labelLight, labelDark } = Astro.props;
     localStorage.setItem(STORAGE_KEY, theme);
     const meta = document.querySelector<HTMLMetaElement>('meta[name="theme-color"]');
     if (meta) {
-      meta.content = theme === 'light' ? '#f4f7fb' : '#0b1219';
+      meta.content = theme === 'light' ? '#f4f7fb' : '#12110f';
     }
     syncToggleState(theme);
   }
