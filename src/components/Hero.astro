@@ -3,7 +3,8 @@ import { siteImages } from '../config/images';
 import PanelLink from './PanelLink.astro';
 import SectionBadge from './SectionBadge.astro';
 import type { Locale } from '../i18n/types';
-import { getTranslations } from '../i18n';
+import { getTranslations, toLocaleDigits } from '../i18n';
+import { getYearsActive } from '../lib/dates';
 
 interface Props {
   locale: Locale;
@@ -11,6 +12,7 @@ interface Props {
 
 const { locale } = Astro.props;
 const t = getTranslations(locale);
+const yearsActive = toLocaleDigits(getYearsActive(), locale);
 ---
 
 <section
@@ -47,7 +49,7 @@ const t = getTranslations(locale);
       {
         t.hero.stats.map((s) => (
           <div class="hero-stat-card investment-card rounded-xl text-center sm:rounded-2xl sm:p-6">
-            <p class="stat-value text-xl sm:text-3xl">{s.value}</p>
+            <p class="stat-value text-xl sm:text-3xl">{s.value.replace('{years}', yearsActive)}</p>
             <p class="hero-stat-label mt-0.5 text-muted sm:mt-1 sm:text-sm">{s.label}</p>
           </div>
         ))

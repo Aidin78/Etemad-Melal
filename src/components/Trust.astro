@@ -3,7 +3,8 @@ import SectionHeader from './SectionHeader.astro';
 import { siteImages } from '../config/images';
 import { trustBenefitIcons } from '../lib/section-icons';
 import type { Locale } from '../i18n/types';
-import { getTranslations } from '../i18n';
+import { getTranslations, toLocaleDigits } from '../i18n';
+import { getYearsActive } from '../lib/dates';
 
 interface Props {
   locale: Locale;
@@ -11,6 +12,7 @@ interface Props {
 
 const { locale } = Astro.props;
 const t = getTranslations(locale);
+const yearsActive = toLocaleDigits(getYearsActive(), locale);
 ---
 
 <section id="trust" class="section-spacing relative overflow-hidden bg-trust-section">
@@ -51,7 +53,7 @@ const t = getTranslations(locale);
           t.trust.stats.map((s) => (
             <div class="text-center">
               <span class="text-xs text-accent-gold">{s.trend}</span>
-              <p class="stat-value mt-1">{s.value}</p>
+              <p class="stat-value mt-1">{s.value.replace('{years}', yearsActive)}</p>
               <p class="mt-2 text-sm text-muted">{s.label}</p>
             </div>
           ))

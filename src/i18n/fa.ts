@@ -44,7 +44,7 @@ export const fa: Translations = {
       'پلتفرم سرمایه‌گذاری هوشمند و شفاف. با پنل کاربری پیشرفته، وضعیت سرمایه‌گذاری خود را به‌صورت لحظه‌ای مشاهده و مدیریت کنید.',
     learnMore: 'بیشتر بدانید',
     stats: [
-      { value: '+۵', label: 'سال فعالیت' },
+      { value: '+{years}', label: 'سال فعالیت' },
       { value: '۱۰۰٪', label: 'شفافیت گزارش' },
       { value: '۲۴/۷', label: 'پشتیبانی' },
     ],
@@ -151,7 +151,7 @@ export const fa: Translations = {
     ],
     stats: [
       { value: '۱۰۰۰+', label: 'سرمایه‌گذار فعال', trend: '↑' },
-      { value: '۵+', label: 'سال تجربه', trend: '★' },
+      { value: '{years}+', label: 'سال تجربه', trend: '★' },
       { value: '۹۸٪', label: 'رضایت کاربران', trend: '♥' },
       { value: '۲۴/۷', label: 'دسترسی به پنل', trend: '◆' },
     ],

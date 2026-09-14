@@ -44,7 +44,7 @@ export const en: Translations = {
       'A smart, transparent investment platform. Track and manage your portfolio in real time through our advanced user panel.',
     learnMore: 'Learn more',
     stats: [
-      { value: '5+', label: 'Years active' },
+      { value: '{years}+', label: 'Years active' },
       { value: '100%', label: 'Report transparency' },
       { value: '24/7', label: 'Support' },
     ],
@@ -151,7 +151,7 @@ export const en: Translations = {
     ],
     stats: [
       { value: '1000+', label: 'Active investors', trend: '↑' },
-      { value: '5+', label: 'Years experience', trend: '★' },
+      { value: '{years}+', label: 'Years experience', trend: '★' },
       { value: '98%', label: 'User satisfaction', trend: '♥' },
       { value: '24/7', label: 'Panel access', trend: '◆' },
     ],
