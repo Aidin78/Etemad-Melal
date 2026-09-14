@@ -43,7 +43,7 @@ sections:
   - title: 'Platform & services'
     headline: 'Engineered transparency in the dedicated panel'
     content: |
-      Our dedicated platform (Panel.etemadmelad.com) is a symbol of financial discipline and smart transparency. We have turned the complexities of capital management, using modern technology infrastructure, into a simple, precise, and monitorable process.
+      Our dedicated platform (panel.etemadmelal.com) is a symbol of financial discipline and smart transparency. We have turned the complexities of capital management, using modern technology infrastructure, into a simple, precise, and monitorable process.
 
       Every user in their panel has direct access to production project performance dashboards, detailed financial transactions, and periodic reports. At Etemad Melal, transparency is an inherent right for investors and a non-negotiable principle for us.
   - title: 'Commitment to investors'

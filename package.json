@@ -13,6 +13,7 @@
     "preview": "astro preview",
     "build:preview": "npm run build && npm run preview",
     "export:logo": "node scripts/export-logo-full.mjs",
+    "generate:favicons": "node scripts/generate-favicons.mjs",
     "download:images": "node scripts/download-images.mjs",
     "check:assets": "node scripts/check-assets.mjs",
     "check:articles": "node scripts/check-articles.mjs",

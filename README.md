@@ -6,14 +6,14 @@ A **static, bilingual (FA/EN)** landing site for an investment platform brand. B
 
 ## Live demo
 
-Replace with your deployed URL after publishing, e.g. `https://etemadmelal.com`.
+[https://etemadmelal.com](https://etemadmelal.com)
 
 ## Highlights
 
-- **Single-page homepage** with anchored sections: hero, income streams, features, packages, trust, about, FAQ, contact
+- **Single-page homepage** with anchored sections: hero, income streams, features, trust, about, FAQ preview, contact
 - **Articles / blog** via Astro Content Collections (`/articles`, `/en/articles`)
+- **Full FAQ page** (`/faq`, `/en/faq`) linked from the homepage's shorter preview
 - **Bilingual** — Persian at `/`, English at `/en`
-- **Five investment packages** driven from typed config + i18n
 - **Glassmorphism UI** with brand colors, gradients, and responsive layout
 - **Panel CTAs** linking to external user panel
 - **Contact form** — email + message (FormSubmit / optional Formspree)
@@ -34,8 +34,8 @@ Replace with your deployed URL after publishing, e.g. `https://etemadmelal.com`.
 **Requirements:** Node.js 22.12+
 
 ```bash
-git clone <your-repo-url>
-cd main-etemadmelal
+git clone https://github.com/Aidin78/Etemad-Melal.git
+cd Etemad-Melal
 npm install
 cp .env.example .env
 npm run dev
@@ -46,8 +46,9 @@ Open `http://localhost:4321`.
 ### Environment
 
 ```env
-PUBLIC_PANEL_URL=https://panel.example.com
-# Optional:
+PUBLIC_PANEL_URL=https://panel.etemadmelal.com
+# Optional — only needed to route the contact form through Formspree instead of
+# the FormSubmit fallback; get this URL from your own Formspree form settings:
 # PUBLIC_CONTACT_FORM_URL=https://formspree.io/f/xxxxx
 ```
 
@@ -85,16 +86,16 @@ npm run build:preview # build + preview at http://localhost:4321
 
 ```
 src/
-  config/           URLs, packages, images
-  components/       Section components (Hero, Packages, FAQ, …)
+  config/           URLs, images
+  components/       Section components (Hero, Trust, FAQ, …)
   content/
     articles/fa/    Persian articles (Markdown)
     articles/en/    English articles (Markdown)
     about/          About page content (fa.md, en.md)
   i18n/             Translations (fa.ts, en.ts)
-  lib/              Shared utilities (articles, SEO, packages)
+  lib/              Shared utilities (articles, SEO, routes)
   pages/            Routes (index.astro + [...path].astro, news redirects)
-public/             Images, fonts, logo
+public/             Images, fonts, logo, favicons
 .github/workflows/  CI (check + build)
 ```
 
@@ -109,6 +110,7 @@ public/             Images, fonts, logo
 | `npm run download:images` | Download default JPG photos |
 | `npm run check:assets` | Verify required images exist (no auto-download) |
 | `npm run check:articles` | Verify FA/EN article slug parity |
+| `npm run generate:favicons` | Regenerate favicon/apple-touch-icon PNGs from `public/favicon.svg` |
 
 ## CI
 
@@ -116,4 +118,4 @@ GitHub Actions runs `download:images`, `check`, and `build` on push/PR to `main`
 
 ## License
 
-Private / portfolio use — adjust before open-sourcing.
+Proprietary — © 2026 شرکت خلاقان اعتماد ملل دیبا (Etemad Melal). All rights reserved; not licensed for reuse.
