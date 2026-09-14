@@ -295,7 +295,6 @@ export const en: Translations = {
     emailLabel: 'Email',
     addressLabel: 'Address',
     formTitle: 'Send a message',
-    formHint: 'Fill in the fields below; your message goes directly to info@etemadmelal.com.',
     emailField: 'Email',
     messageField: 'Message',
     submit: 'Send message',

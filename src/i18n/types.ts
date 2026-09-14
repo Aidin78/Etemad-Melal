@@ -127,7 +127,6 @@ export type Translations = {
     emailLabel: string;
     addressLabel: string;
     formTitle: string;
-    formHint: string;
     emailField: string;
     messageField: string;
     submit: string;

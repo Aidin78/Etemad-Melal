@@ -61,7 +61,6 @@ const isSent = Astro.url.searchParams.get('contact') === 'sent';
           ) : (
             <>
               <h3 class="text-lg font-bold text-heading">{t.contact.formTitle}</h3>
-              <p class="mt-2 text-sm text-muted">{t.contact.formHint}</p>
               <form class="mt-6 space-y-4" method="POST" action={formAction}>
                 <input type="hidden" name="_subject" value={`Contact from ${t.siteName} website`} />
                 <input type="hidden" name="_next" value={thankYouUrl} />

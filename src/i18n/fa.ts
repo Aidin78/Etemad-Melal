@@ -295,7 +295,6 @@ export const fa: Translations = {
     emailLabel: 'ایمیل',
     addressLabel: 'آدرس',
     formTitle: 'ارسال پیام',
-    formHint: 'فیلدهای زیر را پر کنید؛ پیام مستقیماً به info@etemadmelal.com ارسال می‌شود.',
     emailField: 'ایمیل',
     messageField: 'پیام',
     submit: 'ارسال پیام',
