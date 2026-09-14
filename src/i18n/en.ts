@@ -205,20 +205,8 @@ export const en: Translations = {
         a: 'The «Etemad-Saz» financial structure has two pillars: participation in industrial returns and market development rewards.',
       },
       {
-        q: 'What is the minimum investment?',
-        a: 'You can start from 10 million Toman. Limits and return rates for each investment tier are shown in the user panel after you sign in.',
-      },
-      {
-        q: 'How do I track profit and account status?',
-        a: 'In the panel: financial dashboard, monthly profit schedule, commissions, and wallet transactions — all updated in real time.',
-      },
-      {
-        q: 'Can I withdraw funds?',
-        a: 'Yes. Submit a withdrawal request in the panel; after approval it is processed. Status appears in your transaction list.',
-      },
-      {
         q: 'How do I contact support?',
-        a: 'Use the contact form on this site (email) or open a ticket in the user panel. Public phone support is not published on the website.',
+        a: 'Use the contact form on this site (email) or open a ticket in the user panel.',
       },
     ],
   },
