@@ -195,20 +195,6 @@ export const en: Translations = {
     title: 'Frequently asked',
     titleAccent: 'questions',
     subtitle: 'Common questions about the platform and how to invest.',
-    items: [
-      {
-        q: 'How do I sign up for Etemad Melal?',
-        a: 'Click Get started or Login and complete registration in the panel. After verification you can choose an investment package.',
-      },
-      {
-        q: 'What income streams does Etemad Melal offer?',
-        a: 'The «Etemad-Saz» financial structure has two pillars: participation in industrial returns and market development rewards.',
-      },
-      {
-        q: 'How do I contact support?',
-        a: 'Use the contact form on this site (email) or open a ticket in the user panel.',
-      },
-    ],
     viewAllLabel: 'View all questions →',
   },
   faqPage: {

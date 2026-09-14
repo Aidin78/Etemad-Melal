@@ -3,7 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import SectionBadge from './SectionBadge.astro';
 import { siteConfig } from '../config/site';
 import type { Locale } from '../i18n/types';
-import { getTranslations, localePath } from '../i18n';
+import { getTranslations, localePath, toLocaleDigits } from '../i18n';
 import { faqPageSchema, breadcrumbSchema } from '../lib/seo-schemas';
 
 interface Props {
@@ -12,7 +12,6 @@ interface Props {
 
 const { locale } = Astro.props;
 const t = getTranslations(locale);
-const faqIcon = locale === 'fa' ? '؟' : '?';
 
 const faqUrl = new URL(localePath(locale, '/faq'), siteConfig.url).href;
 const homeUrl = new URL(localePath(locale, '/'), siteConfig.url).href;
@@ -23,7 +22,7 @@ const homeUrl = new URL(localePath(locale, '/'), siteConfig.url).href;
   title={t.faqPage.pageTitle}
   description={t.faqPage.pageSubtitle}
   jsonLd={[
-    faqPageSchema(t, t.faqPage.items),
+    faqPageSchema(t.faqPage.items),
     breadcrumbSchema([
       { name: t.a11y.home, url: homeUrl },
       { name: t.faqPage.pageTitle, url: faqUrl },
@@ -44,7 +43,7 @@ const homeUrl = new URL(localePath(locale, '/'), siteConfig.url).href;
     <div class="mx-auto max-w-3xl px-4 sm:px-6">
       <div class="space-y-3 sm:space-y-4">
         {
-          t.faqPage.items.map((item) => (
+          t.faqPage.items.map((item, index) => (
             <details class="investment-card group rounded-xl transition">
               <summary class="flex min-h-[3.25rem] cursor-pointer list-none items-center justify-between gap-4 p-5 text-sm font-bold text-heading [&::-webkit-details-marker]:hidden">
                 <span class="flex items-center gap-3">
@@ -52,7 +51,7 @@ const homeUrl = new URL(localePath(locale, '/'), siteConfig.url).href;
                     class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-accent-gold/15 text-xs text-accent-gold"
                     aria-hidden="true"
                   >
-                    {faqIcon}
+                    {toLocaleDigits(index + 1, locale)}
                   </span>
                   <h2 class="text-sm font-bold text-heading">{item.q}</h2>
                 </span>

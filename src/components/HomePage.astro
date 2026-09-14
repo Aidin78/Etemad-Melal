@@ -11,6 +11,7 @@ import Contact from '../components/Contact.astro';
 import NewsPreview from '../components/NewsPreview.astro';
 import type { Locale } from '../i18n';
 import { getTranslations } from '../i18n';
+import { homepageFaqCount } from '../config/site';
 import {
   organizationSchema,
   websiteSchema,
@@ -34,7 +35,7 @@ const t = getTranslations(locale);
     organizationSchema(locale, t),
     websiteSchema(locale, t),
     financialServiceSchema(locale, t),
-    faqPageSchema(t),
+    faqPageSchema(t.faqPage.items.slice(0, homepageFaqCount)),
   ]}
 >
   <Hero locale={locale} />

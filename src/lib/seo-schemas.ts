@@ -58,7 +58,7 @@ export function financialServiceSchema(locale: Locale, t: Translations) {
   };
 }
 
-export function faqPageSchema(t: Translations, items: FaqItem[] = t.faq.items) {
+export function faqPageSchema(items: FaqItem[]) {
   return {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',

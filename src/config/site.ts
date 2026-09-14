@@ -6,3 +6,6 @@ export const siteConfig = {
     import.meta.env.PUBLIC_CONTACT_FORM_URL ||
     'https://formsubmit.co/info@etemadmelal.com',
 } as const;
+
+/** Number of FAQ items shown in the homepage preview before linking to /faq */
+export const homepageFaqCount = 6;

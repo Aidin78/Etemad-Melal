@@ -1,7 +1,8 @@
 ---
 import SectionHeader from './SectionHeader.astro';
 import type { Locale } from '../i18n/types';
-import { getTranslations, localePath } from '../i18n';
+import { getTranslations, localePath, toLocaleDigits } from '../i18n';
+import { homepageFaqCount } from '../config/site';
 
 interface Props {
   locale: Locale;
@@ -9,7 +10,7 @@ interface Props {
 
 const { locale } = Astro.props;
 const t = getTranslations(locale);
-const faqIcon = locale === 'fa' ? '؟' : '?';
+const items = t.faqPage.items.slice(0, homepageFaqCount);
 ---
 
 <section id="faq" class="section-spacing bg-section-alt">
@@ -24,11 +25,13 @@ const faqIcon = locale === 'fa' ? '؟' : '?';
 
     <div class="mt-8 space-y-3 sm:mt-12 sm:space-y-4">
       {
-        t.faq.items.map((item) => (
+        items.map((item, index) => (
           <details class="investment-card group rounded-xl transition">
             <summary class="flex min-h-[3.25rem] cursor-pointer list-none items-center justify-between gap-4 p-5 text-sm font-bold text-heading [&::-webkit-details-marker]:hidden">
               <span class="flex items-center gap-3">
-                <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-accent-gold/15 text-xs text-accent-gold" aria-hidden="true">{faqIcon}</span>
+                <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-accent-gold/15 text-xs text-accent-gold" aria-hidden="true">
+                  {toLocaleDigits(index + 1, locale)}
+                </span>
                 <h3 class="text-sm font-bold text-heading">{item.q}</h3>
               </span>
               <span class="shrink-0 text-accent-gold transition group-open:rotate-180" aria-hidden="true">▼</span>

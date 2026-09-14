@@ -55,7 +55,7 @@ Note: marketing copy uses «پاداش» (reward), not «پورسانت» (commi
 - /#income-streams — benefits / value-creation streams (2 pillars)
 - /#trust — benefits (7 items)
 - /#about-preview — about preview
-- /#faq — FAQ preview (3 questions) — full list of 20 at /faq
+- /#faq — FAQ preview (6 questions) — full list of 20 at /faq
 - /#contact — contact form (email + message)
 
 ## Risk disclaimer

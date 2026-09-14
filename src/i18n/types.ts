@@ -108,7 +108,6 @@ export type Translations = {
     title: string;
     titleAccent: string;
     subtitle: string;
-    items: FaqItem[];
     viewAllLabel: string;
   };
   faqPage: {
