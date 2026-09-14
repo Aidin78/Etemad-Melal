@@ -97,7 +97,7 @@ const contact = localePath(locale, '/#contact');
       <ul class="footer-legal-list flex flex-wrap justify-center gap-4 text-xs text-faint">
         <li><a href={localePath(locale, '/about')} class="hover:text-muted">{t.footer.about}</a></li>
         <li><a href={localePath(locale, '/faq')} class="hover:text-muted">{t.footer.faq}</a></li>
-        <li><a href={localePath(locale, '/terms')} class="hover:text-muted">{t.footer.terms}</a></li>
+        {/* /terms is temporarily disabled pending legal review — see src/lib/routes.ts */}
         <li><a href={contact} class="hover:text-muted">{t.footer.contact}</a></li>
       </ul>
     </div>
