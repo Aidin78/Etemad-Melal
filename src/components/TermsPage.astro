@@ -1,0 +1,65 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SectionBadge from './SectionBadge.astro';
+import AboutSectionContent from './AboutSectionContent.astro';
+import { siteConfig, legalLastUpdated } from '../config/site';
+import type { Locale } from '../i18n/types';
+import { getTranslations, localePath, toLocaleDigits } from '../i18n';
+import { breadcrumbSchema } from '../lib/seo-schemas';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = getTranslations(locale);
+
+const termsUrl = new URL(localePath(locale, '/terms'), siteConfig.url).href;
+const homeUrl = new URL(localePath(locale, '/'), siteConfig.url).href;
+
+const lastUpdatedLabel = new Intl.DateTimeFormat(locale === 'fa' ? 'fa-IR' : 'en', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+}).format(new Date(legalLastUpdated));
+---
+
+<Layout
+  locale={locale}
+  title={t.termsPage.pageTitle}
+  description={t.termsPage.pageSubtitle}
+  jsonLd={[
+    breadcrumbSchema([
+      { name: t.a11y.home, url: homeUrl },
+      { name: t.termsPage.pageTitle, url: termsUrl },
+    ]),
+  ]}
+>
+  <section class="mesh-gradient py-16 sm:py-20">
+    <div class="mx-auto max-w-3xl px-4 text-center sm:px-6">
+      <SectionBadge label={t.termsPage.badge} />
+      <h1 class="mt-4 text-4xl font-bold text-heading max-sm:text-3xl sm:text-5xl">
+        {t.termsPage.pageTitle}
+      </h1>
+      <p class="mt-4 text-muted">{t.termsPage.pageSubtitle}</p>
+      <p class="mt-3 text-xs text-subtle">{t.termsPage.lastUpdatedLabel}: {toLocaleDigits(lastUpdatedLabel, locale)}</p>
+    </div>
+  </section>
+
+  <section class="pb-20 pt-4 sm:pt-8">
+    <div class="mx-auto max-w-3xl px-4 sm:px-6">
+      <ol class="space-y-5 sm:space-y-6">
+        {
+          t.termsPage.sections.map((section) => (
+            <li class="investment-card rounded-2xl p-6 sm:p-8">
+              <h2 class="text-lg font-bold text-heading sm:text-xl">{section.title}</h2>
+              <div class="mt-4 border-t border-divider pt-4">
+                <AboutSectionContent content={section.body} />
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+</Layout>

@@ -116,6 +116,13 @@ export type Translations = {
     pageSubtitle: string;
     items: FaqItem[];
   };
+  termsPage: {
+    badge: string;
+    pageTitle: string;
+    pageSubtitle: string;
+    lastUpdatedLabel: string;
+    sections: { title: string; body: string }[];
+  };
   contact: {
     email: string;
     address: string;
@@ -153,6 +160,7 @@ export type Translations = {
     articles: string;
     about: string;
     faq: string;
+    terms: string;
     contact: string;
     rights: string;
   };

@@ -9,3 +9,6 @@ export const siteConfig = {
 
 /** Number of FAQ items shown in the homepage preview before linking to /faq */
 export const homepageFaqCount = 6;
+
+/** Last-revised date for the /terms page (ISO date, update when the legal copy changes) */
+export const legalLastUpdated = '2026-09-14';

@@ -7,6 +7,7 @@ export type PageRouteProps =
   | { type: 'home'; locale: Locale }
   | { type: 'about'; locale: Locale }
   | { type: 'faq'; locale: Locale }
+  | { type: 'terms'; locale: Locale }
   | { type: 'articles'; locale: Locale }
   | { type: 'article'; locale: Locale; post: CollectionEntry<'articles'> };
 
@@ -23,6 +24,8 @@ export async function getCatchAllPagePaths() {
   add('en/about', { type: 'about', locale: 'en' });
   add('faq', { type: 'faq', locale: 'fa' });
   add('en/faq', { type: 'faq', locale: 'en' });
+  add('terms', { type: 'terms', locale: 'fa' });
+  add('en/terms', { type: 'terms', locale: 'en' });
   add('articles', { type: 'articles', locale: 'fa' });
   add('en/articles', { type: 'articles', locale: 'en' });
 

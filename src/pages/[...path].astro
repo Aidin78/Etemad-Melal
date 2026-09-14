@@ -2,6 +2,7 @@
 import HomePage from '../components/HomePage.astro';
 import AboutPage from '../components/AboutPage.astro';
 import FaqPage from '../components/FaqPage.astro';
+import TermsPage from '../components/TermsPage.astro';
 import ArticlesIndexPage from '../components/ArticlesIndexPage.astro';
 import ArticlePage from '../components/ArticlePage.astro';
 import { getCatchAllPagePaths, type PageRouteProps } from '../lib/routes';
@@ -14,5 +15,6 @@ const props = Astro.props as PageRouteProps;
 {props.type === 'home' && <HomePage locale={props.locale} />}
 {props.type === 'about' && <AboutPage locale={props.locale} />}
 {props.type === 'faq' && <FaqPage locale={props.locale} />}
+{props.type === 'terms' && <TermsPage locale={props.locale} />}
 {props.type === 'articles' && <ArticlesIndexPage locale={props.locale} />}
 {props.type === 'article' && <ArticlePage locale={props.locale} post={props.post} />}
