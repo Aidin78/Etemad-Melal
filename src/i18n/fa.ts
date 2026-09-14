@@ -317,8 +317,6 @@ export const fa: Translations = {
     quickLinks: 'دسترسی سریع',
     investLinks: 'سرمایه‌گذاری',
     contactTitle: 'تماس',
-    panelTitle: 'پنل کاربری',
-    panelDesc: 'مدیریت سرمایه، مشاهده سود ماهانه و ثبت درخواست برداشت — همه در یک جا.',
     howItWorks: 'نحوه کار',
     incomePaths: 'منافع',
     benefits: 'مزایا',

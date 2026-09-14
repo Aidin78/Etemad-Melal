@@ -315,8 +315,6 @@ export const en: Translations = {
     quickLinks: 'Quick links',
     investLinks: 'Investing',
     contactTitle: 'Contact',
-    panelTitle: 'User panel',
-    panelDesc: 'Manage capital, view monthly profit, and request withdrawals — all in one place.',
     howItWorks: 'How it works',
     incomePaths: 'Benefits',
     benefits: 'Benefits',

@@ -147,8 +147,6 @@ export type Translations = {
     quickLinks: string;
     investLinks: string;
     contactTitle: string;
-    panelTitle: string;
-    panelDesc: string;
     howItWorks: string;
     incomePaths: string;
     benefits: string;
