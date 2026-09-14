@@ -1,7 +1,7 @@
 ---
 import SectionHeader from './SectionHeader.astro';
 import type { Locale } from '../i18n/types';
-import { getTranslations } from '../i18n';
+import { getTranslations, localePath } from '../i18n';
 
 interface Props {
   locale: Locale;
@@ -37,6 +37,12 @@ const faqIcon = locale === 'fa' ? '؟' : '?';
           </details>
         ))
       }
+    </div>
+
+    <div class="mt-8 text-center sm:mt-10">
+      <a href={localePath(locale, '/faq')} class="text-sm font-bold text-accent-gold hover:text-accent-gold-light">
+        {t.faq.viewAllLabel}
+      </a>
     </div>
   </div>
 </section>

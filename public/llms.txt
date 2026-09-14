@@ -30,6 +30,7 @@ Note: marketing copy uses «پاداش» (reward), not «پورسانت» (commi
 
 - Homepage: https://etemadmelal.com/
 - About: https://etemadmelal.com/about
+- FAQ: https://etemadmelal.com/faq
 - Articles index: https://etemadmelal.com/articles
 - User panel (login/register): https://panel.etemadmelal.com
 
@@ -54,7 +55,7 @@ Note: marketing copy uses «پاداش» (reward), not «پورسانت» (commi
 - /#income-streams — benefits / value-creation streams (2 pillars)
 - /#trust — benefits (7 items)
 - /#about-preview — about preview
-- /#faq — FAQ (6 questions)
+- /#faq — FAQ preview (3 questions) — full list of 20 at /faq
 - /#contact — contact form (email + message)
 
 ## Risk disclaimer
@@ -69,4 +70,4 @@ Note: marketing copy uses «پاداش» (reward), not «پورسانت» (commi
 
 ## Optional
 
-Full structured data (JSON-LD) is embedded on each page: Organization, WebSite, FinancialService, FAQPage (home), Article + BreadcrumbList (articles).
+Full structured data (JSON-LD) is embedded on each page: Organization, WebSite, FinancialService, FAQPage (home preview + full /faq page), Article + BreadcrumbList (articles, /faq).

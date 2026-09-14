@@ -6,6 +6,7 @@ import { parseArticleId } from './article-utils';
 export type PageRouteProps =
   | { type: 'home'; locale: Locale }
   | { type: 'about'; locale: Locale }
+  | { type: 'faq'; locale: Locale }
   | { type: 'articles'; locale: Locale }
   | { type: 'article'; locale: Locale; post: CollectionEntry<'articles'> };
 
@@ -20,6 +21,8 @@ export async function getCatchAllPagePaths() {
   add('en', { type: 'home', locale: 'en' });
   add('about', { type: 'about', locale: 'fa' });
   add('en/about', { type: 'about', locale: 'en' });
+  add('faq', { type: 'faq', locale: 'fa' });
+  add('en/faq', { type: 'faq', locale: 'en' });
   add('articles', { type: 'articles', locale: 'fa' });
   add('en/articles', { type: 'articles', locale: 'en' });
 

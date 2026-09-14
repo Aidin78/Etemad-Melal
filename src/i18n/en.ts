@@ -209,6 +209,94 @@ export const en: Translations = {
         a: 'Use the contact form on this site (email) or open a ticket in the user panel.',
       },
     ],
+    viewAllLabel: 'View all questions →',
+  },
+  faqPage: {
+    badge: 'FAQ',
+    pageTitle: 'Frequently Asked Questions',
+    pageSubtitle: 'Complete answers to legal, financial, and operational questions about how Etemad Melal works.',
+    items: [
+      {
+        q: 'How do I sign up for Etemad Melal?',
+        a: 'Click Get started or Login and complete registration in the panel. After verification you can choose an investment package.',
+      },
+      {
+        q: 'What income streams does Etemad Melal offer?',
+        a: 'The «Etemad-Saz» financial structure has two pillars: participation in industrial returns and market development rewards.',
+      },
+      {
+        q: 'How do I contact support?',
+        a: 'Use the contact form on this site (email) or open a ticket in the user panel.',
+      },
+      {
+        q: "What is the legal nature of this platform's activity?",
+        a: "This company's activity is structured on a \"civil partnership contract combined with agency,\" based on Articles 10, 571, and 656 of Iran's Civil Code. Under this structure, participants contribute small-scale capital to become co-owners in value-generating, productive commercial projects, and delegate the operational management of these resources to the platform under the principle of acting in the principal's best interest.",
+      },
+      {
+        q: 'How are the periodic (monthly) payments calculated and paid?',
+        a: "The amounts paid are \"on-account profits generated from the projects' operating cash flow.\" These amounts are estimated based on economic feasibility assessments of the projects and paid out periodically. At the end of the financial period, a final settlement is made based on the project's actual performance and financial statements.",
+      },
+      {
+        q: 'Why isn\'t the term "guaranteed fixed profit" used?',
+        a: "Under the country's religious and legal principles, guaranteeing a fixed profit unrelated to actual performance is void in partnership contracts and undermines the nature of the economic activity. A productive economy is always dynamic; transparency therefore requires that payments be made based on expected returns and on an on-account basis, preserving the partnership's religious and legal soundness.",
+      },
+      {
+        q: 'How is the principal protected against risks and market fluctuations?',
+        a: 'Risk management is carried out through formal, institutional tools: 1) Integration with life and investment insurance policies: part of the resources is deposited, in the participant\'s own name and for their direct benefit, with reputable insurance companies (supervised by the Central Insurance Authority), creating a guaranteed reserve independent of the projects. 2) Compensatory obligations under settlement contracts: the contract terms include mechanisms to compensate for damages arising from potential fluctuations or misconduct/negligence.',
+      },
+      {
+        q: 'Does registering and confirming the contract on the website carry legal and judicial validity?',
+        a: 'Yes. Under Articles 6, 7, and 10 of the Electronic Commerce Law, data messages and electronic contract confirmations — after two-factor authentication and matching the phone number to the national ID (via the Shahkar system) — carry the same evidentiary value as physical documents, and are accepted by judicial authorities as a valid, citable, and binding record.',
+      },
+      {
+        q: 'What is the basis for rewards earned from referring new users?',
+        a: 'Rewards under the cooperation development plan are defined as "marketing costs and resource-acquisition rewards" (a ju\'ala/commission-based arrangement). These rewards are paid from the market-development budget and the projects\' economic efficiency, and are entirely transparent and consistent with standard commercial practice.',
+      },
+      {
+        q: 'In case of a disagreement, how will the resolution process work?',
+        a: "In accordance with Chapter Seven of the Civil Procedure Code, a specialized arbitration clause is included in the contracts. This mechanism enables fast, specialized, low-cost resolution of disputes through a mutually agreed arbitrator, and under Article 488 of that law, the resulting award is directly enforceable through the judiciary's enforcement-of-judgments unit.",
+      },
+      {
+        q: "Is this platform's activity model similar to a bank deposit?",
+        a: 'No. Banks pay a fixed nominal interest rate, and the depositor has no information about exactly where the money is being used. On this platform, resources are allocated directly, under a civil partnership contract, to specific commercial, production, and industrial projects with high added value, and the user shares as a co-owner in the economic benefits generated by that activity.',
+      },
+      {
+        q: 'Is receiving a monthly return free of any religious or jurisprudential issue?',
+        a: 'No issue. Under Islamic jurisprudence and civil law, a return paid as a "guaranteed, fixed, risk-free profit" raises the suspicion of usury. On this platform, however, payments are made as "on-account profits" from the projects\' cash flow, with a final settlement at the end of the period based on actual performance — fully consistent with the religious principles governing partnership contracts.',
+      },
+      {
+        q: 'What is the source of the profit generated by the investments?',
+        a: 'Pooled capital is allocated to quick-return commercial projects, raw-material supply chains, equipment, and value-generating services. The proceeds from sales, services rendered, or the flow of goods are the primary source of the added value created and the periodic on-account profits paid out.',
+      },
+      {
+        q: 'What are the minimum and maximum participation amounts?',
+        a: "One of this platform's main goals is to democratize investing and enable small capital to enter large-scale projects. Accordingly, participation is possible starting from affordable amounts, structured as packages defined in the user panel, so users can participate according to their own financial capacity.",
+      },
+      {
+        q: 'On what days, and how, are periodic (on-account) profits deposited?',
+        a: 'Periodic profits, based on the financial calendar defined in the contract (typically in 30-day cycles), are added to your wallet on the website, and you can then request a direct transfer to your own official IBAN (Sheba) account.',
+      },
+      {
+        q: 'Is early settlement or contract termination possible?',
+        a: "Since the capital is actively deployed in physical, operating projects, withdrawing resources requires liquidity planning. That said, under the contract's terms and its risk-acceptance appendices, an emergency exit or buy-back of the partnership share is available, subject to administrative fees and the timeframe specified in the contract terms.",
+      },
+      {
+        q: 'What role does the investment insurance policy play, and how is it issued?',
+        a: "To provide the highest level of financial security, part of the resources is allocated to purchasing an official life and capital-accumulation insurance policy from insurance companies supervised by Iran's Central Insurance Authority. This policy is issued directly in your own name and constitutes an asset that cannot be seized, backed by a guaranteed reserve, to preserve the value of the principal over the medium and long term.",
+      },
+      {
+        q: "Is users' identity and financial information secure on the platform?",
+        a: 'Yes. The platform uses data-encryption standards, an authentication system, and up-to-date banking-grade security protocols. Identity information and transactions are kept strictly confidential and are used only within the bounds of the law.',
+      },
+      {
+        q: 'Are the profits received subject to tax?',
+        a: 'The platform fulfills the tax obligations related to the company and its projects under the direct taxation laws. Since the amounts paid represent a partnership share and the profits arising from civil partnership in production and commerce, all necessary tax calculations are carried out at the project level, and the net amounts are then deposited.',
+      },
+      {
+        q: 'Is there a cap or limit on receiving marketing rewards?',
+        a: 'Cooperation tiers and rewards are calculated according to the transparent table of the cooperation development plan (available in the user panel) and applied to your wallet, which you can withdraw at any time.',
+      },
+    ],
   },
   contact: {
     email: 'info@etemadmelal.com',

@@ -103,7 +103,20 @@ export type Translations = {
     pageSubtitle: string;
     backToArticles: string;
   };
-  faq: { badge: string; title: string; titleAccent: string; subtitle: string; items: FaqItem[] };
+  faq: {
+    badge: string;
+    title: string;
+    titleAccent: string;
+    subtitle: string;
+    items: FaqItem[];
+    viewAllLabel: string;
+  };
+  faqPage: {
+    badge: string;
+    pageTitle: string;
+    pageSubtitle: string;
+    items: FaqItem[];
+  };
   contact: {
     email: string;
     address: string;

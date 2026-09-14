@@ -1,0 +1,68 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SectionBadge from './SectionBadge.astro';
+import { siteConfig } from '../config/site';
+import type { Locale } from '../i18n/types';
+import { getTranslations, localePath } from '../i18n';
+import { faqPageSchema, breadcrumbSchema } from '../lib/seo-schemas';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = getTranslations(locale);
+const faqIcon = locale === 'fa' ? '؟' : '?';
+
+const faqUrl = new URL(localePath(locale, '/faq'), siteConfig.url).href;
+const homeUrl = new URL(localePath(locale, '/'), siteConfig.url).href;
+---
+
+<Layout
+  locale={locale}
+  title={t.faqPage.pageTitle}
+  description={t.faqPage.pageSubtitle}
+  jsonLd={[
+    faqPageSchema(t, t.faqPage.items),
+    breadcrumbSchema([
+      { name: t.a11y.home, url: homeUrl },
+      { name: t.faqPage.pageTitle, url: faqUrl },
+    ]),
+  ]}
+>
+  <section class="mesh-gradient py-16 sm:py-20">
+    <div class="mx-auto max-w-3xl px-4 text-center sm:px-6">
+      <SectionBadge label={t.faqPage.badge} />
+      <h1 class="mt-4 text-4xl font-bold text-heading max-sm:text-3xl sm:text-5xl">
+        {t.faqPage.pageTitle}
+      </h1>
+      <p class="mt-4 text-muted">{t.faqPage.pageSubtitle}</p>
+    </div>
+  </section>
+
+  <section class="pb-20 pt-4 sm:pt-8">
+    <div class="mx-auto max-w-3xl px-4 sm:px-6">
+      <div class="space-y-3 sm:space-y-4">
+        {
+          t.faqPage.items.map((item) => (
+            <details class="investment-card group rounded-xl transition">
+              <summary class="flex min-h-[3.25rem] cursor-pointer list-none items-center justify-between gap-4 p-5 text-sm font-bold text-heading [&::-webkit-details-marker]:hidden">
+                <span class="flex items-center gap-3">
+                  <span
+                    class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-accent-gold/15 text-xs text-accent-gold"
+                    aria-hidden="true"
+                  >
+                    {faqIcon}
+                  </span>
+                  <h2 class="text-sm font-bold text-heading">{item.q}</h2>
+                </span>
+                <span class="shrink-0 text-accent-gold transition group-open:rotate-180" aria-hidden="true">▼</span>
+              </summary>
+              <p class="border-t border-divider px-5 py-5 text-sm leading-relaxed text-muted">{item.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</Layout>

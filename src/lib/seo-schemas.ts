@@ -1,5 +1,5 @@
 import { siteConfig } from '../config/site';
-import type { Locale, Translations } from '../i18n/types';
+import type { FaqItem, Locale, Translations } from '../i18n/types';
 import { localePath } from '../i18n/utils';
 
 const base = siteConfig.url;
@@ -58,11 +58,11 @@ export function financialServiceSchema(locale: Locale, t: Translations) {
   };
 }
 
-export function faqPageSchema(t: Translations) {
+export function faqPageSchema(t: Translations, items: FaqItem[] = t.faq.items) {
   return {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
-    mainEntity: t.faq.items.map((item) => ({
+    mainEntity: items.map((item) => ({
       '@type': 'Question',
       name: item.q,
       acceptedAnswer: { '@type': 'Answer', text: item.a },
