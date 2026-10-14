@@ -16,7 +16,8 @@ export function organizationSchema(locale: Locale, t: Translations) {
     email: t.contact.email,
     address: {
       '@type': 'PostalAddress',
-      addressLocality: locale === 'fa' ? 'تهران' : 'Tehran',
+      streetAddress: t.contact.address,
+      addressLocality: locale === 'fa' ? 'مشهد' : 'Mashhad',
       addressCountry: 'IR',
     },
     sameAs: [siteConfig.panelUrl].filter(Boolean),

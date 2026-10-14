@@ -51,7 +51,7 @@ export const en: Translations = {
   },
   ticker: [
     { label: 'Industrial return participation', trend: 'Productive projects' },
-    { label: 'Market development reward', trend: 'Real performance' },
+    { label: 'Market development partnership', trend: 'Real performance' },
     { label: 'Financial report transparency', trend: 'Real-time' },
     { label: 'Support', trend: 'Panel tickets' },
   ],
@@ -129,24 +129,20 @@ export const en: Translations = {
         desc: 'Creating a reliable income stream for participants from profitability in the domestic and international production and sales cycle.',
       },
       {
-        title: 'Productive investment',
-        desc: 'Directing micro and macro capital into the economic cycle and direct factory financing, away from market fluctuations and intermediation.',
-      },
-      {
-        title: 'Revival model',
-        desc: 'Focusing on starting and returning semi-active or stagnant industrial units to the production cycle by improving infrastructure management and providing liquidity.',
+        title: 'Productive & regenerative investment',
+        desc: 'Channeling small-scale capital into the real value chain and activating idle production capacity, away from speculative fluctuations.',
       },
       {
         title: 'Real participation',
         desc: 'Possibility of participating in large industrial and production projects with any financial level to support the country\'s production and industry cycle.',
       },
       {
-        title: 'Dedicated support',
-        desc: 'A support team ready to answer your questions on the path of participation.',
-      },
-      {
         title: 'Full transparency',
         desc: 'Detailed reports on rewards, deposits, and withdrawals at any moment in the user panel.',
+      },
+      {
+        title: 'Dedicated support',
+        desc: 'A support team ready to answer your questions on the path of participation.',
       },
     ],
     stats: [
@@ -204,7 +200,7 @@ export const en: Translations = {
     items: [
       {
         q: 'How do I sign up for Etemad Melal?',
-        a: 'Click Get started or Login and complete registration in the panel. After verification you can choose an investment package.',
+        a: 'Click Get started or Login and complete registration in the panel. After verification you can choose the civil partnership plan that suits you.',
       },
       {
         q: 'What income streams does Etemad Melal offer?',
@@ -376,7 +372,8 @@ These terms are governed by the laws of Iran, and disputes falling outside the s
   },
   contact: {
     email: 'info@etemadmelal.com',
-    address: 'Tehran, Iran',
+    address:
+      'Unit 101, 1st Floor, No. 544, Moallem Blvd., South Seyed Morteza St. (Moallem 24 - Farhang 21), Farhang, Mashhad, Iran',
     badge: 'Get in touch',
     title: 'Contact',
     titleAccent: 'us',
