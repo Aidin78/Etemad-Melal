@@ -24,11 +24,8 @@ export async function getCatchAllPagePaths() {
   add('en/about', { type: 'about', locale: 'en' });
   add('faq', { type: 'faq', locale: 'fa' });
   add('en/faq', { type: 'faq', locale: 'en' });
-  // /terms and /en/terms are temporarily disabled pending legal review of the
-  // draft copy — TermsPage.astro and the termsPage i18n content are still in
-  // place, just re-add these two lines to bring the page back.
-  // add('terms', { type: 'terms', locale: 'fa' });
-  // add('en/terms', { type: 'terms', locale: 'en' });
+  add('terms', { type: 'terms', locale: 'fa' });
+  add('en/terms', { type: 'terms', locale: 'en' });
   add('articles', { type: 'articles', locale: 'fa' });
   add('en/articles', { type: 'articles', locale: 'en' });
 
