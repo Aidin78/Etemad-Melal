@@ -16,7 +16,7 @@ const alignClass = align === 'center' ? 'text-center' : '';
 const subtitleClass = align === 'center' ? 'section-subtitle mx-auto' : 'section-subtitle';
 ---
 
-<div class:list={[alignClass, className]}>
+<div class:list={[alignClass, className]} data-reveal="cascade">
   {badge.trim() && <SectionBadge label={badge} dot={dot} />}
   {
     (title || titleAccent) && (

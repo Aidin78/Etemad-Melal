@@ -29,7 +29,7 @@ const t = getTranslations(locale);
     <ul class="section-body-gap grid gap-5 sm:gap-6 lg:grid-cols-2">
       {
         t.income.streams.map((stream) => (
-          <li>
+          <li data-reveal>
             <article class="investment-card group flex h-full flex-col rounded-2xl p-6">
               <div class="h-1.5 w-16 rounded-full transition-all duration-700 ease-out group-hover:w-[4.5rem]" style={`background: linear-gradient(90deg, ${stream.color}, transparent)`} />
               <div
@@ -63,7 +63,7 @@ const t = getTranslations(locale);
     {t.income.footnote && (
       <p class="mt-6 text-center text-xs text-subtle sm:mt-8">{t.income.footnote}</p>
     )}
-    <div class="mt-6 text-center sm:mt-8">
+    <div class="mt-6 text-center sm:mt-8" data-reveal="fade">
       <PanelLink locale={locale} showArrow>
         {t.panelCtaLogin}
       </PanelLink>

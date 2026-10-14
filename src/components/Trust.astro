@@ -30,7 +30,7 @@ const yearsActive = toLocaleDigits(getYearsActive(), locale);
     <ul class="section-body-gap grid gap-5 sm:grid-cols-2 lg:grid-cols-3 sm:gap-6">
       {
         t.trust.benefits.map((b, i) => (
-          <li>
+          <li data-reveal>
             <article class="investment-card group rounded-2xl p-6 text-center">
               <div class="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-accent-gold/20 text-accent-gold-light ring-1 ring-accent-gold/30 transition-all duration-500 ease-out group-hover:bg-accent-gold/28 group-hover:ring-accent-gold/45">
                 <svg class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
@@ -45,7 +45,7 @@ const yearsActive = toLocaleDigits(getYearsActive(), locale);
       }
     </ul>
 
-    <div class="relative mt-10 overflow-hidden rounded-2xl ring-1 ring-accent-gold/20 sm:mt-16" aria-hidden="true">
+    <div class="relative mt-10 overflow-hidden rounded-2xl ring-1 ring-accent-gold/20 sm:mt-16" aria-hidden="true" data-reveal="zoom">
       <img src={siteImages.trust} alt="" class="absolute inset-0 h-full w-full object-cover opacity-25" loading="lazy" />
       <div class="absolute inset-0 bg-image-overlay-horizontal"></div>
       <div class="trust-stats-band relative grid grid-cols-2 gap-6 p-8 sm:grid-cols-4 sm:p-12">
@@ -53,7 +53,7 @@ const yearsActive = toLocaleDigits(getYearsActive(), locale);
           t.trust.stats.map((s) => (
             <div class="text-center">
               <span class="text-xs text-accent-gold">{s.trend}</span>
-              <p class="stat-value mt-1">{s.value.replace('{years}', yearsActive)}</p>
+              <p class="stat-value mt-1" data-count>{s.value.replace('{years}', yearsActive)}</p>
               <p class="mt-2 text-sm text-muted">{s.label}</p>
             </div>
           ))

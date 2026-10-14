@@ -21,7 +21,7 @@ const posts = await getSortedArticles(locale);
   description={t.news.pageSubtitle}
 >
   <section class="mesh-gradient py-16 sm:py-20">
-    <div class="mx-auto max-w-6xl px-4 text-center sm:px-6">
+    <div class="mx-auto max-w-6xl px-4 text-center sm:px-6" data-reveal="cascade">
       <SectionBadge label={t.news.badge} />
       <h1 class="mt-4 text-4xl font-bold text-heading max-sm:text-3xl sm:text-5xl">
         <span class="section-title-accent">{t.news.pageTitle}</span> {t.siteName}
@@ -32,7 +32,7 @@ const posts = await getSortedArticles(locale);
 
   <section class="pb-20 pt-8">
     <ul class="mx-auto grid max-w-6xl gap-8 px-4 sm:grid-cols-2 sm:px-6 lg:grid-cols-2">
-      {posts.map((post) => <li><NewsCard locale={locale} post={post} /></li>)}
+      {posts.map((post) => <li data-reveal><NewsCard locale={locale} post={post} /></li>)}
     </ul>
   </section>
 </Layout>

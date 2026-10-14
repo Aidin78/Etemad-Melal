@@ -33,7 +33,7 @@ const posts = (await getSortedArticles(locale)).slice(0, 2);
 
         <ul class="section-body-gap grid gap-5 sm:grid-cols-2 sm:gap-6">
           {posts.map((post) => (
-            <li><NewsCard locale={locale} post={post} compact /></li>
+            <li data-reveal><NewsCard locale={locale} post={post} compact /></li>
           ))}
         </ul>
       </div>

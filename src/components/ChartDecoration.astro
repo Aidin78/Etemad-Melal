@@ -12,6 +12,7 @@ const { class: className = '' } = Astro.props;
   fill="none"
   xmlns="http://www.w3.org/2000/svg"
   aria-hidden="true"
+  data-reveal="draw"
 >
   <defs>
     <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
@@ -21,6 +22,8 @@ const { class: className = '' } = Astro.props;
   </defs>
   <path
     d="M0 60 L25 50 L50 55 L75 35 L100 40 L125 25 L150 30 L175 15 L200 20"
+    pathLength="1"
+    data-draw-line
     stroke="currentColor"
     stroke-width="2"
     stroke-linecap="round"
@@ -30,5 +33,6 @@ const { class: className = '' } = Astro.props;
   <path
     d="M0 60 L25 50 L50 55 L75 35 L100 40 L125 25 L150 30 L175 15 L200 20 L200 80 L0 80 Z"
     fill="url(#chartGrad)"
+    data-draw-area
   />
 </svg>

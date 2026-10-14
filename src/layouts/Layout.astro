@@ -58,6 +58,16 @@ const altUrl = new URL(altPath, siteConfig.url).href;
         document.documentElement.setAttribute('data-theme', t);
         var m = document.querySelector('meta[name="theme-color"]');
         if (m) m.setAttribute('content', t === 'light' ? '#f4f7fb' : '#12110f');
+
+        // Scroll-reveal hidden states (motion.css) only apply under .js-motion; drop it
+        // again if the motion script never boots so content can't stay hidden.
+        var r = document.documentElement;
+        if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          r.classList.add('js-motion');
+          setTimeout(function () {
+            if (!window.__emMotion) r.classList.remove('js-motion');
+          }, 3000);
+        }
       })();
     </script>
     <meta charset="UTF-8" />
@@ -97,6 +107,7 @@ const altUrl = new URL(altPath, siteConfig.url).href;
     {jsonLd && <JsonLd data={jsonLd} />}
   </head>
   <body class="relative min-h-screen">
+    <div class="scroll-progress" aria-hidden="true"></div>
     <a
       href="#main-content"
       class="sr-only focus:not-sr-only focus:absolute focus:start-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-accent-gold focus:px-4 focus:py-2 focus:text-secondary focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-secondary"
@@ -108,5 +119,9 @@ const altUrl = new URL(altPath, siteConfig.url).href;
       <slot />
     </main>
     <Footer locale={locale} />
+    <script>
+      import { initMotion } from '../scripts/motion';
+      initMotion();
+    </script>
   </body>
 </html>

@@ -30,7 +30,7 @@ const homeUrl = new URL(localePath(locale, '/'), siteConfig.url).href;
   ]}
 >
   <section class="mesh-gradient py-16 sm:py-20">
-    <div class="mx-auto max-w-3xl px-4 text-center sm:px-6">
+    <div class="mx-auto max-w-3xl px-4 text-center sm:px-6" data-reveal="cascade">
       <SectionBadge label={t.faqPage.badge} />
       <h1 class="mt-4 text-4xl font-bold text-heading max-sm:text-3xl sm:text-5xl">
         {t.faqPage.pageTitle}
@@ -44,7 +44,7 @@ const homeUrl = new URL(localePath(locale, '/'), siteConfig.url).href;
       <div class="space-y-3 sm:space-y-4">
         {
           t.faqPage.items.map((item, index) => (
-            <details class="investment-card group rounded-xl transition">
+            <details class="investment-card group rounded-xl transition" data-reveal>
               <summary class="flex min-h-[3.25rem] cursor-pointer list-none items-center justify-between gap-4 p-5 text-sm font-bold text-heading [&::-webkit-details-marker]:hidden">
                 <span class="flex items-center gap-3">
                   <span

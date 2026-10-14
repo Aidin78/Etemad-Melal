@@ -28,7 +28,7 @@ const { data } = entry;
     <div class="grid-pattern absolute inset-0 opacity-35" aria-hidden="true"></div>
     <div class="relative mx-auto max-w-6xl px-4 sm:px-6">
       <div class="grid items-center gap-10 lg:grid-cols-2 lg:gap-14">
-        <div>
+        <div data-reveal="cascade">
           <SectionBadge label={t.about.badge} />
           <h1 class="mt-4 text-4xl font-bold leading-tight text-heading sm:text-5xl lg:text-6xl">
             {data.heroTitle}<span class="section-title-accent">{data.heroTitleAccent}</span>
@@ -47,7 +47,7 @@ const { data } = entry;
           </dl>
         </div>
 
-        <div class="relative overflow-hidden rounded-2xl ring-1 ring-accent-gold/25 shadow-[0_24px_60px_rgb(0_0_0/0.35)]">
+        <div class="relative overflow-hidden rounded-2xl ring-1 ring-accent-gold/25 shadow-[0_24px_60px_rgb(0_0_0/0.35)]" data-reveal="image">
           <img src={data.image} alt={data.imageAlt} class="aspect-[4/3] w-full object-cover" loading="eager" />
           <div class="absolute inset-0 bg-image-overlay-top"></div>
           <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[var(--page)] via-[var(--page)]/80 to-transparent p-5 pt-16">
@@ -61,7 +61,7 @@ const { data } = entry;
 
   <section class="relative py-12 sm:py-20">
     <div class="mx-auto max-w-3xl px-4 sm:px-6">
-      <div class="mb-10 text-center">
+      <div class="mb-10 text-center" data-reveal="cascade">
         <h2 class="text-2xl font-bold text-heading sm:text-3xl">{t.aboutPage.detailsTitle}</h2>
         <p class="mt-2 text-sm text-muted">{t.aboutPage.detailsSubtitle}</p>
       </div>
@@ -69,7 +69,7 @@ const { data } = entry;
       <ol class="about-timeline space-y-0">
         {
           data.sections.map((section, index) => (
-            <li class="about-timeline-item relative pb-10 last:pb-0">
+            <li class="about-timeline-item relative pb-10 last:pb-0" data-reveal="start">
               <div class="about-timeline-card investment-card rounded-2xl p-6 sm:p-8">
                 <div class="flex items-start gap-4 sm:gap-5">
                   <span class="about-timeline-index shrink-0" aria-hidden="true">
@@ -95,14 +95,14 @@ const { data } = entry;
 
   <section class="section-spacing bg-section-alt">
     <div class="mx-auto max-w-6xl px-4 sm:px-6">
-      <div class="text-center">
+      <div class="text-center" data-reveal="cascade">
         <SectionBadge label={data.valuesTitle} dot={false} />
         <h2 class="section-title mt-4">{data.valuesTitle}</h2>
       </div>
       <ul class="section-body-gap grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
         {
           data.values.map((value, i) => (
-            <li>
+            <li data-reveal>
               <article class="about-value-card investment-card rounded-2xl p-6 text-center">
                 <div class="about-value-icon mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl text-accent-gold-light transition-colors duration-500 ease-out">
                   <svg class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
@@ -121,7 +121,7 @@ const { data } = entry;
 
   <section class="pt-12 pb-8 sm:pt-20 sm:pb-12">
     <div class="mx-auto max-w-6xl px-4 sm:px-6">
-      <div class="about-cta-band rounded-2xl px-6 py-10 text-center sm:px-10 sm:py-12">
+      <div class="about-cta-band rounded-2xl px-6 py-10 text-center sm:px-10 sm:py-12" data-reveal="zoom">
         <h2 class="text-2xl font-bold text-heading sm:text-3xl">{t.aboutPage.ctaTitle}</h2>
         <p class="mx-auto mt-3 max-w-xl text-sm text-muted sm:text-base">{t.aboutPage.ctaSubtitle}</p>
         <div class="mt-8 flex flex-wrap justify-center gap-3">

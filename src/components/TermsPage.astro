@@ -36,7 +36,7 @@ const lastUpdatedLabel = new Intl.DateTimeFormat(locale === 'fa' ? 'fa-IR' : 'en
   ]}
 >
   <section class="mesh-gradient py-16 sm:py-20">
-    <div class="mx-auto max-w-3xl px-4 text-center sm:px-6">
+    <div class="mx-auto max-w-3xl px-4 text-center sm:px-6" data-reveal="cascade">
       <SectionBadge label={t.termsPage.badge} />
       <h1 class="mt-4 text-4xl font-bold text-heading max-sm:text-3xl sm:text-5xl">
         {t.termsPage.pageTitle}
@@ -51,7 +51,7 @@ const lastUpdatedLabel = new Intl.DateTimeFormat(locale === 'fa' ? 'fa-IR' : 'en
       <ol class="space-y-5 sm:space-y-6">
         {
           t.termsPage.sections.map((section) => (
-            <li class="investment-card rounded-2xl p-6 sm:p-8">
+            <li class="investment-card rounded-2xl p-6 sm:p-8" data-reveal>
               <h2 class="text-lg font-bold text-heading sm:text-xl">{section.title}</h2>
               <div class="mt-4 border-t border-divider pt-4">
                 <AboutSectionContent content={section.body} />

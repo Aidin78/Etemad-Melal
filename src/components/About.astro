@@ -16,7 +16,7 @@ const t = getTranslations(locale);
 <section id="about-preview" class="section-spacing relative overflow-hidden">
   <div class="relative mx-auto max-w-6xl px-4 sm:px-6">
     <div class="grid items-center gap-8 lg:grid-cols-2 lg:gap-12">
-      <div class="relative order-2 overflow-hidden rounded-2xl ring-1 ring-accent-gold/20 lg:order-1">
+      <div class="relative order-2 overflow-hidden rounded-2xl ring-1 ring-accent-gold/20 lg:order-1" data-reveal="image">
         <img src={siteImages.about} alt={t.about.imageAlt} class="aspect-[4/3] w-full object-cover" loading="lazy" />
         <div class="absolute inset-0 bg-image-overlay-top"></div>
         <div class="absolute bottom-4 right-4 left-4 grid grid-cols-3 gap-2">
@@ -37,8 +37,8 @@ const t = getTranslations(locale);
           titleAccent={t.about.titleAccent}
           subtitle={t.about.subtitle}
         />
-        <p class="mt-4 text-sm leading-relaxed text-muted">{t.about.body}</p>
-        <div class="mt-8 flex flex-wrap gap-3">
+        <p class="mt-4 text-sm leading-relaxed text-muted" data-reveal>{t.about.body}</p>
+        <div class="mt-8 flex flex-wrap gap-3" data-reveal>
           <a href={localePath(locale, '/about')} class="btn-primary">{t.about.ctaLearnMore}</a>
           <PanelLink locale={locale} variant="outline">{t.about.ctaStart}</PanelLink>
         </div>

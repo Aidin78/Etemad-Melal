@@ -1,0 +1,192 @@
+/*
+ * Scroll motion.
+ *
+ * Reveal-on-scroll: elements marked `data-reveal` start hidden and are revealed by
+ * src/scripts/motion.ts when they enter the viewport. The hidden states only apply
+ * under `html.js-motion`, which the inline head script in Layout.astro sets when JS
+ * runs and the visitor has not asked for reduced motion — without it, everything
+ * renders statically. Hidden states use `:not(.is-revealed)` so a revealed element
+ * falls back to its own opacity (e.g. a decorative `opacity-40`) instead of 1.
+ *
+ * Variants: (default) rise · fade · start · end · zoom · image · cascade · draw
+ */
+
+:root {
+  --ease-reveal: cubic-bezier(0.22, 1, 0.36, 1);
+  --reveal-distance: 28px;
+  /* +1 in LTR, -1 in RTL: lets `start`/`end` slide in from the reading-direction side */
+  --reveal-dir: 1;
+}
+
+:root[dir='rtl'] {
+  --reveal-dir: -1;
+}
+
+/* Sideways slides must not widen the page (horizontal scroll on phones) mid-reveal */
+.js-motion .site-main,
+.js-motion footer {
+  overflow-x: clip;
+}
+
+.js-motion [data-reveal] {
+  transition:
+    opacity 0.8s var(--ease-reveal),
+    translate 0.9s var(--ease-reveal),
+    scale 0.9s var(--ease-reveal);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+.js-motion [data-reveal]:not(.is-revealed, [data-reveal='cascade'], [data-reveal='draw']) {
+  opacity: 0;
+  translate: 0 var(--reveal-distance);
+}
+
+.js-motion [data-reveal='fade']:not(.is-revealed) {
+  translate: none;
+}
+
+.js-motion [data-reveal='start']:not(.is-revealed) {
+  translate: calc(-48px * var(--reveal-dir)) 0;
+}
+
+.js-motion [data-reveal='end']:not(.is-revealed) {
+  translate: calc(48px * var(--reveal-dir)) 0;
+}
+
+.js-motion [data-reveal='zoom']:not(.is-revealed) {
+  translate: 0 16px;
+  scale: 0.94;
+}
+
+/* Image frames: the frame fades/settles while the photo inside eases out of a zoom */
+.js-motion [data-reveal='image']:not(.is-revealed) {
+  translate: 0 16px;
+  scale: 0.97;
+}
+
+.js-motion [data-reveal='image'] img {
+  transition: scale 1.6s var(--ease-reveal);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+.js-motion [data-reveal='image']:not(.is-revealed) img {
+  scale: 1.14;
+}
+
+/* Cascade: the container stays put and its direct children rise in one after another */
+.js-motion [data-reveal='cascade'] > * {
+  transition:
+    opacity 0.8s var(--ease-reveal),
+    translate 0.9s var(--ease-reveal);
+  transition-delay: calc(var(--reveal-delay, 0ms) + var(--cascade-step, 0ms));
+}
+
+.js-motion [data-reveal='cascade']:not(.is-revealed) > * {
+  opacity: 0;
+  translate: 0 20px;
+}
+
+[data-reveal='cascade'] > :nth-child(2) { --cascade-step: 110ms; }
+[data-reveal='cascade'] > :nth-child(3) { --cascade-step: 220ms; }
+[data-reveal='cascade'] > :nth-child(4) { --cascade-step: 330ms; }
+[data-reveal='cascade'] > :nth-child(5) { --cascade-step: 440ms; }
+[data-reveal='cascade'] > :nth-child(n + 6) { --cascade-step: 550ms; }
+
+/* Draw: an SVG line chart traces itself (the line path needs pathLength="1") */
+.js-motion [data-reveal='draw'] [data-draw-line] {
+  stroke-dasharray: 1;
+  transition: stroke-dashoffset 1.8s var(--ease-reveal);
+}
+
+.js-motion [data-reveal='draw']:not(.is-revealed) [data-draw-line] {
+  stroke-dashoffset: 1;
+}
+
+.js-motion [data-reveal='draw'] [data-draw-area] {
+  transition: opacity 1.2s ease 0.6s;
+}
+
+.js-motion [data-reveal='draw']:not(.is-revealed) [data-draw-area] {
+  opacity: 0;
+}
+
+/*
+ * Scroll-linked effects (CSS scroll-driven animations). Progressive enhancement:
+ * browsers without `animation-timeline` simply don't get them.
+ */
+.scroll-progress {
+  display: none;
+}
+
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+    /* Thin gold reading-progress bar along the top edge */
+    .scroll-progress {
+      display: block;
+      position: fixed;
+      inset-inline: 0;
+      top: 0;
+      z-index: 60;
+      height: 2px;
+      pointer-events: none;
+      background: linear-gradient(90deg, var(--color-accent-gold, #d4a853), var(--gold-emphasis, #e8c77a));
+      transform-origin: left center;
+      animation: scroll-progress-grow linear both;
+      animation-timeline: scroll(root);
+    }
+
+    :root[dir='rtl'] .scroll-progress {
+      transform-origin: right center;
+    }
+
+    /* Header picks up depth once the page starts scrolling */
+    .site-header {
+      animation: header-lift linear both;
+      animation-timeline: scroll(root);
+      animation-range: 0 160px;
+    }
+
+    /* Hero: background photo drifts slower than the page, content eases away */
+    .hero-img {
+      animation: hero-drift linear both;
+      animation-timeline: scroll(root);
+      animation-range: 0 100vh;
+    }
+
+    .hero-content {
+      animation: hero-content-out linear both;
+      animation-timeline: scroll(root);
+      animation-range: 0 85vh;
+    }
+  }
+}
+
+@keyframes scroll-progress-grow {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes header-lift {
+  to {
+    box-shadow: 0 10px 30px rgb(0 0 0 / 0.18);
+  }
+}
+
+@keyframes hero-drift {
+  to {
+    translate: 0 22%;
+    scale: 1.08;
+  }
+}
+
+@keyframes hero-content-out {
+  to {
+    opacity: 0.15;
+    translate: 0 -60px;
+    scale: 0.97;
+  }
+}
