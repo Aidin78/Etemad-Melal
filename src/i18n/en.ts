@@ -285,6 +285,17 @@ export const en: Translations = {
     pageTitle: 'Terms & Conditions',
     pageSubtitle: 'The legal framework for participating on the Etemad Melal platform — from the nature of the contract to privacy and dispute resolution.',
     lastUpdatedLabel: 'Last updated',
+    sectionsCount: '{count} sections',
+    readingTime: 'About {min} min read',
+    print: 'Print / Save PDF',
+    tocTitle: 'Contents',
+    importantLabel: 'Important',
+    copyLink: 'Copy link to this section',
+    linkCopied: 'Link copied',
+    helpTitle: 'Questions about these terms?',
+    helpBody: 'Many legal and financial questions are answered in the FAQ — otherwise, get in touch with us.',
+    helpFaq: 'FAQ',
+    helpContact: 'Contact us',
     sections: [
       {
         title: '1. Definitions',
@@ -312,6 +323,7 @@ A final settlement is made at the end of the financial period or contract maturi
       },
       {
         title: '5. No guaranteed profit and investment risk',
+        important: true,
         body: `Under religious and legal principles, guaranteeing a fixed, predetermined profit in a partnership contract is void and distorts the nature of the underlying economic activity; accordingly, the platform does not announce or commit to any fixed or guaranteed rate of return.
 
 Every commercial and industrial activity, particularly over short horizons, carries volatility and risk, and past project performance is not a guarantee of future performance. By accepting this document, the participant acknowledges the partnership nature of this activity and its inherent risks.`,

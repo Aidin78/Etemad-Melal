@@ -190,3 +190,13 @@
     scale: 0.97;
   }
 }
+
+/* Never print an element that hasn't been scrolled into view yet */
+@media print {
+  .js-motion [data-reveal],
+  .js-motion [data-reveal] > * {
+    opacity: 1 !important;
+    translate: none !important;
+    scale: none !important;
+  }
+}

@@ -4,7 +4,7 @@ import SectionBadge from './SectionBadge.astro';
 import AboutSectionContent from './AboutSectionContent.astro';
 import { siteConfig, legalLastUpdated } from '../config/site';
 import type { Locale } from '../i18n/types';
-import { getTranslations, localePath, toLocaleDigits } from '../i18n';
+import { getTranslations, localePath, toLocaleDigits, formatBoxIndex } from '../i18n';
 import { breadcrumbSchema } from '../lib/seo-schemas';
 
 interface Props {
@@ -22,6 +22,22 @@ const lastUpdatedLabel = new Intl.DateTimeFormat(locale === 'fa' ? 'fa-IR' : 'en
   month: 'long',
   day: 'numeric',
 }).format(new Date(legalLastUpdated));
+
+// Section titles carry their own "۱. " / "1. " prefix — split it off so the number can be its own badge
+const sections = t.termsPage.sections.map((section, i) => ({
+  ...section,
+  id: `section-${i + 1}`,
+  number: formatBoxIndex(i + 1, locale),
+  heading: section.title.replace(/^[\d۰-۹]+\.\s*/, ''),
+}));
+
+const wordCount = t.termsPage.sections.reduce((sum, s) => sum + s.body.split(/\s+/).length, 0);
+const readingMinutes = Math.max(1, Math.round(wordCount / 200));
+const meta = [
+  `${t.termsPage.lastUpdatedLabel}: ${toLocaleDigits(lastUpdatedLabel, locale)}`,
+  t.termsPage.sectionsCount.replace('{count}', toLocaleDigits(sections.length, locale)),
+  t.termsPage.readingTime.replace('{min}', toLocaleDigits(readingMinutes, locale)),
+];
 ---
 
 <Layout
@@ -35,31 +51,167 @@ const lastUpdatedLabel = new Intl.DateTimeFormat(locale === 'fa' ? 'fa-IR' : 'en
     ]),
   ]}
 >
-  <section class="mesh-gradient py-16 sm:py-20">
-    <div class="mx-auto max-w-3xl px-4 text-center sm:px-6" data-reveal="cascade">
+  <section class="terms-hero relative overflow-hidden mesh-gradient py-14 sm:py-20">
+    <div class="grid-pattern absolute inset-0 opacity-40" aria-hidden="true"></div>
+    <div class="relative mx-auto max-w-3xl px-4 text-center sm:px-6" data-reveal="cascade">
       <SectionBadge label={t.termsPage.badge} />
       <h1 class="mt-4 text-4xl font-bold text-heading max-sm:text-3xl sm:text-5xl">
         {t.termsPage.pageTitle}
       </h1>
-      <p class="mt-4 text-muted">{t.termsPage.pageSubtitle}</p>
-      <p class="mt-3 text-xs text-subtle">{t.termsPage.lastUpdatedLabel}: {toLocaleDigits(lastUpdatedLabel, locale)}</p>
+      <p class="mx-auto mt-4 max-w-2xl leading-relaxed text-muted">{t.termsPage.pageSubtitle}</p>
+      <ul class="mt-6 flex flex-wrap items-center justify-center gap-2">
+        {meta.map((item) => <li class="terms-meta-pill">{item}</li>)}
+      </ul>
+      <div class="mt-6">
+        <button type="button" class="btn-ghost terms-print" data-terms-print hidden>
+          <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6.72 13.829c-.24.03-.48.062-.72.096m.72-.096a42.415 42.415 0 0110.56 0m-10.56 0L6.34 18m10.94-4.171c.24.03.48.062.72.096m-.72-.096L17.66 18m0 0l.229 2.523a1.125 1.125 0 01-1.12 1.227H7.231c-.662 0-1.18-.568-1.12-1.227L6.34 18m11.318 0h1.091A2.25 2.25 0 0021 15.75V9.456c0-1.081-.768-2.015-1.837-2.175a48.055 48.055 0 00-1.913-.247M6.34 18H5.25A2.25 2.25 0 013 15.75V9.456c0-1.081.768-2.015 1.837-2.175a48.041 48.041 0 011.913-.247m10.5 0a48.536 48.536 0 00-10.5 0m10.5 0V3.375c0-.621-.504-1.125-1.125-1.125h-8.25c-.621 0-1.125.504-1.125 1.125v3.659M18 10.5h.008v.008H18V10.5zm-3 0h.008v.008H15V10.5z" />
+          </svg>
+          {t.termsPage.print}
+        </button>
+      </div>
     </div>
   </section>
 
-  <section class="pb-20 pt-4 sm:pt-8">
-    <div class="mx-auto max-w-3xl px-4 sm:px-6">
-      <ol class="space-y-5 sm:space-y-6">
-        {
-          t.termsPage.sections.map((section) => (
-            <li class="investment-card rounded-2xl p-6 sm:p-8" data-reveal>
-              <h2 class="text-lg font-bold text-heading sm:text-xl">{section.title}</h2>
-              <div class="mt-4 border-t border-divider pt-4">
-                <AboutSectionContent content={section.body} />
-              </div>
-            </li>
-          ))
-        }
-      </ol>
+  <section class="pb-16 pt-6 sm:pb-24 sm:pt-10">
+    <div class="terms-layout mx-auto max-w-6xl px-4 sm:px-6">
+      <!-- Contents: collapsible on small screens, sticky with scroll-spy on large ones -->
+      <aside class="terms-toc-wrap">
+        <details class="terms-toc-mobile investment-card group rounded-2xl lg:hidden">
+          <summary class="flex cursor-pointer list-none items-center justify-between gap-3 p-4 text-sm font-bold text-heading [&::-webkit-details-marker]:hidden">
+            {t.termsPage.tocTitle}
+            <span class="text-accent-gold transition group-open:rotate-180" aria-hidden="true">▾</span>
+          </summary>
+          <ol class="terms-toc-list border-t border-divider p-2">
+            {
+              sections.map((s) => (
+                <li>
+                  <a href={`#${s.id}`} class="terms-toc-link" data-toc-link={s.id}>
+                    <span class="terms-toc-num">{s.number}</span>
+                    <span>{s.heading}</span>
+                  </a>
+                </li>
+              ))
+            }
+          </ol>
+        </details>
+
+        <nav class="terms-toc hidden lg:block" aria-label={t.termsPage.tocTitle}>
+          <p class="mb-3 px-3 text-xs font-semibold uppercase tracking-wider text-subtle">{t.termsPage.tocTitle}</p>
+          <ol class="terms-toc-list">
+            {
+              sections.map((s) => (
+                <li>
+                  <a href={`#${s.id}`} class="terms-toc-link" data-toc-link={s.id}>
+                    <span class="terms-toc-num">{s.number}</span>
+                    <span>{s.heading}</span>
+                  </a>
+                </li>
+              ))
+            }
+          </ol>
+        </nav>
+      </aside>
+
+      <div class="min-w-0">
+        <ol class="space-y-5 sm:space-y-6">
+          {
+            sections.map((s) => (
+              <li id={s.id} class:list={['terms-section investment-card rounded-2xl p-6 sm:p-8', s.important && 'terms-section--important']} data-reveal>
+                <div class="flex items-start gap-4">
+                  <span class="terms-section-num" aria-hidden="true">{s.number}</span>
+                  <div class="min-w-0 flex-1">
+                    {s.important && <p class="terms-important-label">{t.termsPage.importantLabel}</p>}
+                    <h2 class="text-lg font-bold leading-snug text-heading sm:text-xl">
+                      <span class="sr-only">{s.number}. </span>
+                      {s.heading}
+                    </h2>
+                  </div>
+                  <a href={`#${s.id}`} class="terms-anchor" data-copy-anchor aria-label={`${t.termsPage.copyLink}: ${s.heading}`}>
+                    <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" />
+                    </svg>
+                  </a>
+                </div>
+                <div class="mt-4 border-t border-divider pt-4">
+                  <AboutSectionContent content={s.body} />
+                </div>
+              </li>
+            ))
+          }
+        </ol>
+
+        <div class="terms-help mt-8 rounded-2xl p-6 text-center sm:mt-10 sm:p-8" data-reveal="zoom">
+          <h2 class="text-xl font-bold text-heading">{t.termsPage.helpTitle}</h2>
+          <p class="mx-auto mt-2 max-w-lg text-sm leading-relaxed text-muted">{t.termsPage.helpBody}</p>
+          <div class="mt-6 flex flex-wrap justify-center gap-3">
+            <a href={localePath(locale, '/faq')} class="btn-primary">{t.termsPage.helpFaq}</a>
+            <a href={localePath(locale, '/#contact')} class="btn-outline">{t.termsPage.helpContact}</a>
+          </div>
+        </div>
+      </div>
     </div>
+    <p class="sr-only" aria-live="polite" data-terms-status data-copied-label={t.termsPage.linkCopied}></p>
   </section>
 </Layout>
+
+<script>
+  // Print / save-as-PDF (hidden without JS)
+  const printButton = document.querySelector<HTMLButtonElement>('[data-terms-print]');
+  if (printButton) {
+    printButton.hidden = false;
+    printButton.addEventListener('click', () => window.print());
+  }
+
+  // Scroll-spy: highlight the section currently being read in the contents list
+  const links = [...document.querySelectorAll<HTMLAnchorElement>('[data-toc-link]')];
+  const sections = [...document.querySelectorAll<HTMLElement>('.terms-section')];
+  const setActive = (id: string) => {
+    links.forEach((link) => {
+      const active = link.dataset.tocLink === id;
+      link.classList.toggle('is-active', active);
+      if (active) link.setAttribute('aria-current', 'true');
+      else link.removeAttribute('aria-current');
+    });
+  };
+  if (sections.length) {
+    const visible = new Set<string>();
+    const spy = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) visible.add(entry.target.id);
+          else visible.delete(entry.target.id);
+        });
+        const current = sections.find((s) => visible.has(s.id));
+        if (current) setActive(current.id);
+      },
+      // A band across the upper part of the viewport counts as "being read"
+      { rootMargin: '-20% 0px -55% 0px' },
+    );
+    sections.forEach((s) => spy.observe(s));
+  }
+
+  // Mobile contents closes after picking a section
+  document.querySelectorAll<HTMLAnchorElement>('.terms-toc-mobile a').forEach((link) => {
+    link.addEventListener('click', () => link.closest('details')?.removeAttribute('open'));
+  });
+
+  // Section anchor: jump there and copy its link
+  const status = document.querySelector<HTMLElement>('[data-terms-status]');
+  document.querySelectorAll<HTMLAnchorElement>('[data-copy-anchor]').forEach((anchor) => {
+    anchor.addEventListener('click', async () => {
+      if (!navigator.clipboard) return;
+      try {
+        await navigator.clipboard.writeText(anchor.href);
+      } catch {
+        return;
+      }
+      anchor.classList.add('is-copied');
+      if (status) status.textContent = status.dataset.copiedLabel ?? '';
+      window.setTimeout(() => {
+        anchor.classList.remove('is-copied');
+        if (status) status.textContent = '';
+      }, 1800);
+    });
+  });
+</script>

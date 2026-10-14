@@ -121,7 +121,21 @@ export type Translations = {
     pageTitle: string;
     pageSubtitle: string;
     lastUpdatedLabel: string;
-    sections: { title: string; body: string }[];
+    /** `{count}` is replaced with the number of sections */
+    sectionsCount: string;
+    /** `{min}` is replaced with the estimated reading time in minutes */
+    readingTime: string;
+    print: string;
+    tocTitle: string;
+    importantLabel: string;
+    copyLink: string;
+    linkCopied: string;
+    helpTitle: string;
+    helpBody: string;
+    helpFaq: string;
+    helpContact: string;
+    /** `important` sections get a highlighted card (e.g. the no-guaranteed-profit clause) */
+    sections: { title: string; body: string; important?: boolean }[];
   };
   contact: {
     email: string;
