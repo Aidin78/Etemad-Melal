@@ -373,7 +373,7 @@ These terms are governed by the laws of Iran, and disputes falling outside the s
   contact: {
     email: 'info@etemadmelal.com',
     address:
-      'Unit 101, 1st Floor, No. 544, Moallem Blvd., South Seyed Morteza St. (Moallem 24 - Farhang 21), Farhang, Mashhad, Iran',
+      'Unit 101, 1st Floor, No. 602, Moallem Blvd. (between Moallem 22 and 24), Mashhad, Iran',
     badge: 'Get in touch',
     title: 'Contact',
     titleAccent: 'us',
