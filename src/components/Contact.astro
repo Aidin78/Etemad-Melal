@@ -1,8 +1,10 @@
 ---
 import SectionHeader from './SectionHeader.astro';
+import CtaArrow from './CtaArrow.astro';
 import { siteConfig } from '../config/site';
+import { contactIcons } from '../lib/section-icons';
 import type { Locale } from '../i18n/types';
-import { getTranslations, localePath } from '../i18n';
+import { getTranslations, localePath, toLocaleDigits } from '../i18n';
 
 interface Props {
   locale: Locale;
@@ -12,11 +14,14 @@ const { locale } = Astro.props;
 const t = getTranslations(locale);
 const formAction = siteConfig.contactFormUrl;
 const thankYouUrl = new URL(`${localePath(locale, '/?contact=sent#contact')}`, Astro.url.origin).href;
-const isSent = Astro.url.searchParams.get('contact') === 'sent';
+const messageMax = 1000;
+const phone = siteConfig.phone;
+const phoneHref = `tel:${phone.replace(/[^\d+]/g, '')}`;
 ---
 
-<section id="contact" class="section-spacing">
-  <div class="mx-auto max-w-6xl px-4 sm:px-6">
+<section id="contact" class="section-spacing relative overflow-hidden">
+  <div class="contact-glow" aria-hidden="true"></div>
+  <div class="relative mx-auto max-w-6xl px-4 sm:px-6">
     <SectionHeader
       badge={t.contact.badge}
       title={t.contact.title}
@@ -25,61 +30,198 @@ const isSent = Astro.url.searchParams.get('contact') === 'sent';
       align="center"
     />
 
-    <div class="section-body-gap grid gap-8 lg:grid-cols-2 lg:gap-10">
-      <div class="contact-card investment-card rounded-2xl p-5 sm:p-8" data-reveal="start">
-        <h3 class="text-lg font-bold text-heading">{t.contact.infoTitle}</h3>
-        <ul class="mt-6 space-y-5">
-          <li class="flex gap-4">
-            <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-accent-gold/25 text-accent-gold-light" aria-hidden="true">✉</span>
-            <div>
-              <p class="text-xs text-subtle">{t.contact.emailLabel}</p>
-              <a href={`mailto:${t.contact.email}`} class="text-sm text-heading hover:text-accent-gold-light">{t.contact.email}</a>
-            </div>
-          </li>
-          <li class="flex gap-4">
-            <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-accent-gold/25 text-accent-gold-light" aria-hidden="true">⌖</span>
-            <div>
-              <p class="text-xs text-subtle">{t.contact.addressLabel}</p>
-              <p class="text-sm text-heading">{t.contact.address}</p>
-            </div>
-          </li>
-        </ul>
-      </div>
+    <div class="contact-panel section-body-gap" data-reveal="zoom">
+      <aside class="contact-aside">
+        <div class="grid-pattern absolute inset-0 opacity-60" aria-hidden="true"></div>
+        <div class="relative">
+          <h3 class="text-lg font-bold text-heading sm:text-xl">{t.contact.infoTitle}</h3>
+          <p class="mt-2 text-sm leading-relaxed text-muted">{t.contact.infoSubtitle}</p>
 
-      <div class="contact-card investment-card rounded-2xl p-5 sm:p-8" data-reveal="end">
-        {
-          isSent ? (
-            <div class="flex flex-col items-center justify-center py-8 text-center" role="status">
-              <div class="flex h-14 w-14 items-center justify-center rounded-full bg-accent/20 text-2xl text-accent" aria-hidden="true">✓</div>
-              <h3 class="mt-4 text-lg font-bold text-heading" tabindex="-1" data-autofocus-on-sent>{t.contact.sentTitle}</h3>
-              <p class="mt-2 max-w-sm text-sm text-muted">{t.contact.sentBody}</p>
-              <a href={localePath(locale, '/#contact')} class="btn-outline mt-6">{t.contact.sentNew}</a>
+          <ul class="mt-6 space-y-3" data-reveal="cascade">
+            <li class="contact-channel">
+              <span class="contact-channel-icon" aria-hidden="true">
+                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d={contactIcons.email} /></svg>
+              </span>
+              <div class="min-w-0 flex-1">
+                <p class="text-xs text-subtle">{t.contact.emailLabel}</p>
+                <a href={`mailto:${t.contact.email}`} class="contact-channel-value" dir="ltr">{t.contact.email}</a>
+              </div>
+              <button type="button" class="contact-copy" data-copy={t.contact.email} hidden>
+                <svg class="contact-copy-idle h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d={contactIcons.copy} /></svg>
+                <svg class="contact-copy-done h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={contactIcons.check} /></svg>
+                <span class="sr-only">{t.contact.copy} {t.contact.emailLabel}</span>
+              </button>
+            </li>
+
+            {
+              phone && (
+                <li class="contact-channel">
+                  <span class="contact-channel-icon" aria-hidden="true">
+                    <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d={contactIcons.phone} /></svg>
+                  </span>
+                  <div class="min-w-0 flex-1">
+                    <p class="text-xs text-subtle">{t.contact.phoneLabel}</p>
+                    <a href={phoneHref} class="contact-channel-value" dir="ltr">{toLocaleDigits(phone, locale)}</a>
+                  </div>
+                  <button type="button" class="contact-copy" data-copy={phone} hidden>
+                    <svg class="contact-copy-idle h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d={contactIcons.copy} /></svg>
+                    <svg class="contact-copy-done h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={contactIcons.check} /></svg>
+                    <span class="sr-only">{t.contact.copy} {t.contact.phoneLabel}</span>
+                  </button>
+                </li>
+              )
+            }
+
+            <li class="contact-channel">
+              <span class="contact-channel-icon" aria-hidden="true">
+                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d={contactIcons.address} /></svg>
+              </span>
+              <div class="min-w-0 flex-1">
+                <p class="text-xs text-subtle">{t.contact.addressLabel}</p>
+                <p class="contact-channel-value">{t.contact.address}</p>
+              </div>
+              <button type="button" class="contact-copy" data-copy={t.contact.address} hidden>
+                <svg class="contact-copy-idle h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d={contactIcons.copy} /></svg>
+                <svg class="contact-copy-done h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={contactIcons.check} /></svg>
+                <span class="sr-only">{t.contact.copy} {t.contact.addressLabel}</span>
+              </button>
+            </li>
+          </ul>
+        </div>
+        <p class="sr-only" aria-live="polite" data-copy-status data-copied-label={t.contact.copied}></p>
+      </aside>
+
+      <div class="contact-form-wrap">
+        {/* Static build can't read ?contact=sent server-side, so the script below swaps these */}
+        <div class="contact-sent flex h-full flex-col items-center justify-center py-8 text-center" role="status" hidden>
+          <div class="contact-sent-badge" aria-hidden="true">
+            <svg class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={contactIcons.check} /></svg>
+          </div>
+          <h3 class="mt-5 text-lg font-bold text-heading" tabindex="-1" data-autofocus-on-sent>{t.contact.sentTitle}</h3>
+          <p class="mt-2 max-w-sm text-sm text-muted">{t.contact.sentBody}</p>
+          <a href={localePath(locale, '/#contact')} class="btn-outline mt-6">{t.contact.sentNew}</a>
+        </div>
+
+        <div class="contact-form-body">
+          <h3 class="text-lg font-bold text-heading sm:text-xl">{t.contact.formTitle}</h3>
+          <form class="contact-form mt-6 space-y-5" method="POST" action={formAction} data-sending-label={t.contact.sending}>
+            <input type="hidden" name="_subject" value={`Contact from ${t.siteName} website`} />
+            <input type="hidden" name="_next" value={thankYouUrl} />
+            <input type="hidden" name="_captcha" value="false" />
+            <input type="text" name="_honey" class="hidden" tabindex="-1" autocomplete="off" />
+
+            <div class="grid gap-4 sm:grid-cols-2">
+              <div>
+                <label for="contact-name" class="mb-1 block text-xs text-muted">{t.contact.nameField}</label>
+                <input type="text" id="contact-name" name="name" autocomplete="name" class="input-field w-full rounded-xl px-4 py-3 text-base transition sm:py-2.5 sm:text-sm" />
+              </div>
+              <div>
+                <label for="contact-email" class="mb-1 block text-xs text-muted">{t.contact.emailField}</label>
+                <input type="email" id="contact-email" name="email" required autocomplete="email" dir="ltr" class="input-field w-full rounded-xl px-4 py-3 text-base transition sm:py-2.5 sm:text-sm" />
+              </div>
             </div>
-            <script>
-              document.querySelector<HTMLElement>('[data-autofocus-on-sent]')?.focus();
-            </script>
-          ) : (
-            <>
-              <h3 class="text-lg font-bold text-heading">{t.contact.formTitle}</h3>
-              <form class="mt-6 space-y-4" method="POST" action={formAction}>
-                <input type="hidden" name="_subject" value={`Contact from ${t.siteName} website`} />
-                <input type="hidden" name="_next" value={thankYouUrl} />
-                <input type="hidden" name="_captcha" value="false" />
-                <input type="text" name="_honey" class="hidden" tabindex="-1" autocomplete="off" />
-                <div>
-                  <label for="contact-email" class="mb-1 block text-xs text-muted">{t.contact.emailField}</label>
-                  <input type="email" id="contact-email" name="email" required autocomplete="email" class="input-field w-full rounded-xl px-4 py-3 text-base transition sm:py-2.5 sm:text-sm" />
-                </div>
-                <div>
-                  <label for="contact-message" class="mb-1 block text-xs text-muted">{t.contact.messageField}</label>
-                  <textarea id="contact-message" name="message" rows="4" required class="input-field w-full resize-none rounded-xl px-4 py-3 text-base transition sm:py-2.5 sm:text-sm"></textarea>
-                </div>
-                <button type="submit" class="btn-primary w-full">{t.contact.submit}</button>
-              </form>
-            </>
-          )
-        }
+
+            <div>
+              <div class="mb-1 flex items-baseline justify-between gap-2">
+                <label for="contact-message" class="block text-xs text-muted">{t.contact.messageField}</label>
+                <span class="text-[11px] text-faint tabular-nums" data-message-count data-persian={locale === 'fa' ? '' : undefined} aria-hidden="true">
+                  {toLocaleDigits(0, locale)} / {toLocaleDigits(messageMax, locale)}
+                </span>
+              </div>
+              <textarea
+                id="contact-message"
+                name="message"
+                rows="5"
+                required
+                maxlength={messageMax}
+                placeholder={t.contact.messagePlaceholder}
+                class="input-field w-full resize-none rounded-xl px-4 py-3 text-base transition sm:py-2.5 sm:text-sm"
+              ></textarea>
+            </div>
+
+            <button type="submit" class="btn-primary contact-submit w-full" data-label={t.contact.submit}>
+              <span data-submit-label>{t.contact.submit}</span>
+              <CtaArrow locale={locale} />
+            </button>
+          </form>
+        </div>
       </div>
     </div>
   </div>
 </section>
+
+<script>
+  const PERSIAN_DIGITS = '۰۱۲۳۴۵۶۷۸۹';
+
+  // Copy buttons (hidden until JS can back them)
+  const status = document.querySelector<HTMLElement>('[data-copy-status]');
+  if (navigator.clipboard) {
+    document.querySelectorAll<HTMLButtonElement>('[data-copy]').forEach((button) => {
+      button.hidden = false;
+      button.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(button.dataset.copy ?? '');
+        } catch {
+          return;
+        }
+        button.classList.add('is-copied');
+        if (status) status.textContent = status.dataset.copiedLabel ?? '';
+        window.setTimeout(() => {
+          button.classList.remove('is-copied');
+          if (status) status.textContent = '';
+        }, 1800);
+      });
+    });
+  }
+
+  // Thank-you state after FormSubmit redirects back to /?contact=sent#contact
+  if (new URLSearchParams(window.location.search).get('contact') === 'sent') {
+    const sent = document.querySelector<HTMLElement>('.contact-sent');
+    const body = document.querySelector<HTMLElement>('.contact-form-body');
+    if (sent && body) {
+      sent.hidden = false;
+      body.hidden = true;
+      sent.querySelector<HTMLElement>('[data-autofocus-on-sent]')?.focus();
+    }
+  }
+
+  const form = document.querySelector<HTMLFormElement>('.contact-form');
+  if (form) {
+    // Live character counter
+    const message = form.querySelector<HTMLTextAreaElement>('textarea[name="message"]');
+    const counter = form.querySelector<HTMLElement>('[data-message-count]');
+    if (message && counter) {
+      const persian = counter.hasAttribute('data-persian');
+      const digits = (n: number) => (persian ? String(n).replace(/\d/g, (d) => PERSIAN_DIGITS[Number(d)]) : String(n));
+      const update = () => {
+        counter.textContent = `${digits(message.value.length)} / ${digits(message.maxLength)}`;
+        counter.classList.toggle('text-accent-gold', message.value.length > message.maxLength * 0.9);
+      };
+      message.addEventListener('input', update);
+      update();
+    }
+
+    // Sending state (the page navigates to FormSubmit right after)
+    form.addEventListener('submit', () => {
+      const submit = form.querySelector<HTMLButtonElement>('button[type="submit"]');
+      const label = form.querySelector<HTMLElement>('[data-submit-label]');
+      if (submit) {
+        submit.disabled = true;
+        submit.classList.add('is-sending');
+      }
+      if (label && form.dataset.sendingLabel) label.textContent = form.dataset.sendingLabel;
+    });
+
+    // Coming back via the browser's back button restores the page from cache — re-enable it
+    window.addEventListener('pageshow', (event) => {
+      if (!event.persisted) return;
+      const submit = form.querySelector<HTMLButtonElement>('button[type="submit"]');
+      const label = form.querySelector<HTMLElement>('[data-submit-label]');
+      if (submit) {
+        submit.disabled = false;
+        submit.classList.remove('is-sending');
+      }
+      if (label && submit?.dataset.label) label.textContent = submit.dataset.label;
+    });
+  }
+</script>

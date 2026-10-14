@@ -5,6 +5,12 @@ export const siteConfig = {
   contactFormUrl:
     import.meta.env.PUBLIC_CONTACT_FORM_URL ||
     'https://formsubmit.co/info@etemadmelal.com',
+  /**
+   * Office phone shown in the contact section, written with Western digits
+   * (e.g. '051-31234567' — shown with Persian digits on /fa automatically).
+   * Leave empty to hide the phone row.
+   */
+  phone: '',
 } as const;
 
 /** Number of FAQ items shown in the homepage preview before linking to /faq */

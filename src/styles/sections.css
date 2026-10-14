@@ -404,10 +404,6 @@ footer {
     line-height: 1.125rem;
   }
 
-  .contact-card {
-    padding: 1.25rem;
-  }
-
   .article-prose table {
     display: block;
     overflow-x: auto;
@@ -437,3 +433,198 @@ footer {
   color: rgb(154 115 9 / 0.55);
 }
 
+/* ── Contact ── */
+.contact-glow {
+  position: absolute;
+  inset-inline: 0;
+  bottom: -15%;
+  height: 70%;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse 50% 60% at 50% 100%,
+    color-mix(in srgb, var(--color-accent-gold) 12%, transparent),
+    transparent 70%
+  );
+}
+
+.contact-panel {
+  display: grid;
+  overflow: hidden;
+  border-radius: 1.5rem;
+  border: 1px solid color-mix(in srgb, var(--color-accent-gold) 20%, transparent);
+  background: linear-gradient(160deg, var(--card-from), var(--card-mid) 50%, var(--card-to));
+  box-shadow:
+    0 30px 80px rgb(0 0 0 / 0.28),
+    inset 0 1px 0 rgb(240 215 140 / 0.08);
+}
+
+[data-theme='light'] .contact-panel {
+  box-shadow:
+    0 20px 60px rgb(48 84 117 / 0.12),
+    inset 0 1px 0 rgb(255 255 255 / 0.8);
+}
+
+.contact-aside {
+  position: relative;
+  overflow: hidden;
+  padding: 1.5rem 1.25rem;
+  border-bottom: 1px solid var(--border);
+  background: linear-gradient(
+    160deg,
+    color-mix(in srgb, var(--color-accent-gold) 15%, transparent),
+    color-mix(in srgb, var(--color-accent-gold) 3%, transparent) 60%,
+    transparent
+  );
+}
+
+.contact-form-wrap {
+  padding: 1.5rem 1.25rem;
+}
+
+@media (min-width: 640px) {
+  .contact-aside,
+  .contact-form-wrap {
+    padding: 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .contact-panel {
+    grid-template-columns: 5fr 7fr;
+  }
+
+  .contact-aside {
+    border-bottom: 0;
+    border-inline-end: 1px solid var(--border);
+  }
+
+  .contact-aside,
+  .contact-form-wrap {
+    padding: 2.5rem;
+  }
+}
+
+.contact-channel {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.875rem;
+  padding: 0.875rem;
+  border-radius: 1rem;
+  border: 1px solid transparent;
+  background: var(--surface-muted);
+  transition:
+    border-color 0.3s ease,
+    background-color 0.3s ease;
+}
+
+.contact-channel:hover {
+  border-color: color-mix(in srgb, var(--color-accent-gold) 25%, transparent);
+  background: color-mix(in srgb, var(--color-accent-gold) 6%, transparent);
+}
+
+.contact-channel-icon {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  height: 2.75rem;
+  width: 2.75rem;
+  border-radius: 0.875rem;
+  color: var(--color-accent-gold-light);
+  background: color-mix(in srgb, var(--color-accent-gold) 18%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--color-accent-gold) 30%, transparent);
+}
+
+.contact-channel-value {
+  display: block;
+  margin-top: 0.125rem;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--heading);
+  overflow-wrap: anywhere;
+}
+
+a.contact-channel-value {
+  /* inline-block so LTR values (email, phone) still sit under their label in RTL */
+  display: inline-block;
+  transition: color 0.2s ease;
+}
+
+.contact-sent [data-autofocus-on-sent]:focus {
+  outline: none;
+}
+
+a.contact-channel-value:hover {
+  color: var(--gold-emphasis);
+}
+
+.contact-copy {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  height: 2.25rem;
+  width: 2.25rem;
+  border-radius: 0.75rem;
+  color: var(--muted);
+  border: 1px solid var(--border-strong);
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.contact-copy[hidden] {
+  display: none;
+}
+
+.contact-copy:hover,
+.contact-copy.is-copied {
+  color: var(--gold-emphasis);
+  border-color: color-mix(in srgb, var(--color-accent-gold) 40%, transparent);
+}
+
+.contact-copy-done,
+.contact-copy.is-copied .contact-copy-idle {
+  display: none;
+}
+
+.contact-copy.is-copied .contact-copy-done {
+  display: block;
+  animation: contact-pop 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.contact-submit.is-sending {
+  opacity: 0.75;
+  cursor: progress;
+}
+
+.contact-sent-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 4rem;
+  width: 4rem;
+  border-radius: 9999px;
+  color: var(--gold-emphasis);
+  background: color-mix(in srgb, var(--color-accent-gold) 15%, transparent);
+  box-shadow: 0 0 0 8px color-mix(in srgb, var(--color-accent-gold) 6%, transparent);
+  animation: contact-pop 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes contact-pop {
+  from {
+    opacity: 0;
+    scale: 0.6;
+  }
+  to {
+    opacity: 1;
+    scale: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contact-copy.is-copied .contact-copy-done,
+  .contact-sent-badge {
+    animation: none;
+  }
+}
