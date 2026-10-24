@@ -17,4 +17,4 @@ export const siteConfig = {
 export const homepageFaqCount = 6;
 
 /** Last-revised date for the /terms page (ISO date, update when the legal copy changes) */
-export const legalLastUpdated = '2026-09-14';
+export const legalLastUpdated = '2026-10-20';

@@ -1,6 +1,6 @@
 ---
 import CtaArrow from './CtaArrow.astro';
-import { panelLinkAttrs } from '../lib/panel';
+import { panelLinkAttrs, panelSignupHref } from '../lib/panel';
 import type { Locale } from '../i18n/types';
 import { getTranslations } from '../i18n';
 
@@ -9,14 +9,17 @@ interface Props {
   class?: string;
   variant?: 'primary' | 'outline';
   showArrow?: boolean;
+  /** Open the panel's sign-up page instead of its default (login) page */
+  signup?: boolean;
 }
 
-const { locale, class: className, variant = 'primary', showArrow = false } = Astro.props;
+const { locale, class: className, variant = 'primary', showArrow = false, signup = false } = Astro.props;
 const t = getTranslations(locale);
 const variantClass = variant === 'outline' ? 'btn-outline' : 'btn-primary';
+const href = signup ? panelSignupHref : panelLinkAttrs.href;
 ---
 
-<a class:list={[variantClass, className]} {...panelLinkAttrs}>
+<a class:list={[variantClass, className]} {...panelLinkAttrs} href={href}>
   <slot />
   {showArrow && <CtaArrow locale={locale} />}
   <span class="sr-only"> {t.a11y.opensInNewTab}</span>

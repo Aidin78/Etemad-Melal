@@ -1,28 +1,28 @@
 # اعتماد ملل | Etemad Melal
 
-> پلتفرم سرمایه‌گذاری فارسی با پنل کاربری اختصاصی — etemadmelal.com
+> پلتفرم مشارکت مدنی در پروژه‌های صنعتی و بازرگانی، با پنل کاربری اختصاصی — etemadmelal.com
 
 ## About (English)
 
-Etemad Melal is a Persian (RTL) investment platform marketing website. User registration, KYC, package purchase, profit tracking, and withdrawals happen in the separate user panel at https://panel.etemadmelal.com — not on this marketing site.
+Etemad Melal is a Persian (RTL) marketing website for a civil partnership platform that connects small-scale capital with industrial and commercial projects. All activity is concluded under a civil partnership contract combined with agency (Articles 10, 571 and 656 of Iran's Civil Code). Registration, identity verification, choosing a partnership plan, profit tracking, and withdrawals happen in the separate user panel at https://panel.etemadmelal.com — not on this marketing site.
 
-Legal entity: شرکت خلاقان اعتماد ملل دیبا (Tehran, Iran).
+Legal entity: شرکت خلاقان اعتماد ملل دیبا (Etemad Melal Creative Trust Diba Co.), Mashhad, Iran.
 Contact: info@etemadmelal.com
 
 Positioning: architect of the link between capital and industry — aggregating micro-capital into productive industrial projects.
 
 ## درباره (فارسی)
 
-اعتماد ملل وب‌سایت معرفی و آموزش پلتفرم سرمایه‌گذاری است. ثبت‌نام، خرید پکیج، مشاهده سود ماهانه، گزارش پاداش‌ها و درخواست برداشت فقط از پنل کاربری انجام می‌شود.
+اعتماد ملل وب‌سایت معرفی و آموزش پلتفرم مشارکت مدنی است. ثبت‌نام، احراز هویت، انتخاب طرح مشارکت مدنی، پیگیری حق مشارکت، گزارش پاداش‌ها و درخواست برداشت فقط از پنل کاربری انجام می‌شود.
 
-Minimum entry: 10 million Toman. Investment tiers, returns, and contract terms are shown in the user panel after sign-in — the marketing site does not list them.
+Participation amounts, plans, returns, and contract terms are shown in the user panel after sign-in — the marketing site does not list them. Periodic payments are "on-account" (علی‌الحساب) and are settled at the end of each period based on the projects' actual performance.
 
 ## Benefits (منافع / دو رکن)
 
-1. **مشارکت در بازدهی صنعتی** — allocation to productive projects with scheduled operational returns from production value.
-2. **پاداش توسعه بازار** — rewards based on real performance in network development and introducing opportunities.
+The «اعتماد ملل» financial structure rests on two pillars, both founded on contractual participation and operational transparency:
 
-Panel detail: three reward paths (monthly partnership profit, direct participation, collaborative growth) are tracked separately in the panel Commissions and Financial Dashboard sections.
+1. **مشارکت در بازدهی صنعتی** — directing small capital into the real value chain and productive projects, away from speculative volatility.
+2. **پاداش توسعه بازار** — rewards based on real performance in introducing the platform and developing business connections (a ju'alah under Article 561 of the Civil Code).
 
 Note: marketing copy uses «پاداش» (reward), not «پورسانت» (commission).
 
@@ -32,26 +32,22 @@ Note: marketing copy uses «پاداش» (reward), not «پورسانت» (commi
 - About: https://etemadmelal.com/about
 - FAQ: https://etemadmelal.com/faq
 - Articles index: https://etemadmelal.com/articles
-- User panel (login/register): https://panel.etemadmelal.com
+- Terms & Conditions: https://etemadmelal.com/terms
+- User panel (login): https://panel.etemadmelal.com
+- User panel (sign up): https://panel.etemadmelal.com/signup
+
+English versions live under /en (e.g. https://etemadmelal.com/en/about).
 
 ### Articles
 
-- https://etemadmelal.com/articles/investment-platform-launch
-- https://etemadmelal.com/articles/investment-transparency
-- https://etemadmelal.com/articles/monthly-profit-guide
-- https://etemadmelal.com/articles/referral-income-guide
-- https://etemadmelal.com/articles/balance-commission-guide
-- https://etemadmelal.com/articles/choose-right-package
-- https://etemadmelal.com/articles/deposit-withdrawal-guide
-- https://etemadmelal.com/articles/responsible-investing
-- https://etemadmelal.com/articles/three-income-streams-overview
-- https://etemadmelal.com/articles/contract-basics
-- https://etemadmelal.com/articles/financial-dashboard-guide
-- https://etemadmelal.com/articles/long-term-investment-planning
+- https://etemadmelal.com/articles/civil-partnership-legal-framework
+- https://etemadmelal.com/articles/crowdfunding-industrial-development
+- https://etemadmelal.com/articles/gold-inflation-hedge
+- https://etemadmelal.com/articles/insurance-history-security
 
 ## Homepage sections (anchor links)
 
-- /#features — services (4 items)
+- /#features — how it works (4 steps)
 - /#income-streams — benefits / value-creation streams (2 pillars)
 - /#trust — benefits (7 items)
 - /#about-preview — about preview
@@ -60,11 +56,11 @@ Note: marketing copy uses «پاداش» (reward), not «پورسانت» (commi
 
 ## Risk disclaimer
 
-سرمایه‌گذاری همراه با ریسک است. اطلاعات این سایت جنبه معرفی دارد و توصیه سرمایه‌گذاری نیست. Users should read official contracts before investing.
+سرمایه‌گذاری همراه با ریسک است. اطلاعات این سایت جنبه معرفی دارد و توصیه سرمایه‌گذاری نیست. Users should read the Terms & Conditions and their contract in the user panel before participating.
 
 ## Technical
 
-- Static site (Astro), Persian RTL, lang=fa-IR
+- Static site (Astro), bilingual: Persian (RTL, lang=fa-IR) at root paths, English under /en
 - Sitemap: https://etemadmelal.com/sitemap-index.xml
 - Old /news URLs redirect to /articles
 

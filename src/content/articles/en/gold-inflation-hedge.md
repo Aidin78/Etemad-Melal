@@ -45,17 +45,17 @@ So while calling gold an "absolute safe haven" would not be accurate, it is fair
 
 Understanding gold's role requires looking at three important variables:
 
-**1. Inflation**
+**1. Inflation:**
 As inflation rises, the appeal of holding cash declines. In this environment, assets capable of preserving value attract more attention — and gold is one of them.
 
-**2. Real interest rates**
+**2. Real interest rates:**
 What matters to investors isn't just the nominal interest rate, but the real interest rate:
 
 > Real interest rate = Nominal interest rate − Inflation rate
 
 When real interest rates are low or negative, the opportunity cost of holding gold falls, since holding cash or bank deposits offers no meaningful real advantage. This can drive increased demand for gold.
 
-**3. Currency value**
+**3. Currency value:**
 In many countries, a weakening national currency pushes people toward alternative assets to preserve purchasing power. In such conditions — particularly in economies exposed to currency volatility — gold becomes a defensive instrument.
 
 ## Gold's Place in Risk Management and Diversification

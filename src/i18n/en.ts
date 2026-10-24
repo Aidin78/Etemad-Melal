@@ -9,7 +9,7 @@ export const en: Translations = {
   description:
     'Etemad Melal — a professional investment platform with transparent reporting and dedicated support for investors.',
   longDescription:
-    'The «Etemad-Saz» financial structure rests on two main pillars: participation in industrial returns and market development rewards.',
+    'Etemad Melal — a civil partnership platform for industrial and commercial projects, built on two pillars: participation in industrial returns and market development rewards, grounded in contractual participation and operational transparency.',
   companyLegal: 'Etemad Melal Creative Trust Diba Co.',
   panelCtaLogin: 'Login',
   panelCtaStart: 'Get started',
@@ -60,7 +60,7 @@ export const en: Translations = {
     title: 'Benefits &',
     titleAccent: 'value creation streams',
     subtitle:
-      'The «Etemad-Saz» financial structure rests on two main pillars; both are founded on contractual participation and operational structure.',
+      'The «Etemad Melal» financial structure rests on two main pillars, both founded on contractual participation and operational transparency.',
     footnote: '',
     streams: [
       {
@@ -173,7 +173,7 @@ export const en: Translations = {
     detailsTitle: 'Details',
     detailsSubtitle: 'A full overview of Etemad Melal’s work, services, and commitments',
     ctaTitle: 'Ready to start investing?',
-    ctaSubtitle: 'Sign up in the panel, choose a package, and track profit — all in one place.',
+    ctaSubtitle: 'Sign up in the panel, choose a civil partnership plan, and track your partnership share — all in one place.',
   },
   news: {
     badge: 'Investment magazine',
@@ -204,7 +204,7 @@ export const en: Translations = {
       },
       {
         q: 'What income streams does Etemad Melal offer?',
-        a: 'The «Etemad-Saz» financial structure has two pillars: participation in industrial returns and market development rewards.',
+        a: 'The «Etemad Melal» financial structure has two pillars: participation in industrial returns and market development rewards.',
       },
       {
         q: 'How do I contact support?',
@@ -283,7 +283,7 @@ export const en: Translations = {
   termsPage: {
     badge: 'Legal',
     pageTitle: 'Terms & Conditions',
-    pageSubtitle: 'The legal framework for participating on the Etemad Melal platform — from the nature of the contract to privacy and dispute resolution.',
+    pageSubtitle: 'The general terms, rules, and conditions for participating on the Etemad Melal platform — from the nature of the contract to the market development plan.',
     lastUpdatedLabel: 'Last updated',
     sectionsCount: '{count} sections',
     readingTime: 'About {min} min read',
@@ -298,87 +298,25 @@ export const en: Translations = {
     helpContact: 'Contact us',
     sections: [
       {
-        title: '1. Definitions',
-        body: `In this document, the following terms carry the meanings set out below. "Platform" means the Etemad Melal website and user panel, operated by Etemad Melal Creative Trust Diba Co. "Participant" or "User" means any natural or legal person who, after identity verification, places capital with the platform under a civil partnership contract combined with agency.
-
-"User panel" means each participant's dedicated environment at panel.etemadmelal.com. "On-account profit" means amounts paid periodically, estimated from the projects' performance, which are not treated as final until settlement.`,
+        title: '1. Definitions and nature of the cooperation',
+        body: `The Etemad Melal platform (Etemad Melal Creative Trust Diba) is a software and management infrastructure for connecting small-scale resources with industrial and commercial projects. All financial and economic activity is concluded within the framework of a civil partnership contract combined with agency, in accordance with Articles 10, 571, and 656 of the Civil Code of the Islamic Republic of Iran.`,
       },
       {
-        title: '2. Acceptance of these Terms',
-        body: `Registering on the platform and completing identity verification constitutes having read, fully understood, and unconditionally accepted these Terms & Conditions. The participant represents that they have the legal capacity required to enter into this contract.
-
-Membership is available only to persons who provide accurate identity information verifiable through the Shahkar system; providing false information may result in suspension or cancellation of membership.`,
+        title: '2. Identity verification and validity of data messages',
+        body: `Under Articles 6, 7, and 12 of Iran's Electronic Commerce Law and Article 10 of the Civil Code, the parties agree that confirming these terms and the specific contract in the user panel constitutes the participant's signature and has the same legal effect as signing a written document.`,
       },
       {
-        title: '3. Legal nature of the contract',
-        body: `The platform's activity is structured on a civil partnership contract combined with agency, based on Articles 10, 571, and 656 of Iran's Civil Code. By contributing capital, the participant becomes a co-owner of the pooled capital, and delegates the operational management of these resources — including allocation to real projects, monitoring financial flow, and entering operational agreements — to the platform under the principle of acting in the principal's best interest.
-
-The relationship between the parties is never a "bank depositor and deposit-taker" or "debtor and creditor" relationship — it is a legitimate, balanced profit-sharing partnership.`,
-      },
-      {
-        title: '4. Calculating and paying periodic profits',
-        body: `Periodic payments are "on-account profits generated from the projects' operating cash flow," estimated from economic feasibility assessments and paid into the user wallet according to the financial calendar set out in the contract (typically every 30 days).
-
-A final settlement is made at the end of the financial period or contract maturity, based on the projects' actual financial statements and realized performance. Participants can request payout of settled funds, to their own official IBAN, through the user panel.`,
-      },
-      {
-        title: '5. No guaranteed profit and investment risk',
+        title: '3. Nature of payments and periodic profits',
         important: true,
-        body: `Under religious and legal principles, guaranteeing a fixed, predetermined profit in a partnership contract is void and distorts the nature of the underlying economic activity; accordingly, the platform does not announce or commit to any fixed or guaranteed rate of return.
-
-Every commercial and industrial activity, particularly over short horizons, carries volatility and risk, and past project performance is not a guarantee of future performance. By accepting this document, the participant acknowledges the partnership nature of this activity and its inherent risks.`,
+        body: `Amounts paid to participants as profit are "on-account" payments arising from the projects' actual operating cash flow, and the final return is settled at the end of the period based on the projects' financial statements, cost price, and periodic performance. In line with religious principles and the rules governing partnership contracts, no guaranteed fixed profit is allocated without reliance on actual operations.`,
       },
       {
-        title: '6. Risk-containment mechanisms and insurance',
-        body: `Risk is managed through formal, institutional tools: part of the resources or periodic returns is used to purchase an official life and capital-accumulation insurance policy, issued in the participant's own name and for their direct benefit, from insurance companies supervised by Iran's Central Insurance Authority — creating a guaranteed reserve independent of the projects' operational outcomes.
-
-In addition, settlement-contract provisions and other contractual terms provide mechanisms for compensating damages arising from misconduct, negligence, or potential fluctuations.`,
+        title: '4. Preserving asset value and containing risk',
+        body: `Guided by the principle of respecting participants' rights, interests, and well-being, the platform's management is obliged to take all necessary measures — including diversifying across projects and using hedging tools (such as official insurance policies supervised by Iran's Central Insurance Authority) — to minimize commercial risk and preserve the value of participants' contributions.`,
       },
       {
-        title: '7. Participant rights and obligations',
-        body: `Participants may access their financial reports, project status, and transaction history through the user panel at any time.
-
-In return, participants must keep their identity and contact details up to date, refrain from providing false information, and comply with applicable law while using the platform. The referral and upline codes registered at signup cannot be changed once confirmed.`,
-      },
-      {
-        title: '8. Withdrawal, early settlement, and termination',
-        body: `Because capital is actively deployed in physical, operating projects, withdrawing resources requires liquidity planning. An emergency exit or buy-back of the partnership share can be requested through the user panel, subject to the risk-acceptance appendices and administrative fees proportional to the time remaining until maturity.
-
-The platform commits to processing approved withdrawal requests within the timeframe stated in the user panel.`,
-      },
-      {
-        title: '9. Taxation',
-        body: `The platform fulfills the tax obligations of the company and the projects it manages under the direct taxation laws. All necessary tax calculations are carried out at the project level, and amounts paid into participants' wallets are net of this.
-
-Responsibility for declaring and settling any other personal tax obligations of the participant rests with the participant.`,
-      },
-      {
-        title: '10. Privacy and data protection',
-        body: `Participants' identity, financial, and transaction data are stored using encryption standards and up-to-date banking-grade security protocols, and are used only within the bounds of the law, for purposes such as identity verification, fraud prevention, and fulfilling legal obligations (including anti-money-laundering requirements).
-
-This data is not shared with third parties without the participant's consent or a legal/judicial requirement. Participants can view or correct their information through the user panel or the site's contact form.`,
-      },
-      {
-        title: '11. Validity of electronic contracts',
-        body: `Under Articles 6, 7, 10, and 12 of Iran's Electronic Commerce Law, data messages and electronic confirmations recorded in the user panel — after two-factor authentication and matching the phone number to the national ID via the Shahkar system — carry the same evidentiary value as physical documents.
-
-These confirmations are accepted as valid, citable, and binding records before judicial and quasi-judicial authorities.`,
-      },
-      {
-        title: '12. Dispute resolution through arbitration',
-        body: `Under Chapter Seven of the Civil Procedure Code, any dispute arising from the interpretation or execution of these terms is first pursued through negotiation and, failing agreement, referred to a mutually agreed arbitrator.
-
-Under Article 488 of that law, the resulting award is final and enforceable, and if not voluntarily complied with, may be pursued through the judiciary's enforcement of judgments unit.`,
-      },
-      {
-        title: '13. Amendments and governing law',
-        body: `The platform reserves the right to update these Terms & Conditions to comply with legal changes or improve its processes; changes are announced on this page and via notice in the user panel, and take effect from their date of publication.
-
-These terms are governed by the laws of Iran, and disputes falling outside the scope of the arbitration clause fall under the jurisdiction of the competent courts of Tehran.`,
-      },
-      {
-        title: '14. Contact',
-        body: `For any questions about these Terms & Conditions, please reach out through the site's contact form or at info@etemadmelal.com.`,
+        title: '5. Market development and business cooperation plan',
+        body: `Any reward under the market development plan is a ju'alah (reward-for-service, Article 561 of the Civil Code) and a fee for referral and business development services, funded solely from the company's approved internal budget and its share of the projects' added value.`,
       },
     ],
   },
@@ -414,7 +352,7 @@ These terms are governed by the laws of Iran, and disputes falling outside the s
     ctaTitle: 'Enter the',
     ctaTitleAccent: 'Etemad Melal panel',
     ctaTitleSuffix: ' now',
-    ctaSubtitle: 'Sign up, choose a package, and track profit in real time — all through the user panel.',
+    ctaSubtitle: 'Sign up, choose a civil partnership plan, and track your partnership share — all through the Etemad Melal user panel.',
     ctaContact: 'Contact us',
     taglineSub: 'Investment platform',
     trustBadges: ['Official contract', 'Transparent reports', 'Dedicated panel', '24/7 support'],

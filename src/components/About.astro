@@ -40,7 +40,7 @@ const t = getTranslations(locale);
         <p class="mt-4 text-sm leading-relaxed text-muted" data-reveal>{t.about.body}</p>
         <div class="mt-8 flex flex-wrap gap-3" data-reveal>
           <a href={localePath(locale, '/about')} class="btn-primary">{t.about.ctaLearnMore}</a>
-          <PanelLink locale={locale} variant="outline">{t.about.ctaStart}</PanelLink>
+          <PanelLink locale={locale} variant="outline" signup>{t.about.ctaStart}</PanelLink>
         </div>
       </div>
     </div>
