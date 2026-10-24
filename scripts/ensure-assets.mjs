@@ -10,9 +10,8 @@ const required = [
   'images/features.jpg',
   'images/about.jpg',
   'images/trust.jpg',
-  ...Array.from({ length: 12 }, (_, i) =>
-    `images/articles/article-${String(i + 1).padStart(2, '0')}.jpg`,
-  ),
+  // Fallback cover for articles without an `image` (siteImages.articleDefault)
+  'images/articles/article-01.jpg',
 ];
 
 const missing = required.filter((p) => !existsSync(join(publicDir, p)));

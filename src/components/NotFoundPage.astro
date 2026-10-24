@@ -1,0 +1,30 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SectionBadge from './SectionBadge.astro';
+import type { Locale } from '../i18n/types';
+import { getTranslations, localePath, toLocaleDigits } from '../i18n';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = getTranslations(locale);
+---
+
+<Layout locale={locale} title={t.notFound.pageTitle} description={t.notFound.pageSubtitle} noindex>
+  <section class="mesh-gradient flex min-h-[60vh] items-center py-20 sm:py-28">
+    <div class="mx-auto max-w-2xl px-4 text-center sm:px-6" data-reveal="cascade">
+      <SectionBadge label={t.notFound.badge} />
+      <p class="mt-6 text-7xl font-bold text-accent-gold sm:text-8xl" aria-hidden="true">
+        {toLocaleDigits(404, locale)}
+      </p>
+      <h1 class="mt-4 text-3xl font-bold text-heading sm:text-4xl">{t.notFound.pageTitle}</h1>
+      <p class="mt-4 text-muted">{t.notFound.pageSubtitle}</p>
+      <div class="mt-8 flex flex-wrap justify-center gap-3">
+        <a href={localePath(locale, '/')} class="btn-primary">{t.notFound.homeCta}</a>
+        <a href={localePath(locale, '/articles')} class="btn-outline">{t.notFound.articlesCta}</a>
+      </div>
+    </div>
+  </section>
+</Layout>

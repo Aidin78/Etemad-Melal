@@ -18,7 +18,7 @@ export default defineConfig({
   },
   integrations: [
     sitemap({
-      filter: (page) => !page.includes('/news'),
+      filter: (page) => !page.includes('/news') && !/\/404\/?$/.test(page),
       i18n: {
         defaultLocale: 'fa',
         locales: {

@@ -3,6 +3,7 @@ import type { FaqItem, Locale, Translations } from '../i18n/types';
 import { localePath } from '../i18n/utils';
 
 const base = siteConfig.url;
+const logoUrl = `${base}/media/etemadmelal-logo-512.png`;
 
 export function organizationSchema(locale: Locale, t: Translations) {
   return {
@@ -11,7 +12,7 @@ export function organizationSchema(locale: Locale, t: Translations) {
     name: t.siteName,
     alternateName: locale === 'fa' ? 'Etemad Melal' : 'اعتماد ملل',
     url: base,
-    logo: `${base}/media/etemadmelal-logo.svg`,
+    logo: logoUrl,
     description: t.description,
     email: t.contact.email,
     address: {
@@ -20,7 +21,6 @@ export function organizationSchema(locale: Locale, t: Translations) {
       addressLocality: locale === 'fa' ? 'مشهد' : 'Mashhad',
       addressCountry: 'IR',
     },
-    sameAs: [siteConfig.panelUrl].filter(Boolean),
   };
 }
 
@@ -36,7 +36,7 @@ export function websiteSchema(locale: Locale, t: Translations) {
     publisher: {
       '@type': 'Organization',
       name: t.siteName,
-      logo: `${base}/media/etemadmelal-logo.svg`,
+      logo: logoUrl,
     },
   };
 }
@@ -97,7 +97,7 @@ export function articleSchema(
     publisher: {
       '@type': 'Organization',
       name: t.siteName,
-      logo: { '@type': 'ImageObject', url: `${base}/media/etemadmelal-logo.svg` },
+      logo: { '@type': 'ImageObject', url: logoUrl },
     },
   };
 }

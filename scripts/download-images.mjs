@@ -20,20 +20,8 @@ const site = {
   trust: `https://images.unsplash.com/photo-1521791136064-7986c2920216?${size}`,
 };
 
-const articles = [
-  'photo-1460925895917-afdab827c52f',
-  'photo-1579621970795-87b1b1c4c1f8',
-  'photo-1611974789855-9c2a0a7236a3',
-  'photo-1642790106117-e829e14aa795',
-  'photo-1590283609335-abffb0e94467',
-  'photo-1579532537598-459ecd6f0ccb',
-  'photo-1553729459-efe089ef7959',
-  'photo-1563986768609-322da13575f3',
-  'photo-1454165804606-c3d57bc86b40',
-  'photo-1507679799987-c73779587ccf',
-  'photo-1556760542-740c274e223f',
-  'photo-1551836022-deb49876c854',
-];
+/** Fallback article cover (article-01.jpg); real articles ship their own covers */
+const articles = ['photo-1460925895917-afdab827c52f'];
 
 async function download(url, dest) {
   if (existsSync(dest)) {

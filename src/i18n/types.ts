@@ -137,6 +137,13 @@ export type Translations = {
     /** `important` sections get a highlighted card (e.g. the no-guaranteed-profit clause) */
     sections: { title: string; body: string; important?: boolean }[];
   };
+  notFound: {
+    badge: string;
+    pageTitle: string;
+    pageSubtitle: string;
+    homeCta: string;
+    articlesCta: string;
+  };
   contact: {
     email: string;
     address: string;

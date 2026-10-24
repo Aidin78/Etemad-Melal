@@ -1,0 +1,76 @@
+# Etemad Melal — static Astro build (Apache / LiteSpeed)
+# Pages are built as <path>/index.html and served at clean URLs without a
+# trailing slash (astro.config.mjs: trailingSlash 'never').
+
+Options -Indexes -MultiViews
+DirectoryIndex index.html
+AddDefaultCharset UTF-8
+AddCharset UTF-8 .txt .xml .html .css .js .svg
+
+<IfModule mod_mime.c>
+  AddType font/woff2 .woff2
+  AddType font/woff .woff
+  AddType image/svg+xml .svg
+</IfModule>
+
+# Persian 404 page; its language switcher links to the English one (/en/404)
+ErrorDocument 404 /404.html
+
+<IfModule mod_dir.c>
+  # Don't 301 /about -> /about/ (canonical URLs have no trailing slash)
+  DirectorySlash Off
+</IfModule>
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # 1) Force HTTPS and the bare domain (www -> etemadmelal.com)
+  RewriteCond %{HTTP_HOST} ^www\. [NC]
+  RewriteRule ^ https://etemadmelal.com%{REQUEST_URI} [R=301,L,NE]
+  RewriteCond %{HTTPS} !=on
+  RewriteCond %{HTTP:X-Forwarded-Proto} !=https
+  RewriteRule ^ https://etemadmelal.com%{REQUEST_URI} [R=301,L,NE]
+
+  # 2) Legacy /news URLs -> /articles
+  RewriteRule ^news/?$ https://etemadmelal.com/articles [R=301,L]
+  RewriteRule ^news/(.+?)/?$ https://etemadmelal.com/articles/$1 [R=301,L]
+
+  # 3) Strip trailing slashes (except the root)
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteRule ^(.+)/$ https://etemadmelal.com/$1 [R=301,L,NE]
+
+  # 4) Serve clean URLs from <path>/index.html
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteCond %{REQUEST_FILENAME}/index.html -f
+  RewriteRule ^(.+)$ /$1/index.html [L]
+</IfModule>
+
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=()"
+  # Enable once HTTPS works on the new host (browsers will refuse plain HTTP for a year)
+  # Header always set Strict-Transport-Security "max-age=31536000"
+
+  # HTML always revalidates; CSS/JS are content-hashed under /_astro (see mod_expires)
+  <FilesMatch "\.html$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+</IfModule>
+
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType image/jpeg "access plus 30 days"
+  ExpiresByType image/png "access plus 30 days"
+  ExpiresByType image/svg+xml "access plus 30 days"
+  ExpiresByType font/woff2 "access plus 1 year"
+  ExpiresByType font/woff "access plus 1 year"
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType text/javascript "access plus 1 year"
+</IfModule>
+
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/css text/xml application/xml application/javascript text/javascript application/json application/ld+json image/svg+xml
+</IfModule>

@@ -16,7 +16,7 @@ export const en: Translations = {
   nav: [
     { href: '/#features', label: 'Services' },
     { href: '/#income-streams', label: 'Benefits' },
-    { href: '/#trust', label: 'Benefits' },
+    { href: '/#trust', label: 'Advantages' },
     { href: '/about', label: 'About' },
     { href: '/#faq', label: 'FAQ' },
     { href: '/#contact', label: 'Contact' },
@@ -114,7 +114,7 @@ export const en: Translations = {
     ],
   },
   trust: {
-    badge: 'Benefits',
+    badge: 'Advantages',
     title: 'Why',
     titleAccent: 'Etemad Melal?',
     subtitle:
@@ -138,7 +138,7 @@ export const en: Translations = {
       },
       {
         title: 'Full transparency',
-        desc: 'Detailed reports on rewards, deposits, and withdrawals at any moment in the user panel.',
+        desc: 'Detailed reports on your partnership share, rewards, deposits, and withdrawals at any moment in the user panel.',
       },
       {
         title: 'Dedicated support',
@@ -158,7 +158,7 @@ export const en: Translations = {
     titleAccent: 'architect of the link between capital and industry',
     subtitle:
       'Etemad Melal Creative Trust Diba Co. is more than a financial institution — a forward-looking economic strategy. Through specialized knowledge in financial engineering and precise analysis of production markets, we have provided a secure platform for aggregating micro-capital and intelligently guiding it toward the country\'s real economic cycle.',
-    body: 'At Etemad Melal, we believe that by removing inefficient intermediaries, we can create a direct bridge without intermediaries between investors and leading industries so that asset security and sustainable profitability are intertwined.',
+    body: 'At Etemad Melal, we believe in removing inefficient intermediaries and building a direct bridge between investors and leading industries, so that asset security and sustainable profitability go hand in hand.',
     imageAlt: 'Etemad Melal office',
     highlights: [
       { label: 'Finance', value: 'Capital engineering' },
@@ -228,7 +228,7 @@ export const en: Translations = {
       },
       {
         q: 'Does registering and confirming the contract on the website carry legal and judicial validity?',
-        a: 'Yes. Under Articles 6, 7, and 10 of the Electronic Commerce Law, data messages and electronic contract confirmations — after two-factor authentication and matching the phone number to the national ID (via the Shahkar system) — carry the same evidentiary value as physical documents, and are accepted by judicial authorities as a valid, citable, and binding record.',
+        a: 'Yes. Under Articles 6, 7, and 12 of the Electronic Commerce Law, data messages and electronic contract confirmations carry the same evidentiary value as physical documents, and are accepted by judicial authorities as a valid, citable, and binding record.',
       },
       {
         q: 'What is the basis for rewards earned from referring new users?',
@@ -252,7 +252,7 @@ export const en: Translations = {
       },
       {
         q: 'What are the minimum and maximum participation amounts?',
-        a: "One of this platform's main goals is to democratize investing and enable small capital to enter large-scale projects. Accordingly, participation is possible starting from affordable amounts, structured as packages defined in the user panel, so users can participate according to their own financial capacity.",
+        a: "One of this platform's main goals is to democratize investing and enable small capital to enter large-scale projects. Accordingly, participation is possible starting from affordable amounts, structured as plans defined in the user panel, so users can participate according to their own financial capacity.",
       },
       {
         q: 'On what days, and how, are periodic (on-account) profits deposited?',
@@ -320,6 +320,13 @@ export const en: Translations = {
       },
     ],
   },
+  notFound: {
+    badge: 'Error 404',
+    pageTitle: 'Page not found',
+    pageSubtitle: "The page you are looking for doesn't exist or has been moved. Use the links below to get back to the main sections of the site.",
+    homeCta: 'Back to homepage',
+    articlesCta: 'Browse articles',
+  },
   contact: {
     email: 'info@etemadmelal.com',
     address:
@@ -361,7 +368,7 @@ export const en: Translations = {
     contactTitle: 'Contact',
     howItWorks: 'How it works',
     incomePaths: 'Benefits',
-    benefits: 'Benefits',
+    benefits: 'Advantages',
     articles: 'Articles',
     about: 'About',
     faq: 'FAQ',

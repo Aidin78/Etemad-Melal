@@ -9,6 +9,7 @@ export type PageRouteProps =
   | { type: 'faq'; locale: Locale }
   | { type: 'terms'; locale: Locale }
   | { type: 'articles'; locale: Locale }
+  | { type: 'notFound'; locale: Locale }
   | { type: 'article'; locale: Locale; post: CollectionEntry<'articles'> };
 
 /** Paths for `[...path].astro` — excludes FA homepage (`/`) */
@@ -28,6 +29,8 @@ export async function getCatchAllPagePaths() {
   add('en/terms', { type: 'terms', locale: 'en' });
   add('articles', { type: 'articles', locale: 'fa' });
   add('en/articles', { type: 'articles', locale: 'en' });
+  // FA 404 is src/pages/404.astro (Astro's special 404 route)
+  add('en/404', { type: 'notFound', locale: 'en' });
 
   const posts = await getCollection('articles');
   for (const post of posts) {

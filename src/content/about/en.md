@@ -33,7 +33,7 @@ sections:
     content: |
       Etemad Melal Creative Trust Diba Co. is more than a financial institution — a forward-looking economic strategy. Through specialized knowledge in financial engineering and precise analysis of production markets, we have provided a secure platform for aggregating micro-capital and intelligently guiding it toward the country's real economic cycle.
 
-      At Etemad Melal, we believe that by removing inefficient intermediaries, we can create a direct bridge without intermediaries between investors and leading industries so that asset security and sustainable profitability are intertwined.
+      At Etemad Melal, we believe in removing inefficient intermediaries and building a direct bridge between investors and leading industries, so that asset security and sustainable profitability go hand in hand.
   - title: 'Our mission'
     headline: 'Revitalizing production — national mission and investment strategy'
     content: |

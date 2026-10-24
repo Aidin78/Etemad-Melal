@@ -5,6 +5,7 @@ import FaqPage from '../components/FaqPage.astro';
 import TermsPage from '../components/TermsPage.astro';
 import ArticlesIndexPage from '../components/ArticlesIndexPage.astro';
 import ArticlePage from '../components/ArticlePage.astro';
+import NotFoundPage from '../components/NotFoundPage.astro';
 import { getCatchAllPagePaths, type PageRouteProps } from '../lib/routes';
 
 export const getStaticPaths = getCatchAllPagePaths;
@@ -18,3 +19,4 @@ const props = Astro.props as PageRouteProps;
 {props.type === 'terms' && <TermsPage locale={props.locale} />}
 {props.type === 'articles' && <ArticlesIndexPage locale={props.locale} />}
 {props.type === 'article' && <ArticlePage locale={props.locale} post={props.post} />}
+{props.type === 'notFound' && <NotFoundPage locale={props.locale} />}
