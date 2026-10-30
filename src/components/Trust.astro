@@ -15,7 +15,8 @@ const yearsActive = toLocaleDigits(getYearsActive(), locale);
 const [lead, ...rest] = t.trust.benefits;
 ---
 
-<section id="trust" class="home-section">
+<div id="trust" class="home-anchor" aria-hidden="true"></div>
+<section class="home-section" data-stack>
   <div class="home-wrap">
     <HomeSectionHead
       locale={locale}

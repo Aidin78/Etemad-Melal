@@ -118,6 +118,37 @@ body:has(.home) :is(.site-header, footer) {
   margin-top: 2.5rem;
 }
 
+/* Nav target in front of a stacked section: a pinned section reports its pinned position, this doesn't */
+.home-anchor {
+  scroll-margin-top: 4rem;
+}
+
+/*
+ * ── Stacked sections: the next section slides up over a pinned `data-stack` one ──
+ * `--stack-top` / `--cover` come from initStack (motion.ts). JS-motion only, so without JS
+ * or with reduced motion the sections simply scroll. Everything after the first stacked
+ * section needs its own opaque background and stacking context to cover it.
+ */
+.js-motion .home > [data-stack] {
+  position: sticky;
+  top: var(--stack-top, 0px);
+  transform-origin: 50% var(--stack-origin, 50%);
+  scale: calc(1 - var(--cover, 0) * 0.06);
+}
+
+.js-motion .home > [data-stack] ~ :not([data-stack]) {
+  position: relative;
+}
+
+.js-motion .home > [data-stack] ~ * {
+  background-color: var(--page);
+}
+
+.js-motion .home > [data-stack] + :not(.home-anchor),
+.js-motion .home > [data-stack] + .home-anchor + * {
+  box-shadow: 0 -1.5rem 3rem rgb(0 0 0 / 0.14);
+}
+
 /* ── Words rising out of a mask (hero title on load, section titles on scroll) ── */
 .mask-word {
   display: inline-block;

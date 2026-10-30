@@ -112,6 +112,77 @@ function initCountUp() {
 
 const clamp01 = (n: number) => Math.min(Math.max(n, 0), 1);
 
+/** Sticky `top` (px) of each `data-stack` section, set by initStack */
+const stackTops = new WeakMap<HTMLElement, number>();
+
+/**
+ * How far (px) an element is currently held back by its pinned `data-stack` section, so
+ * scroll maths can use where it would sit without the pin. The next sibling never pins,
+ * so its top minus the section's height is the section's natural top.
+ */
+function stuckShift(el: HTMLElement) {
+  const stack = el.closest<HTMLElement>('[data-stack]');
+  const next = stack?.nextElementSibling;
+  if (!stack || !next || !stackTops.has(stack)) return 0;
+  const naturalTop = next.getBoundingClientRect().top - stack.offsetHeight;
+  return Math.max(0, stackTops.get(stack)! - naturalTop);
+}
+
+/**
+ * Stacked sections (homepage): a `data-stack` section pins once its bottom reaches the
+ * viewport bottom and the next section slides up over it like a sheet.
+ *   --stack-top     sticky top (px): 0, or negative for sections taller than the viewport
+ *   --stack-origin  transform origin (px) at the centre of its in-view part
+ *   --cover         0 → 1 while the next section covers it (CSS scales it in home.css)
+ */
+function initStack() {
+  const stacks = [...document.querySelectorAll<HTMLElement>('[data-stack]')].filter((el) => el.nextElementSibling);
+  if (!stacks.length) return;
+
+  let queued = false;
+
+  const measure = () => {
+    const vh = window.innerHeight;
+    stacks.forEach((el) => {
+      const height = el.offsetHeight;
+      const top = Math.min(0, vh - height);
+      stackTops.set(el, top);
+      el.style.setProperty('--stack-top', `${top}px`);
+      // Centre of the part that stays in view while pinned, so the shrink stays centred on screen
+      el.style.setProperty('--stack-origin', `${(-top + Math.min(vh, height) / 2).toFixed(0)}px`);
+    });
+  };
+
+  const update = () => {
+    queued = false;
+    stacks.forEach((el) => {
+      // Pinned bottom edge: the viewport bottom, or the section's own bottom when it is shorter
+      const bottom = (stackTops.get(el) ?? 0) + el.offsetHeight;
+      const nextTop = el.nextElementSibling!.getBoundingClientRect().top;
+      el.style.setProperty('--cover', clamp01((bottom - nextTop) / bottom).toFixed(4));
+    });
+  };
+
+  const queue = () => {
+    if (queued) return;
+    queued = true;
+    requestAnimationFrame(update);
+  };
+
+  measure();
+  update();
+  const resizer = new ResizeObserver(() => {
+    measure();
+    queue();
+  });
+  stacks.forEach((el) => resizer.observe(el));
+  window.addEventListener('scroll', queue, { passive: true });
+  window.addEventListener('resize', () => {
+    measure();
+    queue();
+  });
+}
+
 /**
  * Scroll scrubbing: writes the element's scroll progress (0 → 1) to a `--p` custom
  * property every frame it is on screen, so CSS can tie transforms/opacity to scrolling.
@@ -127,6 +198,13 @@ function initScrub() {
   const active = new Set<HTMLElement>();
   let queued = false;
 
+  // Inside a pinned stack section, measure from where it would be without the pin
+  const naturalRect = (el: HTMLElement) => {
+    const rect = el.getBoundingClientRect();
+    const shift = stuckShift(el);
+    return shift ? new DOMRect(rect.x, rect.y - shift, rect.width, rect.height) : rect;
+  };
+
   const progress = (el: HTMLElement, rect: DOMRect, vh: number) => {
     const mode = el.dataset.scrub;
     if (mode === 'exit') return clamp01(-rect.top / rect.height);
@@ -141,7 +219,7 @@ function initScrub() {
     queued = false;
     const vh = window.innerHeight;
     active.forEach((el) => {
-      el.style.setProperty('--p', progress(el, el.getBoundingClientRect(), vh).toFixed(4));
+      el.style.setProperty('--p', progress(el, naturalRect(el), vh).toFixed(4));
     });
   };
 
@@ -163,7 +241,7 @@ function initScrub() {
   // Seed every target once so off-screen ones don't flash their static fallback on arrival.
   const vh = window.innerHeight;
   targets.forEach((el) => {
-    el.style.setProperty('--p', progress(el, el.getBoundingClientRect(), vh).toFixed(4));
+    el.style.setProperty('--p', progress(el, naturalRect(el), vh).toFixed(4));
     observer.observe(el);
   });
   window.addEventListener('scroll', queue, { passive: true });
@@ -225,6 +303,7 @@ export function initMotion() {
   if (!document.documentElement.classList.contains('js-motion')) return;
   initReveal();
   initCountUp();
+  initStack();
   initScrub();
   initPointer();
 }
