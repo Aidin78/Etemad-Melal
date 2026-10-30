@@ -25,7 +25,7 @@ const nodes = [
 ---
 
 <div id="income-streams" class="home-anchor" aria-hidden="true"></div>
-<section class="home-section" data-stack>
+<section class="home-section" data-stack data-pointer>
   <div class="home-wrap">
     <HomeSectionHead
       locale={locale}
@@ -39,7 +39,7 @@ const nodes = [
     <ul class="pillars">
       {
         t.income.streams.map((stream, i) => (
-          <li class="pillar" style={`--c: ${stream.color}`} data-reveal>
+          <li class="pillar" style={`--c: ${stream.color}`} data-reveal data-spotlight>
             <div class="pillar-top">
               <span class="pillar-num" aria-hidden="true">{formatBoxIndex(i + 1, locale)}</span>
               <svg class="pillar-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">

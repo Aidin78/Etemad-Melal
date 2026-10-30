@@ -872,6 +872,54 @@ body:has(.home):not(.mobile-menu-open) .site-header.is-top {
   transform: translate3d(calc(var(--mx, 0) * 38px), calc(var(--my, 0) * 28px), 0);
 }
 
+/* The same pointer parallax on the other sections (each `.home-section` is `data-pointer`): `--depth` is the drift
+   in px at the section's edge, negative layers drift against the pointer for depth. */
+.home-section[data-pointer] :is(
+  .pillar-icon,
+  .pillar-visual,
+  .orbit-mark,
+  .story-frame-icons,
+  .story-chart-note,
+  .tcell-icon,
+  .bridge-icon,
+  .bridge-hub,
+  .news-media img,
+  .contact-channel-icon
+) {
+  transform: translate3d(calc(var(--mx, 0) * var(--depth) * 1px), calc(var(--my, 0) * var(--depth) * 0.75px), 0);
+}
+
+.home-section[data-pointer] .orbit-mark {
+  --depth: -36;
+}
+
+.home-section[data-pointer] :is(.pillar-visual, .bridge-hub) {
+  --depth: 16;
+}
+
+.home-section[data-pointer] :is(.pillar-icon, .tcell-icon, .bridge-icon, .contact-channel-icon) {
+  --depth: 10;
+}
+
+.home-section[data-pointer] .story-frame-icons {
+  --depth: 18;
+}
+
+.home-section[data-pointer] .story-chart-note {
+  --depth: 28;
+}
+
+/* Photos shift inside their frame, so they need a little bleed to never show an edge */
+.home-section[data-pointer] .news-media img {
+  --depth: -8;
+  scale: 1.04;
+}
+
+/* The features photo tilts toward the pointer like the hero's panel */
+.home-section[data-pointer] .story-frame {
+  transform: perspective(1200px) rotateY(calc(var(--mx, 0) * 4deg)) rotateX(calc(var(--my, 0) * -3deg));
+}
+
 /* Hero entrance + ambient loops (motion-safe only; static otherwise) */
 @media (prefers-reduced-motion: no-preference) {
   .hero-enter {
