@@ -43,19 +43,6 @@
   background-color: var(--section-alt);
 }
 
-.bg-ticker {
-  background: linear-gradient(
-    to right,
-    var(--page-alt),
-    color-mix(in srgb, var(--page-alt) 80%, var(--page)),
-    var(--page-alt)
-  );
-}
-
-.bg-trust-section {
-  background: linear-gradient(to bottom, color-mix(in srgb, var(--secondary) 80%, transparent), var(--trust-gradient-end));
-}
-
 .bg-image-overlay-bottom {
   background: linear-gradient(to bottom, color-mix(in srgb, var(--secondary) 40%, transparent), color-mix(in srgb, var(--secondary) 80%, transparent), var(--page));
 }
@@ -128,14 +115,6 @@
 
 .hero-img {
   opacity: var(--hero-img-opacity);
-}
-
-.ticker-fade-start {
-  background: linear-gradient(to left, var(--ticker-fade), transparent);
-}
-
-.ticker-fade-end {
-  background: linear-gradient(to right, var(--ticker-fade), transparent);
 }
 
 .surface-badge {

@@ -396,18 +396,261 @@ footer {
   z-index: 1;
 }
 
-.footer-cta-band {
-  background: linear-gradient(
-    135deg,
-    var(--footer-cta-from) 0%,
-    var(--footer-cta-mid) 52%,
-    var(--footer-cta-to) 100%
-  );
-  box-shadow: inset 0 1px 0 var(--footer-cta-ring);
+/*
+ * Full-width warm-charcoal band (any theme). Redefines the colour tokens locally, so
+ * everything inside that reads var(--heading) / var(--rule) / var(--gold)… turns light-on-dark.
+ * Derived tokens (--rule, --gold) must be re-declared here: they resolve where they are defined.
+ */
+.band-dark {
+  --page: #191712;
+  --text: #ece9e3;
+  --heading: #ffffff;
+  --muted: #aaa59c;
+  --subtle: #7d786f;
+  --faint: #5c5850;
+  --nav: #d6d3cc;
+  --border-strong: rgb(255 255 255 / 0.1);
+  --surface-muted: rgb(255 255 255 / 0.05);
+  --toggle-bg: rgb(255 255 255 / 0.05);
+  --toggle-text: #ffffff;
+  --input-bg: rgb(255 255 255 / 0.05);
+  --input-text: #ffffff;
+  --color-accent-gold: #d4a853;
+  --color-accent-gold-light: #f0d78c;
+  --gold: #d4a853;
+  --gold-emphasis: #f0d78c;
+  --gold-soft: #d4a853;
+  --rule: rgb(255 255 255 / 0.1);
+  --rule-strong: rgb(255 255 255 / 0.2);
+  color-scheme: dark;
+  color: var(--text);
+  background-color: var(--page);
 }
 
-[data-theme='light'] .footer-cta-band {
-  border-bottom: 1px solid rgb(154 115 9 / 0.12);
+/* Bands host a faint orbit watermark that may bleed off the edge (`clip`, unlike `hidden`, keeps sticky children working) */
+.band-dark {
+  position: relative;
+  overflow: clip;
+}
+
+.band-dark > :is(.home-wrap, .footer-wrap) {
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Logo orbit (OrbitMark.astro) ── */
+.orbit-mark {
+  position: absolute;
+  display: block;
+  aspect-ratio: 195 / 193;
+  pointer-events: none;
+  user-select: none;
+}
+
+.orbit-mark img {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  width: 100%;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .orbit-mark-ring {
+    animation: orbit-mark-spin var(--orbit-speed, 90s) linear infinite;
+  }
+}
+
+@keyframes orbit-mark-spin {
+  to {
+    rotate: 1turn;
+  }
+}
+
+/* Watermark placements */
+.orbit-mark--story {
+  bottom: -12rem;
+  inset-inline-start: -12rem;
+  width: 38rem;
+  opacity: 0.07;
+}
+
+.orbit-mark--manifesto {
+  top: -6rem;
+  inset-inline-end: -14rem;
+  width: 34rem;
+  opacity: 0.045;
+}
+
+.orbit-mark--footer {
+  top: 50%;
+  inset-inline-end: -5rem;
+  width: 22rem;
+  translate: 0 -50%;
+  opacity: 0.1;
+  --orbit-speed: 60s;
+}
+
+@media (max-width: 767px) {
+  .orbit-mark--story,
+  .orbit-mark--manifesto {
+    width: 22rem;
+  }
+
+  .orbit-mark--footer {
+    width: 14rem;
+    inset-inline-end: -6rem;
+  }
+}
+
+/* In the dark theme the band steps up a shade so it still reads as a separate surface */
+[data-theme='dark'] .band-dark {
+  --page: #1d1b16;
+}
+
+/* Footer: same width as the page content, hairlines instead of boxes */
+.site-footer {
+  background: var(--page-secondary);
+}
+
+.footer-wrap {
+  width: 100%;
+  max-width: 76rem;
+  margin-inline: auto;
+  padding-inline: 1rem;
+}
+
+.footer-cta {
+  display: grid;
+  gap: 2rem;
+  padding-block: 3.5rem;
+}
+
+.footer-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--gold-emphasis);
+}
+
+.footer-eyebrow::before {
+  content: '';
+  height: 1px;
+  width: 1.75rem;
+  background: currentColor;
+}
+
+.footer-cta-title {
+  margin-top: 1rem;
+  font-size: clamp(1.625rem, 1.1rem + 1.8vw, 2.5rem);
+  font-weight: 900;
+  line-height: 1.4;
+  color: var(--heading);
+}
+
+.footer-cta-accent {
+  font-weight: 400;
+  color: var(--gold-emphasis);
+}
+
+.footer-cta-sub {
+  margin-top: 0.75rem;
+  max-width: 36rem;
+  font-size: 0.9375rem;
+  line-height: 1.9;
+  color: var(--muted);
+}
+
+.footer-cta-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem 2rem;
+}
+
+.footer-text-link {
+  padding-block: 0.25rem;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--heading);
+  border-bottom: 1px solid var(--color-accent-gold);
+  transition: color 0.2s ease;
+}
+
+.footer-text-link:hover {
+  color: var(--gold-emphasis);
+}
+
+.footer-grid {
+  display: grid;
+  gap: 2.5rem;
+  padding-block: 3rem;
+}
+
+.footer-heading {
+  margin-bottom: 1rem;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--heading);
+}
+
+.footer-links {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.625rem 2rem;
+  font-size: 0.875rem;
+}
+
+.footer-bottom {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-block: 1.75rem;
+  border-top: 1px solid color-mix(in srgb, var(--heading) 10%, transparent);
+}
+
+@media (min-width: 640px) {
+  .footer-wrap {
+    padding-inline: 1.5rem;
+  }
+
+  .footer-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .footer-brand {
+    grid-column: 1 / -1;
+  }
+
+  .footer-bottom {
+    flex-direction: row;
+  }
+}
+
+@media (min-width: 1024px) {
+  .footer-wrap {
+    padding-inline: 2rem;
+  }
+
+  .footer-cta {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: end;
+    gap: 4rem;
+    padding-block: 4.5rem;
+  }
+
+  .footer-grid {
+    grid-template-columns: 5fr 4fr 3fr;
+    gap: 4rem;
+    padding-block: 3.5rem;
+  }
+
+  .footer-brand {
+    grid-column: auto;
+  }
 }
 
 .text-gold-emphasis {
@@ -495,25 +738,6 @@ footer {
     transform: none;
   }
 
-  .trust-stats-band {
-    gap: 1rem;
-    padding: 1.25rem;
-  }
-
-  .trust-stats-band .stat-value {
-    font-size: 1.5rem;
-    line-height: 2rem;
-  }
-
-  .hero-stat-card {
-    padding: 0.875rem 0.5rem;
-  }
-
-  .hero-stat-label {
-    font-size: 0.75rem;
-    line-height: 1.125rem;
-  }
-
   .article-prose table {
     display: block;
     overflow-x: auto;
@@ -539,24 +763,7 @@ footer {
   box-shadow: 0 0 24px rgb(154 115 9 / 0.25);
 }
 
-[data-theme='light'] .ticker-sep {
-  color: rgb(154 115 9 / 0.55);
-}
-
 /* ── Contact ── */
-.contact-glow {
-  position: absolute;
-  inset-inline: 0;
-  bottom: -15%;
-  height: 70%;
-  pointer-events: none;
-  background: radial-gradient(
-    ellipse 50% 60% at 50% 100%,
-    color-mix(in srgb, var(--color-accent-gold) 12%, transparent),
-    transparent 70%
-  );
-}
-
 .contact-panel {
   display: grid;
   overflow: hidden;

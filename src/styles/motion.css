@@ -9,6 +9,10 @@
  * falls back to its own opacity (e.g. a decorative `opacity-40`) instead of 1.
  *
  * Variants: (default) rise · fade · start · end · zoom · image · cascade · draw
+ * (+ `mask` and `rule`, styled in home.css: words rise out of a mask / a hairline draws in)
+ *
+ * Scroll-scrubbed effects (hero parallax, marquee, word light-up…) use `data-scrub`
+ * and live with their sections in home.css.
  */
 
 :root {
@@ -36,7 +40,7 @@
   transition-delay: var(--reveal-delay, 0ms);
 }
 
-.js-motion [data-reveal]:not(.is-revealed, [data-reveal='cascade'], [data-reveal='draw']) {
+.js-motion [data-reveal]:not(.is-revealed, [data-reveal='cascade'], [data-reveal='draw'], [data-reveal='mask'], [data-reveal='rule']) {
   opacity: 0;
   translate: 0 var(--reveal-distance);
 }
@@ -145,19 +149,6 @@
       animation-timeline: scroll(root);
       animation-range: 0 160px;
     }
-
-    /* Hero: background photo drifts slower than the page, content eases away */
-    .hero-img {
-      animation: hero-drift linear both;
-      animation-timeline: scroll(root);
-      animation-range: 0 100vh;
-    }
-
-    .hero-content {
-      animation: hero-content-out linear both;
-      animation-timeline: scroll(root);
-      animation-range: 0 85vh;
-    }
   }
 }
 
@@ -172,22 +163,7 @@
 
 @keyframes header-lift {
   to {
-    box-shadow: 0 10px 30px rgb(0 0 0 / 0.18);
-  }
-}
-
-@keyframes hero-drift {
-  to {
-    translate: 0 22%;
-    scale: 1.08;
-  }
-}
-
-@keyframes hero-content-out {
-  to {
-    opacity: 0.15;
-    translate: 0 -60px;
-    scale: 0.97;
+    box-shadow: 0 8px 24px rgb(0 0 0 / 0.07);
   }
 }
 

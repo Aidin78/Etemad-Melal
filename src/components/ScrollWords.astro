@@ -1,0 +1,23 @@
+---
+/**
+ * Paragraph whose words light up one after another as it scrolls past the
+ * lower-middle of the viewport (scrub "line" mode, see src/scripts/motion.ts).
+ * Without JS / with reduced motion every word renders fully lit.
+ */
+interface Props {
+  text: string;
+  as?: 'p' | 'h2' | 'h3';
+  class?: string;
+}
+
+const { text, as: Tag = 'p', class: className } = Astro.props;
+const words = text.trim().split(/\s+/);
+---
+
+<Tag class:list={['scroll-words', className]} data-scrub="line" data-scrub-line="0.7" style={`--n: ${words.length}`}>
+  {words.map((word, i) => (
+    <>
+      <span style={`--i: ${i}`}>{word}</span>{' '}
+    </>
+  ))}
+</Tag>

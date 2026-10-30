@@ -1,7 +1,7 @@
 ---
-import SectionHeader from './SectionHeader.astro';
+import HomeSectionHead from './HomeSectionHead.astro';
 import type { Locale } from '../i18n/types';
-import { getTranslations, localePath, toLocaleDigits } from '../i18n';
+import { getTranslations, localePath, formatBoxIndex } from '../i18n';
 import { homepageFaqCount } from '../config/site';
 
 interface Props {
@@ -13,39 +13,32 @@ const t = getTranslations(locale);
 const items = t.faqPage.items.slice(0, homepageFaqCount);
 ---
 
-<section id="faq" class="section-spacing bg-section-alt">
-  <div class="mx-auto max-w-3xl px-4 sm:px-6">
-    <SectionHeader
+<section id="faq" class="home-section">
+  <div class="home-wrap">
+    <HomeSectionHead
+      locale={locale}
+      index={6}
       badge={t.faq.badge}
       title={t.faq.title}
       titleAccent={t.faq.titleAccent}
       subtitle={t.faq.subtitle}
-      align="center"
-    />
+    >
+      <a slot="aside" href={localePath(locale, '/faq')} class="sh-link">{t.faq.viewAllLabel}</a>
+    </HomeSectionHead>
 
-    <div class="mt-8 space-y-3 sm:mt-12 sm:space-y-4">
+    <div class="faq-list">
       {
         items.map((item, index) => (
-          <details class="investment-card group rounded-xl transition" data-reveal>
-            <summary class="flex min-h-[3.25rem] cursor-pointer list-none items-center justify-between gap-4 p-5 text-sm font-bold text-heading [&::-webkit-details-marker]:hidden">
-              <span class="flex items-center gap-3">
-                <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-accent-gold/15 text-xs text-accent-gold" aria-hidden="true">
-                  {toLocaleDigits(index + 1, locale)}
-                </span>
-                <h3 class="text-sm font-bold text-heading">{item.q}</h3>
-              </span>
-              <span class="shrink-0 text-accent-gold transition group-open:rotate-180" aria-hidden="true">▼</span>
+          <details class="faq-item" data-reveal>
+            <summary class="faq-summary">
+              <span class="faq-num" aria-hidden="true">{formatBoxIndex(index + 1, locale)}</span>
+              <h3 class="faq-q">{item.q}</h3>
+              <span class="faq-toggle" aria-hidden="true"></span>
             </summary>
-            <p class="border-t border-divider px-5 py-5 text-sm leading-relaxed text-muted">{item.a}</p>
+            <p class="faq-a">{item.a}</p>
           </details>
         ))
       }
-    </div>
-
-    <div class="mt-8 text-center sm:mt-10">
-      <a href={localePath(locale, '/faq')} class="text-sm font-bold text-accent-gold hover:text-accent-gold-light">
-        {t.faq.viewAllLabel}
-      </a>
     </div>
   </div>
 </section>

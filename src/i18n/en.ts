@@ -43,6 +43,16 @@ export const en: Translations = {
     subtitle:
       'A smart, transparent investment platform. Track and manage your portfolio in real time through our advanced user panel.',
     learnMore: 'Learn more',
+    panel: {
+      title: 'Investor panel',
+      live: 'Live',
+      chartLabel: 'Performance report trend',
+      badge: 'Official contract',
+      notice: 'Monthly report published',
+      noticeSub: 'Available in your user panel',
+      mix: 'Participation mix',
+      status: ['Active contract', 'Secure panel', 'Support online'],
+    },
     stats: [
       { value: '{years}+', label: 'Years active' },
       { value: '100%', label: 'Report transparency' },
@@ -168,6 +178,16 @@ export const en: Translations = {
     ctaStart: 'Start investing',
     ctaContact: 'Contact us',
     ctaLearnMore: 'Learn more about us',
+    bridge: {
+      investor: 'Investors',
+      investorSub: 'Pooled micro-capital',
+      hub: 'Etemad Melal',
+      hubSub: 'Financial engineering & oversight',
+      industry: 'Productive industry',
+      industrySub: 'Production & trade projects',
+      flowOut: 'Capital allocation',
+      flowBack: 'Operational returns',
+    },
   },
   aboutPage: {
     detailsTitle: 'Details',

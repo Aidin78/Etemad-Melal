@@ -43,6 +43,16 @@ export const fa: Translations = {
     subtitle:
       'پلتفرم سرمایه‌گذاری هوشمند و شفاف. با پنل کاربری پیشرفته، وضعیت سرمایه‌گذاری خود را به‌صورت لحظه‌ای مشاهده و مدیریت کنید.',
     learnMore: 'بیشتر بدانید',
+    panel: {
+      title: 'پنل سرمایه‌گذار',
+      live: 'لحظه‌ای',
+      chartLabel: 'روند گزارش عملکرد',
+      badge: 'قرارداد رسمی',
+      notice: 'گزارش ماهانه منتشر شد',
+      noticeSub: 'قابل مشاهده در پنل کاربری',
+      mix: 'سبد مشارکت',
+      status: ['قرارداد فعال', 'پنل امن', 'پشتیبانی آنلاین'],
+    },
     stats: [
       { value: '+{years}', label: 'سال فعالیت' },
       { value: '۱۰۰٪', label: 'شفافیت گزارش' },
@@ -168,6 +178,16 @@ export const fa: Translations = {
     ctaStart: 'شروع سرمایه‌گذاری',
     ctaContact: 'تماس با ما',
     ctaLearnMore: 'درباره ما بیشتر بدانید',
+    bridge: {
+      investor: 'سرمایه‌گذاران',
+      investorSub: 'تجمیع سرمایه‌های خرد',
+      hub: 'اعتماد ملل',
+      hubSub: 'مهندسی مالی و نظارت',
+      industry: 'صنایع مولد',
+      industrySub: 'پروژه‌های تولیدی و تجاری',
+      flowOut: 'تخصیص سرمایه',
+      flowBack: 'بازدهی عملیاتی',
+    },
   },
   aboutPage: {
     detailsTitle: 'توضیحات',

@@ -1,9 +1,8 @@
 ---
-import SectionHeader from './SectionHeader.astro';
-import { siteImages } from '../config/images';
+import HomeSectionHead from './HomeSectionHead.astro';
 import { trustBenefitIcons } from '../lib/section-icons';
 import type { Locale } from '../i18n/types';
-import { getTranslations, toLocaleDigits } from '../i18n';
+import { getTranslations, toLocaleDigits, formatBoxIndex } from '../i18n';
 import { getYearsActive } from '../lib/dates';
 
 interface Props {
@@ -13,52 +12,63 @@ interface Props {
 const { locale } = Astro.props;
 const t = getTranslations(locale);
 const yearsActive = toLocaleDigits(getYearsActive(), locale);
+const [lead, ...rest] = t.trust.benefits;
 ---
 
-<section id="trust" class="section-spacing relative overflow-hidden bg-trust-section">
-  <div class="mx-auto max-w-6xl px-4 sm:px-6">
-    <div class="text-center">
-      <SectionHeader
-        badge={t.trust.badge}
-        title={t.trust.title}
-        titleAccent={t.trust.titleAccent}
-        subtitle={t.trust.subtitle}
-        align="center"
-      />
-    </div>
+<section id="trust" class="home-section">
+  <div class="home-wrap">
+    <HomeSectionHead
+      locale={locale}
+      index={3}
+      badge={t.trust.badge}
+      title={t.trust.title}
+      titleAccent={t.trust.titleAccent}
+      subtitle={t.trust.subtitle}
+    />
 
-    <ul class="section-body-gap grid gap-5 sm:grid-cols-2 lg:grid-cols-3 sm:gap-6">
+    <dl class="tstats" data-reveal="fade">
       {
-        t.trust.benefits.map((b, i) => (
-          <li data-reveal>
-            <article class="investment-card group rounded-2xl p-6 text-center">
-              <div class="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-accent-gold/20 text-accent-gold-light ring-1 ring-accent-gold/30 transition-all duration-500 ease-out group-hover:bg-accent-gold/28 group-hover:ring-accent-gold/45">
-                <svg class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d={trustBenefitIcons[i] ?? trustBenefitIcons[0]} />
-                </svg>
-              </div>
-              <h3 class="text-lg font-bold text-heading">{b.title}</h3>
-              <p class="mt-2 text-sm leading-relaxed text-muted">{b.desc}</p>
-            </article>
+        t.trust.stats.map((s) => (
+          <div class="tstat">
+            <dt>
+              <span class="tstat-trend" aria-hidden="true">{s.trend}</span>
+              {s.label}
+            </dt>
+            <dd data-count>{s.value.replace('{years}', yearsActive)}</dd>
+          </div>
+        ))
+      }
+    </dl>
+
+    <ul class="tgrid">
+      {
+        lead && (
+          <li class="tcell tcell--lead" data-reveal="fade" data-spotlight>
+            <svg class="tshield" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true" data-reveal="draw">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5" d={trustBenefitIcons[0]} pathLength="1" data-draw-line />
+            </svg>
+            <div>
+              <span class="tcell-num" aria-hidden="true">{formatBoxIndex(1, locale)}</span>
+              <h3 class="tcell-title tcell-title--lead">{lead.title}</h3>
+              <p class="tcell-desc tcell-desc--lead">{lead.desc}</p>
+            </div>
+          </li>
+        )
+      }
+      {
+        rest.map((b, i) => (
+          <li class="tcell" data-reveal="fade" data-spotlight>
+            <div class="tcell-head">
+              <span class="tcell-num" aria-hidden="true">{formatBoxIndex(i + 2, locale)}</span>
+              <svg class="tcell-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.25" d={trustBenefitIcons[i + 1] ?? trustBenefitIcons[0]} />
+              </svg>
+            </div>
+            <h3 class="tcell-title">{b.title}</h3>
+            <p class="tcell-desc">{b.desc}</p>
           </li>
         ))
       }
     </ul>
-
-    <div class="relative mt-10 overflow-hidden rounded-2xl ring-1 ring-accent-gold/20 sm:mt-16" aria-hidden="true" data-reveal="zoom">
-      <img src={siteImages.trust} alt="" class="absolute inset-0 h-full w-full object-cover opacity-25" loading="lazy" />
-      <div class="absolute inset-0 bg-image-overlay-horizontal"></div>
-      <div class="trust-stats-band relative grid grid-cols-2 gap-6 p-8 sm:grid-cols-4 sm:p-12">
-        {
-          t.trust.stats.map((s) => (
-            <div class="text-center">
-              <span class="text-xs text-accent-gold">{s.trend}</span>
-              <p class="stat-value mt-1" data-count>{s.value.replace('{years}', yearsActive)}</p>
-              <p class="mt-2 text-sm text-muted">{s.label}</p>
-            </div>
-          ))
-        }
-      </div>
-    </div>
   </div>
 </section>

@@ -1,9 +1,9 @@
 ---
 import { getSortedArticles } from '../lib/articles';
-import SectionHeader from './SectionHeader.astro';
-import NewsCard from './NewsCard.astro';
+import { parseArticleId } from '../lib/article-utils';
+import HomeSectionHead from './HomeSectionHead.astro';
 import type { Locale } from '../i18n/types';
-import { getTranslations, localePath } from '../i18n';
+import { getArticleDisplay, getTranslations, localePath } from '../i18n';
 
 interface Props {
   locale: Locale;
@@ -11,29 +11,45 @@ interface Props {
 
 const { locale } = Astro.props;
 const t = getTranslations(locale);
-const posts = (await getSortedArticles(locale)).slice(0, 2);
+const posts = (await getSortedArticles(locale)).slice(0, 2).map((post) => ({
+  post,
+  slug: parseArticleId(post.id).slug,
+  display: getArticleDisplay(locale, {
+    title: post.data.title,
+    excerpt: post.data.excerpt,
+    date: post.data.date,
+    dateFa: post.data.dateFa,
+  }),
+}));
 ---
 
 {
   posts.length > 0 && (
-    <section class="section-spacing relative">
-      <div class="chart-pattern absolute inset-0 opacity-20" aria-hidden="true" />
-      <div class="relative mx-auto max-w-6xl px-4 sm:px-6">
-        <div class="flex flex-col gap-4 sm:flex-row sm:flex-wrap sm:items-end sm:justify-between">
-          <div>
-            <SectionHeader
-              badge={t.news.badge}
-              title={t.news.title}
-              titleAccent={t.news.titleAccent}
-              subtitle={t.news.subtitle}
-            />
-          </div>
-          <a href={localePath(locale, '/articles')} class="btn-ghost shrink-0 justify-center max-sm:w-full">{t.news.viewAll}</a>
-        </div>
+    <section class="home-section">
+      <div class="home-wrap">
+        <HomeSectionHead
+          locale={locale}
+          index={5}
+          badge={t.news.badge}
+          title={t.news.title}
+          titleAccent={t.news.titleAccent}
+          subtitle={t.news.subtitle}
+        >
+          <a slot="aside" href={localePath(locale, '/articles')} class="sh-link">{t.news.viewAll}</a>
+        </HomeSectionHead>
 
-        <ul class="section-body-gap grid gap-5 sm:grid-cols-2 sm:gap-6">
-          {posts.map((post) => (
-            <li data-reveal><NewsCard locale={locale} post={post} compact /></li>
+        <ul class="news-list">
+          {posts.map(({ post, slug, display }) => (
+            <li data-reveal>
+              <a href={localePath(locale, `/articles/${slug}`)} class="news-item">
+                <span class="news-media">
+                  <img src={post.data.image} alt={display.title} loading="lazy" />
+                </span>
+                <time class="news-date" datetime={post.data.date.toISOString()}>{display.dateLabel}</time>
+                <h3 class="news-title">{display.title}</h3>
+                <p class="news-excerpt">{display.excerpt}</p>
+              </a>
+            </li>
           ))}
         </ul>
       </div>

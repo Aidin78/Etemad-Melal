@@ -110,9 +110,121 @@ function initCountUp() {
   });
 }
 
+const clamp01 = (n: number) => Math.min(Math.max(n, 0), 1);
+
+/**
+ * Scroll scrubbing: writes the element's scroll progress (0 → 1) to a `--p` custom
+ * property every frame it is on screen, so CSS can tie transforms/opacity to scrolling.
+ *   data-scrub         0 when its top enters the viewport bottom, 1 when its bottom leaves the top
+ *   data-scrub="line"  0 → 1 while it crosses a horizontal line (data-scrub-line, fraction of vh, default 0.5)
+ *   data-scrub="exit"  0 at rest, 1 once it has scrolled fully off the top (hero)
+ * CSS must give `var(--p, …)` a fallback that looks right statically (no JS / reduced motion).
+ */
+function initScrub() {
+  const targets = [...document.querySelectorAll<HTMLElement>('[data-scrub]')];
+  if (!targets.length) return;
+
+  const active = new Set<HTMLElement>();
+  let queued = false;
+
+  const progress = (el: HTMLElement, rect: DOMRect, vh: number) => {
+    const mode = el.dataset.scrub;
+    if (mode === 'exit') return clamp01(-rect.top / rect.height);
+    if (mode === 'line') {
+      const line = Number(el.dataset.scrubLine ?? 0.5) * vh;
+      return clamp01((line - rect.top) / rect.height);
+    }
+    return clamp01((vh - rect.top) / (vh + rect.height));
+  };
+
+  const update = () => {
+    queued = false;
+    const vh = window.innerHeight;
+    active.forEach((el) => {
+      el.style.setProperty('--p', progress(el, el.getBoundingClientRect(), vh).toFixed(4));
+    });
+  };
+
+  const queue = () => {
+    if (queued) return;
+    queued = true;
+    requestAnimationFrame(update);
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      const el = entry.target as HTMLElement;
+      if (entry.isIntersecting) active.add(el);
+      else active.delete(el);
+    });
+    queue();
+  });
+
+  // Seed every target once so off-screen ones don't flash their static fallback on arrival.
+  const vh = window.innerHeight;
+  targets.forEach((el) => {
+    el.style.setProperty('--p', progress(el, el.getBoundingClientRect(), vh).toFixed(4));
+    observer.observe(el);
+  });
+  window.addEventListener('scroll', queue, { passive: true });
+  window.addEventListener('resize', queue, { passive: true });
+}
+
+/**
+ * Pointer motion (mouse/trackpad only):
+ *   data-pointer    eased pointer position over the element, centred, as `--mx` / `--my` in -1 → 1;
+ *                   eases back to 0 when the pointer leaves (layered parallax / tilt in CSS)
+ *   data-spotlight  raw pointer position inside the element as `--sx` / `--sy` (px) for a hover glow
+ * CSS must default both to a resting look (`var(--mx, 0)`), as touch devices never set them.
+ */
+function initPointer() {
+  if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+
+  document.querySelectorAll<HTMLElement>('[data-pointer]').forEach((el) => {
+    let tx = 0;
+    let ty = 0;
+    let x = 0;
+    let y = 0;
+    let frame = 0;
+
+    const step = () => {
+      x += (tx - x) * 0.08;
+      y += (ty - y) * 0.08;
+      el.style.setProperty('--mx', x.toFixed(4));
+      el.style.setProperty('--my', y.toFixed(4));
+      frame = Math.abs(tx - x) + Math.abs(ty - y) > 0.001 ? requestAnimationFrame(step) : 0;
+    };
+    const run = () => {
+      if (!frame) frame = requestAnimationFrame(step);
+    };
+
+    el.addEventListener('pointermove', (event) => {
+      const rect = el.getBoundingClientRect();
+      tx = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+      ty = ((event.clientY - rect.top) / rect.height) * 2 - 1;
+      run();
+    });
+    el.addEventListener('pointerleave', () => {
+      tx = 0;
+      ty = 0;
+      run();
+    });
+  });
+
+  document.querySelectorAll<HTMLElement>('[data-spotlight]').forEach((el) => {
+    el.addEventListener('pointermove', (event) => {
+      const rect = el.getBoundingClientRect();
+      el.style.setProperty('--sx', `${(event.clientX - rect.left).toFixed(0)}px`);
+      el.style.setProperty('--sy', `${(event.clientY - rect.top).toFixed(0)}px`);
+    });
+  });
+}
+
 export function initMotion() {
   window.__emMotion = true;
   if (!document.documentElement.classList.contains('js-motion')) return;
   initReveal();
   initCountUp();
+  initScrub();
+  initPointer();
 }

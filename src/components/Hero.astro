@@ -1,7 +1,8 @@
 ---
 import { siteImages } from '../config/images';
 import PanelLink from './PanelLink.astro';
-import SectionBadge from './SectionBadge.astro';
+import LogoIcon from './LogoIcon.astro';
+import OrbitMark from './OrbitMark.astro';
 import type { Locale } from '../i18n/types';
 import { getTranslations, toLocaleDigits } from '../i18n';
 import { getYearsActive } from '../lib/dates';
@@ -12,48 +13,149 @@ interface Props {
 
 const { locale } = Astro.props;
 const t = getTranslations(locale);
+const p = t.hero.panel;
 const yearsActive = toLocaleDigits(getYearsActive(), locale);
+
+const titleWords = t.hero.title.trim().split(/\s+/);
+const accentWords = t.hero.titleAccent.trim().split(/\s+/);
+
+// Panel preview chart (viewBox 400 × 120, rising left → right) — illustrative, no figures
+const line = 'M0 104 L40 98 L80 102 L120 84 L160 88 L200 70 L240 75 L280 52 L320 57 L360 32 L392 24';
+
+// Ring split between the income streams (decorative shares of a 100-unit circumference, 2-unit gaps)
+const ringShares = [60, 36];
+let ringStart = 0;
+const ringSegments = t.income.streams.map((stream, i) => {
+  const length = ringShares[i] ?? 0;
+  const seg = { color: stream.color, length, offset: -ringStart };
+  ringStart += length + 2;
+  return seg;
+});
 ---
 
-<section
-  class="hero-intro relative overflow-hidden mesh-gradient max-sm:flex max-sm:min-h-[calc(100dvh-4.5rem)] max-sm:flex-col max-sm:justify-center sm:min-h-[92vh]"
->
-  <div class="absolute inset-0 grid-pattern opacity-60" aria-hidden="true"></div>
-  <div class="absolute inset-0" aria-hidden="true">
-    <img src={siteImages.hero} alt="" class="hero-img h-full w-full object-cover" loading="eager" fetchpriority="high" />
-    <div class="absolute inset-0 bg-image-overlay-bottom"></div>
-  </div>
+<section class="hero" data-scrub="exit" data-pointer>
+  <div class="hero-glow" aria-hidden="true"></div>
 
-  <div class="hero-content relative mx-auto flex w-full max-w-6xl flex-col items-center justify-center px-4 py-6 text-center sm:px-6 sm:py-0 sm:pb-24 sm:pt-28">
-    <SectionBadge label={t.hero.badge} class="reveal mb-4 sm:mb-6" />
+  <div class="hero-wrap hero-grid">
+    <div class="hero-copy">
+      <p class="hero-eyebrow hero-enter">{t.hero.badge}</p>
 
-    <h1 class="reveal mx-auto max-w-4xl text-3xl font-bold leading-tight text-heading sm:mb-0 sm:text-5xl lg:text-6xl" style="animation-delay: 0.1s">
-      {t.hero.title}
-      <span class="section-title-accent">
-        {t.hero.titleAccent}
-      </span>
-    </h1>
+      <h1 class="hero-title">
+        {titleWords.map((word, i) => (
+          <>
+            <span class="mask-word"><span style={`--w: ${i}`}>{word}</span></span>{' '}
+          </>
+        ))}
+        <span class="hero-title-accent">
+          {accentWords.map((word, i) => (
+            <>
+              <span class="mask-word"><span style={`--w: ${titleWords.length + i}`}>{word}</span></span>{' '}
+            </>
+          ))}
+        </span>
+      </h1>
 
-    <p class="reveal mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-body sm:mt-6 sm:text-lg" style="animation-delay: 0.2s">
-      {t.hero.subtitle}
-    </p>
+      <p class="hero-subtitle hero-enter" style="--d: 0.5s">{t.hero.subtitle}</p>
 
-    <div class="reveal mt-6 flex w-full max-w-sm flex-col items-stretch gap-3 sm:mt-10 sm:max-w-none sm:flex-row sm:flex-wrap sm:items-center sm:justify-center sm:gap-4" style="animation-delay: 0.3s">
-      <PanelLink locale={locale} showArrow signup class="justify-center">
-        {t.panelCtaStart}
-      </PanelLink>
-      <a href="#features" class="btn-outline justify-center">{t.hero.learnMore}</a>
+      <div class="hero-actions hero-enter" style="--d: 0.6s">
+        <PanelLink locale={locale} showArrow signup class="justify-center">
+          {t.panelCtaStart}
+        </PanelLink>
+        <a href="#features" class="hero-link">{t.hero.learnMore}</a>
+      </div>
+
+      <dl class="hero-stats hero-enter" style="--d: 0.75s">
+        {t.hero.stats.map((s) => (
+          <div class="hero-stat">
+            <dt>{s.label}</dt>
+            <dd data-count>{s.value.replace('{years}', yearsActive)}</dd>
+          </div>
+        ))}
+      </dl>
     </div>
 
-    <div class="reveal mt-6 grid w-full max-w-3xl grid-cols-3 gap-2 sm:mt-16 sm:gap-8" style="animation-delay: 0.4s">
-      {
-        t.hero.stats.map((s) => (
-          <div class="hero-stat-card investment-card rounded-xl text-center sm:rounded-2xl sm:p-6">
-            <p class="stat-value text-xl sm:text-3xl" data-count>{s.value.replace('{years}', yearsActive)}</p>
-            <p class="hero-stat-label mt-0.5 text-muted sm:mt-1 sm:text-sm">{s.label}</p>
+    <div class="hero-visual" aria-hidden="true">
+      <div class="hero-orbit">
+        <span></span>
+        <OrbitMark class="hero-orbit-mark" />
+      </div>
+
+      <div class="hero-photo" data-scrub>
+        <img src={siteImages.hero} alt="" loading="eager" fetchpriority="high" />
+      </div>
+
+      <div class="hero-panel">
+        <div class="hero-panel-bar">
+          <span class="hero-panel-name">
+            <LogoIcon alt="" size="sm" class="hero-panel-logo" />
+            {p.title}
+          </span>
+          <span class="hero-panel-live"><i></i>{p.live}</span>
+        </div>
+
+        <div class="hero-panel-mix">
+          <svg class="hero-panel-ring" viewBox="0 0 42 42">
+            <circle class="hero-panel-ring-track" cx="21" cy="21" r="15.915" />
+            {ringSegments.map((seg) => (
+              <circle
+                cx="21"
+                cy="21"
+                r="15.915"
+                stroke={seg.color}
+                stroke-dasharray={`${seg.length} ${100 - seg.length}`}
+                stroke-dashoffset={seg.offset}
+              />
+            ))}
+          </svg>
+          <div>
+            <span class="hero-panel-label">{p.mix}</span>
+            <ul class="hero-panel-streams">
+              {t.income.streams.map((stream) => (
+                <li><i style={`background: ${stream.color}`}></i>{stream.title}</li>
+              ))}
+            </ul>
           </div>
-        ))
-      }
+        </div>
+
+        <div class="hero-panel-chart">
+          <span class="hero-panel-label">{p.chartLabel}</span>
+          <div class="hero-panel-plot">
+            <svg viewBox="0 0 400 120" fill="none" preserveAspectRatio="none">
+              <line x1="0" y1="30" x2="400" y2="30" />
+              <line x1="0" y1="60" x2="400" y2="60" />
+              <line x1="0" y1="90" x2="400" y2="90" />
+              <path class="hero-panel-area" d={`${line} L400 120 L0 120 Z`} />
+              <path class="hero-panel-line" d={line} pathLength="1" />
+            </svg>
+            <span class="hero-panel-dot"></span>
+          </div>
+        </div>
+
+        <ul class="hero-panel-status">
+          {p.status.map((s) => (
+            <li><i></i>{s}</li>
+          ))}
+        </ul>
+      </div>
+
+      <div class="hero-chip">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
+        </svg>
+        {p.badge}
+      </div>
+
+      <div class="hero-notice">
+        <span class="hero-notice-icon">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.5 12.75l6 6 9-13.5" />
+          </svg>
+        </span>
+        <span>
+          <strong>{p.notice}</strong>
+          <small>{p.noticeSub}</small>
+        </span>
+      </div>
     </div>
   </div>
 </section>

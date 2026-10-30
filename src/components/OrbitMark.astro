@@ -1,0 +1,19 @@
+---
+/**
+ * The ring of gold shapes from the logo (the orbit around the map of Iran), used as a
+ * decorative layer. Turns slowly when motion is allowed; position/size/opacity come from
+ * the caller's class (see `.orbit-mark` in src/styles/sections.css).
+ */
+interface Props {
+  class?: string;
+  /** Also draw the map of Iran in the middle, i.e. the full logo mark at this size */
+  withCenter?: boolean;
+}
+
+const { class: className, withCenter = false } = Astro.props;
+---
+
+<span class:list={['orbit-mark', className]} aria-hidden="true">
+  <img src="/media/etemadmelal-logo-orbit.svg" alt="" class="orbit-mark-ring" loading="lazy" decoding="async" />
+  {withCenter && <img src="/media/etemadmelal-logo-center.svg" alt="" class="orbit-mark-center" loading="lazy" decoding="async" />}
+</span>

@@ -1,10 +1,10 @@
 ---
-import SectionHeader from './SectionHeader.astro';
-import ChartDecoration from './ChartDecoration.astro';
+import OrbitMark from './OrbitMark.astro';
+import HomeSectionHead from './HomeSectionHead.astro';
 import { siteImages } from '../config/images';
 import { featureStepIcons } from '../lib/section-icons';
 import type { Locale } from '../i18n/types';
-import { getTranslations } from '../i18n';
+import { getTranslations, formatBoxIndex } from '../i18n';
 
 interface Props {
   locale: Locale;
@@ -12,62 +12,94 @@ interface Props {
 
 const { locale } = Astro.props;
 const t = getTranslations(locale);
+const total = formatBoxIndex(t.features.steps.length, locale);
 ---
 
-<section id="features" class="section-spacing relative overflow-hidden">
-  <div class="chart-pattern absolute inset-0 opacity-30" aria-hidden="true"></div>
-  <div class="relative mx-auto max-w-6xl px-4 sm:px-6">
-    <div class="grid items-center gap-8 lg:grid-cols-2 lg:gap-12">
-      <div>
-        <SectionHeader
-          badge={t.features.badge}
-          title={t.features.title}
-          titleAccent={t.features.titleAccent}
-          subtitle={t.features.subtitle}
-        />
-        <ChartDecoration class="mt-8 h-16 w-full max-w-xs" />
-      </div>
-      <div class="relative overflow-hidden rounded-2xl ring-1 ring-accent-gold/20" data-reveal="image">
-        <img src={siteImages.features} alt={t.features.imageAlt} class="aspect-[4/3] w-full object-cover" loading="lazy" />
-        <div class="absolute inset-0 bg-image-overlay-top"></div>
-        {
-          t.features.chartLabel && (
-            <div class="absolute bottom-4 right-4 left-4 investment-card rounded-xl p-4">
-              <div class="flex items-center justify-between text-sm">
+<section id="features" class="home-section band-dark story" data-active="0">
+  <OrbitMark class="orbit-mark--story" />
+  <div class="home-wrap">
+    <HomeSectionHead
+      locale={locale}
+      index={2}
+      badge={t.features.badge}
+      title={t.features.title}
+      titleAccent={t.features.titleAccent}
+      subtitle={t.features.subtitle}
+    />
+
+    <div class="story-layout">
+      <div class="story-sticky">
+        <div class="story-frame" data-reveal="image">
+          <img src={siteImages.features} alt={t.features.imageAlt} class="story-img" loading="lazy" />
+          <div class="story-frame-shade" aria-hidden="true"></div>
+
+          <div class="story-counter" aria-hidden="true">
+            <div class="story-counter-nums">
+              {t.features.steps.map((step) => <span>{step.num}</span>)}
+            </div>
+            <span class="story-counter-total">/ {total}</span>
+          </div>
+
+          <div class="story-frame-icons" aria-hidden="true">
+            {t.features.steps.map((_, i) => (
+              <span>
+                <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d={featureStepIcons[i] ?? featureStepIcons[0]} />
+                </svg>
+              </span>
+            ))}
+          </div>
+
+          {
+            t.features.chartLabel && (
+              <div class="story-chart-note">
                 <span class="text-muted">{t.features.chartLabel}</span>
                 <span class="font-bold text-accent">{t.features.chartValue}</span>
               </div>
-              <div class="mt-2 h-1.5 overflow-hidden rounded-full bg-[var(--surface-muted)]">
-                <div class="h-full w-3/4 rounded-full bg-accent-gold"></div>
-              </div>
-            </div>
-          )
-        }
+            )
+          }
+        </div>
+        <div class="story-segments" aria-hidden="true">
+          {t.features.steps.map(() => <i />)}
+        </div>
       </div>
-    </div>
 
-    <ul class="section-body-gap grid gap-5 sm:grid-cols-2 lg:grid-cols-4 sm:gap-6">
-      {
-        t.features.steps.map((step, i) => (
-          <li class="h-full" data-reveal>
-            <article
-              class="investment-card group relative flex h-full flex-col overflow-hidden rounded-2xl p-6"
-            >
-              <div class="absolute top-0 left-0 h-1 w-full bg-gradient-to-l from-transparent via-accent-gold to-transparent opacity-0 transition-opacity duration-500 ease-out group-hover:opacity-100" />
-              <div class="mb-4 flex items-center justify-between">
-                <span class="text-3xl font-bold text-accent-gold/30">{step.num}</span>
-                <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-accent-gold/25 text-accent-gold-light transition-colors duration-500 ease-out group-hover:bg-accent-gold/35">
-                  <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d={featureStepIcons[i] ?? featureStepIcons[0]} />
-                  </svg>
-                </div>
+      <ol class="story-steps" data-scrub="line" data-scrub-line="0.55">
+        {
+          t.features.steps.map((step, i) => (
+            <li class="story-step" data-step={i}>
+              <span class="story-step-num" aria-hidden="true">{step.num}</span>
+              <div class="story-step-body" data-reveal>
+                <h3 class="story-step-title">{step.title}</h3>
+                <p class="story-step-desc">{step.desc}</p>
               </div>
-              <h3 class="text-[17px] font-bold text-heading">{step.title}</h3>
-              <p class="mt-2 text-sm leading-relaxed text-muted">{step.desc}</p>
-            </article>
-          </li>
-        ))
-      }
-    </ul>
+              <svg class="story-step-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.25" d={featureStepIcons[i] ?? featureStepIcons[0]} />
+              </svg>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
   </div>
 </section>
+
+<script>
+  // Highlights the step crossing the middle of the viewport and syncs the sticky frame to it.
+  document.querySelectorAll<HTMLElement>('.story').forEach((section) => {
+    const steps = section.querySelectorAll<HTMLElement>('.story-step');
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          const index = (entry.target as HTMLElement).dataset.step ?? '0';
+          section.dataset.active = index;
+          steps.forEach((step) => step.classList.toggle('is-active', step.dataset.step === index));
+        });
+      },
+      { rootMargin: '-45% 0px -45% 0px' },
+    );
+    steps.forEach((step) => observer.observe(step));
+    steps[0]?.classList.add('is-active');
+  });
+</script>

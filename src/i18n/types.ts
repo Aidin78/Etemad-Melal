@@ -50,6 +50,17 @@ export type Translations = {
     titleAccent: string;
     subtitle: string;
     learnMore: string;
+    /** Labels on the decorative investor-panel preview beside the hero title */
+    panel: {
+      title: string;
+      live: string;
+      chartLabel: string;
+      badge: string;
+      notice: string;
+      noticeSub: string;
+      mix: string;
+      status: string[];
+    };
     stats: { value: string; label: string }[];
   };
   ticker: { label: string; trend: string }[];
@@ -89,6 +100,17 @@ export type Translations = {
     highlights: { label: string; value: string }[];
     ctaStart: string;
     ctaContact: string;
+    /** Labels on the investor ↔ Etemad Melal ↔ industry diagram */
+    bridge: {
+      investor: string;
+      investorSub: string;
+      hub: string;
+      hubSub: string;
+      industry: string;
+      industrySub: string;
+      flowOut: string;
+      flowBack: string;
+    };
     ctaLearnMore: string;
   };
   aboutPage: {

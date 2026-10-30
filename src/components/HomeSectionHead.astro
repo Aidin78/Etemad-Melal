@@ -1,0 +1,43 @@
+---
+/**
+ * Editorial section opener for the homepage: a numbered hairline rule with the
+ * section label, then the title (words rise out of a mask on scroll) beside its subtitle.
+ */
+import type { Locale } from '../i18n/types';
+import { formatBoxIndex } from '../i18n';
+
+interface Props {
+  locale: Locale;
+  index: number;
+  badge: string;
+  title: string;
+  titleAccent: string;
+  subtitle?: string;
+  /** Stack the subtitle under the title instead of beside it (narrow columns) */
+  stacked?: boolean;
+}
+
+const { locale, index, badge, title, titleAccent, subtitle, stacked = false } = Astro.props;
+const words = [
+  ...title.trim().split(/\s+/).filter(Boolean).map((w) => ({ w, accent: false })),
+  ...titleAccent.trim().split(/\s+/).filter(Boolean).map((w) => ({ w, accent: true })),
+];
+---
+
+<header class:list={['sh', stacked && 'sh--stacked']}>
+  <div class="sh-rule" data-reveal="rule">
+    <span class="sh-index">{formatBoxIndex(index, locale)}</span>
+    {badge.trim() && <span class="sh-label">{badge}</span>}
+    <slot name="aside" />
+  </div>
+  <div class="sh-body">
+    <h2 class="sh-title" data-reveal="mask">
+      {words.map(({ w, accent }, i) => (
+        <>
+          <span class:list={['mask-word', accent && 'sh-accent']}><span style={`--w: ${i}`}>{w}</span></span>{' '}
+        </>
+      ))}
+    </h2>
+    {subtitle && <p class="sh-sub" data-reveal="fade">{subtitle}</p>}
+  </div>
+</header>
