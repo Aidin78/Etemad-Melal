@@ -40,6 +40,7 @@ export const en: Translations = {
     badge: 'Etemad Melal investment platform',
     title: 'Smart investing with',
     titleAccent: 'transparency & trust',
+    titleRotate: ['expert management', 'real-time reports', 'official contracts', 'dedicated support'],
     subtitle:
       'A smart, transparent investment platform. Track and manage your portfolio in real time through our advanced user panel.',
     learnMore: 'Learn more',

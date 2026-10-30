@@ -48,6 +48,8 @@ export type Translations = {
     badge: string;
     title: string;
     titleAccent: string;
+    /** Phrases the hero accent types out after `titleAccent`, in turn (it reads on from `title`) */
+    titleRotate: string[];
     subtitle: string;
     learnMore: string;
     /** Labels on the decorative investor-panel preview beside the hero title */

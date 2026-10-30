@@ -18,6 +18,7 @@ const yearsActive = toLocaleDigits(getYearsActive(), locale);
 
 const titleWords = t.hero.title.trim().split(/\s+/);
 const accentWords = t.hero.titleAccent.trim().split(/\s+/);
+const accentPhrases = [t.hero.titleAccent, ...t.hero.titleRotate];
 
 // Panel preview chart (viewBox 400 × 120, rising left → right) — illustrative, no figures
 const line = 'M0 104 L40 98 L80 102 L120 84 L160 88 L200 70 L240 75 L280 52 L320 57 L360 32 L392 24';
@@ -47,11 +48,14 @@ const ringSegments = t.income.streams.map((stream, i) => {
           </>
         ))}
         <span class="hero-title-accent">
-          {accentWords.map((word, i) => (
-            <>
-              <span class="mask-word"><span style={`--w: ${titleWords.length + i}`}>{word}</span></span>{' '}
-            </>
-          ))}
+          <span class="sr-only">{t.hero.titleAccent}</span>
+          <span class="hero-type" aria-hidden="true" data-typewriter={JSON.stringify(accentPhrases)}>
+            {accentWords.map((word, i) => (
+              <>
+                <span class="mask-word"><span style={`--w: ${titleWords.length + i}`}>{word}</span></span>{' '}
+              </>
+            ))}
+          </span>
         </span>
       </h1>
 
@@ -158,4 +162,49 @@ const ringSegments = t.income.streams.map((stream, i) => {
       </div>
     </div>
   </div>
+
+  <!-- Inside the section: a stacked section must be directly followed by the one that covers it -->
+  <script>
+    // Hero accent: once the intro has risen in, types out each phrase in turn, then erases it.
+    // Screen readers keep the static sr-only copy; reduced motion keeps the first phrase.
+    const TYPE_MS = 65;
+    const ERASE_MS = 32;
+    const HOLD_MS = 2400;
+    const INTRO_MS = 2200;
+
+    const el = document.querySelector<HTMLElement>('[data-typewriter]');
+    const phrases: string[] = el ? JSON.parse(el.dataset.typewriter ?? '[]') : [];
+
+    if (el && phrases.length > 1 && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const text = document.createElement('span');
+      const caret = document.createElement('span');
+      caret.className = 'hero-type-caret';
+      const wait = (ms: number) => new Promise((resolve) => window.setTimeout(resolve, ms));
+
+      const run = async () => {
+        await wait(INTRO_MS);
+        text.textContent = phrases[0];
+        el.replaceChildren(text, caret);
+        el.classList.add('is-typing');
+        // Code points, so ZWNJ and surrogate pairs come and go as single steps
+        let index = 0;
+        for (;;) {
+          await wait(HOLD_MS);
+          const current = [...phrases[index]];
+          for (let n = current.length - 1; n >= 0; n--) {
+            text.textContent = current.slice(0, n).join('');
+            await wait(ERASE_MS);
+          }
+          index = (index + 1) % phrases.length;
+          const next = [...phrases[index]];
+          await wait(250);
+          for (let n = 1; n <= next.length; n++) {
+            text.textContent = next.slice(0, n).join('');
+            await wait(TYPE_MS);
+          }
+        }
+      };
+      run();
+    }
+  </script>
 </section>

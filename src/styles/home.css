@@ -364,6 +364,26 @@ body:has(.home):not(.mobile-menu-open) .site-header.is-top {
 
 .hero-title-accent {
   display: block;
+  /* Keeps a line while the typewriter has erased the phrase, so the copy below doesn't jump */
+  min-height: 1lh;
+}
+
+/* Typewriter caret (Hero.astro script); sits at the end of the line in either direction.
+   Its margins cancel its width, so it never wraps a phrase that fits onto a second line. */
+.hero-type-caret {
+  display: inline-block;
+  width: 0.06em;
+  height: 0.85em;
+  margin-inline: 0.1em -0.16em;
+  vertical-align: -0.05em;
+  background: currentColor;
+  animation: caret-blink 1s steps(1) infinite;
+}
+
+@keyframes caret-blink {
+  50% {
+    opacity: 0;
+  }
 }
 
 .hero-subtitle {
