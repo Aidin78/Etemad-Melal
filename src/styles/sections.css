@@ -490,9 +490,17 @@ footer {
   --orbit-speed: 60s;
 }
 
+.orbit-mark--faq {
+  bottom: -10rem;
+  inset-inline-end: -12rem;
+  width: 32rem;
+  opacity: 0.045;
+}
+
 @media (max-width: 767px) {
   .orbit-mark--story,
-  .orbit-mark--manifesto {
+  .orbit-mark--manifesto,
+  .orbit-mark--faq {
     width: 22rem;
   }
 

@@ -1,0 +1,27 @@
+---
+import type { Locale } from '../i18n/types';
+import { formatBoxIndex } from '../i18n';
+
+interface Props {
+  locale: Locale;
+  /** 1-based position in the list */
+  number: number;
+  q: string;
+  a: string;
+  as?: 'h2' | 'h3';
+  /** Items sharing a name open one at a time */
+  name?: string;
+  open?: boolean;
+}
+
+const { locale, number, q, a, as: Question = 'h3', name, open = false } = Astro.props;
+---
+
+<details class="faq-item" name={name} open={open} data-reveal data-spotlight>
+  <summary class="faq-summary">
+    <span class="faq-num" aria-hidden="true">{formatBoxIndex(number, locale)}</span>
+    <Question class="faq-q">{q}</Question>
+    <span class="faq-toggle" aria-hidden="true"></span>
+  </summary>
+  <p class="faq-a">{a}</p>
+</details>

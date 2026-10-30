@@ -1,7 +1,9 @@
 ---
+import FaqItem from './FaqItem.astro';
 import HomeSectionHead from './HomeSectionHead.astro';
+import OrbitMark from './OrbitMark.astro';
 import type { Locale } from '../i18n/types';
-import { getTranslations, localePath, formatBoxIndex } from '../i18n';
+import { getTranslations, localePath } from '../i18n';
 import { homepageFaqCount } from '../config/site';
 
 interface Props {
@@ -13,8 +15,9 @@ const t = getTranslations(locale);
 const items = t.faqPage.items.slice(0, homepageFaqCount);
 ---
 
-<section id="faq" class="home-section">
-  <div class="home-wrap">
+<section id="faq" class="home-section band-dark" data-pointer>
+  <OrbitMark class="orbit-mark--faq" />
+  <div class="home-wrap faq-grid">
     <HomeSectionHead
       locale={locale}
       index={6}
@@ -22,23 +25,13 @@ const items = t.faqPage.items.slice(0, homepageFaqCount);
       title={t.faq.title}
       titleAccent={t.faq.titleAccent}
       subtitle={t.faq.subtitle}
+      stacked
     >
       <a slot="aside" href={localePath(locale, '/faq')} class="sh-link">{t.faq.viewAllLabel}</a>
     </HomeSectionHead>
 
     <div class="faq-list">
-      {
-        items.map((item, index) => (
-          <details class="faq-item" data-reveal>
-            <summary class="faq-summary">
-              <span class="faq-num" aria-hidden="true">{formatBoxIndex(index + 1, locale)}</span>
-              <h3 class="faq-q">{item.q}</h3>
-              <span class="faq-toggle" aria-hidden="true"></span>
-            </summary>
-            <p class="faq-a">{item.a}</p>
-          </details>
-        ))
-      }
+      {items.map((item, index) => <FaqItem locale={locale} number={index + 1} q={item.q} a={item.a} name="home-faq" open={index === 0} />)}
     </div>
   </div>
 </section>

@@ -1,16 +1,22 @@
 ---
+import type { HTMLAttributes } from 'astro/types';
 import type { CollectionEntry } from 'astro:content';
 import type { Locale } from '../i18n/types';
 import { getArticleDisplay, getTranslations, localePath } from '../i18n';
 import { parseArticleId } from '../lib/article-utils';
 
-interface Props {
+interface Props extends HTMLAttributes<'a'> {
   locale: Locale;
   post: CollectionEntry<'articles'>;
-  compact?: boolean;
+  /**
+   * lead: large photo above the text · feature: lead with the text beside it on wide screens
+   * card: grid item · row: text beside a small thumbnail, no excerpt
+   */
+  variant?: 'lead' | 'feature' | 'card' | 'row';
+  as?: 'h2' | 'h3';
 }
 
-const { locale, post, compact = false } = Astro.props;
+const { locale, post, variant = 'card', as: Title = 'h3', ...attrs } = Astro.props;
 const t = getTranslations(locale);
 const { slug } = parseArticleId(post.id);
 const display = getArticleDisplay(locale, {
@@ -19,22 +25,32 @@ const display = getArticleDisplay(locale, {
   date: post.data.date,
   dateFa: post.data.dateFa,
 });
-const TitleTag = compact ? 'h3' : 'h2';
-const titleClass = compact
-  ? 'mt-2 text-lg font-bold text-heading group-hover:text-accent-gold-light'
-  : 'mt-2 text-xl font-bold text-heading group-hover:text-accent-gold-light';
+const href = localePath(locale, `/articles/${slug}`);
+const leading = variant === 'lead' || variant === 'feature';
 ---
 
-<article class="investment-card group overflow-hidden rounded-2xl">
-  <a href={localePath(locale, `/articles/${slug}`)} class="block">
-    <img src={post.data.image} alt={display.title} class="aspect-video w-full object-cover transition duration-700 ease-out group-hover:scale-[1.015]" loading="lazy" />
-    <div class="p-6">
-      <time class="text-xs font-medium text-accent-gold" datetime={post.data.date.toISOString()}>
-        {display.dateLabel}
-      </time>
-      <TitleTag class={titleClass}>{display.title}</TitleTag>
-      <p class:list={['mt-2 text-sm text-muted', compact && 'line-clamp-2']}>{display.excerpt}</p>
-      {!compact && <span class="mt-4 inline-block text-sm font-bold text-accent">{t.news.readMore}</span>}
-    </div>
-  </a>
-</article>
+{
+  variant === 'row' ? (
+    <a href={href} class="news-row" {...attrs}>
+      <div>
+        <time class="news-date" datetime={post.data.date.toISOString()}>{display.dateLabel}</time>
+        <Title class="news-title">{display.title}</Title>
+      </div>
+      <span class="news-media">
+        <img src={post.data.image} alt="" loading="lazy" />
+      </span>
+    </a>
+  ) : (
+    <a href={href} class:list={[leading ? 'news-lead' : 'news-card', variant === 'feature' && 'news-lead--feature']} {...attrs}>
+      <span class="news-media">
+        <img src={post.data.image} alt="" loading={variant === 'feature' ? 'eager' : 'lazy'} />
+      </span>
+      <div>
+        <time class="news-date" datetime={post.data.date.toISOString()}>{display.dateLabel}</time>
+        <Title class="news-title">{display.title}</Title>
+        <p class="news-excerpt">{display.excerpt}</p>
+        {leading && <span class="news-more">{t.news.readMore}</span>}
+      </div>
+    </a>
+  )
+}

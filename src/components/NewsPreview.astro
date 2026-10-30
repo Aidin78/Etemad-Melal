@@ -1,9 +1,10 @@
 ---
 import { getSortedArticles } from '../lib/articles';
-import { parseArticleId } from '../lib/article-utils';
 import HomeSectionHead from './HomeSectionHead.astro';
+import NewsCard from './NewsCard.astro';
 import type { Locale } from '../i18n/types';
-import { getArticleDisplay, getTranslations, localePath } from '../i18n';
+import { getTranslations, localePath } from '../i18n';
+import { homepageArticleCount } from '../config/site';
 
 interface Props {
   locale: Locale;
@@ -11,21 +12,12 @@ interface Props {
 
 const { locale } = Astro.props;
 const t = getTranslations(locale);
-const posts = (await getSortedArticles(locale)).slice(0, 2).map((post) => ({
-  post,
-  slug: parseArticleId(post.id).slug,
-  display: getArticleDisplay(locale, {
-    title: post.data.title,
-    excerpt: post.data.excerpt,
-    date: post.data.date,
-    dateFa: post.data.dateFa,
-  }),
-}));
+const [lead, ...rest] = (await getSortedArticles(locale)).slice(0, homepageArticleCount);
 ---
 
 {
-  posts.length > 0 && (
-    <section class="home-section">
+  lead && (
+    <section class="home-section" data-pointer>
       <div class="home-wrap">
         <HomeSectionHead
           locale={locale}
@@ -38,20 +30,19 @@ const posts = (await getSortedArticles(locale)).slice(0, 2).map((post) => ({
           <a slot="aside" href={localePath(locale, '/articles')} class="sh-link">{t.news.viewAll}</a>
         </HomeSectionHead>
 
-        <ul class="news-list">
-          {posts.map(({ post, slug, display }) => (
-            <li data-reveal>
-              <a href={localePath(locale, `/articles/${slug}`)} class="news-item">
-                <span class="news-media">
-                  <img src={post.data.image} alt={display.title} loading="lazy" />
-                </span>
-                <time class="news-date" datetime={post.data.date.toISOString()}>{display.dateLabel}</time>
-                <h3 class="news-title">{display.title}</h3>
-                <p class="news-excerpt">{display.excerpt}</p>
-              </a>
-            </li>
-          ))}
-        </ul>
+        <div class="news-grid">
+          <NewsCard locale={locale} post={lead} variant="lead" data-reveal data-spotlight />
+
+          {rest.length > 0 && (
+            <ul class="news-rest" data-reveal="cascade">
+              {rest.map((post) => (
+                <li>
+                  <NewsCard locale={locale} post={post} variant="row" data-spotlight />
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
       </div>
     </section>
   )
