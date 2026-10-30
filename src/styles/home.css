@@ -2441,24 +2441,46 @@ body:has(.home):not(.mobile-menu-open) .site-header.is-top {
 }
 
 /* ═══════════════ Contact (same structure, homepage language) ═══════════════ */
+/* No panel: details and form sit directly on the page, split by a hairline */
 .home .contact-panel {
-  border-radius: var(--radius);
-  border-color: var(--rule-strong);
+  gap: 3rem;
+  overflow: visible;
+  border: 0;
+  border-radius: 0;
   background: transparent;
   box-shadow: none;
 }
 
-.home .contact-aside {
-  border-color: var(--rule-strong);
-  background: color-mix(in srgb, var(--color-accent-gold) 5%, transparent);
+@media (min-width: 1024px) {
+  .home .contact-panel {
+    gap: 0;
+  }
 }
 
-.home .contact-aside .grid-pattern {
-  display: none;
+.home :is(.contact-aside, .contact-form-wrap) {
+  overflow: visible;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+@media (min-width: 1024px) {
+  .home .contact-aside {
+    padding-inline-end: 4rem;
+    border-inline-end: 1px solid var(--rule);
+  }
+
+  .home .contact-form-wrap {
+    padding-inline-start: 4rem;
+  }
+}
+
+.home .contact-channels {
+  border-top: 1px solid var(--rule-strong);
 }
 
 .home .contact-channel {
-  padding-inline: 0;
+  padding: 1.25rem 0;
   border: 0;
   border-bottom: 1px solid var(--rule);
   border-radius: 0;
@@ -2469,13 +2491,57 @@ body:has(.home):not(.mobile-menu-open) .site-header.is-top {
   background: transparent;
 }
 
-.home :is(.contact-channel-icon, .contact-copy, .input-field) {
+.home .contact-channel-icon {
+  height: 2.25rem;
+  width: 1.75rem;
+  justify-content: flex-start;
+  color: var(--gold);
+  background: transparent;
+  box-shadow: none;
+}
+
+.home .contact-channel-value {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.home a.contact-channel-value:hover {
+  color: var(--gold);
+}
+
+.home .contact-copy {
+  border-color: var(--rule-strong);
   border-radius: var(--radius);
 }
 
-.home .contact-channel-icon {
+.home .contact-copy:is(:hover, .is-copied) {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+/* Fields are a single rule that turns gold on focus */
+.home .input-field {
+  padding-inline: 0;
+  border: 0;
+  border-bottom: 1px solid var(--rule-strong);
+  border-radius: 0;
   background: transparent;
-  box-shadow: inset 0 0 0 1px var(--rule-strong);
+  transition:
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.home .input-field:focus-visible {
+  outline: none;
+  border-color: var(--gold);
+  box-shadow: 0 1px 0 var(--gold);
+}
+
+.home .contact-sent-badge {
+  border-radius: var(--radius);
+  color: var(--gold);
+  background: transparent;
+  box-shadow: inset 0 0 0 1px var(--gold);
 }
 
 /* ═══════════════ Cursor spotlight (data-spotlight) ═══════════════ */
