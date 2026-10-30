@@ -30,15 +30,16 @@ const navDataAttrs = (href: string) => {
 };
 
 const localizedHref = (href: string) => localePath(locale, href);
+const primaryNav = t.nav.filter((link) => !link.secondary);
 ---
 
-<header class="site-header fixed inset-x-0 top-0 z-50 border-b border-theme bg-header backdrop-blur-xl" id="site-header">
-  <div class="site-header-bar mx-auto flex max-w-6xl items-center justify-between gap-2 px-3 sm:gap-4 sm:px-6">
+<header class="site-header fixed inset-x-0 top-0 z-50 bg-header backdrop-blur-xl" id="site-header">
+  <div class="site-header-bar">
     <Logo locale={locale} size="sm" animated={false} class="min-w-0 shrink" />
 
-    <nav class="hidden items-center gap-6 lg:flex" aria-label={t.a11y.mainNav}>
+    <nav class="site-nav hidden lg:flex" aria-label={t.a11y.mainNav}>
       {
-        t.nav.map((link) => (
+        primaryNav.map((link) => (
           <a href={localizedHref(link.href)} class="nav-link" {...navDataAttrs(link.href)}>
             {link.label}
           </a>
@@ -46,25 +47,25 @@ const localizedHref = (href: string) => localePath(locale, href);
       }
     </nav>
 
-    <div class="flex shrink-0 items-center gap-1.5 sm:gap-2 lg:gap-3">
-      <div class="hidden items-center gap-1.5 sm:flex sm:gap-2">
-        <LanguageSwitcher locale={locale} />
+    <div class="site-header-tools">
+      <div class="hidden items-center gap-1 sm:flex">
+        <LanguageSwitcher locale={locale} compact />
         <ThemeToggle ariaLabel={t.a11y.themeToggle} labelLight={t.a11y.switchToLight} labelDark={t.a11y.switchToDark} />
       </div>
-      <PanelLink locale={locale} class="max-lg:!hidden text-sm !px-5 !py-2.5">{t.panelCtaLogin}</PanelLink>
+      <PanelLink locale={locale} class="site-header-cta max-lg:!hidden">{t.panelCtaLogin}</PanelLink>
       <button
         type="button"
-        class="mobile-menu-toggle flex h-11 w-11 items-center justify-center rounded-lg border border-theme bg-[var(--toggle-bg)] text-[var(--toggle-text)] transition-colors duration-300 lg:hidden"
+        class="mobile-menu-toggle flex h-11 w-11 items-center justify-center lg:hidden"
         id="menu-toggle"
         aria-label={t.a11y.openMenu}
         aria-expanded="false"
         aria-controls="mobile-menu"
       >
         <svg class="h-5 w-5" id="icon-open" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M4 8h16M4 16h16" />
         </svg>
         <svg class="hidden h-5 w-5" id="icon-close" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M6 18L18 6M6 6l12 12" />
         </svg>
       </button>
     </div>
@@ -252,6 +253,38 @@ const localizedHref = (href: string) => localePath(locale, href);
   }
 
   const path = normalizePath();
+  const isHome = path === '/' || path === '/en';
+
+  // Homepage: the header sits transparently on the hero until the page scrolls
+  // (checked by path — this script runs before the page content is parsed)
+  if (isHome) {
+    const syncTop = () => header?.classList.toggle('is-top', window.scrollY < 8);
+    syncTop();
+    window.addEventListener('scroll', syncTop, { passive: true });
+  }
+
+  // Slides away while scrolling down, comes back on any scroll up (never while the menu is open)
+  let lastY = window.scrollY;
+  let hideTicking = false;
+  const syncHidden = () => {
+    hideTicking = false;
+    const y = window.scrollY;
+    const delta = y - lastY;
+    if (Math.abs(delta) < 6) return;
+    const menuOpen = menu?.classList.contains('mobile-menu--open');
+    header?.classList.toggle('is-hidden', !menuOpen && delta > 0 && y > (header?.offsetHeight ?? 64));
+    lastY = y;
+  };
+  window.addEventListener(
+    'scroll',
+    () => {
+      if (hideTicking) return;
+      hideTicking = true;
+      requestAnimationFrame(syncHidden);
+    },
+    { passive: true },
+  );
+
   if (path.includes('/articles') || path.includes('/about')) initPageNav();
-  else if (path === '/' || path === '/en') initScrollSpy();
+  else if (isHome) initScrollSpy();
 </script>

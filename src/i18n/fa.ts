@@ -18,8 +18,8 @@ export const fa: Translations = {
     { href: '/#income-streams', label: 'منافع' },
     { href: '/#trust', label: 'مزایا' },
     { href: '/about', label: 'درباره ما' },
-    { href: '/#faq', label: 'سوالات' },
-    { href: '/#contact', label: 'تماس' },
+    { href: '/#faq', label: 'سوالات', secondary: true },
+    { href: '/#contact', label: 'تماس', secondary: true },
     { href: '/articles', label: 'مقالات' },
   ],
   a11y: {

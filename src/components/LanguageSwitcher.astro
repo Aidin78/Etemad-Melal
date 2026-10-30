@@ -4,12 +4,27 @@ import { getTranslations, alternateLocalePath } from '../i18n';
 
 interface Props {
   locale: Locale;
+  /** A single link to the other language instead of the FA/EN pair */
+  compact?: boolean;
 }
 
-const { locale } = Astro.props;
+const { locale, compact = false } = Astro.props;
 const t = getTranslations(locale);
 const alternate = alternateLocalePath(locale, Astro.url.pathname);
+const other = locale === 'fa' ? 'en' : 'fa';
 ---
+
+{compact ? (
+  <a
+    href={alternate}
+    class="lang-switch-compact"
+    hreflang={other}
+    lang={other}
+    title={other === 'en' ? t.langSwitch.toEn : t.langSwitch.toFa}
+  >
+    {other === 'en' ? 'EN' : 'فا'}
+  </a>
+) : (
 
 <div
   class="flex items-center rounded-lg border border-theme bg-[var(--toggle-bg)] p-0.5 text-xs font-semibold"
@@ -41,3 +56,4 @@ const alternate = alternateLocalePath(locale, Astro.url.pathname);
     EN
   </a>
 </div>
+)}

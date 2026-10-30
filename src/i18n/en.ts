@@ -18,8 +18,8 @@ export const en: Translations = {
     { href: '/#income-streams', label: 'Benefits' },
     { href: '/#trust', label: 'Advantages' },
     { href: '/about', label: 'About' },
-    { href: '/#faq', label: 'FAQ' },
-    { href: '/#contact', label: 'Contact' },
+    { href: '/#faq', label: 'FAQ', secondary: true },
+    { href: '/#contact', label: 'Contact', secondary: true },
     { href: '/articles', label: 'Articles' },
   ],
   a11y: {

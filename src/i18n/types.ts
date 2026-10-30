@@ -1,6 +1,11 @@
 export type Locale = 'fa' | 'en';
 
-export type NavLink = { href: string; label: string };
+export type NavLink = {
+  href: string;
+  label: string;
+  /** Listed in the mobile menu and footer, but left out of the desktop header bar */
+  secondary?: boolean;
+};
 
 export type FaqItem = { q: string; a: string };
 
