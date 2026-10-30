@@ -5,7 +5,8 @@
   --color-accent: #4a9ec4;
   --color-accent-gold: #d4a853;
   --color-accent-gold-light: #f0d78c;
-  --font-sans: iransansx, tahoma, ui-sans-serif, system-ui, sans-serif;
+  --font-sans: morabba, iransansx, tahoma, ui-sans-serif, system-ui, sans-serif;
+  --font-display: morabba, iransansxv, iransansx, tahoma, sans-serif;
 }
 
 /* ── Theme tokens ── */
@@ -135,4 +136,80 @@
     url('/font/IRANSansXV.woff') format('woff');
   font-weight: 100 1000;
   font-display: swap;
+}
+
+/*
+ * Morabba — the site's Persian typeface (body and headings). Limited to the Arabic/Persian
+ * ranges, so Latin text in the same element (and the whole EN site) stays on IRANSansX.
+ */
+@font-face {
+  font-family: morabba;
+  src: url('/font/morabba/Morabba-UltraLight.woff2') format('woff2');
+  font-weight: 200;
+  font-display: swap;
+  unicode-range: U+0600-06FF, U+0750-077F, U+200C-200F, U+FB50-FDFF, U+FE70-FEFF;
+}
+
+@font-face {
+  font-family: morabba;
+  src: url('/font/morabba/Morabba-Light.woff2') format('woff2');
+  font-weight: 300;
+  font-display: swap;
+  unicode-range: U+0600-06FF, U+0750-077F, U+200C-200F, U+FB50-FDFF, U+FE70-FEFF;
+}
+
+@font-face {
+  font-family: morabba;
+  src: url('/font/morabba/Morabba-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+  unicode-range: U+0600-06FF, U+0750-077F, U+200C-200F, U+FB50-FDFF, U+FE70-FEFF;
+}
+
+@font-face {
+  font-family: morabba;
+  src: url('/font/morabba/Morabba-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-display: swap;
+  unicode-range: U+0600-06FF, U+0750-077F, U+200C-200F, U+FB50-FDFF, U+FE70-FEFF;
+}
+
+@font-face {
+  font-family: morabba;
+  src: url('/font/morabba/Morabba-SemiBold.woff2') format('woff2');
+  font-weight: 600;
+  font-display: swap;
+  unicode-range: U+0600-06FF, U+0750-077F, U+200C-200F, U+FB50-FDFF, U+FE70-FEFF;
+}
+
+@font-face {
+  font-family: morabba;
+  src: url('/font/morabba/Morabba-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-display: swap;
+  unicode-range: U+0600-06FF, U+0750-077F, U+200C-200F, U+FB50-FDFF, U+FE70-FEFF;
+}
+
+@font-face {
+  font-family: morabba;
+  src: url('/font/morabba/Morabba-ExtraBold.woff2') format('woff2');
+  font-weight: 800;
+  font-display: swap;
+  unicode-range: U+0600-06FF, U+0750-077F, U+200C-200F, U+FB50-FDFF, U+FE70-FEFF;
+}
+
+@font-face {
+  font-family: morabba;
+  src: url('/font/morabba/Morabba-Black.woff2') format('woff2');
+  font-weight: 900;
+  font-display: swap;
+  unicode-range: U+0600-06FF, U+0750-077F, U+200C-200F, U+FB50-FDFF, U+FE70-FEFF;
+}
+
+@font-face {
+  font-family: morabba;
+  src: url('/font/morabba/Morabba-Heavy.woff2') format('woff2');
+  font-weight: 1000;
+  font-display: swap;
+  unicode-range: U+0600-06FF, U+0750-077F, U+200C-200F, U+FB50-FDFF, U+FE70-FEFF;
 }

@@ -13,8 +13,9 @@ html {
   outline-offset: 2px;
 }
 
+/* Morabba covers Persian script only (see tokens.css), so Latin text falls through to IRANSansX */
 body {
-  font-family: iransansx, tahoma, sans-serif;
+  font-family: morabba, iransansx, tahoma, sans-serif;
   background-color: var(--page);
   color: var(--text);
   -webkit-font-smoothing: antialiased;
@@ -25,7 +26,7 @@ body {
 
 @supports (font-variation-settings: normal) {
   body {
-    font-family: iransansxv, iransansx, tahoma, sans-serif;
+    font-family: var(--font-display);
   }
 }
 
@@ -33,5 +34,6 @@ h1,
 h2,
 h3,
 h4 {
+  font-family: var(--font-display);
   font-variation-settings: 'DOTS' 4;
 }
