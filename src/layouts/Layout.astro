@@ -18,6 +18,8 @@ interface Props {
   publishedTime?: Date;
   jsonLd?: Record<string, unknown> | Record<string, unknown>[];
   noindex?: boolean;
+  /** Footer's call-to-action band; off on pages that close with their own */
+  footerCta?: boolean;
 }
 
 const {
@@ -29,6 +31,7 @@ const {
   publishedTime,
   jsonLd,
   noindex = false,
+  footerCta = true,
 } = Astro.props;
 
 const t = getTranslations(locale);
@@ -118,7 +121,7 @@ const altUrl = new URL(altPath, siteConfig.url).href;
     <main id="main-content" class="site-main relative z-[1]">
       <slot />
     </main>
-    <Footer locale={locale} />
+    <Footer locale={locale} cta={footerCta} />
     <script>
       import { initMotion } from '../scripts/motion';
       initMotion();

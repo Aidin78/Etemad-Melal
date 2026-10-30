@@ -7,34 +7,40 @@ import { getTranslations, localePath } from '../i18n';
 
 interface Props {
   locale: Locale;
+  /** Leave out the call-to-action band on pages that close with their own */
+  cta?: boolean;
 }
 
-const { locale } = Astro.props;
+const { locale, cta = true } = Astro.props;
 const t = getTranslations(locale);
 const year = new Date().getFullYear();
 const contact = localePath(locale, '/#contact');
 ---
 
 <footer class="site-footer" aria-label={t.footer.landmarkLabel}>
-  <div class="band-dark">
-    <OrbitMark class="orbit-mark--footer" />
-    <div class="footer-wrap">
-      <div class="footer-cta" data-reveal="cascade">
-        <div>
-          <p class="footer-eyebrow">{t.footer.ctaEyebrow}</p>
-          <h2 class="footer-cta-title">
-            {t.footer.ctaTitle} <span class="footer-cta-accent">{t.footer.ctaTitleAccent}</span>
-            {t.footer.ctaTitleSuffix}
-          </h2>
-          <p class="footer-cta-sub">{t.footer.ctaSubtitle}</p>
-        </div>
-        <div class="footer-cta-actions">
-          <PanelLink locale={locale} showArrow class="justify-center">{t.panelCtaLogin}</PanelLink>
-          <a href={contact} class="footer-text-link">{t.footer.ctaContact}</a>
+  {
+    cta && (
+      <div class="band-dark">
+        <OrbitMark class="orbit-mark--footer" />
+        <div class="footer-wrap">
+          <div class="footer-cta" data-reveal="cascade">
+            <div>
+              <p class="footer-eyebrow">{t.footer.ctaEyebrow}</p>
+              <h2 class="footer-cta-title">
+                {t.footer.ctaTitle} <span class="footer-cta-accent">{t.footer.ctaTitleAccent}</span>
+                {t.footer.ctaTitleSuffix}
+              </h2>
+              <p class="footer-cta-sub">{t.footer.ctaSubtitle}</p>
+            </div>
+            <div class="footer-cta-actions">
+              <PanelLink locale={locale} showArrow class="justify-center">{t.panelCtaLogin}</PanelLink>
+              <a href={contact} class="footer-text-link">{t.footer.ctaContact}</a>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
+    )
+  }
 
   <div class="footer-wrap">
     <div class="footer-grid">
