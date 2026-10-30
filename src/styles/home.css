@@ -769,8 +769,8 @@ body:has(.home):not(.mobile-menu-open) .site-header.is-top {
   place-items: center;
   height: 2rem;
   width: 2rem;
-  color: #12110f;
-  background: #d4a853;
+  color: var(--btn-gold-text);
+  background: var(--btn-gold);
 }
 
 .hero-notice-icon svg {
@@ -1017,8 +1017,8 @@ body:has(.home):not(.mobile-menu-open) .site-header.is-top {
 }
 
 .marquee-band--gold {
-  color: #12110f;
-  background: #d4a853;
+  color: var(--btn-gold-text);
+  background: var(--btn-gold);
 }
 
 .marquee-band--dark {
@@ -2340,9 +2340,9 @@ body:has(.home):not(.mobile-menu-open) .site-header.is-top {
 }
 
 .faq-item[open] .faq-toggle {
-  border-color: var(--gold);
-  color: #12110f;
-  background: var(--gold);
+  border-color: var(--btn-gold);
+  color: var(--btn-gold-text);
+  background: var(--btn-gold);
 }
 
 .faq-item[open] .faq-toggle::before {

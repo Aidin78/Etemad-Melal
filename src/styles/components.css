@@ -84,24 +84,16 @@
 .btn-primary {
   @apply relative inline-flex items-center justify-center gap-2 overflow-hidden px-7 py-3.5 text-sm font-bold;
   border-radius: var(--radius);
-  color: #12110f;
-  background: #d4a853;
+  color: var(--btn-gold-text);
+  background: var(--btn-gold);
   transition:
     background-color 0.25s ease,
     color 0.25s ease;
 }
 
 .btn-primary:hover {
-  background: #f0d78c;
-}
-
-[data-theme='light'] .btn-primary {
-  background: #c39314;
-}
-
-[data-theme='light'] .btn-primary:hover {
-  background: #9a7309;
-  color: #fff;
+  color: var(--btn-gold-hover-text);
+  background: var(--btn-gold-hover);
 }
 
 .btn-outline,
