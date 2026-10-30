@@ -14,13 +14,13 @@ export const en: Translations = {
   panelCtaLogin: 'Login',
   panelCtaStart: 'Get started',
   nav: [
-    { href: '/#features', label: 'Services' },
     { href: '/#income-streams', label: 'Benefits' },
+    { href: '/#features', label: 'Services' },
     { href: '/#trust', label: 'Advantages' },
     { href: '/about', label: 'About' },
+    { href: '/articles', label: 'Articles' },
     { href: '/#faq', label: 'FAQ', secondary: true },
     { href: '/#contact', label: 'Contact', secondary: true },
-    { href: '/articles', label: 'Articles' },
   ],
   a11y: {
     skipToContent: 'Skip to main content',

@@ -14,13 +14,13 @@ export const fa: Translations = {
   panelCtaLogin: 'ورود',
   panelCtaStart: 'شروع',
   nav: [
-    { href: '/#features', label: 'خدمات' },
     { href: '/#income-streams', label: 'منافع' },
+    { href: '/#features', label: 'خدمات' },
     { href: '/#trust', label: 'مزایا' },
     { href: '/about', label: 'درباره ما' },
+    { href: '/articles', label: 'مقالات' },
     { href: '/#faq', label: 'سوالات', secondary: true },
     { href: '/#contact', label: 'تماس', secondary: true },
-    { href: '/articles', label: 'مقالات' },
   ],
   a11y: {
     skipToContent: 'پرش به محتوای اصلی',
