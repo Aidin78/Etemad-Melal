@@ -1,12 +1,15 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import SectionBadge from './SectionBadge.astro';
+import PageHero from './PageHero.astro';
+import HomeSectionHead from './HomeSectionHead.astro';
+import OrbitMark from './OrbitMark.astro';
 import AboutSectionContent from './AboutSectionContent.astro';
 import PanelLink from './PanelLink.astro';
 import { getEntry } from 'astro:content';
 import type { Locale } from '../i18n/types';
 import { formatBoxIndex, getTranslations, localePath } from '../i18n';
 import { aboutValueIcons } from '../lib/section-icons';
+import { splitTitleAccent } from '../lib/rich-text';
 
 interface Props {
   locale: Locale;
@@ -24,67 +27,60 @@ const { data } = entry;
 ---
 
 <Layout locale={locale} title={data.metaTitle} description={data.metaDescription}>
-  <section class="relative overflow-hidden mesh-gradient pb-14 pt-10 sm:pb-20 sm:pt-16">
-    <div class="grid-pattern absolute inset-0 opacity-35" aria-hidden="true"></div>
-    <div class="relative mx-auto max-w-6xl px-4 sm:px-6">
-      <div class="grid items-center gap-10 lg:grid-cols-2 lg:gap-14">
-        <div data-reveal="cascade">
-          <SectionBadge label={t.about.badge} />
-          <h1 class="mt-4 text-4xl font-bold leading-tight text-heading sm:text-5xl lg:text-6xl">
-            {data.heroTitle} <span class="section-title-accent">{data.heroTitleAccent}</span>
-          </h1>
-          <p class="mt-5 max-w-xl text-base leading-relaxed text-muted sm:text-lg">{data.heroSubtitle}</p>
-
-          <dl class="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-3">
-            {
-              data.highlights.map((item) => (
-                <div class="about-stat-pill rounded-xl px-4 py-3">
-                  <dt class="text-[11px] text-subtle max-sm:text-xs">{item.label}</dt>
-                  <dd class="mt-1 text-sm font-bold text-accent-gold-light">{item.value}</dd>
-                </div>
-              ))
-            }
-          </dl>
+  <div class="about-intro">
+    <PageHero
+      locale={locale}
+      badge={t.about.badge}
+      title={data.heroTitle}
+      titleAccent={data.heroTitleAccent}
+      subtitle={data.heroSubtitle}
+    >
+      <figure class="mt-10 lg:mt-14">
+        <div class="page-photo" data-scrub>
+          <img src={data.image} alt={data.imageAlt} loading="eager" />
         </div>
+        <figcaption class="page-caption">
+          <strong>{t.companyLegal}</strong>
+          <span>{t.tagline}</span>
+        </figcaption>
+      </figure>
 
-        <div class="relative overflow-hidden rounded-2xl ring-1 ring-accent-gold/25 shadow-[0_24px_60px_rgb(0_0_0/0.35)]" data-reveal="image">
-          <img src={data.image} alt={data.imageAlt} class="aspect-[4/3] w-full object-cover" loading="eager" />
-          <div class="absolute inset-0 bg-image-overlay-top"></div>
-          <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[var(--page)] via-[var(--page)]/80 to-transparent p-5 pt-16">
-            <p class="text-sm font-medium text-heading">{t.companyLegal}</p>
-            <p class="mt-1 text-xs text-subtle">{t.tagline}</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+      <dl class="manifesto-highlights" data-reveal="cascade">
+        {
+          data.highlights.map((item, i) => (
+            <div>
+              <span class="manifesto-highlight-num">{formatBoxIndex(i + 1, locale)}</span>
+              <dt>{item.label}</dt>
+              <dd>{item.value}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </PageHero>
+  </div>
 
-  <section class="relative py-12 sm:py-20">
-    <div class="mx-auto max-w-3xl px-4 sm:px-6">
-      <div class="mb-10 text-center" data-reveal="cascade">
-        <h2 class="text-2xl font-bold text-heading sm:text-3xl">{t.aboutPage.detailsTitle}</h2>
-        <p class="mt-2 text-sm text-muted">{t.aboutPage.detailsSubtitle}</p>
-      </div>
+  <section class="home-section">
+    <div class="home-wrap">
+      <HomeSectionHead
+        locale={locale}
+        index={1}
+        badge=""
+        title={t.aboutPage.detailsTitle}
+        titleAccent=""
+        subtitle={t.aboutPage.detailsSubtitle}
+      />
 
-      <ol class="about-timeline space-y-0">
+      <ol class="chapters">
         {
           data.sections.map((section, index) => (
-            <li class="about-timeline-item relative pb-10 last:pb-0" data-reveal="start">
-              <div class="about-timeline-card investment-card rounded-2xl p-6 sm:p-8">
-                <div class="flex items-start gap-4 sm:gap-5">
-                  <span class="about-timeline-index shrink-0" aria-hidden="true">
-                    {formatBoxIndex(index + 1, locale)}
-                  </span>
-                  <div class="min-w-0 flex-1">
-                    <h3 class="text-xl font-bold text-heading sm:text-2xl">{section.title}</h3>
-                    {section.headline && (
-                      <p class="mt-2 text-base font-medium text-accent-gold-light sm:text-lg">{section.headline}</p>
-                    )}
-                    <div class="mt-4 border-t border-divider pt-4">
-                      <AboutSectionContent content={section.content} />
-                    </div>
-                  </div>
-                </div>
+            <li class="chapter" data-reveal>
+              <div class="chapter-head">
+                <span class="chapter-num" aria-hidden="true">{formatBoxIndex(index + 1, locale)}</span>
+                <h3 class="chapter-title">{section.title}</h3>
+              </div>
+              <div>
+                {section.headline && <p class="chapter-headline">{section.headline}</p>}
+                <AboutSectionContent content={section.content} />
               </div>
             </li>
           ))
@@ -93,25 +89,23 @@ const { data } = entry;
     </div>
   </section>
 
-  <section class="section-spacing bg-section-alt">
-    <div class="mx-auto max-w-6xl px-4 sm:px-6">
-      <div class="text-center" data-reveal="cascade">
-        <SectionBadge label={data.valuesTitle} dot={false} />
-        <h2 class="section-title mt-4">{data.valuesTitle}</h2>
-      </div>
-      <ul class="section-body-gap grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+  <section class="home-section band-dark" data-pointer>
+    <OrbitMark class="orbit-mark--manifesto" />
+    <div class="home-wrap">
+      <HomeSectionHead locale={locale} index={2} badge="" {...splitTitleAccent(data.valuesTitle)} />
+
+      <ul class="tgrid tgrid--four">
         {
           data.values.map((value, i) => (
-            <li data-reveal>
-              <article class="about-value-card investment-card rounded-2xl p-6 text-center">
-                <div class="about-value-icon mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl text-accent-gold-light transition-colors duration-500 ease-out">
-                  <svg class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d={aboutValueIcons[i] ?? aboutValueIcons[0]} />
-                  </svg>
-                </div>
-                <h3 class="text-lg font-bold text-heading">{value.title}</h3>
-                <p class="mt-2 text-sm leading-relaxed text-muted">{value.desc}</p>
-              </article>
+            <li class="tcell" data-reveal="fade" data-spotlight>
+              <div class="tcell-head">
+                <span class="tcell-num" aria-hidden="true">{formatBoxIndex(i + 1, locale)}</span>
+                <svg class="tcell-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.25" d={aboutValueIcons[i] ?? aboutValueIcons[0]} />
+                </svg>
+              </div>
+              <h3 class="tcell-title">{value.title}</h3>
+              <p class="tcell-desc">{value.desc}</p>
             </li>
           ))
         }
@@ -119,12 +113,14 @@ const { data } = entry;
     </div>
   </section>
 
-  <section class="pt-12 pb-8 sm:pt-20 sm:pb-12">
-    <div class="mx-auto max-w-6xl px-4 sm:px-6">
-      <div class="about-cta-band rounded-2xl px-6 py-10 text-center sm:px-10 sm:py-12" data-reveal="zoom">
-        <h2 class="text-2xl font-bold text-heading sm:text-3xl">{t.aboutPage.ctaTitle}</h2>
-        <p class="mx-auto mt-3 max-w-xl text-sm text-muted sm:text-base">{t.aboutPage.ctaSubtitle}</p>
-        <div class="mt-8 flex flex-wrap justify-center gap-3">
+  <section class="home-section">
+    <div class="home-wrap">
+      <div class="page-cta" data-reveal>
+        <div>
+          <h2 class="page-cta-title">{t.aboutPage.ctaTitle}</h2>
+          <p class="page-cta-sub">{t.aboutPage.ctaSubtitle}</p>
+        </div>
+        <div class="page-cta-actions">
           <PanelLink locale={locale} signup>{t.about.ctaStart}</PanelLink>
           <a href={localePath(locale, '/#contact')} class="btn-outline">{t.about.ctaContact}</a>
         </div>

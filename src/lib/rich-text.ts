@@ -2,6 +2,13 @@ export type RichTextPart = { type: 'text'; value: string } | { type: 'link'; lab
 
 const PANEL_HOST_PATTERN = /(?:Panel\.)?etemadmel(?:al|ad)\.com/gi;
 
+/** Split a title so its last word can take the thin gold accent; a single word stays whole */
+export function splitTitleAccent(text: string) {
+  const words = text.trim().split(/\s+/);
+  const titleAccent = words.length > 1 ? (words.pop() ?? '') : '';
+  return { title: words.join(' '), titleAccent };
+}
+
 /** Split paragraph text; panel hostnames become external links to panelUrl */
 export function parsePanelLinks(paragraph: string, panelUrl: string): RichTextPart[] {
   const parts: RichTextPart[] = [];

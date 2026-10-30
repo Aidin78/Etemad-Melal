@@ -1,0 +1,79 @@
+---
+/** Contents of a long document: collapsible on small screens, sticky with scroll-spy on large ones */
+interface Props {
+  title: string;
+  items: { id: string; label: string; number?: string }[];
+}
+
+const { title, items } = Astro.props;
+---
+
+<aside class="doc-toc-wrap">
+  <details class="doc-toc-mobile lg:hidden">
+    <summary>{title}</summary>
+    <ol class="pb-2">
+      {
+        items.map((item) => (
+          <li>
+            <a href={`#${item.id}`} class="doc-toc-link" data-toc-link={item.id}>
+              {item.number && <span class="doc-toc-num">{item.number}</span>}
+              <span>{item.label}</span>
+            </a>
+          </li>
+        ))
+      }
+    </ol>
+  </details>
+
+  <nav class="hidden lg:block" aria-label={title}>
+    <p class="doc-toc-title">{title}</p>
+    <ol>
+      {
+        items.map((item) => (
+          <li>
+            <a href={`#${item.id}`} class="doc-toc-link" data-toc-link={item.id}>
+              {item.number && <span class="doc-toc-num">{item.number}</span>}
+              <span>{item.label}</span>
+            </a>
+          </li>
+        ))
+      }
+    </ol>
+  </nav>
+</aside>
+
+<script>
+  const links = [...document.querySelectorAll<HTMLAnchorElement>('[data-toc-link]')];
+  const targets = [...new Set(links.map((link) => link.dataset.tocLink ?? ''))]
+    .map((id) => document.getElementById(id))
+    .filter((el) => el !== null);
+
+  // Scroll-spy: highlight the section currently being read
+  const setActive = (id: string) => {
+    links.forEach((link) => {
+      const active = link.dataset.tocLink === id;
+      link.classList.toggle('is-active', active);
+      if (active) link.setAttribute('aria-current', 'true');
+      else link.removeAttribute('aria-current');
+    });
+  };
+  const visible = new Set<string>();
+  const spy = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) visible.add(entry.target.id);
+        else visible.delete(entry.target.id);
+      });
+      const current = targets.find((el) => visible.has(el.id));
+      if (current) setActive(current.id);
+    },
+    // A band across the upper part of the viewport counts as "being read"
+    { rootMargin: '-20% 0px -55% 0px' },
+  );
+  targets.forEach((el) => spy.observe(el));
+
+  // Mobile contents closes after picking a section
+  document.querySelectorAll<HTMLAnchorElement>('.doc-toc-mobile a').forEach((link) => {
+    link.addEventListener('click', () => link.closest('details')?.removeAttribute('open'));
+  });
+</script>

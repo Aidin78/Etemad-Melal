@@ -1,10 +1,12 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import SectionBadge from './SectionBadge.astro';
+import PageHero from './PageHero.astro';
+import DocToc from './DocToc.astro';
 import AboutSectionContent from './AboutSectionContent.astro';
 import { siteConfig, legalLastUpdated } from '../config/site';
 import type { Locale } from '../i18n/types';
 import { getTranslations, localePath, toLocaleDigits, formatBoxIndex } from '../i18n';
+import { splitTitleAccent } from '../lib/rich-text';
 import { breadcrumbSchema } from '../lib/seo-schemas';
 
 interface Props {
@@ -51,78 +53,27 @@ const meta = [
     ]),
   ]}
 >
-  <section class="terms-hero relative overflow-hidden mesh-gradient py-14 sm:py-20">
-    <div class="grid-pattern absolute inset-0 opacity-40" aria-hidden="true"></div>
-    <div class="relative mx-auto max-w-3xl px-4 text-center sm:px-6" data-reveal="cascade">
-      <SectionBadge label={t.termsPage.badge} />
-      <h1 class="mt-4 text-4xl font-bold text-heading max-sm:text-3xl sm:text-5xl">
-        {t.termsPage.pageTitle}
-      </h1>
-      <p class="mx-auto mt-4 max-w-2xl leading-relaxed text-muted">{t.termsPage.pageSubtitle}</p>
-      <ul class="mt-6 flex flex-wrap items-center justify-center gap-2">
-        {meta.map((item) => <li class="terms-meta-pill">{item}</li>)}
-      </ul>
-      <div class="mt-6">
-        <button type="button" class="btn-ghost terms-print" data-terms-print hidden>
-          <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6.72 13.829c-.24.03-.48.062-.72.096m.72-.096a42.415 42.415 0 0110.56 0m-10.56 0L6.34 18m10.94-4.171c.24.03.48.062.72.096m-.72-.096L17.66 18m0 0l.229 2.523a1.125 1.125 0 01-1.12 1.227H7.231c-.662 0-1.18-.568-1.12-1.227L6.34 18m11.318 0h1.091A2.25 2.25 0 0021 15.75V9.456c0-1.081-.768-2.015-1.837-2.175a48.055 48.055 0 00-1.913-.247M6.34 18H5.25A2.25 2.25 0 013 15.75V9.456c0-1.081.768-2.015 1.837-2.175a48.041 48.041 0 011.913-.247m10.5 0a48.536 48.536 0 00-10.5 0m10.5 0V3.375c0-.621-.504-1.125-1.125-1.125h-8.25c-.621 0-1.125.504-1.125 1.125v3.659M18 10.5h.008v.008H18V10.5zm-3 0h.008v.008H15V10.5z" />
-          </svg>
-          {t.termsPage.print}
-        </button>
-      </div>
-    </div>
-  </section>
+  <PageHero locale={locale} badge={t.termsPage.badge} {...splitTitleAccent(t.termsPage.pageTitle)} subtitle={t.termsPage.pageSubtitle}>
+    <button slot="aside" type="button" class="sh-link terms-print" data-terms-print hidden>{t.termsPage.print}</button>
+    <ul class="page-meta" data-reveal="fade">
+      {meta.map((item) => <li>{item}</li>)}
+    </ul>
+  </PageHero>
 
-  <section class="pb-16 pt-6 sm:pb-24 sm:pt-10">
-    <div class="terms-layout mx-auto max-w-6xl px-4 sm:px-6">
-      <!-- Contents: collapsible on small screens, sticky with scroll-spy on large ones -->
-      <aside class="terms-toc-wrap">
-        <details class="terms-toc-mobile investment-card group rounded-2xl lg:hidden">
-          <summary class="flex cursor-pointer list-none items-center justify-between gap-3 p-4 text-sm font-bold text-heading [&::-webkit-details-marker]:hidden">
-            {t.termsPage.tocTitle}
-            <span class="text-accent-gold transition group-open:rotate-180" aria-hidden="true">▾</span>
-          </summary>
-          <ol class="terms-toc-list border-t border-divider p-2">
-            {
-              sections.map((s) => (
-                <li>
-                  <a href={`#${s.id}`} class="terms-toc-link" data-toc-link={s.id}>
-                    <span class="terms-toc-num">{s.number}</span>
-                    <span>{s.heading}</span>
-                  </a>
-                </li>
-              ))
-            }
-          </ol>
-        </details>
-
-        <nav class="terms-toc hidden lg:block" aria-label={t.termsPage.tocTitle}>
-          <p class="mb-3 px-3 text-xs font-semibold uppercase tracking-wider text-subtle">{t.termsPage.tocTitle}</p>
-          <ol class="terms-toc-list">
-            {
-              sections.map((s) => (
-                <li>
-                  <a href={`#${s.id}`} class="terms-toc-link" data-toc-link={s.id}>
-                    <span class="terms-toc-num">{s.number}</span>
-                    <span>{s.heading}</span>
-                  </a>
-                </li>
-              ))
-            }
-          </ol>
-        </nav>
-      </aside>
+  <section>
+    <div class="home-wrap doc-layout">
+      <DocToc title={t.termsPage.tocTitle} items={sections.map((s) => ({ id: s.id, label: s.heading, number: s.number }))} />
 
       <div class="min-w-0">
-        <ol class="space-y-5 sm:space-y-6">
+        <ol class="terms-sections">
           {
             sections.map((s) => (
-              <li id={s.id} class:list={['terms-section investment-card rounded-2xl p-6 sm:p-8', s.important && 'terms-section--important']} data-reveal>
-                <div class="flex items-start gap-4">
+              <li id={s.id} class:list={['terms-section', s.important && 'terms-section--important']} data-reveal>
+                <div class="terms-section-head">
                   <span class="terms-section-num" aria-hidden="true">{s.number}</span>
-                  <div class="min-w-0 flex-1">
+                  <div class="terms-section-heading">
                     {s.important && <p class="terms-important-label">{t.termsPage.importantLabel}</p>}
-                    <h2 class="text-lg font-bold leading-snug text-heading sm:text-xl">
+                    <h2 class="terms-section-title">
                       <span class="sr-only">{s.number}. </span>
                       {s.heading}
                     </h2>
@@ -133,18 +84,18 @@ const meta = [
                     </svg>
                   </a>
                 </div>
-                <div class="mt-4 border-t border-divider pt-4">
-                  <AboutSectionContent content={s.body} />
-                </div>
+                <AboutSectionContent content={s.body} />
               </li>
             ))
           }
         </ol>
 
-        <div class="terms-help mt-8 rounded-2xl p-6 text-center sm:mt-10 sm:p-8" data-reveal="zoom">
-          <h2 class="text-xl font-bold text-heading">{t.termsPage.helpTitle}</h2>
-          <p class="mx-auto mt-2 max-w-lg text-sm leading-relaxed text-muted">{t.termsPage.helpBody}</p>
-          <div class="mt-6 flex flex-wrap justify-center gap-3">
+        <div class="page-cta terms-help" data-reveal>
+          <div>
+            <h2 class="page-cta-title">{t.termsPage.helpTitle}</h2>
+            <p class="page-cta-sub">{t.termsPage.helpBody}</p>
+          </div>
+          <div class="page-cta-actions">
             <a href={localePath(locale, '/faq')} class="btn-primary">{t.termsPage.helpFaq}</a>
             <a href={localePath(locale, '/#contact')} class="btn-outline">{t.termsPage.helpContact}</a>
           </div>
@@ -162,39 +113,6 @@ const meta = [
     printButton.hidden = false;
     printButton.addEventListener('click', () => window.print());
   }
-
-  // Scroll-spy: highlight the section currently being read in the contents list
-  const links = [...document.querySelectorAll<HTMLAnchorElement>('[data-toc-link]')];
-  const sections = [...document.querySelectorAll<HTMLElement>('.terms-section')];
-  const setActive = (id: string) => {
-    links.forEach((link) => {
-      const active = link.dataset.tocLink === id;
-      link.classList.toggle('is-active', active);
-      if (active) link.setAttribute('aria-current', 'true');
-      else link.removeAttribute('aria-current');
-    });
-  };
-  if (sections.length) {
-    const visible = new Set<string>();
-    const spy = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) visible.add(entry.target.id);
-          else visible.delete(entry.target.id);
-        });
-        const current = sections.find((s) => visible.has(s.id));
-        if (current) setActive(current.id);
-      },
-      // A band across the upper part of the viewport counts as "being read"
-      { rootMargin: '-20% 0px -55% 0px' },
-    );
-    sections.forEach((s) => spy.observe(s));
-  }
-
-  // Mobile contents closes after picking a section
-  document.querySelectorAll<HTMLAnchorElement>('.terms-toc-mobile a').forEach((link) => {
-    link.addEventListener('click', () => link.closest('details')?.removeAttribute('open'));
-  });
 
   // Section anchor: jump there and copy its link
   const status = document.querySelector<HTMLElement>('[data-terms-status]');

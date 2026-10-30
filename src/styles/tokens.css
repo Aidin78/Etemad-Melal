@@ -112,6 +112,15 @@
   --footer-cta-ring: rgb(154 115 9 / 0.12);
 }
 
+/* Editorial language: `.band-dark` re-declares the derived colours for its own surface */
+:root {
+  --rule: color-mix(in srgb, var(--heading) 10%, transparent);
+  --rule-strong: color-mix(in srgb, var(--heading) 22%, transparent);
+  --gold: var(--color-accent-gold);
+  --photo-filter: grayscale(1) sepia(0.18) contrast(1.05);
+  --radius: 6px;
+}
+
 @font-face {
   font-family: iransansx;
   src: url('/font/IRANSansX-Regular.woff') format('woff');

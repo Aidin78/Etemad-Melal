@@ -1,23 +1,25 @@
 ---
 /**
- * Editorial section opener for the homepage: a numbered hairline rule with the
- * section label, then the title (words rise out of a mask on scroll) beside its subtitle.
+ * Editorial section opener: a numbered hairline rule with the section label, then the
+ * title (words rise out of a mask on scroll) beside its subtitle.
  */
 import type { Locale } from '../i18n/types';
 import { formatBoxIndex } from '../i18n';
 
 interface Props {
   locale: Locale;
-  index: number;
+  /** Section number on the rule; inner-page openers go without */
+  index?: number;
   badge: string;
   title: string;
   titleAccent: string;
   subtitle?: string;
   /** Stack the subtitle under the title instead of beside it (narrow columns) */
   stacked?: boolean;
+  as?: 'h1' | 'h2';
 }
 
-const { locale, index, badge, title, titleAccent, subtitle, stacked = false } = Astro.props;
+const { locale, index, badge, title, titleAccent, subtitle, stacked = false, as: Title = 'h2' } = Astro.props;
 const words = [
   ...title.trim().split(/\s+/).filter(Boolean).map((w) => ({ w, accent: false })),
   ...titleAccent.trim().split(/\s+/).filter(Boolean).map((w) => ({ w, accent: true })),
@@ -26,18 +28,18 @@ const words = [
 
 <header class:list={['sh', stacked && 'sh--stacked']}>
   <div class="sh-rule" data-reveal="rule">
-    <span class="sh-index">{formatBoxIndex(index, locale)}</span>
+    {index !== undefined && <span class="sh-index">{formatBoxIndex(index, locale)}</span>}
     {badge.trim() && <span class="sh-label">{badge}</span>}
     <slot name="aside" />
   </div>
   <div class="sh-body">
-    <h2 class="sh-title" data-reveal="mask">
+    <Title class="sh-title" data-reveal="mask">
       {words.map(({ w, accent }, i) => (
         <>
           <span class:list={['mask-word', accent && 'sh-accent']}><span style={`--w: ${i}`}>{w}</span></span>{' '}
         </>
       ))}
-    </h2>
+    </Title>
     {subtitle && <p class="sh-sub" data-reveal="fade">{subtitle}</p>}
   </div>
 </header>

@@ -1,62 +1,10 @@
 /*
- * Homepage — editorial "annual report" language: softly rounded corners (--radius), hairline rules
- * instead of card boxes, heavy/thin type contrast, flat gold, photos in warm grayscale.
+ * Homepage — editorial "annual report" language, shared with the inner pages (pages.css): softly
+ * rounded corners (--radius), hairline rules instead of card boxes, heavy/thin type contrast, flat
+ * gold, photos in warm grayscale.
  * Scroll-linked values come from `--p` (initScrub in src/scripts/motion.ts); every
  * `var(--p, …)` fallback is the static look used without JS or with reduced motion.
- * While the homepage is open, the header/footer buttons follow the same language.
  */
-
-.home,
-body:has(.home) :is(.site-header, footer) {
-  --rule: color-mix(in srgb, var(--heading) 10%, transparent);
-  --rule-strong: color-mix(in srgb, var(--heading) 22%, transparent);
-  --gold: var(--color-accent-gold);
-  --photo-filter: grayscale(1) sepia(0.18) contrast(1.05);
-  --radius: 6px;
-}
-
-/* ── Buttons: flat, softly rounded ── */
-:is(.home, body:has(.home) .site-header, body:has(.home) footer) :is(.btn-primary, .btn-outline, .btn-ghost) {
-  border-radius: var(--radius);
-  box-shadow: none;
-  backdrop-filter: none;
-}
-
-:is(.home, body:has(.home) .site-header, body:has(.home) footer) .btn-primary {
-  color: #12110f;
-  background: #d4a853;
-  transition:
-    background-color 0.25s ease,
-    color 0.25s ease;
-}
-
-:is(.home, body:has(.home) .site-header, body:has(.home) footer) .btn-primary:hover {
-  background: #f0d78c;
-  transform: none;
-  box-shadow: none;
-}
-
-[data-theme='light'] :is(.home, body:has(.home) .site-header, body:has(.home) footer) .btn-primary {
-  background: #b8890f;
-}
-
-[data-theme='light'] :is(.home, body:has(.home) .site-header, body:has(.home) footer) .btn-primary:hover {
-  background: #9a7309;
-  color: #fff;
-}
-
-:is(.home, body:has(.home) footer) :is(.btn-outline, .btn-ghost) {
-  color: var(--heading);
-  background: transparent;
-  border: 1px solid var(--rule-strong);
-}
-
-:is(.home, body:has(.home) footer) :is(.btn-outline, .btn-ghost):hover {
-  background: transparent;
-  border-color: var(--heading);
-  box-shadow: none;
-}
-
 
 /* ── Display face (Morabba) for the big numerals and marquee; headings get it from base.css ── */
 :is(

@@ -205,7 +205,7 @@ export const fa: Translations = {
     readMore: 'ادامه مطلب ←',
     pageTitle: 'مقالات',
     pageSubtitle: 'راهنماها و مطالب آموزشی برای سرمایه‌گذاری هوشمند',
-    backToArticles: '← بازگشت به مقالات',
+    backToArticles: '→ بازگشت به مقالات',
   },
   faq: {
     badge: 'پرسش‌های متداول',

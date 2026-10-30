@@ -1,11 +1,15 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import DocToc from './DocToc.astro';
+import HomeSectionHead from './HomeSectionHead.astro';
+import NewsCard from './NewsCard.astro';
 import { render } from 'astro:content';
 import { siteConfig } from '../config/site';
 import type { CollectionEntry } from 'astro:content';
 import type { Locale } from '../i18n/types';
 import { getArticleDisplay, getTranslations, localePath } from '../i18n';
 import { parseArticleId } from '../lib/article-utils';
+import { getSortedArticles } from '../lib/articles';
 import { articleSchema, breadcrumbSchema } from '../lib/seo-schemas';
 
 interface Props {
@@ -15,7 +19,7 @@ interface Props {
 
 const { locale, post } = Astro.props;
 const t = getTranslations(locale);
-const { Content } = await render(post);
+const { Content, headings } = await render(post);
 const { slug } = parseArticleId(post.id);
 
 const display = getArticleDisplay(locale, {
@@ -31,6 +35,9 @@ const articlesIndexUrl = new URL(localePath(locale, '/articles'), siteConfig.url
 const homeUrl = new URL(localePath(locale, '/'), siteConfig.url).href;
 const proseDir = locale === 'fa' ? 'rtl' : 'ltr';
 const proseLang = locale === 'fa' ? 'fa-IR' : 'en';
+
+const toc = headings.filter((h) => h.depth === 2).map((h) => ({ id: h.slug, label: h.text }));
+const related = (await getSortedArticles(locale)).filter((p) => p.id !== post.id).slice(0, 3);
 ---
 
 <Layout
@@ -56,36 +63,51 @@ const proseLang = locale === 'fa' ? 'fa-IR' : 'en';
   ]}
 >
   <article itemscope itemtype="https://schema.org/Article">
-    <header class="relative overflow-hidden mesh-gradient py-12 sm:py-20">
-      <div class="absolute inset-0" aria-hidden="true">
-        <img src={post.data.image} alt="" class="h-full w-full object-cover opacity-20" />
-        <div class="absolute inset-0 bg-image-overlay-top"></div>
-      </div>
-      <div class="relative mx-auto max-w-3xl px-4 sm:px-6">
-        <nav aria-label={t.a11y.breadcrumb}>
-          <a href={localePath(locale, '/articles')} class="text-sm text-primary-light hover:text-accent">
-            {t.news.backToArticles}
-          </a>
-        </nav>
-        <time
-          class="mt-4 block text-sm text-subtle"
-          datetime={post.data.date.toISOString()}
-          itemprop="datePublished"
-        >
-          {display.dateLabel}
-        </time>
-        <h1 class="mt-2 text-3xl font-bold text-heading sm:text-4xl" itemprop="headline">{display.title}</h1>
-        <p class="mt-4 text-lg text-muted" itemprop="description">{display.excerpt}</p>
+    <header class="page-hero page-hero--article">
+      <div class="home-wrap">
+        <div class="sh-rule" data-reveal="rule">
+          <time class="sh-index" datetime={post.data.date.toISOString()} itemprop="datePublished">
+            {display.dateLabel}
+          </time>
+          <nav aria-label={t.a11y.breadcrumb}>
+            <a href={localePath(locale, '/articles')} class="sh-link">{t.news.backToArticles}</a>
+          </nav>
+        </div>
+        <h1 class="sh-title" data-reveal="fade" itemprop="headline">{display.title}</h1>
+        <p class="sh-sub" data-reveal="fade" itemprop="description">{display.excerpt}</p>
       </div>
     </header>
 
-    <div
-      class="article-prose mx-auto max-w-3xl px-4 py-12 sm:px-6"
-      itemprop="articleBody"
-      dir={proseDir}
-      lang={proseLang}
-    >
-      <Content />
+    <div class="home-wrap article-photo">
+      <div class="page-photo" data-scrub>
+        <img src={post.data.image} alt="" loading="eager" />
+      </div>
+    </div>
+
+    <div class="home-wrap doc-layout">
+      {toc.length > 1 && <DocToc title={t.termsPage.tocTitle} items={toc} />}
+      <div class="article-prose" itemprop="articleBody" dir={proseDir} lang={proseLang}>
+        <Content />
+      </div>
     </div>
   </article>
+
+  {
+    related.length > 0 && (
+      <section class="home-section page-first" data-pointer>
+        <div class="home-wrap">
+          <HomeSectionHead locale={locale} badge="" title={t.news.title} titleAccent={t.news.titleAccent}>
+            <a slot="aside" href={localePath(locale, '/articles')} class="sh-link">{t.news.viewAll}</a>
+          </HomeSectionHead>
+          <ul class="news-cards">
+            {related.map((p) => (
+              <li data-reveal>
+                <NewsCard locale={locale} post={p} data-spotlight />
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+    )
+  }
 </Layout>

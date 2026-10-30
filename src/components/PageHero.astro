@@ -1,0 +1,27 @@
+---
+/**
+ * Opener for inner pages: the homepage section head at page scale (`h1`, no section number).
+ * The default slot sits under it (meta row, photo…), `aside` at the end of its rule.
+ */
+import HomeSectionHead from './HomeSectionHead.astro';
+import type { Locale } from '../i18n/types';
+
+interface Props {
+  locale: Locale;
+  badge: string;
+  title: string;
+  titleAccent?: string;
+  subtitle?: string;
+}
+
+const { locale, badge, title, titleAccent = '', subtitle } = Astro.props;
+---
+
+<section class="page-hero">
+  <div class="home-wrap">
+    <HomeSectionHead as="h1" locale={locale} badge={badge} title={title} titleAccent={titleAccent} subtitle={subtitle}>
+      <slot name="aside" slot="aside" />
+    </HomeSectionHead>
+    <slot />
+  </div>
+</section>
