@@ -255,9 +255,9 @@ body.mobile-menu-open {
 }
 
 [data-theme='light'] .mobile-menu-toggle--open {
-  background: rgb(154 115 9 / 0.1);
-  border-color: rgb(154 115 9 / 0.35);
-  color: #9a7309;
+  background: rgb(166 124 12 / 0.1);
+  border-color: rgb(166 124 12 / 0.35);
+  color: #a67c0c;
 }
 
 .stat-value {
@@ -545,11 +545,11 @@ footer {
 
 [data-theme='light'] .nav-link-active,
 [data-theme='light'] .nav-link-mobile.nav-link-active {
-  color: #9a7309;
+  color: #a67c0c;
 }
 
 [data-theme='light'] .nav-link-mobile.nav-link-active {
-  background: rgb(154 115 9 / 0.12);
+  background: rgb(166 124 12 / 0.12);
 }
 
 /* ── Mobile-only refinements (max-width: 639px) — desktop unchanged ── */
@@ -602,14 +602,14 @@ footer {
 }
 
 [data-theme='light'] .logo-icon-shell {
-  border-color: rgb(154 115 9 / 0.35);
-  box-shadow: 0 0 20px rgb(154 115 9 / 0.18);
+  border-color: rgb(166 124 12 / 0.35);
+  box-shadow: 0 0 20px rgb(166 124 12 / 0.18);
 }
 
 [data-theme='light'] .logo-icon-shell:hover,
 [data-theme='light'] .group:hover .logo-icon-shell {
-  border-color: rgb(154 115 9 / 0.55);
-  box-shadow: 0 0 24px rgb(154 115 9 / 0.25);
+  border-color: rgb(166 124 12 / 0.55);
+  box-shadow: 0 0 24px rgb(166 124 12 / 0.25);
 }
 
 /* ── Contact ── */
