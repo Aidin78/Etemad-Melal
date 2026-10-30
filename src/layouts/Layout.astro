@@ -57,7 +57,7 @@ const altUrl = new URL(altPath, siteConfig.url).href;
               : 'dark';
         document.documentElement.setAttribute('data-theme', t);
         var m = document.querySelector('meta[name="theme-color"]');
-        if (m) m.setAttribute('content', t === 'light' ? '#f4f7fb' : '#12110f');
+        if (m) m.setAttribute('content', t === 'light' ? '#f6f3ec' : '#12110f');
 
         // Scroll-reveal hidden states (motion.css) only apply under .js-motion; drop it
         // again if the motion script never boots so content can't stay hidden.
@@ -76,7 +76,7 @@ const altUrl = new URL(altPath, siteConfig.url).href;
     <meta name="author" content={t.companyLegal} />
     <meta name="robots" content={noindex ? 'noindex, nofollow' : 'index, follow, max-image-preview:large'} />
     <meta name="theme-color" content="#12110f" media="(prefers-color-scheme: dark)" />
-    <meta name="theme-color" content="#f4f7fb" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#f6f3ec" media="(prefers-color-scheme: light)" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
