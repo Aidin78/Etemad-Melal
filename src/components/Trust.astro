@@ -35,7 +35,7 @@ const [lead, ...rest] = t.trust.benefits;
               <span class="tstat-trend" aria-hidden="true">{s.trend}</span>
               {s.label}
             </dt>
-            <dd data-count>{s.value.replace('{years}', yearsActive)}</dd>
+            <dd data-count data-years={s.value.includes('{years}') ? s.value : undefined}>{s.value.replace('{years}', yearsActive)}</dd>
           </div>
         ))
       }

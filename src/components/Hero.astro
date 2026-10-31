@@ -72,7 +72,7 @@ const ringSegments = t.income.streams.map((stream, i) => {
         {t.hero.stats.map((s) => (
           <div class="hero-stat">
             <dt>{s.label}</dt>
-            <dd data-count>{s.value.replace('{years}', yearsActive)}</dd>
+            <dd data-count data-years={s.value.includes('{years}') ? s.value : undefined}>{s.value.replace('{years}', yearsActive)}</dd>
           </div>
         ))}
       </dl>
