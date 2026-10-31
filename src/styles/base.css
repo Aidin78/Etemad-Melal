@@ -13,6 +13,11 @@ html {
   outline-offset: 2px;
 }
 
+/* Tailwind's reset leaves buttons on the default arrow */
+button:not(:disabled) {
+  cursor: pointer;
+}
+
 /* Morabba covers Persian script only (see tokens.css), so Latin text falls through to IRANSansX */
 body {
   font-family: morabba, iransansx, tahoma, sans-serif;

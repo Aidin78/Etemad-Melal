@@ -36,6 +36,7 @@ export type Translations = {
     closeMenu: string;
     mainNav: string;
     mobileNav: string;
+    themeLabel: string;
     themeToggle: string;
     switchToLight: string;
     switchToDark: string;

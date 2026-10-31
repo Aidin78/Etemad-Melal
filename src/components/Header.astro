@@ -4,7 +4,7 @@ import LanguageSwitcher from './LanguageSwitcher.astro';
 import Logo from './Logo.astro';
 import PanelLink from './PanelLink.astro';
 import type { Locale } from '../i18n/types';
-import { getTranslations, localePath } from '../i18n';
+import { formatBoxIndex, getTranslations, localePath } from '../i18n';
 
 interface Props {
   locale: Locale;
@@ -48,7 +48,7 @@ const primaryNav = t.nav.filter((link) => !link.secondary);
     </nav>
 
     <div class="site-header-tools">
-      <div class="hidden items-center gap-1 sm:flex">
+      <div class="site-header-prefs hidden lg:flex">
         <LanguageSwitcher locale={locale} compact />
         <ThemeToggle ariaLabel={t.a11y.themeToggle} labelLight={t.a11y.switchToLight} labelDark={t.a11y.switchToDark} />
       </div>
@@ -61,90 +61,85 @@ const primaryNav = t.nav.filter((link) => !link.secondary);
         aria-expanded="false"
         aria-controls="mobile-menu"
       >
-        <svg class="h-5 w-5" id="icon-open" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+        <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M4 8h16M4 16h16" />
-        </svg>
-        <svg class="hidden h-5 w-5" id="icon-close" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M6 18L18 6M6 6l12 12" />
         </svg>
       </button>
     </div>
   </div>
 </header>
 
-<div class="mobile-menu lg:hidden" id="mobile-menu" hidden>
+<div class="mobile-menu lg:hidden" id="mobile-menu">
   <button type="button" class="mobile-menu-backdrop" id="mobile-menu-backdrop" aria-label={t.a11y.closeMenu} tabindex="-1"></button>
-  <div class="mobile-menu-panel border-t border-theme bg-header-mobile shadow-[0_24px_48px_rgb(0_0_0/0.18)]">
+  <div class="mobile-menu-panel" role="dialog" aria-modal="true" aria-label={t.a11y.mobileNav}>
+    <div class="mobile-menu-head">
+      <Logo locale={locale} size="sm" animated={false} class="min-w-0 shrink" />
+      <button type="button" class="mobile-menu-close" id="mobile-menu-close" aria-label={t.a11y.closeMenu}>
+        <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+
     <nav class="mobile-menu-nav" aria-label={t.a11y.mobileNav}>
       {
-        t.nav.map((link) => (
-          <a href={localizedHref(link.href)} class="nav-link-mobile" {...navDataAttrs(link.href)}>
+        t.nav.map((link, i) => (
+          <a href={localizedHref(link.href)} class="nav-link-mobile" style={`--i: ${i}`} {...navDataAttrs(link.href)}>
+            <span class="nav-link-mobile-num" aria-hidden="true">{formatBoxIndex(i + 1, locale)}</span>
             {link.label}
           </a>
         ))
       }
     </nav>
-    <div class="mobile-menu-footer border-t border-theme px-4 py-4">
-      <div class="flex items-center justify-between gap-3 sm:hidden">
+
+    <div class="mobile-menu-footer">
+      <div class="mobile-menu-pref">
+        <span>{t.langSwitch.label}</span>
         <LanguageSwitcher locale={locale} />
+      </div>
+      <div class="mobile-menu-pref">
+        <span>{t.a11y.themeLabel}</span>
         <ThemeToggle ariaLabel={t.a11y.themeToggle} labelLight={t.a11y.switchToLight} labelDark={t.a11y.switchToDark} />
       </div>
-      <PanelLink locale={locale} class="mobile-menu-cta mt-3 w-full justify-center text-sm sm:mt-0">{t.panelCtaLogin}</PanelLink>
+      <PanelLink locale={locale} class="mobile-menu-cta w-full justify-center">{t.panelCtaLogin}</PanelLink>
     </div>
   </div>
 </div>
 
-<script define:vars={{ openLabel: t.a11y.openMenu, closeLabel: t.a11y.closeMenu }}>
+<script is:inline>
   const toggle = document.getElementById('menu-toggle');
   const menu = document.getElementById('mobile-menu');
   const backdrop = document.getElementById('mobile-menu-backdrop');
-  const iconOpen = document.getElementById('icon-open');
-  const iconClose = document.getElementById('icon-close');
+  const closeButton = document.getElementById('mobile-menu-close');
   const header = document.getElementById('site-header');
 
-  const main = document.getElementById('main-content');
-  const footer = document.querySelector('footer');
   const focusableSelector =
     'a[href], button:not([disabled]), input:not([disabled]), textarea:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
   const setMenuOpen = (open) => {
     menu?.classList.toggle('mobile-menu--open', open);
-    menu?.toggleAttribute('hidden', !open);
     toggle?.setAttribute('aria-expanded', String(open));
-    toggle?.setAttribute('aria-label', open ? closeLabel : openLabel);
-    toggle?.classList.toggle('mobile-menu-toggle--open', open);
-    iconOpen?.classList.toggle('hidden', open);
-    iconClose?.classList.toggle('hidden', !open);
     document.body.classList.toggle('mobile-menu-open', open);
-
-    if (open) {
-      main?.setAttribute('inert', '');
-      footer?.setAttribute('inert', '');
-      const firstLink = menu?.querySelector('a');
-      firstLink?.focus();
-    } else {
-      main?.removeAttribute('inert');
-      footer?.removeAttribute('inert');
-    }
+    // Looked up here: this script runs before the page content is parsed
+    const page = [header, document.getElementById('main-content'), document.querySelector('footer')];
+    page.forEach((el) => el?.toggleAttribute('inert', open));
+    if (open) closeButton?.focus();
   };
 
-  toggle?.addEventListener('click', () => {
-    const opening = !menu?.classList.contains('mobile-menu--open');
-    setMenuOpen(opening);
-    if (!opening) toggle.focus();
-  });
-
-  backdrop?.addEventListener('click', () => {
+  const closeMenu = () => {
     setMenuOpen(false);
     toggle?.focus();
-  });
+  };
+
+  toggle?.addEventListener('click', () => setMenuOpen(true));
+  closeButton?.addEventListener('click', closeMenu);
+  backdrop?.addEventListener('click', closeMenu);
 
   document.addEventListener('keydown', (event) => {
     if (!menu?.classList.contains('mobile-menu--open')) return;
 
     if (event.key === 'Escape') {
-      setMenuOpen(false);
-      toggle?.focus();
+      closeMenu();
       return;
     }
 
@@ -221,7 +216,7 @@ const primaryNav = t.nav.filter((link) => !link.secondary);
 
     const update = () => {
       const line = scrollOffset();
-      let current = sections[0].id;
+      let current;
       for (const section of sections) {
         if (section.getBoundingClientRect().top <= line) current = section.id;
       }
@@ -263,16 +258,18 @@ const primaryNav = t.nav.filter((link) => !link.secondary);
     window.addEventListener('scroll', syncTop, { passive: true });
   }
 
-  // Slides away while scrolling down, comes back on any scroll up (never while the menu is open)
+  // Further down the page it slides away while scrolling down and comes back on any scroll up
+  // (never while the menu is open)
+  const HIDE_AFTER = 480;
   let lastY = window.scrollY;
   let hideTicking = false;
   const syncHidden = () => {
     hideTicking = false;
     const y = window.scrollY;
     const delta = y - lastY;
-    if (Math.abs(delta) < 6) return;
+    if (Math.abs(delta) < 8) return;
     const menuOpen = menu?.classList.contains('mobile-menu--open');
-    header?.classList.toggle('is-hidden', !menuOpen && delta > 0 && y > (header?.offsetHeight ?? 64));
+    header?.classList.toggle('is-hidden', !menuOpen && delta > 0 && y > HIDE_AFTER);
     lastY = y;
   };
   window.addEventListener(
@@ -286,5 +283,5 @@ const primaryNav = t.nav.filter((link) => !link.secondary);
   );
 
   if (path.includes('/articles') || path.includes('/about')) initPageNav();
-  else if (isHome) initScrollSpy();
+  else if (isHome) document.addEventListener('DOMContentLoaded', initScrollSpy);
 </script>

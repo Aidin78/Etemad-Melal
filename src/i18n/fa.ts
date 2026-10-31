@@ -28,6 +28,7 @@ export const fa: Translations = {
     closeMenu: 'بستن منو',
     mainNav: 'منوی اصلی',
     mobileNav: 'منوی موبایل',
+    themeLabel: 'حالت نمایش',
     themeToggle: 'تغییر تم روشن / تاریک',
     switchToLight: 'تغییر به تم روشن',
     switchToDark: 'تغییر به تم تاریک',
@@ -35,7 +36,7 @@ export const fa: Translations = {
     home: 'خانه',
     opensInNewTab: '(در برگه جدید باز می‌شود)',
   },
-  langSwitch: { label: 'Language', toEn: 'English', toFa: 'فارسی' },
+  langSwitch: { label: 'زبان', toEn: 'English', toFa: 'فارسی' },
   hero: {
     badge: 'پلتفرم سرمایه‌گذاری اعتماد ملل',
     title: 'سرمایه‌گذاری هوشمند با',

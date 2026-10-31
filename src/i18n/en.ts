@@ -28,6 +28,7 @@ export const en: Translations = {
     closeMenu: 'Close menu',
     mainNav: 'Main navigation',
     mobileNav: 'Mobile navigation',
+    themeLabel: 'Appearance',
     themeToggle: 'Toggle light / dark theme',
     switchToLight: 'Switch to light theme',
     switchToDark: 'Switch to dark theme',

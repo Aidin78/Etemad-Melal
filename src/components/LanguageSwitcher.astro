@@ -4,7 +4,7 @@ import { getTranslations, alternateLocalePath } from '../i18n';
 
 interface Props {
   locale: Locale;
-  /** A single link to the other language instead of the FA/EN pair */
+  /** A single link to the other language instead of the two-language switch */
   compact?: boolean;
 }
 
@@ -26,34 +26,22 @@ const other = locale === 'fa' ? 'en' : 'fa';
   </a>
 ) : (
 
-<div
-  class="flex items-center rounded-lg border border-theme bg-[var(--toggle-bg)] p-0.5 text-xs font-semibold"
-  role="group"
-  aria-label={t.langSwitch.label}
->
+<div class="lang-switch" role="group" aria-label={t.langSwitch.label}>
   <a
     href={locale === 'fa' ? Astro.url.pathname : alternate}
-    class:list={[
-      'rounded-md px-2.5 py-1.5 transition',
-      locale === 'fa' ? 'bg-accent-gold/20 text-gold-emphasis' : 'text-muted hover:text-heading',
-    ]}
     hreflang="fa"
     lang="fa"
     aria-current={locale === 'fa' ? 'page' : undefined}
   >
-    FA
+    {t.langSwitch.toFa}
   </a>
   <a
     href={locale === 'en' ? Astro.url.pathname : alternate}
-    class:list={[
-      'rounded-md px-2.5 py-1.5 transition',
-      locale === 'en' ? 'bg-accent-gold/20 text-gold-emphasis' : 'text-muted hover:text-heading',
-    ]}
     hreflang="en"
     lang="en"
     aria-current={locale === 'en' ? 'page' : undefined}
   >
-    EN
+    {t.langSwitch.toEn}
   </a>
 </div>
 )}

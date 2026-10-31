@@ -32,20 +32,6 @@
   background: var(--color-accent-gold);
 }
 
-.nav-link-mobile {
-  @apply rounded-lg px-3 py-2 text-sm transition-colors;
-  color: var(--nav);
-}
-
-.nav-link-mobile:hover {
-  background: rgb(212 168 83 / 0.1);
-  color: var(--nav-hover);
-}
-
-.nav-link-mobile.nav-link-active {
-  @apply bg-accent-gold/15 text-accent-gold-light;
-}
-
 .site-header {
   padding-top: env(safe-area-inset-top, 0px);
   border-bottom: 1px solid color-mix(in srgb, var(--heading) 8%, transparent);
@@ -99,6 +85,13 @@
   gap: 0.5rem;
 }
 
+/* Language and theme read as one quiet group, ruled off from the login button */
+.site-header-prefs {
+  align-items: center;
+  padding-inline-end: 0.5rem;
+  border-inline-end: 1px solid var(--rule-strong);
+}
+
 /* Header utilities are bare icons/text — only the login button carries weight */
 .site-header :is(.theme-toggle, .lang-switch-compact, .mobile-menu-toggle) {
   border: 0;
@@ -128,6 +121,11 @@
   transition: color 0.2s ease;
 }
 
+/* Latin capitals sit high in the line box; brings them level with the theme icon */
+.lang-switch-compact:lang(en) {
+  padding-top: 0.1875rem;
+}
+
 .site-header-cta {
   margin-inline-start: 0.5rem;
   padding: 0.5rem 1.375rem !important;
@@ -136,10 +134,6 @@
 
 .site-header .mobile-menu-toggle {
   color: var(--heading);
-}
-
-.site-header .mobile-menu-toggle--open {
-  color: var(--gold-emphasis);
 }
 
 @media (min-width: 640px) {
@@ -167,27 +161,31 @@ body.mobile-menu-open {
   overflow: hidden;
 }
 
+/*
+ * Drawer: slides in from the right edge towards the left and back out the same way, in both
+ * locales. `visibility` waits for the slide-out, so a closed drawer stays out of the tab order.
+ */
 .mobile-menu {
   position: fixed;
-  inset-inline: 0;
-  top: var(--site-header-height, 3.25rem);
-  bottom: 0;
-  z-index: 49;
-  pointer-events: none;
+  inset: 0;
+  z-index: 60;
+  overflow: hidden;
+  visibility: hidden;
+  transition: visibility 0s linear 0.5s;
 }
 
-.mobile-menu--open .mobile-menu-backdrop,
-.mobile-menu--open .mobile-menu-panel {
-  pointer-events: auto;
+.mobile-menu--open {
+  visibility: visible;
+  transition-delay: 0s;
 }
 
 .mobile-menu-backdrop {
   position: absolute;
   inset: 0;
   border: 0;
-  background: rgb(0 0 0 / 0.45);
+  background: rgb(12 11 9 / 0.55);
   opacity: 0;
-  transition: opacity 0.35s ease;
+  transition: opacity 0.4s ease;
 }
 
 .mobile-menu--open .mobile-menu-backdrop {
@@ -196,68 +194,173 @@ body.mobile-menu-open {
 
 .mobile-menu-panel {
   position: absolute;
-  inset-inline: 0;
-  top: 0;
-  max-height: 100%;
+  inset-block: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  width: min(24rem, 88vw);
   overflow-y: auto;
   overscroll-behavior: contain;
-  transform: translateY(-0.75rem);
-  opacity: 0;
-  transition:
-    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
-    opacity 0.3s ease;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  background: var(--page);
+  border-left: 1px solid var(--rule);
+  box-shadow: -24px 0 60px rgb(0 0 0 / 0.25);
+  translate: 100% 0;
+  transition: translate 0.5s var(--ease-reveal);
 }
 
 .mobile-menu--open .mobile-menu-panel {
-  transform: translateY(0);
-  opacity: 1;
+  translate: 0 0;
 }
 
+.mobile-menu-head {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: 4.25rem;
+  padding-inline: 1.25rem 0.75rem;
+  border-bottom: 1px solid var(--rule-strong);
+}
+
+.mobile-menu-close {
+  display: grid;
+  flex-shrink: 0;
+  place-items: center;
+  height: 2.75rem;
+  width: 2.75rem;
+  color: var(--heading);
+}
+
+/* Same language as the section heads: a thin number, a heavy label, hairlines between rows */
 .mobile-menu-nav {
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
-  padding: 0.75rem;
+  padding-inline: 1.25rem;
 }
 
-.mobile-menu-nav .nav-link-mobile {
-  border: 1px solid transparent;
-  border-radius: 0.875rem;
-  padding: 0.875rem 1rem;
-  font-size: 0.9375rem;
-  font-weight: 500;
-  line-height: 1.4;
+.nav-link-mobile {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  padding-block: 0.875rem;
+  font-size: 1.25rem;
+  font-weight: 800;
+  line-height: 1.5;
+  color: var(--heading);
+  border-bottom: 1px solid var(--rule);
+  opacity: 0;
+  translate: 1.5rem 0;
+  transition:
+    color 0.2s ease,
+    opacity 0.3s ease,
+    translate 0.3s ease;
 }
 
-.mobile-menu-nav .nav-link-mobile.nav-link-active {
-  border-color: rgb(212 168 83 / 0.22);
+.mobile-menu--open .nav-link-mobile {
+  opacity: 1;
+  translate: 0 0;
+  transition:
+    color 0.2s ease,
+    opacity 0.5s ease calc(0.12s + var(--i, 0) * 45ms),
+    translate 0.6s var(--ease-reveal) calc(0.12s + var(--i, 0) * 45ms);
+}
+
+.nav-link-mobile-num {
+  min-width: 1.25rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--gold);
+}
+
+.nav-link-mobile:hover,
+.nav-link-mobile.nav-link-active {
+  color: var(--gold);
 }
 
 .mobile-menu-footer {
-  position: sticky;
-  bottom: 0;
-  background: var(--header-bg-mobile);
-  padding-bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
+  display: grid;
+  gap: 0.875rem;
+  margin-top: auto;
+  padding: 1.5rem 1.25rem 1.25rem;
+}
+
+.mobile-menu-pref {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--muted);
 }
 
 .mobile-menu-cta {
-  min-height: 2.75rem;
+  min-height: 3rem;
+  margin-top: 0.5rem;
 }
 
-.mobile-menu-toggle--open {
-  border-color: rgb(212 168 83 / 0.45);
-  background: rgb(212 168 83 / 0.12);
-  color: var(--accent-gold-light, #f0d78c);
+/* Two-way switches: the language pair and, in the drawer, both theme icons with the active one filled */
+:is(.lang-switch, .mobile-menu .theme-toggle) {
+  display: inline-flex;
+  width: auto;
+  height: auto;
+  gap: 0.125rem;
+  padding: 0.1875rem;
+  border: 1px solid var(--rule-strong);
+  border-radius: var(--radius);
+  background: transparent;
 }
 
-[data-theme='light'] .mobile-menu-backdrop {
-  background: rgb(15 23 42 / 0.28);
+.mobile-menu .theme-toggle:hover {
+  border-color: var(--rule-strong);
+  background: transparent;
 }
 
-[data-theme='light'] .mobile-menu-toggle--open {
-  background: rgb(166 124 12 / 0.1);
-  border-color: rgb(166 124 12 / 0.35);
-  color: #a67c0c;
+.lang-switch a {
+  display: grid;
+  place-items: center;
+  min-width: 4.25rem;
+  height: 2.375rem;
+  padding-inline: 0.625rem;
+  border-radius: 4px;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--muted);
+  transition: color 0.2s ease;
+}
+
+.lang-switch a:hover {
+  color: var(--heading);
+}
+
+.lang-switch a[aria-current='page'],
+[data-theme='light'] .mobile-menu .theme-toggle .icon-sun,
+[data-theme='dark'] .mobile-menu .theme-toggle .icon-moon {
+  color: var(--btn-gold-text);
+  background: var(--btn-gold);
+}
+
+.mobile-menu .theme-toggle :is(.icon-sun, .icon-moon) {
+  display: block;
+  height: 2.375rem;
+  width: 3rem;
+  padding: 0.625rem;
+  border-radius: 4px;
+  color: var(--muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mobile-menu,
+  .mobile-menu-backdrop,
+  .mobile-menu-panel,
+  .nav-link-mobile,
+  .mobile-menu--open .nav-link-mobile {
+    transition: none;
+  }
 }
 
 .stat-value {
@@ -543,13 +646,8 @@ footer {
   color: var(--gold-soft);
 }
 
-[data-theme='light'] .nav-link-active,
-[data-theme='light'] .nav-link-mobile.nav-link-active {
-  color: #a67c0c;
-}
-
-[data-theme='light'] .nav-link-mobile.nav-link-active {
-  background: rgb(166 124 12 / 0.12);
+[data-theme='light'] .nav-link-active {
+  color: #b2850f;
 }
 
 /* ── Mobile-only refinements (max-width: 639px) — desktop unchanged ── */
@@ -563,19 +661,6 @@ footer {
     min-width: 2.75rem;
   }
 
-  .mobile-menu-footer .theme-toggle {
-    min-height: 2.75rem;
-    min-width: 2.75rem;
-  }
-
-  .mobile-menu-footer [role='group'] a {
-    min-height: 2.75rem;
-    min-width: 2.75rem;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-  }
-
   .input-field {
     min-height: 2.75rem;
   }
@@ -586,6 +671,21 @@ footer {
     min-height: 2.75rem;
   }
 
+  .footer-legal-list {
+    gap: 0 1rem;
+  }
+
+  /* The list wraps here, and a divider would be left dangling at the start of a line */
+  .footer-legal-list li:not(:first-child) {
+    padding-inline-start: 0;
+  }
+
+  .footer-legal-list li::before {
+    display: none;
+  }
+}
+
+@media (max-width: 1023px) {
   .footer-link {
     display: inline-block;
     padding-block: 0.625rem;

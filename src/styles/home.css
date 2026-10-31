@@ -43,9 +43,9 @@
   }
 }
 
+/* Menu jumps land flush with the top: the header slides away on the way down, and on the way up the padding clears it */
 .home-section {
   position: relative;
-  scroll-margin-top: 4rem;
   padding-block: 4.5rem;
 }
 
@@ -66,16 +66,13 @@
   margin-top: 2.5rem;
 }
 
-/* Nav target in front of a stacked section: a pinned section reports its pinned position, this doesn't */
-.home-anchor {
-  scroll-margin-top: 4rem;
-}
-
 /*
  * ── Stacked sections: the next section slides up over a pinned `data-stack` one ──
  * `--stack-top` / `--cover` come from initStack (motion.ts). JS-motion only, so without JS
  * or with reduced motion the sections simply scroll. Everything after the first stacked
  * section needs its own opaque background and stacking context to cover it.
+ * Nav targets sit in front of a stacked section as an empty `.home-anchor`: a pinned section
+ * reports its pinned position, the anchor doesn't.
  */
 .js-motion .home > [data-stack] {
   position: sticky;
