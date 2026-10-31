@@ -361,11 +361,6 @@ body.mobile-menu-open {
   }
 }
 
-.stat-value {
-  color: var(--gold-emphasis);
-  @apply text-3xl font-bold sm:text-4xl;
-}
-
 footer {
   position: relative;
   z-index: 1;
@@ -668,8 +663,7 @@ footer {
   }
 
   .btn-primary,
-  .btn-outline,
-  .btn-ghost {
+  .btn-outline {
     min-height: 2.75rem;
   }
 
@@ -718,17 +712,6 @@ footer {
     position: absolute;
     inset: -0.75rem -0.25rem;
   }
-}
-
-[data-theme='light'] .logo-icon-shell {
-  border-color: rgb(178 133 15 / 0.35);
-  box-shadow: 0 0 20px rgb(178 133 15 / 0.18);
-}
-
-[data-theme='light'] .logo-icon-shell:hover,
-[data-theme='light'] .group:hover .logo-icon-shell {
-  border-color: rgb(178 133 15 / 0.55);
-  box-shadow: 0 0 24px rgb(178 133 15 / 0.25);
 }
 
 /* ── Contact ── */

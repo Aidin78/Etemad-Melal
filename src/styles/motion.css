@@ -11,7 +11,7 @@
  * Variants: (default) rise · fade · start · end · zoom · image · cascade · draw
  * (+ `mask` and `rule`, styled in home.css: words rise out of a mask / a hairline draws in)
  *
- * Scroll-scrubbed effects (hero parallax, marquee, word light-up…) use `data-scrub`
+ * Scroll-scrubbed effects (hero parallax, word light-up…) use `data-scrub`
  * and live with their sections in home.css.
  */
 
@@ -104,14 +104,6 @@
 
 .js-motion [data-reveal='draw']:not(.is-revealed) [data-draw-line] {
   stroke-dashoffset: 1;
-}
-
-.js-motion [data-reveal='draw'] [data-draw-area] {
-  transition: opacity 1.2s ease 0.6s;
-}
-
-.js-motion [data-reveal='draw']:not(.is-revealed) [data-draw-area] {
-  opacity: 0;
 }
 
 /*

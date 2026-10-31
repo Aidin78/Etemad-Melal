@@ -1,26 +1,14 @@
-import { existsSync } from 'node:fs';
-import { fileURLToPath } from 'node:url';
-import { join } from 'node:path';
-
-const publicDir = fileURLToPath(new URL('../public', import.meta.url));
-
-const required = [
-  'images/hero.jpg',
-  'images/features.jpg',
-  'images/about.jpg',
-  'images/trust.jpg',
-  // Fallback cover for articles without an `image` (siteImages.articleDefault)
-  'images/articles/article-01.jpg',
-];
+import { missingFiles, requiredImages } from './required-assets.mjs';
 
 const fonts = [
   'font/IRANSansX-Regular.woff',
   'font/IRANSansX-Bold.woff',
   'font/IRANSansXV.woff',
+  'font/IRANSansXV.woff2',
 ];
 
-const missing = required.filter((p) => !existsSync(join(publicDir, p)));
-const missingFonts = fonts.filter((p) => !existsSync(join(publicDir, p)));
+const missing = missingFiles(requiredImages);
+const missingFonts = missingFiles(fonts);
 
 if (missing.length > 0) {
   console.error('Missing required images:');

@@ -13,12 +13,10 @@
 :root,
 [data-theme='dark'] {
   color-scheme: dark;
-  --accent-rgb: 212 168 83;
   --color-accent: #d4a853;
   --color-primary-light: #e6c079;
   --page: #12110f;
   --page-secondary: #0d0c0a;
-  --page-alt: #1b1915;
   --text: #ece9e3;
   --heading: #ffffff;
   --muted: #a8a49c;
@@ -28,28 +26,17 @@
   --nav-hover: #f0d78c;
   --header-bg: rgb(18 17 15 / 0.88);
   --header-bg-mobile: rgb(18 17 15 / 0.96);
-  --footer-bg: #0d0c0a;
   --border: rgb(212 168 83 / 0.12);
   --border-strong: rgb(255 255 255 / 0.1);
-  --surface: rgb(26 24 20 / 0.95);
   --surface-muted: rgb(255 255 255 / 0.05);
   --input-bg: rgb(255 255 255 / 0.05);
   --input-text: #ffffff;
-  --mesh-base: #12110f;
-  --theme-color: #12110f;
-  --hero-img-opacity: 0.25;
   --logo-glow: rgb(240 215 140 / 0.45);
-  --glass-from: rgb(32 30 25 / 0.7);
-  --glass-to: rgb(24 22 19 / 0.6);
   --card-from: rgb(42 39 33 / 0.55);
   --card-mid: rgb(32 30 26 / 0.6);
   --card-to: rgb(23 22 19 / 0.72);
-  --outline-text: #ffffff;
-  --outline-bg: rgb(255 255 255 / 0.04);
   --prose-heading: #ffffff;
   --prose-body: #d4d1ca;
-  --prose-link: #e0b968;
-  --section-alt: rgb(240 234 224 / 0.04);
   --toggle-bg: rgb(255 255 255 / 0.05);
   --toggle-text: #ffffff;
   --gold-emphasis: #f0d78c;
@@ -58,20 +45,14 @@
   --btn-gold-hover: #f0d78c;
   --btn-gold-text: #12110f;
   --btn-gold-hover-text: #12110f;
-  --footer-cta-from: rgb(212 168 83 / 0.12);
-  --footer-cta-mid: #1a1814;
-  --footer-cta-to: rgb(212 168 83 / 0.03);
-  --footer-cta-ring: rgb(212 168 83 / 0.1);
 }
 
 [data-theme='light'] {
   color-scheme: light;
-  --accent-rgb: 61 142 184;
   --color-accent: #4a9ec4;
   --color-primary-light: #74a0cc;
   --page: #f6f3ec;
   --page-secondary: #ede8dd;
-  --page-alt: #e5dfd2;
   --text: #27231d;
   --heading: #15130f;
   --muted: #6b645a;
@@ -81,28 +62,17 @@
   --nav-hover: #b2850f;
   --header-bg: rgb(246 243 236 / 0.92);
   --header-bg-mobile: rgb(246 243 236 / 0.98);
-  --footer-bg: #ede8dd;
   --border: rgb(120 95 40 / 0.18);
   --border-strong: rgb(40 32 20 / 0.1);
-  --surface: rgb(255 255 255 / 0.95);
   --surface-muted: rgb(40 32 20 / 0.04);
   --input-bg: rgb(255 255 255 / 0.9);
   --input-text: #27231d;
-  --mesh-base: #f6f3ec;
-  --theme-color: #f6f3ec;
-  --hero-img-opacity: 0.12;
   --logo-glow: rgb(178 133 15 / 0.4);
-  --glass-from: rgb(255 255 255 / 0.85);
-  --glass-to: rgb(246 243 236 / 0.75);
   --card-from: rgb(255 255 255 / 0.95);
   --card-mid: rgb(250 248 243 / 0.9);
   --card-to: rgb(237 232 221 / 0.85);
-  --outline-text: #27231d;
-  --outline-bg: rgb(255 255 255 / 0.6);
   --prose-heading: #15130f;
   --prose-body: #4a443b;
-  --prose-link: #305475;
-  --section-alt: rgb(120 95 40 / 0.06);
   --toggle-bg: rgb(40 32 20 / 0.06);
   --toggle-text: #27231d;
   /* Richer gold on light backgrounds */
@@ -114,10 +84,6 @@
   --btn-gold-hover: #9a7309;
   --btn-gold-text: #12110f;
   --btn-gold-hover-text: #ffffff;
-  --footer-cta-from: #ffffff;
-  --footer-cta-mid: #f5f1e8;
-  --footer-cta-to: #faf0dc;
-  --footer-cta-ring: rgb(178 133 15 / 0.12);
 }
 
 /*

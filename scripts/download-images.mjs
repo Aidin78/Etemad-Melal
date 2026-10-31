@@ -17,7 +17,6 @@ const site = {
   hero: `https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?${size}`,
   features: `https://images.unsplash.com/photo-1551288049-bebda4e38f71?${size}`,
   about: `https://images.unsplash.com/photo-1497366216548-37526070297c?${size}`,
-  trust: `https://images.unsplash.com/photo-1521791136064-7986c2920216?${size}`,
 };
 
 /** Fallback article cover (article-01.jpg); real articles ship their own covers */

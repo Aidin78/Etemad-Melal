@@ -6,7 +6,7 @@
  * `var(--p, …)` fallback is the static look used without JS or with reduced motion.
  */
 
-/* ── Display face (Morabba) for the big numerals and marquee; headings get it from base.css ── */
+/* ── Display face (Morabba) for the big numerals; headings get it from base.css ── */
 :is(
   .hero-stat dd,
   .tstat dd,
@@ -14,8 +14,7 @@
   .story-step-num,
   .story-counter-nums,
   .tcell-num,
-  .faq-num,
-  .marquee-row
+  .faq-num
 ) {
   font-family: var(--font-display);
 }
@@ -1024,61 +1023,6 @@ body:has(.home):not(.mobile-menu-open) .site-header.is-top {
   50% {
     box-shadow: 0 0 0 7px rgb(212 168 83 / 0.12), 0 0 20px 4px rgb(212 168 83 / 0.5);
   }
-}
-
-/* ═══════════════ Marquee (scroll-scrubbed, straight bands) ═══════════════ */
-.marquee {
-  position: relative;
-  overflow: hidden;
-  direction: ltr;
-  border-bottom: 1px solid var(--rule-strong);
-}
-
-.marquee-band {
-  padding-block: 0.375rem;
-}
-
-.marquee-band--gold {
-  color: var(--btn-gold-text);
-  background: var(--btn-gold);
-}
-
-.marquee-band--dark {
-  color: var(--heading);
-}
-
-.marquee-row {
-  display: flex;
-  width: max-content;
-  white-space: nowrap;
-  line-height: 1.55;
-  will-change: translate;
-}
-
-.marquee-row--a {
-  font-size: clamp(1.25rem, 0.85rem + 1.8vw, 2.5rem);
-  font-weight: 800;
-  translate: calc(-30% + (var(--p, 0.5) - 0.5) * 50vw) 0;
-}
-
-.marquee-row--b {
-  font-size: clamp(1.125rem, 0.8rem + 1.4vw, 2rem);
-  font-weight: 250;
-  translate: calc(-30% - (var(--p, 0.5) - 0.5) * 50vw) 0;
-}
-
-.marquee-item {
-  display: inline-flex;
-  align-items: center;
-}
-
-.marquee-sep {
-  margin-inline: 0.75em;
-  font-size: 0.35em;
-}
-
-.marquee-band--dark .marquee-sep {
-  color: var(--gold);
 }
 
 /* ═══════════════ Income pillars ═══════════════ */
@@ -2574,10 +2518,6 @@ body:has(.home):not(.mobile-menu-open) .site-header.is-top {
 
 /* ═══════════════ Print: everything in its resting state ═══════════════ */
 @media print {
-  .marquee {
-    display: none;
-  }
-
   .scroll-words span {
     opacity: 1;
   }

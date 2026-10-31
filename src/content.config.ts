@@ -38,7 +38,6 @@ const about = defineCollection({
       z.object({
         title: z.string(),
         desc: z.string(),
-        icon: z.string().default('◆'),
       }),
     ),
     highlights: z.array(z.object({ label: z.string(), value: z.string() })),

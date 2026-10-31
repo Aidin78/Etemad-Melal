@@ -17,16 +17,12 @@ highlights:
 values:
   - title: 'Transparency'
     desc: 'Clear, trackable reporting at every stage of investing.'
-    icon: '◎'
   - title: 'Expertise'
     desc: 'Experienced finance and engineering teams managing capital and platform growth.'
-    icon: '◈'
   - title: 'Support'
     desc: 'Continuous guidance from signup through profit tracking and withdrawals.'
-    icon: '◉'
   - title: 'Security'
     desc: 'Secure panel infrastructure and verified financial processes.'
-    icon: '◆'
 sections:
   - title: 'Company overview'
     headline: 'Etemad Melal — architect of the link between capital and industry'

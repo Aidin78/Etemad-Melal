@@ -19,40 +19,12 @@
   color: var(--text);
 }
 
-.bg-page {
-  background-color: var(--page);
-}
-
-.bg-page-secondary {
-  background-color: var(--page-secondary);
-}
-
 .bg-header {
   background-color: var(--header-bg);
 }
 
 .bg-header-mobile {
   background-color: var(--header-bg-mobile);
-}
-
-.bg-footer {
-  background-color: var(--footer-bg);
-}
-
-.bg-section-alt {
-  background-color: var(--section-alt);
-}
-
-.bg-image-overlay-bottom {
-  background: linear-gradient(to bottom, color-mix(in srgb, var(--secondary) 40%, transparent), color-mix(in srgb, var(--secondary) 80%, transparent), var(--page));
-}
-
-.bg-image-overlay-top {
-  background: linear-gradient(to top, var(--page), transparent);
-}
-
-.bg-image-overlay-horizontal {
-  background: linear-gradient(to right, var(--page), color-mix(in srgb, var(--secondary) 90%, transparent), var(--page));
 }
 
 .border-theme {
@@ -111,16 +83,6 @@
   .logo-mark--animated .logo-mark__orbit {
     animation: none;
   }
-}
-
-.hero-img {
-  opacity: var(--hero-img-opacity);
-}
-
-.surface-badge {
-  border: 1px solid var(--border-strong);
-  background: var(--surface-muted);
-  color: var(--nav);
 }
 
 .input-field {

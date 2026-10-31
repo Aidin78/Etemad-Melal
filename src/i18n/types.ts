@@ -66,7 +66,6 @@ export type Translations = {
     };
     stats: { value: string; label: string }[];
   };
-  ticker: { label: string; trend: string }[];
   income: {
     badge: string;
     title: string;
@@ -206,14 +205,8 @@ export type Translations = {
     ctaSubtitle: string;
     ctaContact: string;
     taglineSub: string;
-    trustBadges: string[];
     quickLinks: string;
-    investLinks: string;
     contactTitle: string;
-    howItWorks: string;
-    incomePaths: string;
-    benefits: string;
-    articles: string;
     about: string;
     faq: string;
     terms: string;

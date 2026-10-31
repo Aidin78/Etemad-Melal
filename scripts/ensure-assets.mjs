@@ -1,20 +1,8 @@
 import { spawnSync } from 'node:child_process';
-import { existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
-import { join } from 'node:path';
+import { missingFiles, requiredImages } from './required-assets.mjs';
 
-const publicDir = fileURLToPath(new URL('../public', import.meta.url));
-
-const required = [
-  'images/hero.jpg',
-  'images/features.jpg',
-  'images/about.jpg',
-  'images/trust.jpg',
-  // Fallback cover for articles without an `image` (siteImages.articleDefault)
-  'images/articles/article-01.jpg',
-];
-
-const missing = required.filter((p) => !existsSync(join(publicDir, p)));
+const missing = missingFiles(requiredImages);
 
 if (missing.length === 0) {
   console.log('Asset check passed.');
@@ -31,7 +19,7 @@ if (result.status !== 0) {
   process.exit(result.status ?? 1);
 }
 
-const stillMissing = required.filter((p) => !existsSync(join(publicDir, p)));
+const stillMissing = missingFiles(requiredImages);
 if (stillMissing.length > 0) {
   console.error('Missing required images after download:');
   for (const p of stillMissing) console.error(`  - public/${p}`);
