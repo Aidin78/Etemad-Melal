@@ -635,10 +635,6 @@ footer {
   }
 }
 
-.text-gold-emphasis {
-  color: var(--gold-emphasis);
-}
-
 .text-gold-soft {
   color: var(--gold-soft);
 }

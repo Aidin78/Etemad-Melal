@@ -245,7 +245,7 @@
 }
 
 /* ═══════════════ Header blended into the first view ═══════════════ */
-/* `.is-top` is set by Header.astro only while the page is unscrolled (JS-only, so no-JS stays solid) */
+/* `.is-top` is set only while the page is unscrolled, inline in Header.astro and then by src/scripts/header.ts (JS-only, so no-JS stays solid) */
 body:has(.home):not(.mobile-menu-open) .site-header.is-top {
   background-color: transparent;
   border-bottom-color: transparent;

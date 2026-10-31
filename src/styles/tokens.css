@@ -25,7 +25,6 @@
   --nav: #d6d3cc;
   --nav-hover: #f0d78c;
   --header-bg: rgb(18 17 15 / 0.88);
-  --header-bg-mobile: rgb(18 17 15 / 0.96);
   --border: rgb(212 168 83 / 0.12);
   --border-strong: rgb(255 255 255 / 0.1);
   --surface-muted: rgb(255 255 255 / 0.05);
@@ -61,7 +60,6 @@
   --nav: #4a443b;
   --nav-hover: #b2850f;
   --header-bg: rgb(246 243 236 / 0.92);
-  --header-bg-mobile: rgb(246 243 236 / 0.98);
   --border: rgb(120 95 40 / 0.18);
   --border-strong: rgb(40 32 20 / 0.1);
   --surface-muted: rgb(40 32 20 / 0.04);

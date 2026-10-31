@@ -23,14 +23,6 @@
   background-color: var(--header-bg);
 }
 
-.bg-header-mobile {
-  background-color: var(--header-bg-mobile);
-}
-
-.border-theme {
-  border-color: var(--border);
-}
-
 .border-divider {
   border-color: var(--border-strong);
 }
