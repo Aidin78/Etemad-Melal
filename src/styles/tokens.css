@@ -78,7 +78,7 @@
   --subtle: #8a8378;
   --faint: #a8a196;
   --nav: #4a443b;
-  --nav-hover: #a67c0c;
+  --nav-hover: #b2850f;
   --header-bg: rgb(246 243 236 / 0.92);
   --header-bg-mobile: rgb(246 243 236 / 0.98);
   --footer-bg: #ede8dd;
@@ -91,7 +91,7 @@
   --mesh-base: #f6f3ec;
   --theme-color: #f6f3ec;
   --hero-img-opacity: 0.12;
-  --logo-glow: rgb(166 124 12 / 0.4);
+  --logo-glow: rgb(178 133 15 / 0.4);
   --glass-from: rgb(255 255 255 / 0.85);
   --glass-to: rgb(246 243 236 / 0.75);
   --card-from: rgb(255 255 255 / 0.95);
@@ -106,18 +106,18 @@
   --toggle-bg: rgb(40 32 20 / 0.06);
   --toggle-text: #27231d;
   /* Richer gold on light backgrounds */
-  --color-accent-gold: #a67c0c;
-  --color-accent-gold-light: #976f0b;
-  --gold-emphasis: #a67c0c;
-  --gold-soft: #866509;
-  --btn-gold: #c39314;
+  --color-accent-gold: #b2850f;
+  --color-accent-gold-light: #a3780e;
+  --gold-emphasis: #b2850f;
+  --gold-soft: #926e0c;
+  --btn-gold: #cf9c17;
   --btn-gold-hover: #9a7309;
   --btn-gold-text: #12110f;
   --btn-gold-hover-text: #ffffff;
   --footer-cta-from: #ffffff;
   --footer-cta-mid: #f5f1e8;
   --footer-cta-to: #faf0dc;
-  --footer-cta-ring: rgb(166 124 12 / 0.12);
+  --footer-cta-ring: rgb(178 133 15 / 0.12);
 }
 
 /*
