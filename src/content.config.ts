@@ -1,6 +1,7 @@
 import { defineCollection } from 'astro:content';
 import { z } from 'astro/zod';
-import { glob } from 'astro/loaders';import { siteImages } from './config/images';
+import { glob } from 'astro/loaders';
+import { siteImages } from './config/images';
 
 const articles = defineCollection({
   loader: glob({ pattern: '{fa,en}/**/*.md', base: './src/content/articles' }),
