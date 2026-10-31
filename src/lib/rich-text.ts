@@ -1,6 +1,6 @@
 export type RichTextPart = { type: 'text'; value: string } | { type: 'link'; label: string; href: string };
 
-const PANEL_HOST_PATTERN = /(?:Panel\.)?etemadmel(?:al|ad)\.com/gi;
+const PANEL_HOST_PATTERN = /(?<![\w@.-])(?:Panel\.)?etemadmel(?:al|ad)\.com/gi;
 
 /** Split a title so its last word can take the thin gold accent; a single word stays whole */
 export function splitTitleAccent(text: string) {
