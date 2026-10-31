@@ -85,11 +85,9 @@
   gap: 0.5rem;
 }
 
-/* Language and theme read as one quiet group, ruled off from the login button */
+/* Language and theme read as one quiet group beside the login button */
 .site-header-prefs {
   align-items: center;
-  padding-inline-end: 0.5rem;
-  border-inline-end: 1px solid var(--rule-strong);
 }
 
 /* Header utilities are bare icons/text — only the login button carries weight */
@@ -627,6 +625,10 @@ footer {
     padding-block: 4.5rem;
   }
 
+  .footer-cta-sub {
+    max-width: none;
+  }
+
   .footer-grid {
     grid-template-columns: 5fr 4fr 3fr;
     gap: 4rem;
@@ -690,6 +692,11 @@ footer {
     display: inline-block;
     padding-block: 0.625rem;
     padding-inline: 0.125rem;
+  }
+
+  /* A short word still gets its whole grid cell to tap */
+  .footer-links .footer-link {
+    display: block;
   }
 
   .footer-legal-list a {
