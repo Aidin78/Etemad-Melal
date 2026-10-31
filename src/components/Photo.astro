@@ -1,0 +1,29 @@
+---
+/**
+ * Photo from public/images served as responsive WebP, with the JPEG as the fallback.
+ * A photo without generated copies (npm run generate:images) renders as the plain JPEG.
+ */
+import type { HTMLAttributes } from 'astro/types';
+import { photoSrcset } from '../lib/images';
+
+interface Props extends HTMLAttributes<'img'> {
+  src: string;
+  alt: string;
+  /** Laid-out width, so the browser can pick a copy before layout */
+  sizes: string;
+}
+
+const { sizes, ...attrs } = Astro.props;
+const srcset = photoSrcset(attrs.src);
+---
+
+{
+  srcset ? (
+    <picture>
+      <source type="image/webp" srcset={srcset} sizes={sizes} />
+      <img {...attrs} />
+    </picture>
+  ) : (
+    <img {...attrs} />
+  )
+}

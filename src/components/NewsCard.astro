@@ -4,6 +4,7 @@ import type { CollectionEntry } from 'astro:content';
 import type { Locale } from '../i18n/types';
 import { getArticleDisplay, getTranslations, localePath } from '../i18n';
 import { parseArticleId } from '../lib/article-utils';
+import Photo from './Photo.astro';
 
 interface Props extends HTMLAttributes<'a'> {
   locale: Locale;
@@ -32,13 +33,19 @@ const leading = variant === 'lead' || variant === 'feature';
         <Title class="news-title">{display.title}</Title>
       </div>
       <span class="news-media">
-        <img src={post.data.image} alt="" loading="lazy" />
+        <Photo src={post.data.image} alt="" loading="lazy" sizes="133px" />
       </span>
     </a>
   ) : (
     <a href={href} class:list={[leading ? 'news-lead' : 'news-card', variant === 'feature' && 'news-lead--feature']} {...attrs}>
       <span class="news-media">
-        <img src={post.data.image} alt="" loading={variant === 'feature' ? 'eager' : 'lazy'} />
+        <Photo
+          src={post.data.image}
+          alt=""
+          loading={variant === 'feature' ? 'eager' : 'lazy'}
+          fetchpriority={variant === 'feature' ? 'high' : undefined}
+          sizes={leading ? '(min-width: 1024px) 50vw, 100vw' : '(min-width: 1024px) 30vw, (min-width: 640px) 50vw, 100vw'}
+        />
       </span>
       <div>
         <time class="news-date" datetime={post.data.date.toISOString()}>{display.dateLabel}</time>

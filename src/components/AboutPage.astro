@@ -3,6 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import PageHero from './PageHero.astro';
 import HomeSectionHead from './HomeSectionHead.astro';
 import OrbitMark from './OrbitMark.astro';
+import Photo from './Photo.astro';
 import AboutSectionContent from './AboutSectionContent.astro';
 import PanelLink from './PanelLink.astro';
 import { getEntry } from 'astro:content';
@@ -37,7 +38,7 @@ const { data } = entry;
     >
       <figure class="mt-10 lg:mt-14">
         <div class="page-photo" data-scrub>
-          <img src={data.image} alt={data.imageAlt} loading="eager" />
+          <Photo src={data.image} alt={data.imageAlt} loading="eager" fetchpriority="high" sizes="100vw" />
         </div>
         <figcaption class="page-caption">
           <strong>{t.companyLegal}</strong>

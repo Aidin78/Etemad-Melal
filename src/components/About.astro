@@ -1,6 +1,7 @@
 ---
 import HomeSectionHead from './HomeSectionHead.astro';
 import OrbitMark from './OrbitMark.astro';
+import Photo from './Photo.astro';
 import PanelLink from './PanelLink.astro';
 import ScrollWords from './ScrollWords.astro';
 import { siteImages } from '../config/images';
@@ -94,7 +95,7 @@ const icons = {
 
       <figure class="manifesto-figure">
         <div class="manifesto-media" data-scrub>
-          <img src={siteImages.about} alt={t.about.imageAlt} class="manifesto-img" loading="lazy" />
+          <Photo src={siteImages.about} alt={t.about.imageAlt} class="manifesto-img" loading="lazy" sizes="(min-width: 1024px) 42vw, 100vw" />
         </div>
       </figure>
     </div>

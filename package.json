@@ -7,13 +7,14 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "prebuild": "node scripts/ensure-assets.mjs && node scripts/check-articles.mjs",
+    "prebuild": "node scripts/ensure-assets.mjs && node scripts/check-articles.mjs && node scripts/generate-images.mjs",
     "build": "astro build",
     "postbuild": "node scripts/postbuild-hint.mjs",
     "preview": "astro preview",
     "build:preview": "npm run build && npm run preview",
     "export:logo": "node scripts/export-logo-full.mjs",
     "generate:favicons": "node scripts/generate-favicons.mjs",
+    "generate:images": "node scripts/generate-images.mjs",
     "download:images": "node scripts/download-images.mjs",
     "check:assets": "node scripts/check-assets.mjs",
     "check:articles": "node scripts/check-articles.mjs",
@@ -30,6 +31,7 @@
   "devDependencies": {
     "@astrojs/check": "^0.9.12",
     "@resvg/resvg-js": "^2.6.2",
+    "sharp": "^0.35.5",
     "typescript": "^6.0.3"
   }
 }

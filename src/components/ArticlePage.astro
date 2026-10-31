@@ -3,6 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import DocToc from './DocToc.astro';
 import HomeSectionHead from './HomeSectionHead.astro';
 import NewsCard from './NewsCard.astro';
+import Photo from './Photo.astro';
 import { render } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
 import type { Locale } from '../i18n/types';
@@ -69,7 +70,7 @@ const related = (await getSortedArticles(locale)).filter((p) => p.id !== post.id
 
     <div class="home-wrap article-photo">
       <div class="page-photo" data-scrub>
-        <img src={post.data.image} alt="" loading="eager" />
+        <Photo src={post.data.image} alt="" loading="eager" fetchpriority="high" sizes="100vw" />
       </div>
     </div>
 

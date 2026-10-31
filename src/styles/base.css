@@ -13,6 +13,11 @@ html {
   outline-offset: 2px;
 }
 
+/* Photo.astro's wrapper must not add a box: section styles size the <img> itself */
+picture {
+  display: contents;
+}
+
 /* Tailwind's reset leaves buttons on the default arrow */
 button:not(:disabled) {
   cursor: pointer;

@@ -1,0 +1,47 @@
+{
+  "/images/about.jpg": [
+    480,
+    800,
+    1200
+  ],
+  "/images/articles/article-01.jpg": [
+    480,
+    800,
+    1200
+  ],
+  "/images/articles/civil-partnership-legal-framework.jpg": [
+    480,
+    800,
+    1200,
+    1600
+  ],
+  "/images/articles/crowdfunding-industrial-development.jpg": [
+    480,
+    800,
+    1200,
+    1600
+  ],
+  "/images/articles/gold-inflation-hedge.jpg": [
+    480,
+    800,
+    1200,
+    1600
+  ],
+  "/images/articles/insurance-history-security.jpg": [
+    480,
+    800,
+    1200,
+    1600
+  ],
+  "/images/features.jpg": [
+    480,
+    800,
+    1200
+  ],
+  "/images/hero.jpg": [
+    480,
+    800,
+    1200,
+    1600
+  ]
+}

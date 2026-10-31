@@ -3,6 +3,7 @@ import { siteImages } from '../config/images';
 import PanelLink from './PanelLink.astro';
 import LogoIcon from './LogoIcon.astro';
 import OrbitMark from './OrbitMark.astro';
+import Photo from './Photo.astro';
 import type { Locale } from '../i18n/types';
 import { getTranslations, toLocaleDigits } from '../i18n';
 import { getYearsActive } from '../lib/dates';
@@ -86,7 +87,7 @@ const ringSegments = t.income.streams.map((stream, i) => {
       </div>
 
       <div class="hero-photo" data-scrub>
-        <img src={siteImages.hero} alt="" loading="eager" fetchpriority="high" />
+        <Photo src={siteImages.hero} alt="" loading="eager" fetchpriority="high" sizes="(min-width: 1024px) 28vw, 65vw" />
       </div>
 
       <div class="hero-panel">

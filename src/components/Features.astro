@@ -1,5 +1,6 @@
 ---
 import OrbitMark from './OrbitMark.astro';
+import Photo from './Photo.astro';
 import HomeSectionHead from './HomeSectionHead.astro';
 import { siteImages } from '../config/images';
 import { featureStepIcons } from '../lib/section-icons';
@@ -30,7 +31,7 @@ const total = formatBoxIndex(t.features.steps.length, locale);
     <div class="story-layout">
       <div class="story-sticky">
         <div class="story-frame" data-reveal="image">
-          <img src={siteImages.features} alt={t.features.imageAlt} class="story-img" loading="lazy" />
+          <Photo src={siteImages.features} alt={t.features.imageAlt} class="story-img" loading="lazy" sizes="(min-width: 1024px) 38vw, 100vw" />
           <div class="story-frame-shade" aria-hidden="true"></div>
 
           <div class="story-counter" aria-hidden="true">
