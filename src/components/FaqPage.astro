@@ -2,11 +2,11 @@
 import Layout from '../layouts/Layout.astro';
 import PageHero from './PageHero.astro';
 import FaqItem from './FaqItem.astro';
-import { siteConfig } from '../config/site';
 import type { Locale } from '../i18n/types';
 import { getTranslations, localePath } from '../i18n';
 import { splitTitleAccent } from '../lib/rich-text';
 import { faqPageSchema, breadcrumbSchema } from '../lib/seo-schemas';
+import { pageUrl } from '../lib/urls';
 
 interface Props {
   locale: Locale;
@@ -14,9 +14,6 @@ interface Props {
 
 const { locale } = Astro.props;
 const t = getTranslations(locale);
-
-const faqUrl = new URL(localePath(locale, '/faq'), siteConfig.url).href;
-const homeUrl = new URL(localePath(locale, '/'), siteConfig.url).href;
 ---
 
 <Layout
@@ -26,8 +23,8 @@ const homeUrl = new URL(localePath(locale, '/'), siteConfig.url).href;
   jsonLd={[
     faqPageSchema(t.faqPage.items),
     breadcrumbSchema([
-      { name: t.a11y.home, url: homeUrl },
-      { name: t.faqPage.pageTitle, url: faqUrl },
+      { name: t.a11y.home, url: pageUrl(locale, '/') },
+      { name: t.faqPage.pageTitle, url: pageUrl(locale, '/faq') },
     ]),
   ]}
 >

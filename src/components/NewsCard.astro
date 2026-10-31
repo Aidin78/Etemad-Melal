@@ -19,12 +19,7 @@ interface Props extends HTMLAttributes<'a'> {
 const { locale, post, variant = 'card', as: Title = 'h3', ...attrs } = Astro.props;
 const t = getTranslations(locale);
 const { slug } = parseArticleId(post.id);
-const display = getArticleDisplay(locale, {
-  title: post.data.title,
-  excerpt: post.data.excerpt,
-  date: post.data.date,
-  dateFa: post.data.dateFa,
-});
+const display = getArticleDisplay(locale, post.data);
 const href = localePath(locale, `/articles/${slug}`);
 const leading = variant === 'lead' || variant === 'feature';
 ---

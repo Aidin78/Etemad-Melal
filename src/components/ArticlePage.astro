@@ -4,13 +4,13 @@ import DocToc from './DocToc.astro';
 import HomeSectionHead from './HomeSectionHead.astro';
 import NewsCard from './NewsCard.astro';
 import { render } from 'astro:content';
-import { siteConfig } from '../config/site';
 import type { CollectionEntry } from 'astro:content';
 import type { Locale } from '../i18n/types';
 import { getArticleDisplay, getTranslations, localePath } from '../i18n';
 import { parseArticleId } from '../lib/article-utils';
 import { getSortedArticles } from '../lib/articles';
 import { articleSchema, breadcrumbSchema } from '../lib/seo-schemas';
+import { pageUrl } from '../lib/urls';
 
 interface Props {
   locale: Locale;
@@ -22,19 +22,8 @@ const t = getTranslations(locale);
 const { Content, headings } = await render(post);
 const { slug } = parseArticleId(post.id);
 
-const display = getArticleDisplay(locale, {
-  title: post.data.title,
-  excerpt: post.data.excerpt,
-  date: post.data.date,
-  dateFa: post.data.dateFa,
-});
-
-const articlePath = localePath(locale, `/articles/${slug}`);
-const articleUrl = new URL(articlePath, siteConfig.url).href;
-const articlesIndexUrl = new URL(localePath(locale, '/articles'), siteConfig.url).href;
-const homeUrl = new URL(localePath(locale, '/'), siteConfig.url).href;
-const proseDir = locale === 'fa' ? 'rtl' : 'ltr';
-const proseLang = locale === 'fa' ? 'fa-IR' : 'en';
+const display = getArticleDisplay(locale, post.data);
+const articleUrl = pageUrl(locale, `/articles/${slug}`);
 
 const toc = headings.filter((h) => h.depth === 2).map((h) => ({ id: h.slug, label: h.text }));
 const related = (await getSortedArticles(locale)).filter((p) => p.id !== post.id).slice(0, 3);
@@ -48,7 +37,7 @@ const related = (await getSortedArticles(locale)).filter((p) => p.id !== post.id
   ogType="article"
   publishedTime={post.data.date}
   jsonLd={[
-    articleSchema(locale, t, {
+    articleSchema(t, {
       title: display.title,
       description: display.excerpt,
       image: post.data.image,
@@ -56,8 +45,8 @@ const related = (await getSortedArticles(locale)).filter((p) => p.id !== post.id
       url: articleUrl,
     }),
     breadcrumbSchema([
-      { name: t.a11y.home, url: homeUrl },
-      { name: t.news.pageTitle, url: articlesIndexUrl },
+      { name: t.a11y.home, url: pageUrl(locale, '/') },
+      { name: t.news.pageTitle, url: pageUrl(locale, '/articles') },
       { name: display.title, url: articleUrl },
     ]),
   ]}
@@ -86,7 +75,7 @@ const related = (await getSortedArticles(locale)).filter((p) => p.id !== post.id
 
     <div class="home-wrap doc-layout">
       {toc.length > 1 && <DocToc title={t.termsPage.tocTitle} items={toc} />}
-      <div class="article-prose" itemprop="articleBody" dir={proseDir} lang={proseLang}>
+      <div class="article-prose" itemprop="articleBody" dir={t.dir} lang={t.lang}>
         <Content />
       </div>
     </div>

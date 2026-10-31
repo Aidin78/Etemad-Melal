@@ -3,11 +3,12 @@ import Layout from '../layouts/Layout.astro';
 import PageHero from './PageHero.astro';
 import DocToc from './DocToc.astro';
 import AboutSectionContent from './AboutSectionContent.astro';
-import { siteConfig, legalLastUpdated } from '../config/site';
+import { legalLastUpdated } from '../config/site';
 import type { Locale } from '../i18n/types';
-import { getTranslations, localePath, toLocaleDigits, formatBoxIndex } from '../i18n';
+import { formatDate, getTranslations, localePath, toLocaleDigits, formatBoxIndex } from '../i18n';
 import { splitTitleAccent } from '../lib/rich-text';
 import { breadcrumbSchema } from '../lib/seo-schemas';
+import { pageUrl } from '../lib/urls';
 
 interface Props {
   locale: Locale;
@@ -15,15 +16,6 @@ interface Props {
 
 const { locale } = Astro.props;
 const t = getTranslations(locale);
-
-const termsUrl = new URL(localePath(locale, '/terms'), siteConfig.url).href;
-const homeUrl = new URL(localePath(locale, '/'), siteConfig.url).href;
-
-const lastUpdatedLabel = new Intl.DateTimeFormat(locale === 'fa' ? 'fa-IR' : 'en', {
-  year: 'numeric',
-  month: 'long',
-  day: 'numeric',
-}).format(new Date(legalLastUpdated));
 
 // Section titles carry their own "۱. " / "1. " prefix — split it off so the number can be its own badge
 const sections = t.termsPage.sections.map((section, i) => ({
@@ -36,7 +28,7 @@ const sections = t.termsPage.sections.map((section, i) => ({
 const wordCount = t.termsPage.sections.reduce((sum, s) => sum + s.body.split(/\s+/).length, 0);
 const readingMinutes = Math.max(1, Math.round(wordCount / 200));
 const meta = [
-  `${t.termsPage.lastUpdatedLabel}: ${toLocaleDigits(lastUpdatedLabel, locale)}`,
+  `${t.termsPage.lastUpdatedLabel}: ${formatDate(new Date(legalLastUpdated), locale)}`,
   t.termsPage.sectionsCount.replace('{count}', toLocaleDigits(sections.length, locale)),
   t.termsPage.readingTime.replace('{min}', toLocaleDigits(readingMinutes, locale)),
 ];
@@ -49,8 +41,8 @@ const meta = [
   footerCta={false}
   jsonLd={[
     breadcrumbSchema([
-      { name: t.a11y.home, url: homeUrl },
-      { name: t.termsPage.pageTitle, url: termsUrl },
+      { name: t.a11y.home, url: pageUrl(locale, '/') },
+      { name: t.termsPage.pageTitle, url: pageUrl(locale, '/terms') },
     ]),
   ]}
 >

@@ -1,16 +1,19 @@
 import { siteConfig } from '../config/site';
 import type { FaqItem, Locale, Translations } from '../i18n/types';
-import { localePath } from '../i18n/utils';
+import { pageUrl } from './urls';
 
 const base = siteConfig.url;
 const logoUrl = `${base}/media/etemadmelal-logo-512.png`;
+
+/** The brand name in the other script */
+const alternateName = (locale: Locale) => (locale === 'fa' ? 'Etemad Melal' : 'اعتماد ملل');
 
 export function organizationSchema(locale: Locale, t: Translations) {
   return {
     '@context': 'https://schema.org',
     '@type': 'Organization',
     name: t.siteName,
-    alternateName: locale === 'fa' ? 'Etemad Melal' : 'اعتماد ملل',
+    alternateName: alternateName(locale),
     url: base,
     logo: logoUrl,
     description: t.description,
@@ -29,10 +32,10 @@ export function websiteSchema(locale: Locale, t: Translations) {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
     name: t.siteName,
-    alternateName: locale === 'fa' ? 'Etemad Melal' : 'اعتماد ملل',
-    url: `${base}${localePath(locale, '/')}`,
+    alternateName: alternateName(locale),
+    url: pageUrl(locale, '/'),
     description: t.description,
-    inLanguage: locale === 'fa' ? 'fa-IR' : 'en',
+    inLanguage: t.lang,
     publisher: {
       '@type': 'Organization',
       name: t.siteName,
@@ -46,8 +49,8 @@ export function financialServiceSchema(locale: Locale, t: Translations) {
     '@context': 'https://schema.org',
     '@type': 'FinancialService',
     name: t.siteName,
-    alternateName: locale === 'fa' ? 'Etemad Melal' : 'اعتماد ملل',
-    url: `${base}${localePath(locale, '/')}`,
+    alternateName: alternateName(locale),
+    url: pageUrl(locale, '/'),
     description: t.longDescription,
     areaServed: { '@type': 'Country', name: 'Iran' },
     email: t.contact.email,
@@ -72,7 +75,6 @@ export function faqPageSchema(items: FaqItem[]) {
 }
 
 export function articleSchema(
-  locale: Locale,
   t: Translations,
   input: {
     title: string;
@@ -91,7 +93,7 @@ export function articleSchema(
     description: input.description,
     image: imageUrl,
     datePublished: input.datePublished.toISOString(),
-    inLanguage: locale === 'fa' ? 'fa-IR' : 'en',
+    inLanguage: t.lang,
     mainEntityOfPage: input.url,
     author: { '@type': 'Organization', name: t.siteName, url: base },
     publisher: {
