@@ -181,6 +181,15 @@ const ringSegments = t.income.streams.map((stream, i) => {
       caret.className = 'hero-type-caret';
       const wait = (ms: number) => new Promise((resolve) => window.setTimeout(resolve, ms));
 
+      // Typing repaints constantly, so it only continues while the hero is on screen
+      let onScreen = true;
+      let resume = () => {};
+      new IntersectionObserver(([entry]) => {
+        onScreen = entry.isIntersecting;
+        if (onScreen) resume();
+      }).observe(el);
+      const whileOnScreen = () => (onScreen ? Promise.resolve() : new Promise<void>((resolve) => (resume = resolve)));
+
       const run = async () => {
         await wait(INTRO_MS);
         text.textContent = phrases[0];
@@ -190,6 +199,7 @@ const ringSegments = t.income.streams.map((stream, i) => {
         let index = 0;
         for (;;) {
           await wait(HOLD_MS);
+          await whileOnScreen();
           const current = [...phrases[index]];
           for (let n = current.length - 1; n >= 0; n--) {
             text.textContent = current.slice(0, n).join('');
