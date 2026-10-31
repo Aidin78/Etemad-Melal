@@ -598,7 +598,19 @@ footer {
     min-height: 2.75rem;
     padding-inline: 0.375rem;
   }
+}
 
+/* Text links stay slim to the eye; on touch their hit area grows past the underline */
+@media (pointer: coarse) {
+  :is(.sh-link, .hero-link, .footer-text-link, a.contact-channel-value) {
+    position: relative;
+  }
+
+  :is(.sh-link, .hero-link, .footer-text-link, a.contact-channel-value)::after {
+    content: '';
+    position: absolute;
+    inset: -0.75rem -0.25rem;
+  }
 }
 
 [data-theme='light'] .logo-icon-shell {
