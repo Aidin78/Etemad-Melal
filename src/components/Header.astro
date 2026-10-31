@@ -13,24 +13,15 @@ interface Props {
 const { locale } = Astro.props;
 const t = getTranslations(locale);
 
-const sectionId = (href: string) => (href.includes('#') ? href.split('#')[1] : null);
-
-const navDataAttrs = (href: string) => {
-  const id = sectionId(href);
-  if (id) return { 'data-nav-section': id };
-  const articlesPath = localePath(locale, '/articles');
-  if (href === '/articles' || href.startsWith('/articles')) {
-    return { 'data-nav-path': articlesPath };
-  }
-  const aboutPath = localePath(locale, '/about');
-  if (href === '/about' || href.startsWith('/about')) {
-    return { 'data-nav-path': aboutPath };
-  }
-  return {};
-};
-
 const localizedHref = (href: string) => localePath(locale, href);
 const primaryNav = t.nav.filter((link) => !link.secondary);
+const isHome = Astro.url.pathname.replace(/\/$/, '') === localizedHref('/').replace(/\/$/, '');
+
+/** Hooks for src/scripts/header.ts: homepage sections get a scroll-spy, pages a path match */
+const navDataAttrs = (href: string) => {
+  const section = href.split('#')[1];
+  return section ? { 'data-nav-section': section } : { 'data-nav-path': localizedHref(href) };
+};
 ---
 
 <header class="site-header fixed inset-x-0 top-0 z-50 bg-header backdrop-blur-xl" id="site-header">
@@ -68,6 +59,14 @@ const primaryNav = t.nav.filter((link) => !link.secondary);
     </div>
   </div>
 </header>
+{
+  isHome && (
+    <script is:inline>
+      // Set before first paint so the homepage header never flashes solid over the hero
+      document.getElementById('site-header').classList.toggle('is-top', window.scrollY < 8);
+    </script>
+  )
+}
 
 <div class="mobile-menu lg:hidden" id="mobile-menu">
   <button type="button" class="mobile-menu-backdrop" id="mobile-menu-backdrop" aria-label={t.a11y.closeMenu} tabindex="-1"></button>
@@ -105,183 +104,3 @@ const primaryNav = t.nav.filter((link) => !link.secondary);
     </div>
   </div>
 </div>
-
-<script is:inline>
-  const toggle = document.getElementById('menu-toggle');
-  const menu = document.getElementById('mobile-menu');
-  const backdrop = document.getElementById('mobile-menu-backdrop');
-  const closeButton = document.getElementById('mobile-menu-close');
-  const header = document.getElementById('site-header');
-
-  const focusableSelector =
-    'a[href], button:not([disabled]), input:not([disabled]), textarea:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])';
-
-  const setMenuOpen = (open) => {
-    menu?.classList.toggle('mobile-menu--open', open);
-    toggle?.setAttribute('aria-expanded', String(open));
-    document.body.classList.toggle('mobile-menu-open', open);
-    // Looked up here: this script runs before the page content is parsed
-    const page = [header, document.getElementById('main-content'), document.querySelector('footer')];
-    page.forEach((el) => el?.toggleAttribute('inert', open));
-    if (open) closeButton?.focus();
-  };
-
-  const closeMenu = () => {
-    setMenuOpen(false);
-    toggle?.focus();
-  };
-
-  toggle?.addEventListener('click', () => setMenuOpen(true));
-  closeButton?.addEventListener('click', closeMenu);
-  backdrop?.addEventListener('click', closeMenu);
-
-  document.addEventListener('keydown', (event) => {
-    if (!menu?.classList.contains('mobile-menu--open')) return;
-
-    if (event.key === 'Escape') {
-      closeMenu();
-      return;
-    }
-
-    if (event.key === 'Tab') {
-      const focusable = [...menu.querySelectorAll(focusableSelector)].filter(
-        (el) => el.offsetParent !== null,
-      );
-      if (!focusable.length) return;
-      const first = focusable[0];
-      const last = focusable[focusable.length - 1];
-
-      if (event.shiftKey && document.activeElement === first) {
-        event.preventDefault();
-        last.focus();
-      } else if (!event.shiftKey && document.activeElement === last) {
-        event.preventDefault();
-        first.focus();
-      }
-    }
-  });
-
-  menu?.querySelectorAll('a').forEach((link) => {
-    link.addEventListener('click', () => setMenuOpen(false));
-  });
-
-  window.matchMedia('(min-width: 1024px)').addEventListener('change', (event) => {
-    if (event.matches) setMenuOpen(false);
-  });
-
-  const normalizePath = () => {
-    const path = window.location.pathname.replace(/\/$/, '');
-    return path || '/';
-  };
-
-  const setLinkActive = (link, active, currentValue = 'page') => {
-    link.classList.toggle('nav-link-active', active);
-    if (active) link.setAttribute('aria-current', currentValue);
-    else link.removeAttribute('aria-current');
-  };
-
-  const clearNavActive = () => {
-    document
-      .querySelectorAll('[data-nav-section]')
-      .forEach((link) => setLinkActive(link, false, 'location'));
-  };
-
-  function initPageNav() {
-    const path = normalizePath();
-    document.querySelectorAll('[data-nav-path]').forEach((link) => {
-      const prefix = link.dataset.navPath;
-      setLinkActive(link, !!prefix && path.startsWith(prefix), 'page');
-    });
-  }
-
-  function initScrollSpy() {
-    const links = document.querySelectorAll('[data-nav-section]');
-    if (!links.length) return;
-
-    const sections = [...links]
-      .map((link) => {
-        const id = link.dataset.navSection;
-        return id ? document.getElementById(id) : null;
-      })
-      .filter((el) => !!el);
-
-    if (!sections.length) return;
-
-    const scrollOffset = () => (header?.offsetHeight ?? 56) + 40;
-
-    const setActive = (id) => {
-      clearNavActive();
-      links.forEach((link) => setLinkActive(link, link.dataset.navSection === id, 'location'));
-    };
-
-    const update = () => {
-      const line = scrollOffset();
-      let current;
-      for (const section of sections) {
-        if (section.getBoundingClientRect().top <= line) current = section.id;
-      }
-      setActive(current);
-    };
-
-    let ticking = false;
-    const onScroll = () => {
-      if (ticking) return;
-      ticking = true;
-      requestAnimationFrame(() => {
-        update();
-        ticking = false;
-      });
-    };
-
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll);
-    links.forEach((link) => {
-      link.addEventListener('click', () => {
-        const id = link.dataset.navSection;
-        if (id) setActive(id);
-      });
-    });
-
-    const hash = window.location.hash.slice(1);
-    if (hash && document.getElementById(hash)) setActive(hash);
-    else update();
-  }
-
-  const path = normalizePath();
-  const isHome = path === '/' || path === '/en';
-
-  // Homepage: the header sits transparently on the hero until the page scrolls
-  // (checked by path — this script runs before the page content is parsed)
-  if (isHome) {
-    const syncTop = () => header?.classList.toggle('is-top', window.scrollY < 8);
-    syncTop();
-    window.addEventListener('scroll', syncTop, { passive: true });
-  }
-
-  // Further down the page it slides away while scrolling down and comes back on any scroll up
-  // (never while the menu is open)
-  const HIDE_AFTER = 480;
-  let lastY = window.scrollY;
-  let hideTicking = false;
-  const syncHidden = () => {
-    hideTicking = false;
-    const y = window.scrollY;
-    const delta = y - lastY;
-    if (Math.abs(delta) < 8) return;
-    const menuOpen = menu?.classList.contains('mobile-menu--open');
-    header?.classList.toggle('is-hidden', !menuOpen && delta > 0 && y > HIDE_AFTER);
-    lastY = y;
-  };
-  window.addEventListener(
-    'scroll',
-    () => {
-      if (hideTicking) return;
-      hideTicking = true;
-      requestAnimationFrame(syncHidden);
-    },
-    { passive: true },
-  );
-
-  if (path.includes('/articles') || path.includes('/about')) initPageNav();
-  else if (isHome) document.addEventListener('DOMContentLoaded', initScrollSpy);
-</script>

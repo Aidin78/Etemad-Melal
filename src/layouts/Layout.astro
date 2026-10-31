@@ -128,7 +128,9 @@ const defaultUrl = locale === defaultLocale ? canonical : altUrl;
     </main>
     <Footer locale={locale} cta={footerCta} />
     <script>
+      import { initHeader } from '../scripts/header';
       import { initMotion } from '../scripts/motion';
+      initHeader();
       initMotion();
     </script>
   </body>
