@@ -112,6 +112,7 @@ const defaultUrl = locale === defaultLocale ? canonical : altUrl;
     <meta name="twitter:image" content={ogImage} />
 
     <title>{fullTitle}</title>
+    <slot name="head" />
     {jsonLd && <JsonLd data={jsonLd} />}
   </head>
   <body class="relative min-h-screen">

@@ -14,7 +14,7 @@ AddCharset UTF-8 .txt .xml .html .css .js .svg
   AddType image/webp .webp
 </IfModule>
 
-# Persian 404 page; its language switcher links to the English one (/en/404)
+# Persian 404 page; it forwards misses under /en to the English one (/en/404)
 ErrorDocument 404 /404.html
 
 <IfModule mod_dir.c>

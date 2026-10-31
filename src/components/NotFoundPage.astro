@@ -1,7 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import type { Locale } from '../i18n/types';
-import { getTranslations, localePath, toLocaleDigits } from '../i18n';
+import { defaultLocale, getTranslations, localePath, toLocaleDigits } from '../i18n';
 
 interface Props {
   locale: Locale;
@@ -12,6 +12,14 @@ const t = getTranslations(locale);
 ---
 
 <Layout locale={locale} title={t.notFound.pageTitle} description={t.notFound.pageSubtitle} noindex footerCta={false}>
+  {
+    locale === defaultLocale && (
+      <script is:inline slot="head">
+        // The host answers every miss with this page: English URLs get the English one before paint
+        if (/^\/en(\/|$)/.test(window.location.pathname)) window.location.replace('/en/404');
+      </script>
+    )
+  }
   <section class="page-hero notfound">
     <div class="home-wrap">
       <div class="sh-rule" data-reveal="rule">
