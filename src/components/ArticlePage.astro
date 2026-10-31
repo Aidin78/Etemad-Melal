@@ -85,7 +85,7 @@ const related = (await getSortedArticles(locale)).filter((p) => p.id !== post.id
     related.length > 0 && (
       <section class="home-section page-first" data-pointer>
         <div class="home-wrap">
-          <HomeSectionHead locale={locale} badge="" title={t.news.title} titleAccent={t.news.titleAccent}>
+          <HomeSectionHead locale={locale} title={t.news.title} titleAccent={t.news.titleAccent}>
             <a slot="aside" href={localePath(locale, '/articles')} class="sh-link">{t.news.viewAll}</a>
           </HomeSectionHead>
           <ul class="news-cards">

@@ -10,16 +10,16 @@ interface Props {
   locale: Locale;
   /** Section number on the rule; inner-page openers go without */
   index?: number;
-  badge: string;
+  badge?: string;
   title: string;
-  titleAccent: string;
+  titleAccent?: string;
   subtitle?: string;
   /** Stack the subtitle under the title instead of beside it (narrow columns) */
   stacked?: boolean;
   as?: 'h1' | 'h2';
 }
 
-const { locale, index, badge, title, titleAccent, subtitle, stacked = false, as: Title = 'h2' } = Astro.props;
+const { locale, index, badge = '', title, titleAccent = '', subtitle, stacked = false, as: Title = 'h2' } = Astro.props;
 const words = [
   ...title.trim().split(/\s+/).filter(Boolean).map((w) => ({ w, accent: false })),
   ...titleAccent.trim().split(/\s+/).filter(Boolean).map((w) => ({ w, accent: true })),

@@ -64,9 +64,7 @@ const { data } = entry;
       <HomeSectionHead
         locale={locale}
         index={1}
-        badge=""
         title={t.aboutPage.detailsTitle}
-        titleAccent=""
         subtitle={t.aboutPage.detailsSubtitle}
       />
 
@@ -92,7 +90,7 @@ const { data } = entry;
   <section class="home-section band-dark" data-pointer>
     <OrbitMark class="orbit-mark--manifesto" />
     <div class="home-wrap">
-      <HomeSectionHead locale={locale} index={2} badge="" {...splitTitleAccent(data.valuesTitle)} />
+      <HomeSectionHead locale={locale} index={2} {...splitTitleAccent(data.valuesTitle)} />
 
       <ul class="tgrid tgrid--four" data-spotlight>
         {

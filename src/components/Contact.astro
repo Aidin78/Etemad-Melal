@@ -2,6 +2,7 @@
 import HomeSectionHead from './HomeSectionHead.astro';
 import CtaArrow from './CtaArrow.astro';
 import { siteConfig } from '../config/site';
+import { pageUrl } from '../lib/urls';
 import { contactIcons } from '../lib/section-icons';
 import type { Locale } from '../i18n/types';
 import { getTranslations, localePath, toLocaleDigits } from '../i18n';
@@ -13,7 +14,7 @@ interface Props {
 const { locale } = Astro.props;
 const t = getTranslations(locale);
 const formAction = siteConfig.contactFormUrl;
-const thankYouUrl = new URL(`${localePath(locale, '/?contact=sent#contact')}`, Astro.url.origin).href;
+const thankYouUrl = pageUrl(locale, '/?contact=sent#contact');
 const messageMax = 1000;
 const phone = siteConfig.phone;
 const phoneHref = `tel:${phone.replace(/[^\d+]/g, '')}`;
@@ -107,7 +108,7 @@ const phoneHref = `tel:${phone.replace(/[^\d+]/g, '')}`;
             <div>
               <div class="mb-1 flex items-baseline justify-between gap-2">
                 <label for="contact-message" class="block text-xs text-muted">{t.contact.messageField}</label>
-                <span class="text-[11px] text-faint tabular-nums" data-message-count data-persian={locale === 'fa' ? '' : undefined} aria-hidden="true">
+                <span class="text-[11px] text-faint tabular-nums" data-message-count aria-hidden="true">
                   {toLocaleDigits(0, locale)} / {toLocaleDigits(messageMax, locale)}
                 </span>
               </div>
@@ -134,7 +135,7 @@ const phoneHref = `tel:${phone.replace(/[^\d+]/g, '')}`;
 </section>
 
 <script>
-  const PERSIAN_DIGITS = '۰۱۲۳۴۵۶۷۸۹';
+  import { getLocaleFromPath, toLocaleDigits } from '../i18n/utils';
 
   // Thank-you state after FormSubmit redirects back to /?contact=sent#contact
   if (new URLSearchParams(window.location.search).get('contact') === 'sent') {
@@ -153,8 +154,8 @@ const phoneHref = `tel:${phone.replace(/[^\d+]/g, '')}`;
     const message = form.querySelector<HTMLTextAreaElement>('textarea[name="message"]');
     const counter = form.querySelector<HTMLElement>('[data-message-count]');
     if (message && counter) {
-      const persian = counter.hasAttribute('data-persian');
-      const digits = (n: number) => (persian ? String(n).replace(/\d/g, (d) => PERSIAN_DIGITS[Number(d)]) : String(n));
+      const locale = getLocaleFromPath(window.location.pathname);
+      const digits = (n: number) => toLocaleDigits(n, locale);
       const update = () => {
         counter.textContent = `${digits(message.value.length)} / ${digits(message.maxLength)}`;
         counter.classList.toggle('text-accent-gold', message.value.length > message.maxLength * 0.9);
@@ -163,27 +164,23 @@ const phoneHref = `tel:${phone.replace(/[^\d+]/g, '')}`;
       update();
     }
 
-    // Sending state (the page navigates to FormSubmit right after)
-    form.addEventListener('submit', () => {
-      const submit = form.querySelector<HTMLButtonElement>('button[type="submit"]');
-      const label = form.querySelector<HTMLElement>('[data-submit-label]');
+    const submit = form.querySelector<HTMLButtonElement>('button[type="submit"]');
+    const label = form.querySelector<HTMLElement>('[data-submit-label]');
+    const setSending = (sending: boolean) => {
       if (submit) {
-        submit.disabled = true;
-        submit.classList.add('is-sending');
+        submit.disabled = sending;
+        submit.classList.toggle('is-sending', sending);
       }
-      if (label && form.dataset.sendingLabel) label.textContent = form.dataset.sendingLabel;
-    });
+      const text = sending ? form.dataset.sendingLabel : submit?.dataset.label;
+      if (label && text) label.textContent = text;
+    };
+
+    // Sending state (the page navigates to FormSubmit right after)
+    form.addEventListener('submit', () => setSending(true));
 
     // Coming back via the browser's back button restores the page from cache — re-enable it
     window.addEventListener('pageshow', (event) => {
-      if (!event.persisted) return;
-      const submit = form.querySelector<HTMLButtonElement>('button[type="submit"]');
-      const label = form.querySelector<HTMLElement>('[data-submit-label]');
-      if (submit) {
-        submit.disabled = false;
-        submit.classList.remove('is-sending');
-      }
-      if (label && submit?.dataset.label) label.textContent = submit.dataset.label;
+      if (event.persisted) setSending(false);
     });
   }
 </script>

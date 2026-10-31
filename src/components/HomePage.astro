@@ -50,11 +50,10 @@ const t = getTranslations(locale);
 
   <script>
     import { getYearsActive } from '../lib/dates';
-    import { toLocaleDigits } from '../i18n/utils';
-    import type { Locale } from '../i18n/types';
+    import { getLocaleFromPath, toLocaleDigits } from '../i18n/utils';
 
     // The page is only built once: recount here so the stat rolls over on the anniversary without a rebuild
-    const years = toLocaleDigits(getYearsActive(), document.documentElement.lang.slice(0, 2) as Locale);
+    const years = toLocaleDigits(getYearsActive(), getLocaleFromPath(window.location.pathname));
     document.querySelectorAll<HTMLElement>('[data-years]').forEach((el) => {
       el.textContent = el.dataset.years?.replace('{years}', years) ?? el.textContent;
     });

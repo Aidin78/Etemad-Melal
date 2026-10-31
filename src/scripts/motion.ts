@@ -4,6 +4,8 @@
  * Layout.astro has set `html.js-motion` (JS available + no reduced-motion request).
  */
 
+import { PERSIAN_DIGITS, toLocaleDigits } from '../i18n/utils';
+
 declare global {
   interface Window {
     __emMotion?: boolean;
@@ -15,8 +17,6 @@ const STAGGER_MS = 90;
 const MAX_STAGGER_STEPS = 5;
 /** Longest reveal transition (incl. cascade steps) before cleanup */
 const SETTLE_MS = 1800;
-
-const PERSIAN_DIGITS = '۰۱۲۳۴۵۶۷۸۹';
 
 function byDocumentOrder(a: Element, b: Element) {
   return a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1;
@@ -70,10 +70,7 @@ function initCountUp() {
       // Single-digit values ("+۱" years) would just blink from 0 — leave them static.
       if (!Number.isFinite(value) || value < 10) return null;
       const [prefix, suffix] = [text.slice(0, text.indexOf(raw)), text.slice(text.indexOf(raw) + raw.length)];
-      const format = (n: number) => {
-        const digits = String(n);
-        return prefix + (persian ? digits.replace(/\d/g, (d) => PERSIAN_DIGITS[Number(d)]) : digits) + suffix;
-      };
+      const format = (n: number) => prefix + toLocaleDigits(n, persian ? 'fa' : 'en') + suffix;
       return { el, text, value, format };
     })
     .filter((t) => t !== null);
