@@ -5,6 +5,7 @@ import Footer from '../components/Footer.astro';
 import JsonLd from '../components/JsonLd.astro';
 import { siteConfig } from '../config/site';
 import { siteImages } from '../config/images';
+import { THEME_STORAGE_KEY, themeColors } from '../config/theme';
 import type { Locale } from '../i18n/types';
 import { getTranslations, alternateLocalePath, localeHreflang, ogLocale } from '../i18n';
 import { defaultLocale } from '../i18n/utils';
@@ -43,43 +44,47 @@ const ogImage = new URL(image, siteConfig.url).href;
 const altLocale = locale === 'fa' ? 'en' : 'fa';
 const altPath = alternateLocalePath(locale, Astro.url.pathname);
 const altUrl = new URL(altPath, siteConfig.url).href;
+const defaultUrl = locale === defaultLocale ? canonical : altUrl;
 ---
 
 <!doctype html>
 <html lang={t.lang} dir={t.dir} data-theme="dark">
   <head>
-    <script is:inline>
-      (function () {
-        var k = 'etemadmelal-theme';
-        var s = localStorage.getItem(k);
-        var t =
-          s === 'light' || s === 'dark'
-            ? s
-            : window.matchMedia('(prefers-color-scheme: light)').matches
-              ? 'light'
-              : 'dark';
-        document.documentElement.setAttribute('data-theme', t);
-        var m = document.querySelector('meta[name="theme-color"]');
-        if (m) m.setAttribute('content', t === 'light' ? '#f6f3ec' : '#12110f');
-
-        // Scroll-reveal hidden states (motion.css) only apply under .js-motion; drop it
-        // again if the motion script never boots so content can't stay hidden.
-        var r = document.documentElement;
-        if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-          r.classList.add('js-motion');
-          setTimeout(function () {
-            if (!window.__emMotion) r.classList.remove('js-motion');
-          }, 3000);
-        }
-      })();
-    </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={metaDescription} />
     <meta name="author" content={t.companyLegal} />
     <meta name="robots" content={noindex ? 'noindex, nofollow' : 'index, follow, max-image-preview:large'} />
-    <meta name="theme-color" content="#12110f" media="(prefers-color-scheme: dark)" />
-    <meta name="theme-color" content="#f6f3ec" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content={themeColors.dark} media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content={themeColors.light} media="(prefers-color-scheme: light)" />
+    <script is:inline define:vars={{ storageKey: THEME_STORAGE_KEY, themeColors }}>
+      var r = document.documentElement;
+      var s = null;
+      try {
+        s = localStorage.getItem(storageKey);
+      } catch (e) {
+        // Blocked site data: fall through to the system preference
+      }
+      var t =
+        s === 'light' || s === 'dark'
+          ? s
+          : window.matchMedia('(prefers-color-scheme: light)').matches
+            ? 'light'
+            : 'dark';
+      r.setAttribute('data-theme', t);
+      document.querySelectorAll('meta[name="theme-color"]').forEach(function (m) {
+        m.setAttribute('content', themeColors[t]);
+      });
+
+      // Scroll-reveal hidden states (motion.css) only apply under .js-motion; drop it
+      // again if the motion script never boots so content can't stay hidden.
+      if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        r.classList.add('js-motion');
+        setTimeout(function () {
+          if (!window.__emMotion) r.classList.remove('js-motion');
+        }, 3000);
+      }
+    </script>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
@@ -87,7 +92,7 @@ const altUrl = new URL(altPath, siteConfig.url).href;
     <link rel="canonical" href={canonical} />
     <link rel="alternate" hreflang={localeHreflang(locale)} href={canonical} />
     <link rel="alternate" hreflang={localeHreflang(altLocale)} href={altUrl} />
-    <link rel="alternate" hreflang="x-default" href={new URL('/', siteConfig.url).href} />
+    <link rel="alternate" hreflang="x-default" href={defaultUrl} />
     <link rel="alternate" type="text/plain" href="/llms.txt" title="Site summary for AI systems" />
 
     <meta property="og:type" content={ogType} />

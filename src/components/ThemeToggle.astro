@@ -36,9 +36,28 @@ const { ariaLabel, labelLight, labelDark } = Astro.props;
 </button>
 
 <script>
-  const STORAGE_KEY = 'etemadmelal-theme';
+  import { THEME_STORAGE_KEY, themeColors } from '../config/theme';
 
-  function syncToggleState(theme: 'light' | 'dark') {
+  type Theme = keyof typeof themeColors;
+
+  // Storage access throws when site data is blocked; the theme then lasts for this page view only
+  function storedTheme() {
+    try {
+      return localStorage.getItem(THEME_STORAGE_KEY);
+    } catch {
+      return null;
+    }
+  }
+
+  function rememberTheme(theme: Theme) {
+    try {
+      localStorage.setItem(THEME_STORAGE_KEY, theme);
+    } catch {
+      // See storedTheme
+    }
+  }
+
+  function syncToggleState(theme: Theme) {
     document.querySelectorAll<HTMLButtonElement>('[data-theme-toggle]').forEach((toggle) => {
       toggle.setAttribute('aria-pressed', String(theme === 'dark'));
       const label = theme === 'dark' ? toggle.dataset.labelLight : toggle.dataset.labelDark;
@@ -49,28 +68,25 @@ const { ariaLabel, labelLight, labelDark } = Astro.props;
     });
   }
 
-  function applyTheme(theme: 'light' | 'dark') {
+  function applyTheme(theme: Theme) {
     document.documentElement.setAttribute('data-theme', theme);
-    localStorage.setItem(STORAGE_KEY, theme);
-    const meta = document.querySelector<HTMLMetaElement>('meta[name="theme-color"]');
-    if (meta) {
-      meta.content = theme === 'light' ? '#f6f3ec' : '#12110f';
-    }
+    document.querySelectorAll<HTMLMetaElement>('meta[name="theme-color"]').forEach((meta) => {
+      meta.content = themeColors[theme];
+    });
     syncToggleState(theme);
   }
 
   document.querySelectorAll<HTMLButtonElement>('[data-theme-toggle]').forEach((toggle) => {
     toggle.addEventListener('click', () => {
-      const current = document.documentElement.getAttribute('data-theme');
-      applyTheme(current === 'light' ? 'dark' : 'light');
+      const next = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+      applyTheme(next);
+      rememberTheme(next);
     });
   });
 
   syncToggleState(document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark');
 
   window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', (e) => {
-    if (!localStorage.getItem(STORAGE_KEY)) {
-      applyTheme(e.matches ? 'light' : 'dark');
-    }
+    if (!storedTheme()) applyTheme(e.matches ? 'light' : 'dark');
   });
 </script>
