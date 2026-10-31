@@ -49,7 +49,7 @@ English versions live under /en (e.g. https://etemadmelal.com/en/about).
 
 - /#features — how it works (4 steps)
 - /#income-streams — benefits / value-creation streams (2 pillars)
-- /#trust — benefits (7 items)
+- /#trust — benefits (6 items)
 - /#about-preview — about preview
 - /#faq — FAQ preview (6 questions) — full list of 20 at /faq
 - /#contact — contact form (email + message)
