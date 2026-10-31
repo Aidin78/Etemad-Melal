@@ -76,8 +76,10 @@ const icons = {
           {
             t.about.highlights.map((h, i) => (
               <div>
-                <span class="manifesto-highlight-num">{formatBoxIndex(i + 1, locale)}</span>
-                <dt>{h.label}</dt>
+                <dt>
+                  <span class="manifesto-highlight-num" aria-hidden="true">{formatBoxIndex(i + 1, locale)}</span>
+                  {h.label}
+                </dt>
                 <dd>{h.value}</dd>
               </div>
             ))

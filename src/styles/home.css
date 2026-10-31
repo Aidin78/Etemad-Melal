@@ -1982,13 +1982,14 @@ body:has(.home):not(.mobile-menu-open) .site-header.is-top {
 }
 
 .manifesto-highlight-num {
-  font-size: 0.75rem;
+  display: block;
+  margin-bottom: 0.75rem;
+  line-height: 1.5rem;
   font-weight: 700;
   color: var(--gold);
 }
 
 .manifesto-highlights dt {
-  margin-top: 0.75rem;
   font-size: 0.75rem;
   color: var(--muted);
 }

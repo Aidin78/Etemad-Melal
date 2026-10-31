@@ -51,8 +51,10 @@ const { data } = entry;
         {
           data.highlights.map((item, i) => (
             <div>
-              <span class="manifesto-highlight-num">{formatBoxIndex(i + 1, locale)}</span>
-              <dt>{item.label}</dt>
+              <dt>
+                <span class="manifesto-highlight-num" aria-hidden="true">{formatBoxIndex(i + 1, locale)}</span>
+                {item.label}
+              </dt>
               <dd>{item.value}</dd>
             </div>
           ))
