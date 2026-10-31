@@ -1,0 +1,14 @@
+---
+/** Decorative 24×24 outline icon; path data comes from src/lib/section-icons.ts or the caller */
+interface Props {
+  d: string;
+  class?: string;
+  strokeWidth?: number;
+}
+
+const { d, class: className, strokeWidth = 1.5 } = Astro.props;
+---
+
+<svg class={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+  <path stroke-linecap="round" stroke-linejoin="round" stroke-width={strokeWidth} d={d} />
+</svg>

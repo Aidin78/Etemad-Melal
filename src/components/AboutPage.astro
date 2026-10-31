@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import PageHero from './PageHero.astro';
 import HomeSectionHead from './HomeSectionHead.astro';
+import Icon from './Icon.astro';
 import OrbitMark from './OrbitMark.astro';
 import Photo from './Photo.astro';
 import AboutSectionContent from './AboutSectionContent.astro';
@@ -99,9 +100,7 @@ const { data } = entry;
             <li class="tcell" data-reveal="fade">
               <div class="tcell-head">
                 <span class="tcell-num" aria-hidden="true">{formatBoxIndex(i + 1, locale)}</span>
-                <svg class="tcell-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.25" d={aboutValueIcons[i] ?? aboutValueIcons[0]} />
-                </svg>
+                <Icon class="tcell-icon" strokeWidth={1.25} d={aboutValueIcons[i] ?? aboutValueIcons[0]} />
               </div>
               <h3 class="tcell-title">{value.title}</h3>
               <p class="tcell-desc">{value.desc}</p>

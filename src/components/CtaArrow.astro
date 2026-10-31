@@ -1,4 +1,5 @@
 ---
+import Icon from './Icon.astro';
 import type { Locale } from '../i18n/types';
 
 interface Props {
@@ -7,9 +8,7 @@ interface Props {
 }
 
 const { locale, class: className = 'h-4 w-4' } = Astro.props;
-const arrowClass = locale === 'fa' ? 'rotate-180' : '';
+const arrowClass = locale === 'fa' ? `${className} rotate-180` : className;
 ---
 
-<svg class:list={[className, arrowClass]} fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-</svg>
+<Icon class={arrowClass} strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />

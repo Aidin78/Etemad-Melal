@@ -1,5 +1,6 @@
 ---
 import HomeSectionHead from './HomeSectionHead.astro';
+import Icon from './Icon.astro';
 import PanelLink from './PanelLink.astro';
 import type { Locale } from '../i18n/types';
 import { getTranslations, formatBoxIndex } from '../i18n';
@@ -42,9 +43,7 @@ const nodes = [
           <li class="pillar" style={`--c: ${stream.color}`} data-reveal data-spotlight="spill">
             <div class="pillar-top">
               <span class="pillar-num" aria-hidden="true">{formatBoxIndex(i + 1, locale)}</span>
-              <svg class="pillar-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.25" d={stream.icon} />
-              </svg>
+              <Icon class="pillar-icon" strokeWidth={1.25} d={stream.icon} />
             </div>
 
             <div class="pillar-visual" aria-hidden="true" data-reveal="fade">

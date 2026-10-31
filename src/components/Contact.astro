@@ -1,6 +1,7 @@
 ---
 import HomeSectionHead from './HomeSectionHead.astro';
 import CtaArrow from './CtaArrow.astro';
+import Icon from './Icon.astro';
 import { siteConfig } from '../config/site';
 import { pageUrl } from '../lib/urls';
 import { contactIcons } from '../lib/section-icons';
@@ -40,7 +41,7 @@ const phoneHref = `tel:${phone.replace(/[^\d+]/g, '')}`;
           <ul class="contact-channels mt-6" data-reveal="cascade">
             <li class="contact-channel" data-spotlight="spill">
               <span class="contact-channel-icon" aria-hidden="true">
-                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d={contactIcons.email} /></svg>
+                <Icon class="h-5 w-5" d={contactIcons.email} />
               </span>
               <div class="min-w-0 flex-1">
                 <p class="text-xs text-subtle">{t.contact.emailLabel}</p>
@@ -52,7 +53,7 @@ const phoneHref = `tel:${phone.replace(/[^\d+]/g, '')}`;
               phone && (
                 <li class="contact-channel" data-spotlight="spill">
                   <span class="contact-channel-icon" aria-hidden="true">
-                    <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d={contactIcons.phone} /></svg>
+                    <Icon class="h-5 w-5" d={contactIcons.phone} />
                   </span>
                   <div class="min-w-0 flex-1">
                     <p class="text-xs text-subtle">{t.contact.phoneLabel}</p>
@@ -64,7 +65,7 @@ const phoneHref = `tel:${phone.replace(/[^\d+]/g, '')}`;
 
             <li class="contact-channel" data-spotlight="spill">
               <span class="contact-channel-icon" aria-hidden="true">
-                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d={contactIcons.address} /></svg>
+                <Icon class="h-5 w-5" d={contactIcons.address} />
               </span>
               <div class="min-w-0 flex-1">
                 <p class="text-xs text-subtle">{t.contact.addressLabel}</p>
@@ -79,7 +80,7 @@ const phoneHref = `tel:${phone.replace(/[^\d+]/g, '')}`;
         {/* Static build can't read ?contact=sent server-side, so the script below swaps these */}
         <div class="contact-sent flex h-full flex-col items-center justify-center py-8 text-center" role="status" hidden>
           <div class="contact-sent-badge" aria-hidden="true">
-            <svg class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={contactIcons.check} /></svg>
+            <Icon class="h-7 w-7" strokeWidth={2} d={contactIcons.check} />
           </div>
           <h3 class="mt-5 text-lg font-bold text-heading" tabindex="-1" data-autofocus-on-sent>{t.contact.sentTitle}</h3>
           <p class="mt-2 max-w-sm text-sm text-muted">{t.contact.sentBody}</p>

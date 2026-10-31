@@ -1,5 +1,6 @@
 ---
 import HomeSectionHead from './HomeSectionHead.astro';
+import Icon from './Icon.astro';
 import { trustBenefitIcons } from '../lib/section-icons';
 import type { Locale } from '../i18n/types';
 import { getTranslations, toLocaleDigits, formatBoxIndex } from '../i18n';
@@ -61,9 +62,7 @@ const [lead, ...rest] = t.trust.benefits;
           <li class="tcell" data-reveal="fade">
             <div class="tcell-head">
               <span class="tcell-num" aria-hidden="true">{formatBoxIndex(i + 2, locale)}</span>
-              <svg class="tcell-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.25" d={trustBenefitIcons[i + 1] ?? trustBenefitIcons[0]} />
-              </svg>
+              <Icon class="tcell-icon" strokeWidth={1.25} d={trustBenefitIcons[i + 1] ?? trustBenefitIcons[0]} />
             </div>
             <h3 class="tcell-title">{b.title}</h3>
             <p class="tcell-desc">{b.desc}</p>

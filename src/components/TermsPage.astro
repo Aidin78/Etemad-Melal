@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import PageHero from './PageHero.astro';
 import DocToc from './DocToc.astro';
+import Icon from './Icon.astro';
 import AboutSectionContent from './AboutSectionContent.astro';
 import { legalLastUpdated } from '../config/site';
 import type { Locale } from '../i18n/types';
@@ -72,9 +73,7 @@ const meta = [
                     </h2>
                   </div>
                   <a href={`#${s.id}`} class="terms-anchor" data-copy-anchor aria-label={`${t.termsPage.copyLink}: ${s.heading}`}>
-                    <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" />
-                    </svg>
+                    <Icon class="h-4 w-4" strokeWidth={1.75} d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" />
                   </a>
                 </div>
                 <AboutSectionContent content={s.body} />
