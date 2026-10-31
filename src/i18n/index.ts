@@ -1,23 +1,12 @@
 import type { Locale, Translations } from './types';
 import { fa } from './fa';
 import { en } from './en';
+import { formatDate } from './utils';
 
 const dictionaries: Record<Locale, Translations> = { fa, en };
 
 export function getTranslations(locale: Locale): Translations {
   return dictionaries[locale] ?? fa;
-}
-
-function formatArticleDate(locale: Locale, date: Date, dateFa?: string): string {
-  if (locale === 'fa') {
-    if (dateFa) return dateFa;
-    return new Intl.DateTimeFormat('fa-IR', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-    }).format(date);
-  }
-  return new Intl.DateTimeFormat('en', { year: 'numeric', month: 'long', day: 'numeric' }).format(date);
 }
 
 export function getArticleDisplay(
@@ -27,10 +16,9 @@ export function getArticleDisplay(
   return {
     title: data.title,
     excerpt: data.excerpt,
-    dateLabel: formatArticleDate(locale, data.date, data.dateFa),
+    dateLabel: (locale === 'fa' && data.dateFa) || formatDate(data.date, locale),
   };
 }
 
 export * from './types';
 export * from './utils';
-export { fa, en };

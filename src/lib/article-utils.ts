@@ -10,7 +10,3 @@ export function parseArticleId(id: string): { locale: Locale; slug: string } {
   }
   return { locale: 'fa', slug: id };
 }
-
-export function articleEntryId(locale: Locale, slug: string): string {
-  return `${locale}/${slug}`;
-}

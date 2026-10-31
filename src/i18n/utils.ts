@@ -1,6 +1,6 @@
 import type { Locale } from './types';
 
-const PERSIAN_DIGITS = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'] as const;
+export const PERSIAN_DIGITS = '۰۱۲۳۴۵۶۷۸۹';
 
 export const defaultLocale: Locale = 'fa';
 
@@ -15,13 +15,22 @@ export function toLocaleDigits(value: string | number, locale: Locale): string {
 export function formatBoxIndex(index: number, locale: Locale): string {
   return toLocaleDigits(String(index).padStart(2, '0'), locale);
 }
-export const locales: Locale[] = ['fa', 'en'];
+
+/** Long date in the locale's calendar. In UTC: content dates are date-only, so the build machine's timezone must not shift them */
+export function formatDate(date: Date, locale: Locale): string {
+  return new Intl.DateTimeFormat(localeHreflang(locale), {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    timeZone: 'UTC',
+  }).format(date);
+}
 
 export function localePath(locale: Locale, path: string): string {
   const normalized = path.startsWith('/') ? path : `/${path}`;
-  if (locale === 'fa') return normalized === '/' ? '/' : normalized;
-  if (normalized === '/') return '/en';
-  return `/en${normalized}`;
+  if (locale === 'fa') return normalized;
+  // Root links put their query/hash straight after the prefix: /en#contact, never /en/#contact
+  return `/en${normalized.replace(/^\/(?=[?#]|$)/, '')}`;
 }
 
 export function getLocaleFromPath(pathname: string): Locale {
