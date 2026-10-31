@@ -18,8 +18,10 @@
     "download:images": "node scripts/download-images.mjs",
     "check:assets": "node scripts/check-assets.mjs",
     "check:articles": "node scripts/check-articles.mjs",
+    "check:dist": "node scripts/check-dist.mjs",
     "check": "astro check",
     "lint": "astro check",
+    "test": "node --test \"tests/*.test.mjs\"",
     "astro": "astro"
   },
   "dependencies": {
