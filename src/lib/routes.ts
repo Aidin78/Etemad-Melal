@@ -1,6 +1,7 @@
 import { getCollection } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
 import type { Locale } from '../i18n/types';
+import { localePath } from '../i18n/utils';
 import { parseArticleId } from './article-utils';
 
 export type PageRouteProps =
@@ -35,8 +36,7 @@ export async function getCatchAllPagePaths() {
   const posts = await getCollection('articles');
   for (const post of posts) {
     const { locale, slug } = parseArticleId(post.id);
-    const route = locale === 'en' ? `en/articles/${slug}` : `articles/${slug}`;
-    add(route, { type: 'article', locale, post });
+    add(localePath(locale, `/articles/${slug}`).slice(1), { type: 'article', locale, post });
   }
 
   return paths;

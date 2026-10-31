@@ -10,7 +10,9 @@ import { getCatchAllPagePaths, type PageRouteProps } from '../lib/routes';
 
 export const getStaticPaths = getCatchAllPagePaths;
 
-const props = Astro.props as PageRouteProps;
+type Props = PageRouteProps;
+
+const props = Astro.props;
 ---
 
 {props.type === 'home' && <HomePage locale={props.locale} />}
