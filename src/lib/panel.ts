@@ -1,13 +1,10 @@
 import { siteConfig } from '../config/site';
 
-/** Shared external panel link attributes */
-export const panelHref = siteConfig.panelUrl;
-
 /** Panel sign-up page — target of the "start investing" CTAs */
-export const panelSignupHref = `${panelHref.replace(/\/$/, '')}/signup`;
+export const panelSignupHref = `${siteConfig.panelUrl.replace(/\/$/, '')}/signup`;
 
+/** Shared attributes of links that leave for the panel */
 export const panelLinkAttrs = {
-  href: panelHref,
-  target: '_blank' as const,
+  target: '_blank',
   rel: 'noopener noreferrer',
-};
+} as const;

@@ -1,5 +1,6 @@
 ---
 import { siteConfig } from '../config/site';
+import { panelLinkAttrs } from '../lib/panel';
 import { parsePanelLinks } from '../lib/rich-text';
 
 interface Props {
@@ -21,7 +22,7 @@ const paragraphs = content
         {
           parsePanelLinks(paragraph, siteConfig.panelUrl).map((part) =>
             part.type === 'link' ? (
-              <a href={part.href} target="_blank" rel="noopener noreferrer">
+              <a href={part.href} {...panelLinkAttrs}>
                 {part.label}
               </a>
             ) : (

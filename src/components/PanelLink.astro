@@ -1,5 +1,6 @@
 ---
 import CtaArrow from './CtaArrow.astro';
+import { siteConfig } from '../config/site';
 import { panelLinkAttrs, panelSignupHref } from '../lib/panel';
 import type { Locale } from '../i18n/types';
 import { getTranslations } from '../i18n';
@@ -16,7 +17,7 @@ interface Props {
 const { locale, class: className, variant = 'primary', showArrow = false, signup = false } = Astro.props;
 const t = getTranslations(locale);
 const variantClass = variant === 'outline' ? 'btn-outline' : 'btn-primary';
-const href = signup ? panelSignupHref : panelLinkAttrs.href;
+const href = signup ? panelSignupHref : siteConfig.panelUrl;
 ---
 
 <a class:list={[variantClass, className]} {...panelLinkAttrs} href={href}>
