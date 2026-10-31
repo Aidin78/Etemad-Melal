@@ -31,13 +31,13 @@ const [lead, ...rest] = (await getSortedArticles(locale)).slice(0, homepageArtic
         </HomeSectionHead>
 
         <div class="news-grid">
-          <NewsCard locale={locale} post={lead} variant="lead" data-reveal data-spotlight />
+          <NewsCard locale={locale} post={lead} variant="lead" data-reveal data-spotlight="spill" />
 
           {rest.length > 0 && (
             <ul class="news-rest" data-reveal="cascade">
               {rest.map((post) => (
                 <li>
-                  <NewsCard locale={locale} post={post} variant="row" data-spotlight />
+                  <NewsCard locale={locale} post={post} variant="row" data-spotlight="spill" />
                 </li>
               ))}
             </ul>

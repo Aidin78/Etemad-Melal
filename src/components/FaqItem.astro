@@ -17,7 +17,7 @@ interface Props {
 const { locale, number, q, a, as: Question = 'h3', name, open = false } = Astro.props;
 ---
 
-<details class="faq-item" name={name} open={open} data-reveal data-spotlight>
+<details class="faq-item" name={name} open={open} data-reveal data-spotlight="spill">
   <summary class="faq-summary">
     <span class="faq-num" aria-hidden="true">{formatBoxIndex(number, locale)}</span>
     <Question class="faq-q">{q}</Question>

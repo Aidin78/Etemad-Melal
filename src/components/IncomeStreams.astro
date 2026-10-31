@@ -39,7 +39,7 @@ const nodes = [
     <ul class="pillars">
       {
         t.income.streams.map((stream, i) => (
-          <li class="pillar" style={`--c: ${stream.color}`} data-reveal data-spotlight>
+          <li class="pillar" style={`--c: ${stream.color}`} data-reveal data-spotlight="spill">
             <div class="pillar-top">
               <span class="pillar-num" aria-hidden="true">{formatBoxIndex(i + 1, locale)}</span>
               <svg class="pillar-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">

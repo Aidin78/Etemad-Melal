@@ -41,10 +41,10 @@ const [lead, ...rest] = t.trust.benefits;
       }
     </dl>
 
-    <ul class="tgrid">
+    <ul class="tgrid" data-spotlight>
       {
         lead && (
-          <li class="tcell tcell--lead" data-reveal="fade" data-spotlight>
+          <li class="tcell tcell--lead" data-reveal="fade">
             <svg class="tshield" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true" data-reveal="draw">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5" d={trustBenefitIcons[0]} pathLength="1" data-draw-line />
             </svg>
@@ -58,7 +58,7 @@ const [lead, ...rest] = t.trust.benefits;
       }
       {
         rest.map((b, i) => (
-          <li class="tcell" data-reveal="fade" data-spotlight>
+          <li class="tcell" data-reveal="fade">
             <div class="tcell-head">
               <span class="tcell-num" aria-hidden="true">{formatBoxIndex(i + 2, locale)}</span>
               <svg class="tcell-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">

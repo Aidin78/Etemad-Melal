@@ -37,7 +37,7 @@ const phoneHref = `tel:${phone.replace(/[^\d+]/g, '')}`;
           <p class="mt-2 text-sm leading-relaxed text-muted">{t.contact.infoSubtitle}</p>
 
           <ul class="contact-channels mt-6" data-reveal="cascade">
-            <li class="contact-channel" data-spotlight>
+            <li class="contact-channel" data-spotlight="spill">
               <span class="contact-channel-icon" aria-hidden="true">
                 <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d={contactIcons.email} /></svg>
               </span>
@@ -49,7 +49,7 @@ const phoneHref = `tel:${phone.replace(/[^\d+]/g, '')}`;
 
             {
               phone && (
-                <li class="contact-channel" data-spotlight>
+                <li class="contact-channel" data-spotlight="spill">
                   <span class="contact-channel-icon" aria-hidden="true">
                     <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d={contactIcons.phone} /></svg>
                   </span>
@@ -61,7 +61,7 @@ const phoneHref = `tel:${phone.replace(/[^\d+]/g, '')}`;
               )
             }
 
-            <li class="contact-channel" data-spotlight>
+            <li class="contact-channel" data-spotlight="spill">
               <span class="contact-channel-icon" aria-hidden="true">
                 <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d={contactIcons.address} /></svg>
               </span>

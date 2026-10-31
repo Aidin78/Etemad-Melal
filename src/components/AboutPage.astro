@@ -94,10 +94,10 @@ const { data } = entry;
     <div class="home-wrap">
       <HomeSectionHead locale={locale} index={2} badge="" {...splitTitleAccent(data.valuesTitle)} />
 
-      <ul class="tgrid tgrid--four">
+      <ul class="tgrid tgrid--four" data-spotlight>
         {
           data.values.map((value, i) => (
-            <li class="tcell" data-reveal="fade" data-spotlight>
+            <li class="tcell" data-reveal="fade">
               <div class="tcell-head">
                 <span class="tcell-num" aria-hidden="true">{formatBoxIndex(i + 1, locale)}</span>
                 <svg class="tcell-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">

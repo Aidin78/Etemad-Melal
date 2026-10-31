@@ -24,13 +24,13 @@ const [lead, ...rest] = await getSortedArticles(locale);
 
   <section class="home-section page-first" data-pointer>
     <div class="home-wrap">
-      {lead && <NewsCard locale={locale} post={lead} variant="feature" as="h2" data-reveal data-spotlight />}
+      {lead && <NewsCard locale={locale} post={lead} variant="feature" as="h2" data-reveal data-spotlight="spill" />}
       {
         rest.length > 0 && (
           <ul class="news-cards">
             {rest.map((post) => (
               <li data-reveal>
-                <NewsCard locale={locale} post={post} as="h2" data-spotlight />
+                <NewsCard locale={locale} post={post} as="h2" data-spotlight="spill" />
               </li>
             ))}
           </ul>

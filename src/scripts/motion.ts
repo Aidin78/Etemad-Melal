@@ -253,6 +253,7 @@ function initScrub() {
  *   data-pointer    eased pointer position over the element, centred, as `--mx` / `--my` in -1 → 1;
  *                   eases back to 0 when the pointer leaves (layered parallax / tilt in CSS)
  *   data-spotlight  raw pointer position inside the element as `--sx` / `--sy` (px) for a hover glow
+ *                   (="spill": the glow runs past the element's box, see home.css)
  * CSS must default both to a resting look (`var(--mx, 0)`), as touch devices never set them.
  */
 function initPointer() {

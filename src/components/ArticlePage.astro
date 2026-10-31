@@ -102,7 +102,7 @@ const related = (await getSortedArticles(locale)).filter((p) => p.id !== post.id
           <ul class="news-cards">
             {related.map((p) => (
               <li data-reveal>
-                <NewsCard locale={locale} post={p} data-spotlight />
+                <NewsCard locale={locale} post={p} data-spotlight="spill" />
               </li>
             ))}
           </ul>
