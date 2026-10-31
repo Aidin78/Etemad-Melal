@@ -724,41 +724,6 @@ a.contact-channel-value:hover {
   color: var(--gold-emphasis);
 }
 
-.contact-copy {
-  display: flex;
-  flex-shrink: 0;
-  align-items: center;
-  justify-content: center;
-  height: 2.25rem;
-  width: 2.25rem;
-  border-radius: 0.75rem;
-  color: var(--muted);
-  border: 1px solid var(--border-strong);
-  transition:
-    color 0.2s ease,
-    border-color 0.2s ease;
-}
-
-.contact-copy[hidden] {
-  display: none;
-}
-
-.contact-copy:hover,
-.contact-copy.is-copied {
-  color: var(--gold-emphasis);
-  border-color: color-mix(in srgb, var(--color-accent-gold) 40%, transparent);
-}
-
-.contact-copy-done,
-.contact-copy.is-copied .contact-copy-idle {
-  display: none;
-}
-
-.contact-copy.is-copied .contact-copy-done {
-  display: block;
-  animation: contact-pop 0.35s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
 .contact-submit.is-sending {
   opacity: 0.75;
   cursor: progress;
@@ -789,7 +754,6 @@ a.contact-channel-value:hover {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .contact-copy.is-copied .contact-copy-done,
   .contact-sent-badge {
     animation: none;
   }

@@ -2457,16 +2457,6 @@ body:has(.home):not(.mobile-menu-open) .site-header.is-top {
   color: var(--gold);
 }
 
-.home .contact-copy {
-  border-color: var(--rule-strong);
-  border-radius: var(--radius);
-}
-
-.home .contact-copy:is(:hover, .is-copied) {
-  border-color: var(--gold);
-  color: var(--gold);
-}
-
 /* Fields are a single rule that turns gold on focus */
 .home .input-field {
   padding-inline: 0;

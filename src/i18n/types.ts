@@ -185,8 +185,6 @@ export type Translations = {
     emailLabel: string;
     addressLabel: string;
     phoneLabel: string;
-    copy: string;
-    copied: string;
     formTitle: string;
     nameField: string;
     emailField: string;

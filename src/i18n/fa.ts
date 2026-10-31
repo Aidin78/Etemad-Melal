@@ -361,8 +361,6 @@ export const fa: Translations = {
     emailLabel: 'ایمیل',
     addressLabel: 'آدرس دفتر',
     phoneLabel: 'تلفن تماس',
-    copy: 'کپی',
-    copied: 'کپی شد',
     formTitle: 'ارسال پیام',
     nameField: 'نام (اختیاری)',
     emailField: 'ایمیل',

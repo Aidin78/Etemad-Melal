@@ -361,8 +361,6 @@ export const en: Translations = {
     emailLabel: 'Email',
     addressLabel: 'Office address',
     phoneLabel: 'Phone',
-    copy: 'Copy',
-    copied: 'Copied',
     formTitle: 'Send a message',
     nameField: 'Name (optional)',
     emailField: 'Email',
