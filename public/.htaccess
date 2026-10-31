@@ -9,7 +9,6 @@ AddCharset UTF-8 .txt .xml .html .css .js .svg
 
 <IfModule mod_mime.c>
   AddType font/woff2 .woff2
-  AddType font/woff .woff
   AddType image/svg+xml .svg
   AddType image/webp .webp
 </IfModule>
@@ -77,7 +76,6 @@ ErrorDocument 404 /404.html
   ExpiresByType image/png "access plus 30 days"
   ExpiresByType image/svg+xml "access plus 30 days"
   ExpiresByType font/woff2 "access plus 1 year"
-  ExpiresByType font/woff "access plus 1 year"
   ExpiresByType text/css "access plus 1 year"
   ExpiresByType application/javascript "access plus 1 year"
   ExpiresByType text/javascript "access plus 1 year"

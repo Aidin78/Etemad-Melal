@@ -1,11 +1,6 @@
 import { missingFiles, requiredImages } from './required-assets.mjs';
 
-const fonts = [
-  'font/IRANSansX-Regular.woff',
-  'font/IRANSansX-Bold.woff',
-  'font/IRANSansXV.woff',
-  'font/IRANSansXV.woff2',
-];
+const fonts = ['font/morabba/Morabba-Regular.woff2', 'font/morabba/Morabba-Bold.woff2'];
 
 const missing = missingFiles(requiredImages);
 const missingFonts = missingFiles(fonts);

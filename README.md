@@ -18,7 +18,7 @@ A **static, bilingual (FA/EN)** landing site for an investment platform brand. B
 - **Panel CTAs** linking to external user panel
 - **Contact form** — email + message (FormSubmit / optional Formspree)
 - **SEO** — meta tags, sitemap, `robots.txt`, canonical URLs, hreflang
-- **Persian typography** — IRANSans (with system fallback), full RTL
+- **Persian typography** — Morabba (with system fallback), full RTL
 
 ## Tech stack
 
@@ -68,7 +68,7 @@ Upload the contents of **`dist/`** to your static host. No Node.js runtime requi
 
 - Site images: `public/images/` (see `public/images/README.md`)
 - Replace JPG files with your brand photography — keep filenames or update `src/config/images.ts`
-- Fonts: place IRANSans files in `public/font/` (optional; Tahoma fallback is used otherwise)
+- Fonts: Morabba is committed in `public/font/morabba/`; spaces and punctuation come from the system font (Tahoma or the platform default)
 - Download default photos: `npm run download:images`
 
 ### Troubleshooting: styles or images not loading

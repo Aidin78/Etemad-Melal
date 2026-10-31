@@ -23,9 +23,8 @@ button:not(:disabled) {
   cursor: pointer;
 }
 
-/* Morabba covers Persian script only (see tokens.css), so Latin text falls through to IRANSansX */
 body {
-  font-family: morabba, iransansx, tahoma, sans-serif;
+  font-family: var(--font-sans);
   background-color: var(--page);
   color: var(--text);
   -webkit-font-smoothing: antialiased;
