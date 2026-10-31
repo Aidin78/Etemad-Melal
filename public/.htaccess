@@ -25,12 +25,15 @@ ErrorDocument 404 /404.html
 <IfModule mod_rewrite.c>
   RewriteEngine On
 
+  # No [NE] on these redirects: they carry the decoded path, which has to be re-escaped
+  # before it goes into the Location header.
+
   # 1) Force HTTPS and the canonical host (www, .ir and other parked domains -> etemadmelal.com)
   RewriteCond %{HTTP_HOST} !^etemadmelal\.com$ [NC]
-  RewriteRule ^ https://etemadmelal.com%{REQUEST_URI} [R=301,L,NE]
+  RewriteRule ^ https://etemadmelal.com%{REQUEST_URI} [R=301,L]
   RewriteCond %{HTTPS} !=on
   RewriteCond %{HTTP:X-Forwarded-Proto} !=https
-  RewriteRule ^ https://etemadmelal.com%{REQUEST_URI} [R=301,L,NE]
+  RewriteRule ^ https://etemadmelal.com%{REQUEST_URI} [R=301,L]
 
   # 2) Legacy /news URLs -> /articles
   RewriteRule ^news/?$ https://etemadmelal.com/articles [R=301,L]
@@ -38,7 +41,7 @@ ErrorDocument 404 /404.html
 
   # 3) Strip trailing slashes (except the root)
   RewriteCond %{REQUEST_FILENAME} !-f
-  RewriteRule ^(.+)/$ https://etemadmelal.com/$1 [R=301,L,NE]
+  RewriteRule ^(.+)/$ https://etemadmelal.com/$1 [R=301,L]
 
   # 4) Serve clean URLs from <path>/index.html
   RewriteCond %{REQUEST_FILENAME} -d
@@ -51,12 +54,19 @@ ErrorDocument 404 /404.html
   Header always set X-Frame-Options "SAMEORIGIN"
   Header always set Referrer-Policy "strict-origin-when-cross-origin"
   Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=()"
-  # Enable once HTTPS works on the new host (browsers will refuse plain HTTP for a year)
-  # Header always set Strict-Transport-Security "max-age=31536000"
+  # One year. No includeSubDomains: panel. and api. are served elsewhere.
+  Header always set Strict-Transport-Security "max-age=31536000"
+  # 'unsafe-inline' scripts: the pre-paint theme script and the header script have to run inline.
+  # style attributes carry per-element custom properties. form-action lists the contact endpoints
+  # (PUBLIC_CONTACT_FORM_URL); add a new endpoint's origin here or the browser blocks the form.
+  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; object-src 'none'; base-uri 'self'; form-action 'self' https://formsubmit.co https://formspree.io; frame-ancestors 'self'"
 
-  # HTML always revalidates; CSS/JS are content-hashed under /_astro (see mod_expires)
+  # HTML always revalidates; CSS/JS under /_astro have content-hashed names, so they never change
   <FilesMatch "\.html$">
     Header set Cache-Control "no-cache"
+  </FilesMatch>
+  <FilesMatch "\.[\w-]{8}\.(css|js)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
   </FilesMatch>
 </IfModule>
 
