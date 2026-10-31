@@ -15,6 +15,8 @@ const { locale, cta = true } = Astro.props;
 const t = getTranslations(locale);
 const year = new Date().getFullYear();
 const contact = localePath(locale, '/#contact');
+// The English company name ends in "Co."; the sentence below supplies its own period
+const legalName = t.companyLegal.replace(/\.$/, '');
 ---
 
 <footer class="site-footer" aria-label={t.footer.landmarkLabel}>
@@ -83,7 +85,7 @@ const contact = localePath(locale, '/#contact');
     </div>
 
     <div class="footer-bottom">
-      <p class="text-xs text-subtle">{year} © {t.companyLegal}. {t.footer.rights}</p>
+      <p class="text-xs text-subtle"><span data-current-year>{year}</span> © {legalName}. {t.footer.rights}</p>
       <ul class="footer-legal-list flex flex-wrap justify-center gap-4 text-xs text-subtle">
         <li><a href={localePath(locale, '/about')} class="footer-link">{t.footer.about}</a></li>
         <li><a href={localePath(locale, '/faq')} class="footer-link">{t.footer.faq}</a></li>
@@ -93,3 +95,10 @@ const contact = localePath(locale, '/#contact');
     </div>
   </div>
 </footer>
+
+<script>
+  // The page is only built once: the year rolls over without a rebuild
+  document.querySelectorAll('[data-current-year]').forEach((el) => {
+    el.textContent = String(new Date().getFullYear());
+  });
+</script>
