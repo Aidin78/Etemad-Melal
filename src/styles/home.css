@@ -1986,7 +1986,7 @@ body:has(.home):not(.mobile-menu-open) .site-header.is-top {
   margin-bottom: 0.75rem;
   line-height: 1.5rem;
   font-weight: 700;
-  color: var(--gold);
+  color: var(--gold-text);
 }
 
 .manifesto-highlights dt {

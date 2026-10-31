@@ -20,8 +20,8 @@
   --text: #ece9e3;
   --heading: #ffffff;
   --muted: #a8a49c;
-  --subtle: #78746c;
-  --faint: #57544d;
+  --subtle: #807c74;
+  --faint: #807c74;
   --nav: #d6d3cc;
   --nav-hover: #f0d78c;
   --header-bg: rgb(18 17 15 / 0.88);
@@ -40,6 +40,7 @@
   --toggle-text: #ffffff;
   --gold-emphasis: #f0d78c;
   --gold-soft: #d4a853;
+  --gold-text: #d4a853;
   --btn-gold: #d4a853;
   --btn-gold-hover: #f0d78c;
   --btn-gold-text: #12110f;
@@ -55,8 +56,8 @@
   --text: #27231d;
   --heading: #15130f;
   --muted: #6b645a;
-  --subtle: #8a8378;
-  --faint: #a8a196;
+  --subtle: #6e675d;
+  --faint: #6e675d;
   --nav: #4a443b;
   --nav-hover: #b2850f;
   --header-bg: rgb(246 243 236 / 0.92);
@@ -77,7 +78,9 @@
   --color-accent-gold: #b2850f;
   --color-accent-gold-light: #a3780e;
   --gold-emphasis: #b2850f;
-  --gold-soft: #926e0c;
+  /* Darker than the fills: small text needs 4.5:1 on the ivory backgrounds */
+  --gold-soft: #836208;
+  --gold-text: #836208;
   --btn-gold: #cf9c17;
   --btn-gold-hover: #9a7309;
   --btn-gold-text: #12110f;
