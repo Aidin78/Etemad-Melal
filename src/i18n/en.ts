@@ -14,13 +14,26 @@ export const en: Translations = {
   panelCtaLogin: 'Login',
   panelCtaStart: 'Get started',
   nav: [
-    { href: '/#income-streams', label: 'Benefits' },
-    { href: '/#features', label: 'Services' },
-    { href: '/#trust', label: 'Advantages' },
-    { href: '/about', label: 'About' },
+    {
+      href: '/#income-streams',
+      label: 'Investing',
+      children: [
+        { href: '/#income-streams', label: 'Benefits & income streams', desc: 'Industrial returns and market-development rewards' },
+        { href: '/#features', label: 'How it works', desc: 'From project participation to operating returns' },
+        { href: '/#trust', label: 'Why Etemad Melal', desc: 'Security, transparency and dedicated support' },
+      ],
+    },
+    {
+      href: '/about',
+      label: 'About',
+      children: [
+        { href: '/about', label: 'About Etemad Melal', desc: 'Linking capital and industry' },
+        { href: '/terms', label: 'Terms & Conditions', desc: 'The terms of participating on the platform' },
+      ],
+    },
     { href: '/articles', label: 'Articles' },
-    { href: '/#faq', label: 'FAQ', secondary: true },
-    { href: '/#contact', label: 'Contact', secondary: true },
+    { href: '/faq', label: 'FAQ' },
+    { href: '/#contact', label: 'Contact' },
   ],
   a11y: {
     skipToContent: 'Skip to main content',

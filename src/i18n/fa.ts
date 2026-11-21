@@ -14,13 +14,26 @@ export const fa: Translations = {
   panelCtaLogin: 'ورود',
   panelCtaStart: 'شروع',
   nav: [
-    { href: '/#income-streams', label: 'منافع' },
-    { href: '/#features', label: 'خدمات' },
-    { href: '/#trust', label: 'مزایا' },
-    { href: '/about', label: 'درباره ما' },
+    {
+      href: '/#income-streams',
+      label: 'سرمایه‌گذاری',
+      children: [
+        { href: '/#income-streams', label: 'منافع و جریان‌های درآمدی', desc: 'بازدهی صنعتی و پاداش توسعه بازار' },
+        { href: '/#features', label: 'چگونه کار می‌کند', desc: 'از مشارکت در پروژه تا بازدهی عملیاتی' },
+        { href: '/#trust', label: 'چرا اعتماد ملل', desc: 'امنیت، شفافیت و پشتیبانی اختصاصی' },
+      ],
+    },
+    {
+      href: '/about',
+      label: 'درباره ما',
+      children: [
+        { href: '/about', label: 'درباره اعتماد ملل', desc: 'معمار پیوند سرمایه و صنعت' },
+        { href: '/terms', label: 'قوانین و مقررات', desc: 'شرایط و ضوابط مشارکت در پلتفرم' },
+      ],
+    },
     { href: '/articles', label: 'مقالات' },
-    { href: '/#faq', label: 'سوالات', secondary: true },
-    { href: '/#contact', label: 'تماس', secondary: true },
+    { href: '/faq', label: 'سوالات متداول' },
+    { href: '/#contact', label: 'تماس با ما' },
   ],
   a11y: {
     skipToContent: 'پرش به محتوای اصلی',

@@ -14,28 +14,51 @@ const { locale } = Astro.props;
 const t = getTranslations(locale);
 
 const localizedHref = (href: string) => localePath(locale, href);
-const primaryNav = t.nav.filter((link) => !link.secondary);
 const isHome = Astro.url.pathname.replace(/\/$/, '') === localizedHref('/').replace(/\/$/, '');
 
-/** Hooks for src/scripts/header.ts: homepage sections get a scroll-spy, pages a path match */
-const navDataAttrs = (href: string) => {
-  const section = href.split('#')[1];
-  return section ? { 'data-nav-section': section } : { 'data-nav-path': localizedHref(href) };
-};
+/** Only standalone pages receive an active navigation state. */
+const navDataAttrs = (href: string) => href.includes('#') ? {} : { 'data-nav-path': localizedHref(href) };
 ---
 
-<header class="site-header fixed inset-x-0 top-0 z-50 bg-header backdrop-blur-xl" id="site-header">
+<header class="site-header fixed inset-x-0 top-0 z-50" id="site-header">
   <div class="site-header-bar">
     <Logo locale={locale} size="sm" animated={false} class="min-w-0 shrink" />
 
-    <nav class="site-nav hidden lg:flex" aria-label={t.a11y.mainNav}>
-      {
-        primaryNav.map((link) => (
-          <a href={localizedHref(link.href)} class="nav-link" {...navDataAttrs(link.href)}>
-            {link.label}
-          </a>
-        ))
-      }
+    <nav class="site-nav hidden lg:block" aria-label={t.a11y.mainNav}>
+      <ul class="site-nav-list">
+        {
+          t.nav.map((item) =>
+            item.children?.length ? (
+              <li class="nav-item nav-item--sub">
+                <a href={localizedHref(item.href)} class="nav-link" aria-haspopup="true">
+                  {item.label}
+                  <svg class="nav-caret" viewBox="0 0 12 12" fill="none" stroke="currentColor" aria-hidden="true">
+                    <path d="M3 4.5l3 3 3-3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </a>
+                <div class="nav-sub">
+                  <ul class="nav-sub-list">
+                    {item.children.map((child) => (
+                      <li>
+                        <a href={localizedHref(child.href)} class="nav-sub-link" {...navDataAttrs(child.href)}>
+                          <strong>{child.label}</strong>
+                          {child.desc && <small>{child.desc}</small>}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </li>
+            ) : (
+              <li class="nav-item">
+                <a href={localizedHref(item.href)} class="nav-link" {...navDataAttrs(item.href)}>
+                  {item.label}
+                </a>
+              </li>
+            ),
+          )
+        }
+      </ul>
     </nav>
 
     <div class="site-header-tools">
@@ -59,16 +82,14 @@ const navDataAttrs = (href: string) => {
     </div>
   </div>
 </header>
-{
-  isHome && (
-    <script is:inline>
-      // Set before first paint so the homepage header never flashes solid over the hero
-      document.getElementById('site-header').classList.toggle('is-top', window.scrollY < 8);
-    </script>
-  )
-}
+<script is:inline define:vars={{ isHome }}>
+  // Set before first paint so the bar never flashes its unscrolled shape (or, on the homepage, a solid surface over the hero)
+  var header = document.getElementById('site-header');
+  header.classList.toggle('is-scrolled', window.scrollY > 24);
+  if (isHome) header.classList.toggle('is-top', window.scrollY < 8);
+</script>
 
-<div class="mobile-menu lg:hidden" id="mobile-menu">
+<div class="mobile-menu lg:hidden" id="mobile-menu" inert>
   <button type="button" class="mobile-menu-backdrop" id="mobile-menu-backdrop" aria-label={t.a11y.closeMenu} tabindex="-1"></button>
   <div class="mobile-menu-panel" role="dialog" aria-modal="true" aria-label={t.a11y.mobileNav}>
     <div class="mobile-menu-head">
@@ -82,11 +103,28 @@ const navDataAttrs = (href: string) => {
 
     <nav class="mobile-menu-nav" aria-label={t.a11y.mobileNav}>
       {
-        t.nav.map((link, i) => (
-          <a href={localizedHref(link.href)} class="nav-link-mobile" style={`--i: ${i}`} {...navDataAttrs(link.href)}>
-            <span class="nav-link-mobile-num" aria-hidden="true">{formatBoxIndex(i + 1, locale)}</span>
-            {link.label}
-          </a>
+        t.nav.map((item, i) => (
+          <div class="nav-mobile-group" style={`--i: ${i}`}>
+            <a
+              href={localizedHref(item.href)}
+              class="nav-link-mobile"
+              {...(item.children?.length ? {} : navDataAttrs(item.href))}
+            >
+              <span class="nav-link-mobile-num" aria-hidden="true">{formatBoxIndex(i + 1, locale)}</span>
+              {item.label}
+            </a>
+            {item.children?.length && (
+              <ul class="nav-mobile-sub">
+                {item.children.map((child) => (
+                  <li>
+                    <a href={localizedHref(child.href)} class="nav-sub-link-mobile" {...navDataAttrs(child.href)}>
+                      {child.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
         ))
       }
     </nav>

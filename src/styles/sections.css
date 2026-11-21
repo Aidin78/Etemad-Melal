@@ -32,33 +32,182 @@
   background: var(--color-accent-gold);
 }
 
-.site-header {
-  padding-top: env(safe-area-inset-top, 0px);
-  border-bottom: 1px solid color-mix(in srgb, var(--heading) 8%, transparent);
-  transition:
-    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
-    background-color 0.35s ease,
-    border-color 0.35s ease,
-    backdrop-filter 0.35s ease;
+/* ── Desktop menu: plain links, and parents that open a dropdown on hover or keyboard focus ── */
+.site-nav-list {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
 }
 
-/* Hidden while scrolling down (Header.astro); keyboard focus inside always brings it back */
-.site-header.is-hidden:not(:focus-within) {
-  transform: translateY(-100%);
+.site-nav .nav-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.5rem 0.875rem;
+  border-radius: var(--radius-pill);
+  transition:
+    color 0.2s ease,
+    background-color 0.25s ease;
+}
+
+/* The pill background replaces the underline in the bar; the active link keeps a small gold dot */
+.site-nav .nav-link::after {
+  bottom: 0.1875rem;
+  inset-inline: 50% auto;
+  height: 4px;
+  width: 4px;
+  translate: 50% 0;
+  border-radius: 50%;
+}
+
+:root[dir='ltr'] .site-nav .nav-link::after {
+  translate: -50% 0;
+}
+
+.site-nav .nav-link:hover,
+.nav-item--sub:is(:hover, :focus-within) > .nav-link {
+  color: var(--heading);
+  background: color-mix(in srgb, var(--heading) 6%, transparent);
+}
+
+.nav-item {
+  position: relative;
+}
+
+.nav-caret {
+  height: 0.75rem;
+  width: 0.75rem;
+  opacity: 0.7;
+  transition: rotate 0.35s var(--ease-soft);
+}
+
+.nav-item--sub:is(:hover, :focus-within) .nav-caret {
+  rotate: 180deg;
+}
+
+/* The padding bridges the gap under the bar, so the pointer can travel into the panel */
+.nav-sub {
+  position: absolute;
+  top: 100%;
+  inset-inline-start: 50%;
+  z-index: 3;
+  padding-top: 0.875rem;
+  opacity: 0;
+  visibility: hidden;
+  translate: 50% 0.5rem;
+  transition:
+    opacity 0.25s ease,
+    translate 0.4s var(--ease-soft),
+    visibility 0s linear 0.25s;
+}
+
+:root[dir='ltr'] .nav-sub {
+  translate: -50% 0.5rem;
+}
+
+.nav-item--sub:is(:hover, :focus-within) .nav-sub {
+  opacity: 1;
+  visibility: visible;
+  translate: 50% 0;
+  transition:
+    opacity 0.25s ease,
+    translate 0.4s var(--ease-soft),
+    visibility 0s;
+}
+
+:root[dir='ltr'] .nav-item--sub:is(:hover, :focus-within) .nav-sub {
+  translate: -50% 0;
+}
+
+/* Sliding away takes only the bar's height with it, so an open dropdown would be left hanging */
+.site-header.is-hidden:not(:focus-within) .nav-sub {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.nav-sub-list {
+  display: grid;
+  gap: 0.125rem;
+  width: max-content;
+  min-width: 15rem;
+  max-width: 20rem;
+  padding: 0.5rem;
+  border: 1px solid color-mix(in srgb, var(--heading) 8%, transparent);
+  border-radius: var(--radius);
+  /* Opaque: a blur can't work here, the bar's own backdrop filter is the only one the page gets */
+  background: var(--page);
+  box-shadow: 0 24px 48px -28px rgb(20 16 8 / 0.4);
+}
+
+.nav-sub-link {
+  display: grid;
+  gap: 0.125rem;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-sm);
+  transition: background-color 0.2s ease;
+}
+
+.nav-sub-link strong {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--heading);
+  transition: color 0.2s ease;
+}
+
+.nav-sub-link small {
+  font-size: 0.75rem;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+.nav-sub-link:hover {
+  background: color-mix(in srgb, var(--heading) 5%, transparent);
+}
+
+.nav-sub-link:hover strong,
+.nav-sub-link.nav-link-active strong {
+  color: var(--gold);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .site-header {
+  .nav-sub,
+  .nav-caret {
     transition: none;
   }
 }
 
-/* On :root so the page offset (.site-main) and sticky elements can read it too */
+/*
+ * Floating header: a rounded bar inset from the viewport edges, never full-bleed. Once the page
+ * scrolls (`.is-scrolled`, header.ts and the inline script in Header.astro) it rounds into a pill
+ * at the same width;
+ * on the homepage's unscrolled hero (`.is-top`) it drops its surface altogether (home.css).
+ * The fixed strip itself lets clicks through, so the gap around the bar never blocks the page.
+ */
 :root {
-  --site-header-height: calc(3.5rem + env(safe-area-inset-top, 0px));
+  --header-gap: 0.625rem;
+  --header-bar: 3.5rem;
+  /* On :root so the page offset (.site-main) and sticky elements can read it too */
+  --site-header-height: calc(var(--header-bar) + var(--header-gap) + env(safe-area-inset-top, 0px));
 }
 
-/* Same content width as the homepage sections (.home-wrap) */
+@media (min-width: 1024px) {
+  :root {
+    --header-gap: 0.875rem;
+    --header-bar: 4rem;
+  }
+}
+
+.site-header {
+  padding: calc(env(safe-area-inset-top, 0px) + var(--header-gap)) var(--header-gap) 0;
+  pointer-events: none;
+  transition: transform 0.6s var(--ease-soft);
+}
+
+/* Hidden while scrolling down (header.ts); keyboard focus inside always brings it back */
+.site-header.is-hidden:not(:focus-within) {
+  transform: translateY(calc(-100% - 1rem));
+}
+
 .site-header-bar {
   position: relative;
   z-index: 2;
@@ -68,14 +217,34 @@
   gap: 1rem;
   width: 100%;
   max-width: 76rem;
-  min-height: 3.5rem;
+  min-height: var(--header-bar);
   margin-inline: auto;
-  padding-inline: 1rem;
+  padding-inline: 1rem 0.375rem;
+  pointer-events: auto;
+  border: 1px solid color-mix(in srgb, var(--heading) 8%, transparent);
+  border-radius: var(--radius);
+  background: var(--header-bg);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  backdrop-filter: blur(18px) saturate(140%);
+  box-shadow: 0 12px 32px -22px rgb(20 16 8 / 0.28);
+  transition:
+    border-radius 0.8s var(--ease-soft),
+    padding 0.6s var(--ease-soft),
+    background-color 0.4s ease,
+    border-color 0.4s ease,
+    box-shadow 0.4s ease;
 }
 
-.site-nav {
-  align-items: center;
-  gap: 2.25rem;
+.site-header.is-scrolled .site-header-bar {
+  border-radius: var(--radius-pill);
+  box-shadow: 0 18px 44px -24px rgb(20 16 8 / 0.38);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-header,
+  .site-header-bar {
+    transition: none;
+  }
 }
 
 .site-header-tools {
@@ -93,12 +262,13 @@
 /* Header utilities are bare icons/text — only the login button carries weight */
 .site-header :is(.theme-toggle, .lang-switch-compact, .mobile-menu-toggle) {
   border: 0;
+  border-radius: 50%;
   background: transparent;
   color: var(--muted);
 }
 
 .site-header :is(.theme-toggle, .lang-switch-compact, .mobile-menu-toggle):hover {
-  background: transparent;
+  background: color-mix(in srgb, var(--heading) 6%, transparent);
   color: var(--heading);
 }
 
@@ -116,7 +286,9 @@
   font-size: 0.8125rem;
   font-weight: 700;
   letter-spacing: 0.04em;
-  transition: color 0.2s ease;
+  transition:
+    color 0.2s ease,
+    background-color 0.2s ease;
 }
 
 /* Latin capitals sit high in the line box; brings them level with the theme icon */
@@ -126,7 +298,7 @@
 
 .site-header-cta {
   margin-inline-start: 0.5rem;
-  padding: 0.5rem 1.375rem !important;
+  padding: 0.625rem 1.5rem !important;
   font-size: 0.875rem;
 }
 
@@ -136,18 +308,17 @@
 
 @media (min-width: 640px) {
   .site-header-bar {
-    padding-inline: 1.5rem;
+    padding-inline: 1.25rem 0.5rem;
   }
 }
 
 @media (min-width: 1024px) {
-  :root {
-    --site-header-height: calc(4.25rem + env(safe-area-inset-top, 0px));
+  .site-header-bar {
+    padding-inline: 1.5rem 0.625rem;
   }
 
-  .site-header-bar {
-    min-height: 4.25rem;
-    padding-inline: 2rem;
+  .site-header.is-scrolled .site-header-bar {
+    padding-inline: 1.25rem 0.5rem;
   }
 }
 
@@ -160,14 +331,15 @@ body.mobile-menu-open {
 }
 
 /*
- * Drawer: slides in from the right edge towards the left and back out the same way, in both
- * locales. `visibility` waits for the slide-out, so a closed drawer stays out of the tab order.
+ * Drawer: slides from inline-end (left in Persian, right in English), beside its menu toggle.
+ * `clip` prevents focus from scrolling this layer and cancelling the slide animation.
+ * `visibility` waits for the slide-out, so a closed drawer stays out of the tab order.
  */
 .mobile-menu {
   position: fixed;
   inset: 0;
   z-index: 60;
-  overflow: hidden;
+  overflow: clip;
   visibility: hidden;
   transition: visibility 0s linear 0.5s;
 }
@@ -191,36 +363,51 @@ body.mobile-menu-open {
 }
 
 .mobile-menu-panel {
+  --menu-off: 100%;
   position: absolute;
   inset-block: 0;
-  right: 0;
+  inset-inline-end: 0;
   display: flex;
   flex-direction: column;
-  width: min(24rem, 88vw);
+  width: min(23rem, calc(100vw - 2rem));
+  max-height: 100dvh;
+  overflow-x: hidden;
   overflow-y: auto;
   overscroll-behavior: contain;
   padding-top: env(safe-area-inset-top, 0px);
   padding-bottom: env(safe-area-inset-bottom, 0px);
   background: var(--page);
-  border-left: 1px solid var(--rule);
+  border-inline-start: 1px solid var(--rule);
+  border-start-start-radius: 1.5rem;
+  border-end-start-radius: 1.5rem;
   box-shadow: -24px 0 60px rgb(0 0 0 / 0.25);
-  translate: 100% 0;
+  translate: var(--menu-off) 0;
   transition: translate 0.5s var(--ease-reveal);
 }
 
-.mobile-menu--open .mobile-menu-panel {
-  translate: 0 0;
+:root[dir='rtl'] .mobile-menu-panel {
+  --menu-off: -100%;
+  box-shadow: 24px 0 60px rgb(0 0 0 / 0.25);
+}
+
+.mobile-menu--open .mobile-menu-panel,
+:root[dir='rtl'] .mobile-menu--open .mobile-menu-panel {
+  --menu-off: 0%;
 }
 
 .mobile-menu-head {
+  position: sticky;
+  top: 0;
+  z-index: 2;
   display: flex;
   flex-shrink: 0;
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  min-height: 4.25rem;
-  padding-inline: 1.25rem 0.75rem;
-  border-bottom: 1px solid var(--rule-strong);
+  min-height: 5rem;
+  padding-inline: 1.25rem 1rem;
+  border-bottom: 1px solid var(--rule);
+  background: var(--page);
 }
 
 .mobile-menu-close {
@@ -229,41 +416,91 @@ body.mobile-menu-open {
   place-items: center;
   height: 2.75rem;
   width: 2.75rem;
+  border: 1px solid var(--rule-strong);
+  border-radius: 0.875rem;
+  background: var(--surface-muted);
   color: var(--heading);
+}
+
+.mobile-menu-close:hover {
+  border-color: var(--gold);
+  color: var(--gold);
 }
 
 /* Same language as the section heads: a thin number, a heavy label, hairlines between rows */
 .mobile-menu-nav {
   display: flex;
   flex-direction: column;
-  padding-inline: 1.25rem;
+  padding: 0.75rem 1rem;
+}
+
+.nav-mobile-group {
+  padding-block: 0.25rem;
+  opacity: 0;
+  translate: var(--menu-item-offset, 1.5rem) 0;
+  transition:
+    opacity 0.3s ease,
+    translate 0.3s ease;
+}
+
+.nav-mobile-group + .nav-mobile-group {
+  margin-top: 0.25rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--rule);
+}
+
+:root[dir='rtl'] .nav-mobile-group {
+  --menu-item-offset: -1.5rem;
+}
+
+.mobile-menu--open .nav-mobile-group {
+  opacity: 1;
+  translate: 0 0;
+  transition:
+    opacity 0.25s ease calc(0.06s + var(--i, 0) * 25ms),
+    translate 0.35s var(--ease-reveal) calc(0.06s + var(--i, 0) * 25ms);
 }
 
 .nav-link-mobile {
   display: flex;
   align-items: baseline;
-  gap: 1rem;
-  padding-block: 0.875rem;
-  font-size: 1.25rem;
-  font-weight: 800;
+  gap: 0.625rem;
+  min-height: 2.75rem;
+  padding: 0.625rem 0.75rem;
+  border-radius: 0.75rem;
+  font-size: 1.0625rem;
+  font-weight: 700;
   line-height: 1.5;
   color: var(--heading);
-  border-bottom: 1px solid var(--rule);
-  opacity: 0;
-  translate: 1.5rem 0;
-  transition:
-    color 0.2s ease,
-    opacity 0.3s ease,
-    translate 0.3s ease;
+  transition: color 0.2s ease;
 }
 
-.mobile-menu--open .nav-link-mobile {
-  opacity: 1;
-  translate: 0 0;
-  transition:
-    color 0.2s ease,
-    opacity 0.5s ease calc(0.12s + var(--i, 0) * 45ms),
-    translate 0.6s var(--ease-reveal) calc(0.12s + var(--i, 0) * 45ms);
+/* Dropdown entries, listed under their parent and indented past its number */
+.nav-mobile-sub {
+  display: grid;
+  gap: 0.125rem;
+  margin-inline-start: 0.75rem;
+  padding-bottom: 0.375rem;
+  padding-inline-start: 0.75rem;
+  border-inline-start: 1px solid var(--rule-strong);
+}
+
+.nav-sub-link-mobile {
+  display: flex;
+  align-items: center;
+  min-height: 2.75rem;
+  padding: 0.625rem 0.75rem;
+  border-radius: 0.625rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--muted);
+  transition: color 0.2s ease;
+}
+
+.nav-sub-link-mobile:hover,
+.nav-sub-link-mobile.nav-link-active {
+  color: var(--gold);
+  background: color-mix(in srgb, var(--gold) 8%, transparent);
 }
 
 .nav-link-mobile-num {
@@ -277,22 +514,26 @@ body.mobile-menu-open {
 .nav-link-mobile:hover,
 .nav-link-mobile.nav-link-active {
   color: var(--gold);
+  background: color-mix(in srgb, var(--gold) 8%, transparent);
 }
 
 .mobile-menu-footer {
   display: grid;
-  gap: 0.875rem;
+  gap: 1rem;
   margin-top: auto;
-  padding: 1.5rem 1.25rem 1.25rem;
+  padding: 1.25rem;
+  border-top: 1px solid var(--rule);
+  background: var(--page-secondary);
 }
 
 .mobile-menu-pref {
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
   justify-content: space-between;
-  gap: 1rem;
-  font-size: 0.8125rem;
-  font-weight: 700;
+  gap: 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 500;
   color: var(--muted);
 }
 
@@ -301,31 +542,32 @@ body.mobile-menu-open {
   margin-top: 0.5rem;
 }
 
-/* Two-way switches: the language pair and, in the drawer, both theme icons with the active one filled */
+/* Matching segmented controls with a rounded active segment and equal touch targets. */
 :is(.lang-switch, .mobile-menu .theme-toggle) {
-  display: inline-flex;
-  width: auto;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  width: 9rem;
   height: auto;
-  gap: 0.125rem;
-  padding: 0.1875rem;
+  gap: 0.25rem;
+  padding: 0.25rem;
   border: 1px solid var(--rule-strong);
-  border-radius: var(--radius);
-  background: transparent;
+  border-radius: 1rem;
+  background: var(--surface-muted);
 }
 
 .mobile-menu .theme-toggle:hover {
-  border-color: var(--rule-strong);
-  background: transparent;
+  border-color: var(--gold);
+  background: var(--surface-muted);
 }
 
 .lang-switch a {
   display: grid;
   place-items: center;
-  min-width: 4.25rem;
-  height: 2.375rem;
-  padding-inline: 0.625rem;
-  border-radius: 4px;
-  font-size: 0.8125rem;
+  min-width: 0;
+  min-height: 2.75rem;
+  padding-inline: 0.375rem;
+  border-radius: 0.75rem;
+  font-size: 0.875rem;
   font-weight: 700;
   color: var(--muted);
   transition: color 0.2s ease;
@@ -344,10 +586,10 @@ body.mobile-menu-open {
 
 .mobile-menu .theme-toggle :is(.icon-sun, .icon-moon) {
   display: block;
-  height: 2.375rem;
-  width: 3rem;
-  padding: 0.625rem;
-  border-radius: 4px;
+  height: 2.75rem;
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: 0.75rem;
   color: var(--muted);
 }
 
@@ -355,8 +597,8 @@ body.mobile-menu-open {
   .mobile-menu,
   .mobile-menu-backdrop,
   .mobile-menu-panel,
-  .nav-link-mobile,
-  .mobile-menu--open .nav-link-mobile {
+  .nav-mobile-group,
+  .mobile-menu--open .nav-mobile-group {
     transition: none;
   }
 }
@@ -385,14 +627,17 @@ footer {
   --toggle-text: #ffffff;
   --input-bg: rgb(255 255 255 / 0.05);
   --input-text: #ffffff;
-  --color-accent-gold: #d4a853;
-  --color-accent-gold-light: #f0d78c;
-  --gold: #d4a853;
-  --gold-emphasis: #f0d78c;
-  --gold-soft: #d4a853;
-  --gold-text: #d4a853;
+  --color-accent-gold: #d2b280;
+  --color-accent-gold-light: #ebdbb8;
+  --gold: #d2b280;
+  --gold-emphasis: #ebdbb8;
+  --gold-soft: #d2b280;
+  --gold-text: #d2b280;
   --rule: rgb(255 255 255 / 0.1);
   --rule-strong: rgb(255 255 255 / 0.2);
+  /* The light theme's ink hover would vanish on charcoal */
+  --btn-gold-hover: #f3ecdf;
+  --btn-gold-hover-text: #12110f;
   color-scheme: dark;
   color: var(--text);
   background-color: var(--page);
@@ -453,10 +698,9 @@ footer {
 }
 
 .orbit-mark--footer {
-  top: 50%;
+  top: 1.5rem;
   inset-inline-end: -5rem;
   width: 22rem;
-  translate: 0 -50%;
   opacity: 0.1;
   --orbit-speed: 60s;
 }
@@ -486,9 +730,45 @@ footer {
   --page: #1d1b16;
 }
 
-/* Footer: same width as the page content, hairlines instead of boxes */
+/*
+ * Footer: one warm-charcoal sheet (`.band-dark`) with rounded top corners, so the closing call to
+ * action, the links and the legal line read as a single piece. Hairlines instead of boxes inside.
+ */
 .site-footer {
-  background: var(--page-secondary);
+  border-radius: var(--sheet-radius) var(--sheet-radius) 0 0;
+}
+
+/* The brand name, huge and faint, rising into place as the page ends (data-scrub="line") */
+.footer-mark {
+  overflow: hidden;
+  padding-block: 0.1em 0.05em;
+  font-family: var(--font-display);
+  font-size: 17vw;
+  font-weight: 900;
+  line-height: 1.15;
+  white-space: nowrap;
+  text-align: center;
+  /* A soft fill fading downward (an outline would trace the typeface's overlapping contours) */
+  color: transparent;
+  background: linear-gradient(
+    to bottom,
+    color-mix(in srgb, var(--gold) 22%, transparent),
+    color-mix(in srgb, var(--gold) 2%, transparent) 85%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  user-select: none;
+}
+
+:root[dir='ltr'] .footer-mark {
+  font-size: 13vw;
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+.js-motion .footer-mark {
+  translate: 0 calc((1 - var(--p, 1)) * 45%);
+  opacity: calc(0.3 + var(--p, 1) * 0.7);
 }
 
 .footer-wrap {
@@ -499,9 +779,11 @@ footer {
 }
 
 .footer-cta {
+  position: relative;
   display: grid;
   gap: 2rem;
-  padding-block: 3.5rem;
+  padding-block: 4.5rem 3.5rem;
+  border-bottom: 1px solid var(--rule);
 }
 
 .footer-eyebrow {
@@ -562,9 +844,10 @@ footer {
 }
 
 .footer-grid {
+  position: relative;
   display: grid;
   gap: 2.5rem;
-  padding-block: 3rem;
+  padding-block: 3rem 1rem;
 }
 
 .footer-heading {
@@ -618,7 +901,7 @@ footer {
     grid-template-columns: minmax(0, 1fr) auto;
     align-items: end;
     gap: 4rem;
-    padding-block: 4.5rem;
+    padding-block: 7rem 4.5rem;
   }
 
   .footer-cta-sub {
@@ -628,7 +911,7 @@ footer {
   .footer-grid {
     grid-template-columns: 5fr 4fr 3fr;
     gap: 4rem;
-    padding-block: 3.5rem;
+    padding-block: 3.5rem 1rem;
   }
 
   .footer-brand {
@@ -641,13 +924,28 @@ footer {
 }
 
 [data-theme='light'] .nav-link-active {
-  color: #b2850f;
+  color: #8a6a35;
 }
 
 /* ── Mobile-only refinements (max-width: 639px) — desktop unchanged ── */
 @media (max-width: 639px) {
-  body {
-    overflow-x: clip;
+  .scroll-progress,
+  .orbit-mark--story,
+  .orbit-mark--manifesto,
+  .orbit-mark--footer,
+  .orbit-mark--faq,
+  .footer-mark,
+  .nav-link-mobile-num {
+    display: none;
+  }
+
+  .site-header {
+    padding-inline: 0.625rem;
+  }
+
+  .site-header-bar {
+    gap: 0.75rem;
+    padding-inline: 0.875rem 0.25rem;
   }
 
   .mobile-menu-toggle {
@@ -655,13 +953,64 @@ footer {
     min-width: 2.75rem;
   }
 
+  .mobile-menu-panel {
+    width: min(23rem, calc(100vw - 2rem));
+  }
+
+  .mobile-menu-head {
+    padding-inline: 1rem 0.75rem;
+  }
+
+  .mobile-menu-nav {
+    padding-inline: 1rem;
+  }
+
   .input-field {
     min-height: 2.75rem;
+    font-size: 1rem;
   }
 
   .btn-primary,
   .btn-outline {
     min-height: 2.75rem;
+  }
+
+  .footer-wrap {
+    padding-left: max(1.125rem, env(safe-area-inset-left, 0px));
+    padding-right: max(1.125rem, env(safe-area-inset-right, 0px));
+  }
+
+  .footer-cta {
+    gap: 1.5rem;
+    padding-block: 3rem 2.5rem;
+  }
+
+  .footer-cta-title {
+    font-size: clamp(1.5rem, 1rem + 3vw, 2.5rem);
+    line-height: 1.35;
+  }
+
+  .footer-cta-actions {
+    gap: 0.875rem 1.25rem;
+  }
+
+  .footer-grid {
+    gap: 2rem;
+    padding-block: 2.25rem 0.75rem;
+  }
+
+  .footer-links {
+    gap: 0.25rem 1.25rem;
+  }
+
+  .footer-bottom {
+    padding-block: 1.25rem;
+    gap: 0.75rem;
+  }
+
+  .contact-aside,
+  .contact-form-wrap {
+    padding: 1.25rem 1rem;
   }
 
   .footer-legal-list {
@@ -676,11 +1025,62 @@ footer {
   .footer-legal-list li::before {
     display: none;
   }
+
+  .contact-panel {
+    border-radius: 1.25rem;
+  }
 }
 
 @media (max-width: 1023px) {
+  .mobile-menu-panel {
+    padding-left: env(safe-area-inset-left, 0px);
+    padding-right: env(safe-area-inset-right, 0px);
+  }
+
+  .mobile-menu-head {
+    min-height: calc(5rem + env(safe-area-inset-top, 0px));
+    margin-top: calc(-1 * env(safe-area-inset-top, 0px));
+    padding-top: env(safe-area-inset-top, 0px);
+  }
+
+  .mobile-menu-pref,
+  .lang-switch a {
+    font-size: 0.875rem;
+  }
+
+  .btn-primary,
+  .btn-outline {
+    min-width: 0;
+    min-height: 2.75rem;
+    max-width: 100%;
+    text-align: center;
+  }
+
+  .home .input-field {
+    min-width: 0;
+    min-height: 3rem;
+    font-size: 1rem;
+    scroll-margin-block: calc(var(--site-header-height) + 1rem) 2rem;
+  }
+
+  .contact-form label,
+  .contact-channel .text-xs,
+  .footer-heading {
+    font-size: 0.875rem;
+  }
+
+  .contact-form textarea {
+    min-height: 9rem;
+    resize: vertical;
+  }
+
+  .footer-cta-sub {
+    font-size: 1rem;
+  }
+
   .footer-link {
     display: inline-block;
+    min-height: 2.75rem;
     padding-block: 0.625rem;
     padding-inline: 0.125rem;
   }
@@ -698,16 +1098,12 @@ footer {
   }
 }
 
-/* Text links stay slim to the eye; on touch their hit area grows past the underline */
+/* Use real layout space for touch targets so adjacent hit areas cannot overlap. */
 @media (pointer: coarse) {
-  :is(.sh-link, .hero-link, .footer-text-link, a.contact-channel-value) {
-    position: relative;
-  }
-
-  :is(.sh-link, .hero-link, .footer-text-link, a.contact-channel-value)::after {
-    content: '';
-    position: absolute;
-    inset: -0.75rem -0.25rem;
+  :is(.sh-link, .footer-text-link, a.contact-channel-value) {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
   }
 }
 
@@ -720,7 +1116,7 @@ footer {
   background: linear-gradient(160deg, var(--card-from), var(--card-mid) 50%, var(--card-to));
   box-shadow:
     0 30px 80px rgb(0 0 0 / 0.28),
-    inset 0 1px 0 rgb(240 215 140 / 0.08);
+    inset 0 1px 0 rgb(235 219 184 / 0.08);
 }
 
 [data-theme='light'] .contact-panel {

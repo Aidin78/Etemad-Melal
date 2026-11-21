@@ -125,7 +125,7 @@
       z-index: 60;
       height: 2px;
       pointer-events: none;
-      background: linear-gradient(90deg, var(--color-accent-gold, #d4a853), var(--gold-emphasis, #e8c77a));
+      background: linear-gradient(90deg, var(--color-accent-gold, #d2b280), var(--gold-emphasis, #e3cb9f));
       transform-origin: left center;
       animation: scroll-progress-grow linear both;
       animation-timeline: scroll(root);
@@ -134,13 +134,12 @@
     :root[dir='rtl'] .scroll-progress {
       transform-origin: right center;
     }
+  }
+}
 
-    /* Header picks up depth once the page starts scrolling */
-    .site-header {
-      animation: header-lift linear both;
-      animation-timeline: scroll(root);
-      animation-range: 0 160px;
-    }
+@media (max-width: 639px) {
+  .scroll-progress {
+    display: none;
   }
 }
 
@@ -150,12 +149,6 @@
   }
   to {
     transform: scaleX(1);
-  }
-}
-
-@keyframes header-lift {
-  to {
-    box-shadow: 0 8px 24px rgb(0 0 0 / 0.07);
   }
 }
 

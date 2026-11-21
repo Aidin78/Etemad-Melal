@@ -17,34 +17,36 @@ const year = new Date().getFullYear();
 const contact = localePath(locale, '/#contact');
 // The English company name ends in "Co."; the sentence below supplies its own period
 const legalName = t.companyLegal.replace(/\.$/, '');
+// Every page in the header menu once: dropdown entries stand in for their parent
+const quickLinks = t.nav
+  .flatMap((item) => item.children ?? [item])
+  .filter((link, i, all) => all.findIndex((other) => other.href === link.href) === i);
 ---
 
-<footer class="site-footer" aria-label={t.footer.landmarkLabel}>
-  {
-    cta && (
-      <div class="band-dark">
-        <OrbitMark class="orbit-mark--footer" />
-        <div class="footer-wrap">
-          <div class="footer-cta" data-reveal="cascade">
-            <div>
-              <p class="footer-eyebrow">{t.footer.ctaEyebrow}</p>
-              <h2 class="footer-cta-title">
-                {t.footer.ctaTitle} <span class="footer-cta-accent">{t.footer.ctaTitleAccent}</span>
-                {t.footer.ctaTitleSuffix}
-              </h2>
-              <p class="footer-cta-sub">{t.footer.ctaSubtitle}</p>
-            </div>
-            <div class="footer-cta-actions">
-              <PanelLink locale={locale} showArrow class="justify-center">{t.panelCtaLogin}</PanelLink>
-              <a href={contact} class="footer-text-link">{t.footer.ctaContact}</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    )
-  }
+<!-- One dark sheet: the call to action, the links and the legal line share a surface -->
+<footer class="site-footer band-dark" aria-label={t.footer.landmarkLabel}>
+  <OrbitMark class="orbit-mark--footer" />
 
   <div class="footer-wrap">
+    {
+      cta && (
+        <div class="footer-cta" data-reveal="cascade">
+          <div>
+            <p class="footer-eyebrow">{t.footer.ctaEyebrow}</p>
+            <h2 class="footer-cta-title">
+              {t.footer.ctaTitle} <span class="footer-cta-accent">{t.footer.ctaTitleAccent}</span>
+              {t.footer.ctaTitleSuffix}
+            </h2>
+            <p class="footer-cta-sub">{t.footer.ctaSubtitle}</p>
+          </div>
+          <div class="footer-cta-actions">
+            <PanelLink locale={locale} showArrow magnetic class="justify-center">{t.panelCtaLogin}</PanelLink>
+            <a href={contact} class="footer-text-link">{t.footer.ctaContact}</a>
+          </div>
+        </div>
+      )
+    }
+
     <div class="footer-grid">
       <div class="footer-brand">
         <Logo locale={locale} size="lg" animated={false} class="mb-0" />
@@ -56,7 +58,7 @@ const legalName = t.companyLegal.replace(/\.$/, '');
         <h3 class="footer-heading">{t.footer.quickLinks}</h3>
         <ul class="footer-links">
           {
-            t.nav.map((link) => (
+            quickLinks.map((link) => (
               <li>
                 <a href={localePath(locale, link.href)} class="footer-link">
                   {link.label}
@@ -84,6 +86,11 @@ const legalName = t.companyLegal.replace(/\.$/, '');
       </div>
     </div>
 
+  </div>
+
+  <p class="footer-mark" aria-hidden="true" data-scrub="line" data-scrub-line="1">{t.siteName}</p>
+
+  <div class="footer-wrap">
     <div class="footer-bottom">
       <p class="text-xs text-subtle"><span data-current-year>{year}</span> © {legalName}. {t.footer.rights}</p>
       <ul class="footer-legal-list flex flex-wrap justify-center gap-4 text-xs text-subtle">

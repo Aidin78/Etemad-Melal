@@ -3,8 +3,13 @@ export type Locale = 'fa' | 'en';
 export type NavLink = {
   href: string;
   label: string;
-  /** Listed in the mobile menu and footer, but left out of the desktop header bar */
-  secondary?: boolean;
+  /** One line under the label in the header's dropdown */
+  desc?: string;
+};
+
+/** A header menu entry; with `children` it opens a dropdown (desktop) or lists them beneath it (mobile) */
+export type NavItem = NavLink & {
+  children?: NavLink[];
 };
 
 export type FaqItem = { q: string; a: string };
@@ -29,7 +34,7 @@ export type Translations = {
   companyLegal: string;
   panelCtaLogin: string;
   panelCtaStart: string;
-  nav: NavLink[];
+  nav: NavItem[];
   a11y: {
     skipToContent: string;
     openMenu: string;
