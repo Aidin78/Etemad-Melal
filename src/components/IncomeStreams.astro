@@ -2,6 +2,7 @@
 import HomeSectionHead from './HomeSectionHead.astro';
 import Icon from './Icon.astro';
 import PanelLink from './PanelLink.astro';
+import TrendLine from './TrendLine.astro';
 import type { Locale } from '../i18n/types';
 import { getTranslations, formatBoxIndex } from '../i18n';
 
@@ -59,7 +60,7 @@ const nodes = [
                     <line x1="50" y1="50" x2={n.x} y2={n.y} pathLength="1" style={`--b: ${k}`} />
                   ))}
                   {nodes.map((n, k) => (
-                    <rect x={n.x - (k ? 2.5 : 4)} y={n.y - (k ? 2.5 : 4)} width={k ? 5 : 8} height={k ? 5 : 8} style={`--b: ${k}`} />
+                    <rect x={n.x - (k ? 2.5 : 4)} y={n.y - (k ? 2.5 : 4)} width={k ? 5 : 8} height={k ? 5 : 8} rx={k ? 2.5 : 4} style={`--b: ${k}`} />
                   ))}
                 </svg>
               )}
@@ -85,8 +86,9 @@ const nodes = [
     </ul>
 
     {t.income.footnote && <p class="mt-6 text-xs text-subtle">{t.income.footnote}</p>}
+    <TrendLine class="section-trend" />
     <div class="home-cta-row" data-reveal="fade">
-      <PanelLink locale={locale} showArrow signup>
+      <PanelLink locale={locale} showArrow signup magnetic>
         {t.panelCtaStart}
       </PanelLink>
     </div>

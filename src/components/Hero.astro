@@ -37,7 +37,7 @@ const ringSegments = t.income.streams.map((stream, i) => {
 });
 ---
 
-<section class="hero" data-scrub="exit" data-stack data-pointer>
+<section class="hero" data-scrub="exit" data-pointer>
   <div class="hero-glow" aria-hidden="true"></div>
 
   <div class="hero-wrap hero-grid">
@@ -65,10 +65,9 @@ const ringSegments = t.income.streams.map((stream, i) => {
       <p class="hero-subtitle hero-enter" style="--d: 0.5s">{t.hero.subtitle}</p>
 
       <div class="hero-actions hero-enter" style="--d: 0.6s">
-        <PanelLink locale={locale} showArrow signup class="justify-center">
+        <PanelLink locale={locale} showArrow signup magnetic class="justify-center">
           {t.panelCtaStart}
         </PanelLink>
-        <a href="#features" class="hero-link">{t.hero.learnMore}</a>
       </div>
 
       <dl class="hero-stats hero-enter" style="--d: 0.75s">

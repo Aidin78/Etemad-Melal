@@ -27,7 +27,7 @@ const [lead, ...rest] = (await getSortedArticles(locale)).slice(0, homepageArtic
           titleAccent={t.news.titleAccent}
           subtitle={t.news.subtitle}
         >
-          <a slot="aside" href={localePath(locale, '/articles')} class="sh-link">{t.news.viewAll}</a>
+          <a slot="aside" href={localePath(locale, '/articles')} class="sh-link sh-link--all">{t.news.viewAll}</a>
         </HomeSectionHead>
 
         <div class="news-grid">

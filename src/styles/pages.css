@@ -530,10 +530,12 @@
   color: var(--prose-heading);
 }
 
-@media (max-width: 639px) {
+@media (max-width: 1023px) {
   .article-prose table {
     display: block;
+    max-width: 100%;
     overflow-x: auto;
+    overscroll-behavior-inline: contain;
     -webkit-overflow-scrolling: touch;
     white-space: nowrap;
   }
@@ -541,7 +543,7 @@
   .article-prose th,
   .article-prose td {
     padding: 0.5rem 0.625rem;
-    font-size: 0.8125rem;
+    font-size: 0.875rem;
   }
 }
 
@@ -692,6 +694,154 @@
 
 .notfound .page-cta-actions {
   margin-top: 2rem;
+}
+
+/* ── Mobile polish (after base rules so cascade wins) ── */
+@media (max-width: 1023px) {
+  .terms-anchor {
+    height: 2.75rem;
+    width: 2.75rem;
+  }
+
+  .doc-toc-link,
+  .doc-toc-mobile summary {
+    min-height: 2.75rem;
+    font-size: 0.875rem;
+  }
+}
+
+@media (max-width: 639px) {
+  .page-hero {
+    padding-block: 2.5rem 2rem;
+  }
+
+  .page-hero .sh-title {
+    font-size: clamp(2rem, 1rem + 5vw, 5.5rem);
+    line-height: 1.3;
+  }
+
+  .page-hero--article .sh-title {
+    font-size: clamp(1.75rem, 0.9rem + 4.5vw, 4rem);
+  }
+
+  .page-meta {
+    gap: 0.5rem 1.25rem;
+    margin-top: 1.5rem;
+  }
+
+  .terms-section {
+    padding-block: 1.5rem;
+  }
+
+  .terms-section-head {
+    gap: 0.75rem;
+  }
+
+  .terms-section-num {
+    width: 2rem;
+    font-size: 1.125rem;
+  }
+
+  .terms-section-title {
+    font-size: 1.0625rem;
+    line-height: 1.6;
+  }
+
+  .terms-section--important {
+    padding-inline: 1rem;
+  }
+
+  .terms-help {
+    margin-top: 2.25rem;
+    padding-top: 1.75rem;
+  }
+
+  .notfound-code {
+    font-size: clamp(4.5rem, 2rem + 18vw, 10rem);
+  }
+
+  .article-prose {
+    font-size: 1rem;
+  }
+
+  .chapter {
+    gap: 1rem;
+    padding-block: 1.75rem;
+  }
+
+  .chapter-title {
+    font-size: clamp(1.375rem, 1rem + 2.5vw, 2rem);
+    line-height: 1.45;
+  }
+
+  .chapter-headline {
+    margin-bottom: 0.75rem;
+    font-size: 1.0625rem;
+    line-height: 1.7;
+  }
+
+  .page-cta-title {
+    font-size: clamp(1.375rem, 1rem + 2.5vw, 2.25rem);
+    line-height: 1.35;
+  }
+
+  .page-cta-actions {
+    width: 100%;
+  }
+
+  .page-cta-actions .btn-primary,
+  .page-cta-actions .btn-outline {
+    flex: 1 1 auto;
+    justify-content: center;
+  }
+
+  .news-cards {
+    gap: 2rem;
+    margin-top: 2rem;
+    padding-top: 1.75rem;
+  }
+
+  .news-card .news-title {
+    font-size: 1.0625rem;
+    line-height: 1.55;
+  }
+
+  .doc-layout {
+    gap: 1.5rem;
+    padding-bottom: 3rem;
+  }
+
+  .page-meta,
+  .page-caption {
+    font-size: 0.875rem;
+  }
+
+  .doc-toc-mobile summary::after {
+    flex-shrink: 0;
+  }
+
+  .page-cta-sub {
+    font-size: 1rem;
+  }
+
+  .notfound {
+    min-height: 60vh;
+  }
+
+  .notfound-grid {
+    margin-top: 1.75rem;
+  }
+}
+
+@media (max-height: 480px) and (orientation: landscape) {
+  .page-hero {
+    padding-block: 1.75rem 1.25rem;
+  }
+
+  .notfound {
+    min-height: auto;
+    padding-block: 1rem;
+  }
 }
 
 /* ═══════════════ Print / save as PDF: just the document, dark on white whatever the theme ═══════════════ */

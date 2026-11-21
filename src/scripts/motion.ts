@@ -136,11 +136,17 @@ function initStack() {
   const stacks = [...document.querySelectorAll<HTMLElement>('[data-stack]')].filter((el) => el.nextElementSibling);
   if (!stacks.length) return;
 
+  const desktop = window.matchMedia('(min-width: 1024px)');
   let queued = false;
 
   const measure = () => {
     const vh = window.innerHeight;
     stacks.forEach((el) => {
+      if (!desktop.matches) {
+        stackTops.delete(el);
+        ['--stack-top', '--stack-origin', '--cover'].forEach((property) => el.style.removeProperty(property));
+        return;
+      }
       const height = el.offsetHeight;
       const top = Math.min(0, vh - height);
       stackTops.set(el, top);
@@ -152,6 +158,7 @@ function initStack() {
 
   const update = () => {
     queued = false;
+    if (!desktop.matches) return;
     stacks.forEach((el) => {
       // Pinned bottom edge: the viewport bottom, or the section's own bottom when it is shorter
       const bottom = (stackTops.get(el) ?? 0) + el.offsetHeight;
@@ -296,6 +303,58 @@ function initPointer() {
   });
 }
 
+
+/**
+ * Magnetic hover (mouse/trackpad only), for the main calls to action only (`data-magnetic`, e.g.
+ * PanelLink's `magnetic` prop): while the pointer is over the button, it is pulled
+ * toward it by a share of the offset from its centre, and springs back when the pointer leaves.
+ * Writes `--mag-x` / `--mag-y` (px); `data-magnetic="0.5"` sets a stronger or weaker pull.
+ */
+function initMagnetic() {
+  if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+
+  document.querySelectorAll<HTMLElement>('[data-magnetic]').forEach((el) => {
+    const strength = Number(el.dataset.magnetic) || 0.3;
+    let tx = 0;
+    let ty = 0;
+    let x = 0;
+    let y = 0;
+    let frame = 0;
+
+    const step = () => {
+      x += (tx - x) * 0.18;
+      y += (ty - y) * 0.18;
+      el.style.setProperty('--mag-x', `${x.toFixed(2)}px`);
+      el.style.setProperty('--mag-y', `${y.toFixed(2)}px`);
+      if (Math.abs(tx - x) + Math.abs(ty - y) > 0.05) {
+        frame = requestAnimationFrame(step);
+      } else {
+        frame = 0;
+        if (!tx && !ty) {
+          el.style.removeProperty('--mag-x');
+          el.style.removeProperty('--mag-y');
+        }
+      }
+    };
+    const run = () => {
+      if (!frame) frame = requestAnimationFrame(step);
+    };
+
+    el.addEventListener('pointermove', (event) => {
+      // The box without the current pull, so the pull doesn't feed back into itself
+      const rect = el.getBoundingClientRect();
+      tx = (event.clientX - (rect.left - x) - rect.width / 2) * strength;
+      ty = (event.clientY - (rect.top - y) - rect.height / 2) * strength * 1.3;
+      run();
+    });
+    el.addEventListener('pointerleave', () => {
+      tx = 0;
+      ty = 0;
+      run();
+    });
+  });
+}
+
 export function initMotion() {
   window.__emMotion = true;
   if (!document.documentElement.classList.contains('js-motion')) return;
@@ -304,4 +363,5 @@ export function initMotion() {
   initStack();
   initScrub();
   initPointer();
+  initMagnetic();
 }

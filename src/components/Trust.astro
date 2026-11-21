@@ -1,6 +1,7 @@
 ---
 import HomeSectionHead from './HomeSectionHead.astro';
 import Icon from './Icon.astro';
+import TrendLine from './TrendLine.astro';
 import { trustBenefitIcons } from '../lib/section-icons';
 import type { Locale } from '../i18n/types';
 import { getTranslations, toLocaleDigits, formatBoxIndex } from '../i18n';
@@ -41,6 +42,8 @@ const [lead, ...rest] = t.trust.benefits;
         ))
       }
     </dl>
+
+    <TrendLine class="section-trend" />
 
     <ul class="tgrid" data-spotlight>
       {
