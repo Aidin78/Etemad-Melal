@@ -24,3 +24,5 @@ node_modules/
 README.team.md
 CLAUDE.md
 main-etemadmelal-doc
+.playwright-mcp/
+.claude/
