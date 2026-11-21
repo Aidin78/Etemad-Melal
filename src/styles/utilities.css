@@ -84,8 +84,8 @@
 }
 
 .input-field:focus-visible {
-  border-color: var(--color-accent-gold, #d4a853);
-  outline: 2px solid var(--color-accent-gold, #d4a853);
+  border-color: var(--color-accent-gold, #d2b280);
+  outline: 2px solid var(--color-accent-gold, #d2b280);
   outline-offset: 1px;
 }
 
@@ -95,7 +95,7 @@
 }
 
 .footer-link:hover {
-  color: var(--heading);
+  color: var(--gold-emphasis);
 }
 
 .footer-legal-list li:not(:first-child) {

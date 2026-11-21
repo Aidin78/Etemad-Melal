@@ -12,15 +12,17 @@ interface Props {
   showArrow?: boolean;
   /** Open the panel's sign-up page instead of its default (login) page */
   signup?: boolean;
+  /** Lean toward the pointer on hover — main calls to action only */
+  magnetic?: boolean;
 }
 
-const { locale, class: className, variant = 'primary', showArrow = false, signup = false } = Astro.props;
+const { locale, class: className, variant = 'primary', showArrow = false, signup = false, magnetic = false } = Astro.props;
 const t = getTranslations(locale);
 const variantClass = variant === 'outline' ? 'btn-outline' : 'btn-primary';
 const href = signup ? panelSignupHref : siteConfig.panelUrl;
 ---
 
-<a class:list={[variantClass, className]} {...panelLinkAttrs} href={href}>
+<a class:list={[variantClass, className]} {...panelLinkAttrs} href={href} data-magnetic={magnetic ? '' : undefined}>
   <slot />
   {showArrow && <CtaArrow locale={locale} />}
   <span class="sr-only"> {t.a11y.opensInNewTab}</span>

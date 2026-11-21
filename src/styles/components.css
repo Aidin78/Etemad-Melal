@@ -4,7 +4,7 @@
   width: 2.5rem;
   align-items: center;
   justify-content: center;
-  border-radius: 0.5rem;
+  border-radius: 50%;
   border: 1px solid var(--border);
   background: var(--toggle-bg);
   color: var(--toggle-text);
@@ -12,8 +12,8 @@
 }
 
 .theme-toggle:hover {
-  border-color: rgb(212 168 83 / 0.4);
-  background: rgb(212 168 83 / 0.1);
+  border-color: rgb(210 178 128 / 0.4);
+  background: rgb(210 178 128 / 0.1);
 }
 
 .theme-toggle .icon-sun,
@@ -38,15 +38,20 @@
   display: none;
 }
 
-/* Flat, softly rounded */
+/* Main calls to action lean toward the pointer (initMagnetic in src/scripts/motion.ts writes --mag-x/--mag-y) */
+[data-magnetic] {
+  translate: var(--mag-x, 0px) var(--mag-y, 0px);
+}
+
+/* Flat pills */
 .btn-primary {
   @apply relative inline-flex items-center justify-center gap-2 overflow-hidden px-7 py-3.5 text-sm font-bold;
-  border-radius: var(--radius);
+  border-radius: var(--radius-pill);
   color: var(--btn-gold-text);
   background: var(--btn-gold);
   transition:
-    background-color 0.25s ease,
-    color 0.25s ease;
+    background-color 0.35s var(--ease-soft),
+    color 0.35s var(--ease-soft);
 }
 
 .btn-primary:hover {
@@ -57,10 +62,12 @@
 .btn-outline {
   @apply inline-flex items-center justify-center gap-2 px-7 py-3.5 text-sm font-bold;
   border: 1px solid var(--rule-strong);
-  border-radius: var(--radius);
+  border-radius: var(--radius-pill);
   color: var(--heading);
   background: transparent;
-  transition: border-color 0.25s ease;
+  transition:
+    border-color 0.35s var(--ease-soft),
+    color 0.35s var(--ease-soft);
 }
 
 .btn-outline:hover {

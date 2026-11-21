@@ -9,7 +9,7 @@ html {
 }
 
 :focus-visible {
-  outline: 2px solid var(--color-accent-gold, #d4a853);
+  outline: 2px solid var(--color-accent-gold, #d2b280);
   outline-offset: 2px;
 }
 
@@ -31,6 +31,15 @@ body {
   transition:
     background-color 0.25s ease,
     color 0.25s ease;
+}
+
+/* Long mixed-language content must not enlarge a grid or flex item. */
+:is(.home-wrap, .hero-wrap, .footer-wrap, .mobile-menu-panel) {
+  overflow-wrap: anywhere;
+}
+
+:is(.hero-grid, .sh-body, .story-layout, .manifesto-grid, .news-grid, .contact-panel, .doc-layout, .footer-grid) > * {
+  min-width: 0;
 }
 
 @supports (font-variation-settings: normal) {
