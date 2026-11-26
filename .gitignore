@@ -26,3 +26,5 @@ pnpm-debug.log*
 README.team.md
 CLAUDE.md
 main-etemadmelal-doc
+.claude
+.playwright-mcp
